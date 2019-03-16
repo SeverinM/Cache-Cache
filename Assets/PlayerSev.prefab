@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6041845430978826901}
   - component: {fileID: 2964878905794870324}
   - component: {fileID: 3634677445895815624}
+  - component: {fileID: 6035326316760343055}
   m_Layer: 0
   m_Name: PlayerSev
   m_TagString: Untagged
@@ -122,3 +123,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
+--- !u!114 &6035326316760343055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6041845430978826902}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.08
+  compressRotation: 1

@@ -5,17 +5,16 @@ using Mirror;
 
 public class DoubleInput : NetworkBehaviour
 {
+    int count = 0;
+    int maxCount = 10;
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftArrow))
+        count++;
+        if (maxCount == count)
         {
-            transform.Rotate(Vector3.up, 10);
-        }
-
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            transform.Rotate(Vector3.up, -10);
-        }
+            count = 0;
+        }        
     }
+
 }
