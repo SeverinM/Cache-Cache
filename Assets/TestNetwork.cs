@@ -16,6 +16,7 @@ public class TestNetwork : NetworkBehaviour
             if(Input.GetKey(KeyCode.A))
             {
                 transform.localScale *= 0.9f;
+                Debug.Log("coucou");
             }
         }
     }
