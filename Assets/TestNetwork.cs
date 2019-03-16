@@ -5,14 +5,6 @@ using Mirror;
 
 public class TestNetwork : NetworkBehaviour
 {
-    [SyncVar]
-    Vector3 position = new Vector3();
-
-    private void Awake()
-    {
-        position = transform.position;
-    }
-
     private void Update()
     {
         if (!isLocalPlayer)
@@ -23,10 +15,14 @@ public class TestNetwork : NetworkBehaviour
         {
             if(Input.GetKey(KeyCode.A))
             {
-                position = transform.position + Random.onUnitSphere * 0.1f;
+                Move();
             }
         }
+    }
 
-        transform.position = position;
+    [Command]
+    void Move()
+    {
+        transform.position += Random.onUnitSphere * 0.01f;
     }
 }
