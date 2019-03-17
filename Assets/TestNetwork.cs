@@ -5,19 +5,24 @@ using Mirror;
 
 public class TestNetwork : NetworkBehaviour
 {
+    GameObject cube;
+
+    private void Awake()
+    {
+        cube = GameObject.Find("Tree");
+    }
+
     private void Update()
     {
-        if (!isLocalPlayer)
+        if (isLocalPlayer && Input.GetMouseButton(0))
         {
-            return;
+             CmdRotate(cube);
         }
-        else
-        {
-            if(Input.GetKey(KeyCode.A))
-            {
-                transform.localScale *= 0.9f;
-                Debug.Log("coucou");
-            }
-        }
+    }
+    
+    [Command]
+    void CmdRotate(GameObject toRotate)
+    {
+        toRotate.transform.Rotate(Vector3.up, 10);
     }
 }
