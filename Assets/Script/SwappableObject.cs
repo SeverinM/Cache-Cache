@@ -41,6 +41,9 @@ public class SwappableObject : NetworkBehaviour
     [Command]
     public void CmdSetPlayer(GameObject gob)
     {
+        Debug.Log("avant : " + gob);
+        Debug.Log("isServer : " + isServer);
+        Debug.Log("set : " + gob);
         playerLocal = gob;
     }
 }
