@@ -38,12 +38,10 @@ public class SwappableObject : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void CmdSetPlayer(GameObject gob)
+    [ClientRpc]
+    public void RpcSetPlayer(GameObject obj)
     {
-        Debug.Log("avant : " + gob);
         Debug.Log("isServer : " + isServer);
-        Debug.Log("set : " + gob);
-        playerLocal = gob;
+        playerLocal = obj;
     }
 }

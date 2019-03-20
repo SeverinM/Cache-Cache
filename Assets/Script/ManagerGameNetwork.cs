@@ -38,7 +38,7 @@ public class ManagerGameNetwork : NetworkManager
         {
             GameObject gob2 = Instantiate(prefab);
             NetworkServer.SpawnWithClientAuthority(gob2, conn);
-            gob2.GetComponent<SwappableObject>().CmdSetPlayer(gob);
+            gob2.GetComponent<SwappableObject>().RpcSetPlayer(gob);
         }
     }
 
