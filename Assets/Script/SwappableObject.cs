@@ -37,4 +37,10 @@ public class SwappableObject : NetworkBehaviour
             transform.Rotate(Vector3.up, 10);
         }
     }
+
+    [Command]
+    public void CmdSetPlayer(GameObject gob)
+    {
+        playerLocal = gob;
+    }
 }

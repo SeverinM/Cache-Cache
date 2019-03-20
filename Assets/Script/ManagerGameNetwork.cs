@@ -38,14 +38,8 @@ public class ManagerGameNetwork : NetworkManager
         {
             GameObject gob2 = Instantiate(prefab);
             NetworkServer.SpawnWithClientAuthority(gob2, conn);
-            SetGO(gob2.GetComponent<SwappableObject>(), gob);
+            gob2.GetComponent<SwappableObject>().CmdSetPlayer(gob);
         }
-    }
-
-    [ClientRpc]
-    public void SetGO(SwappableObject so, GameObject gob)
-    {
-        so.playerLocal = gob;
     }
 
     public override void OnServerRemovePlayer(NetworkConnection conn, NetworkIdentity player)
