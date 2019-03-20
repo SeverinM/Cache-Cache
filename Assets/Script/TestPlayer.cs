@@ -15,7 +15,6 @@ public class TestPlayer : NetworkBehaviour
 
     public override bool OnCheckObserver(NetworkConnection conn)
     {
-        Debug.Log("kop");
         if (!hasAuthority)
             return false;
         return true;
