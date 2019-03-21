@@ -794,7 +794,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2088040798}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8aab4c8111b7c411b9b92cf3dbc5bd4e, type: 3}
+  m_Script: {fileID: 11500000, guid: 19ed3c614f17e014bb99b06a072d3b41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dontDestroyOnLoad: 1
@@ -806,10 +806,10 @@ MonoBehaviour:
   onlineScene: 
   transport: {fileID: 2088040801}
   networkAddress: localhost
-  maxConnections: 4
+  maxConnections: 2
   playerPrefab: {fileID: 340279817362388925, guid: a2bef9686f6292844be177872feb663d,
     type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 0
   spawnPrefabs:
-  - {fileID: 0}
+  - {fileID: 340279817362388925, guid: a2bef9686f6292844be177872feb663d, type: 3}

@@ -8,14 +8,24 @@ public class Player : NetworkBehaviour
 {
     public static int count = 0;
 
-    public void Start()
+    [ClientRpc]
+    public void RpcUpdateCam()
     {
-        if (isLocalPlayer)
+        if (hasAuthority)
         {
-            Utils.DisableAllOthersCam(GetComponent<Camera>());
+            foreach (Camera cam in GameObject.FindObjectsOfType<Camera>())
+            {
+                if (cam.gameObject != gameObject)
+                {
+                    cam.enabled = false;
+                }
+                else
+                {
+                    cam.enabled = true;
+                }
+            }
+
             transform.LookAt(new Vector3(0, 0, 0));
-            count++;
-            GameObject.FindObjectOfType<Text>().text = count.ToString();
-        }       
+        }
     }
 }
