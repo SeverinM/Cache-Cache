@@ -36,14 +36,11 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcSetMaquette(GameObject maquette)
+    public void RpcLook(Vector3 position)
     {
         if (hasAuthority)
         {
-            Debug.Log(maquette);
-            maquette.transform.position = transform.position + (Random.onUnitSphere * 3);
-            transform.LookAt(maquette.transform.position);
-            transform.Rotate(Vector3.right, 90);
+            transform.LookAt(position);
         }
     }
 }
