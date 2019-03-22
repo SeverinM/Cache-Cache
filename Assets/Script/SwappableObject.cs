@@ -15,16 +15,29 @@ public class SwappableObject : NetworkBehaviour
             {
                 deltaPos = transform.position - plr[0].transform.position;
                 transform.position = plr[1].transform.position + deltaPos;
+                CmdTeleport(plr[1].transform.position + deltaPos + (Random.onUnitSphere * 3));
             }
                 
             else
             {
                 deltaPos = transform.position - plr[1].transform.position;
-                transform.position = plr[0].transform.position + deltaPos;
+                CmdTeleport(plr[0].transform.position + deltaPos + (Random.onUnitSphere * 3));
             }
 
             //CmdChange(gameObject);
         }
+    }
+
+    [Command]
+    void CmdTeleport(Vector3 position)
+    {
+        RpcTeleport(position);
+    }
+
+    [ClientRpc]
+    void RpcTeleport(Vector3 position)
+    {
+        transform.position = position;
     }
 
     [Command]
