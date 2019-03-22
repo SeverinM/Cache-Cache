@@ -7,37 +7,21 @@ public class SwappableObject : NetworkBehaviour
 {
     public void OnMouseDown()
     {
-        if (hasAuthority)
+        Player[] plr = GameObject.FindObjectsOfType<Player>();
+        Vector3 deltaPos;
+        if (plr[0].hasAuthority)
         {
-            Player[] plr = GameObject.FindObjectsOfType<Player>();
-            Vector3 deltaPos;
-            if (plr[0].hasAuthority)
-            {
-                deltaPos = transform.position - plr[0].transform.position;
-                transform.position = plr[1].transform.position + deltaPos;
-                CmdTeleport(plr[1].transform.position + deltaPos + (Random.onUnitSphere * 3));
-            }
-                
-            else
-            {
-                deltaPos = transform.position - plr[1].transform.position;
-                CmdTeleport(plr[0].transform.position + deltaPos + (Random.onUnitSphere * 3));
-            }
-
-            //CmdChange(gameObject);
+            deltaPos = transform.position - plr[0].transform.position;
+            CmdTp(plr[1].transform.position + deltaPos + Random.onUnitSphere);
         }
-    }
 
-    [Command]
-    void CmdTeleport(Vector3 position)
-    {
-        RpcTeleport(position);
-    }
+        else
+        {
+            deltaPos = transform.position - plr[1].transform.position;
+            CmdTp(plr[0].transform.position + deltaPos + Random.onUnitSphere);
+        }
 
-    [ClientRpc]
-    void RpcTeleport(Vector3 position)
-    {
-        transform.position = position;
+        CmdChange(gameObject);
     }
 
     [Command]
@@ -59,5 +43,17 @@ public class SwappableObject : NetworkBehaviour
                 gob.GetComponent<NetworkIdentity>().GetComponent<NetworkIdentity>().RemoveClientAuthority(plr[1].connectionToClient);
             GetComponent<NetworkIdentity>().AssignClientAuthority(plr[0].connectionToClient);
         }
+    }
+
+    [Command]
+    public void CmdTp(Vector3 position)
+    {
+        RpcTp(position);
+    }
+
+    [ClientRpc]
+    public void RpcTp(Vector3 position)
+    {
+        transform.position = position;
     }
 }
