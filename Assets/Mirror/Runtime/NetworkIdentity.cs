@@ -868,8 +868,6 @@ namespace Mirror
 
             if (clientAuthorityOwner != conn)
             {
-                Debug.Log(conn.GetHashCode());
-                Debug.Log(clientAuthorityOwner.GetHashCode());
                 Debug.LogError("RemoveClientAuthority for " + gameObject + " has different owner.");
                 return false;
             }

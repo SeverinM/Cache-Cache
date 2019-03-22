@@ -6,15 +6,7 @@ using Mirror;
 
 public class Player : NetworkBehaviour
 {
-    public static int count = 0;
-    public int id;
-
-    void Awake()
-    {
-        id = count;
-        count++;
-    }
-
+    public Vector3 ToOtherPlayer { get; set; }
 
     [ClientRpc]
     public void RpcUpdateCam()
@@ -36,11 +28,12 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcLook(Vector3 position)
+    public void RpcLook(Vector3 vec)
     {
         if (hasAuthority)
         {
-            transform.LookAt(position);
+            transform.position = vec + new Vector3(100, 100, 0);
+            transform.LookAt(vec);
         }
     }
 }
