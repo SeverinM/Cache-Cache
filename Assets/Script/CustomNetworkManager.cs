@@ -18,6 +18,8 @@ public class CustomNetworkManager : NetworkManager
     GameObject maq1;
     GameObject maq2;
 
+    GameObject instanceMan;
+
     public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
     {
         GameObject player = Instantiate(playerPrefab);
@@ -32,7 +34,8 @@ public class CustomNetworkManager : NetworkManager
         nbPlayer++;
         if (nbPlayer == 1)
         {
-            NetworkServer.Spawn(Instantiate(managerPrefab));
+            instanceMan = Instantiate(managerPrefab);
+            NetworkServer.Spawn(instanceMan);
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position);
@@ -64,8 +67,8 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().ToOtherPlayer = toTwo;
             player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
 
-            player1.GetComponent<Player>().CmdInit(1, maq1, maq2);
-            player2.GetComponent<Player>().CmdInit(2, maq2, maq1);
+            player1.GetComponent<Player>().CmdInit(1, maq1, maq2, instanceMan);
+            player2.GetComponent<Player>().CmdInit(2, maq2, maq1, instanceMan);
         }
     }
 }

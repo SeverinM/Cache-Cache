@@ -15,6 +15,9 @@ public class Player : NetworkBehaviour
     GameObject maquette2;
 
     [SyncVar]
+    GameObject man;
+
+    [SyncVar]
     public int playerIdentity;
 
     [ClientRpc]
@@ -47,11 +50,12 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInit(int identity, GameObject gob, GameObject gob2)
+    public void CmdInit(int identity, GameObject gob, GameObject gob2, GameObject manager)
     {
         playerIdentity = identity;
         maquette = gob;
         maquette2 = gob2;
+        man = manager;
     }
 
     private void Update()
@@ -61,20 +65,19 @@ public class Player : NetworkBehaviour
             if (Input.GetKey(KeyCode.A))
             {
                 if (maquette == null || maquette == null) return;
+                //if (man.HasLock(playerIdentity))
+                //{
+                //    man.CmdAcquireLock(playerIdentity);
+                //    float value = (playerIdentity == 1 ? -1 : 1);
+                //    CmdRotate(maquette, value);
+                //    CmdRotate(maquette2, value);
+                //}
 
-                ManagerPlayers man = GameObject.FindObjectOfType<ManagerPlayers>();
-                if (man.HasLock(playerIdentity))
-                {
-                    man.CmdAcquireLock(playerIdentity);
-                    float value = (playerIdentity == 1 ? -1 : 1);
-                    //CmdRotate(maquette, value);
-                    //CmdRotate(maquette2, value);
-                }
             }
 
             if (Input.GetKeyUp(KeyCode.A))
             {
-                //GameObject.FindObjectOfType<ManagerPlayers>().CmdReleaseLock();
+                man.GetComponent<ManagerPlayers>().CmdReleaseLock();
             }
         }
     }
