@@ -30,8 +30,7 @@ public class ManagerPlayers : NetworkBehaviour
         occ = newid;
     }
 
-    [Command]
-    public void CmdReleaseLock()
+    public void ReleaseLock()
     {
         occ = 0;
     }

@@ -56,27 +56,33 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (!hasAuthority) return;
-        if (Input.GetKey(KeyCode.A))
+        if (hasAuthority)
         {
-            if (maquette == null || maquette == null) return;
-
-            ManagerPlayers man = GameObject.FindObjectOfType<ManagerPlayers>();
-            if (man.HasLock(playerIdentity))
+            if (Input.GetKey(KeyCode.A))
             {
-                Debug.Log("lock accaparé");
-                man.CmdAcquireLock(playerIdentity);
-                float value = (playerIdentity == 1 ? -1 : 1);
-                CmdRotate(maquette, value);
-                CmdRotate(maquette2, value);
+                if (maquette == null || maquette == null) return;
+
+                ManagerPlayers man = GameObject.FindObjectOfType<ManagerPlayers>();
+                if (man.HasLock(playerIdentity))
+                {
+                    man.CmdAcquireLock(playerIdentity);
+                    float value = (playerIdentity == 1 ? -1 : 1);
+                    CmdRotate(maquette, value);
+                    CmdRotate(maquette2, value);
+                }
+            }
+
+            if (Input.GetKeyUp(KeyCode.A))
+            {
+                CmdRelease();
             }
         }
+    }
 
-        if (Input.GetKeyUp(KeyCode.A))
-        {
-            Debug.Log("press A");
-            GameObject.FindObjectOfType<ManagerPlayers>().CmdReleaseLock();
-        }
+    [Command]
+    public void CmdRelease()
+    {
+        GameObject.FindObjectOfType<ManagerPlayers>().ReleaseLock();
     }
 
     [Command]
