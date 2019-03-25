@@ -56,8 +56,7 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (!isLocalPlayer) return;
-        Debug.Log(playerIdentity);
+        if (!hasAuthority) return;
         if (Input.GetKey(KeyCode.A))
         {
             if (maquette == null || maquette == null) return;
@@ -65,6 +64,7 @@ public class Player : NetworkBehaviour
             ManagerPlayers man = GameObject.FindObjectOfType<ManagerPlayers>();
             if (man.HasLock(playerIdentity))
             {
+                Debug.Log("lock accaparé");
                 man.CmdAcquireLock(playerIdentity);
                 float value = (playerIdentity == 1 ? -1 : 1);
                 CmdRotate(maquette, value);
@@ -74,6 +74,7 @@ public class Player : NetworkBehaviour
 
         if (Input.GetKeyUp(KeyCode.A))
         {
+            Debug.Log("press A");
             GameObject.FindObjectOfType<ManagerPlayers>().CmdReleaseLock();
         }
     }
