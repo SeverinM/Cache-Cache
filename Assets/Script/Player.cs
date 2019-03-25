@@ -15,7 +15,7 @@ public class Player : NetworkBehaviour
     GameObject maquette2;
 
     [SyncVar]
-    Occupation playerIdentity;
+    public int playerIdentity;
 
     [ClientRpc]
     public void RpcUpdateCam()
@@ -47,27 +47,26 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInit(Occupation occ, GameObject gob, GameObject gob2)
+    public void CmdInit(int identity, GameObject gob, GameObject gob2)
     {
-        playerIdentity = occ;
+        playerIdentity = identity;
         maquette = gob;
         maquette2 = gob2;
-        Debug.Log(GameObject.FindObjectOfType<ManagerPlayers>().HasLock(playerIdentity));
     }
 
     private void Update()
     {
-        if (isLocalPlayer) return;
+        if (!isLocalPlayer) return;
+        Debug.Log(playerIdentity);
         if (Input.GetKey(KeyCode.A))
         {
             if (maquette == null || maquette == null) return;
 
             ManagerPlayers man = GameObject.FindObjectOfType<ManagerPlayers>();
-            Debug.Log(playerIdentity);
             if (man.HasLock(playerIdentity))
             {
                 man.CmdAcquireLock(playerIdentity);
-                float value = (playerIdentity == Occupation.PLAYER_1 ? -1 : 1);
+                float value = (playerIdentity == 1 ? -1 : 1);
                 CmdRotate(maquette, value);
                 CmdRotate(maquette2, value);
             }
@@ -82,7 +81,6 @@ public class Player : NetworkBehaviour
     [Command]
     void CmdRotate(GameObject obj , float value)
     {
-        Debug.Log(value);
         RpcRotate(obj, value);
     }
 

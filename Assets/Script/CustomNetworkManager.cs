@@ -36,7 +36,7 @@ public class CustomNetworkManager : NetworkManager
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position);
-            NetworkServer.Spawn(maq1);
+            NetworkServer.SpawnWithClientAuthority(maq1, conn);
 
             GameObject objSample = Instantiate(prefabSwappable);
             objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
@@ -51,7 +51,7 @@ public class CustomNetworkManager : NetworkManager
             maq2 = Instantiate(prefab2);
             maq2.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq2.transform.position);
-            NetworkServer.Spawn(maq2);
+            NetworkServer.SpawnWithClientAuthority(maq2, conn);
 
             GameObject objSample = Instantiate(prefabSwappable);
             objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
@@ -64,8 +64,8 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().ToOtherPlayer = toTwo;
             player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
 
-            player.GetComponent<Player>().CmdInit(Occupation.PLAYER_1, maq1, maq2);
-            player.GetComponent<Player>().CmdInit(Occupation.PLAYER_2, maq2, maq1);
+            player1.GetComponent<Player>().CmdInit(1, maq1, maq2);
+            player2.GetComponent<Player>().CmdInit(2, maq2, maq1);
         }
     }
 }

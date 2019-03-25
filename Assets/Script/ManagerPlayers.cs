@@ -14,26 +14,25 @@ public enum Occupation
 public class ManagerPlayers : NetworkBehaviour
 {
     [SyncVar]
-    public Occupation rotate = Occupation.NOTHING;
+    int occ;
 
-    public bool HasLock(Occupation occ)
+    public bool HasLock(int idrequest)
     {
-        Debug.Log(rotate);
-        if (occ == rotate || rotate == Occupation.NOTHING)
+        if (idrequest == occ || occ == 0)
             return true;
         else
             return false;
     }
 
     [Command]
-    public void CmdAcquireLock(Occupation occ)
+    public void CmdAcquireLock(int newid)
     {
-        rotate = occ;
+        occ = newid;
     }
 
     [Command]
     public void CmdReleaseLock()
     {
-        rotate = Occupation.NOTHING;
+        occ = 0;
     }
 }
