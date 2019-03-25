@@ -62,35 +62,41 @@ public class Player : NetworkBehaviour
     {
         if (hasAuthority)
         {
+            if (maquette == null || maquette2 == null) return;
             if (Input.GetKey(KeyCode.A))
             {
-                if (maquette == null || maquette == null) return;
-                //if (man.HasLock(playerIdentity))
-                //{
-                //    man.CmdAcquireLock(playerIdentity);
-                //    float value = (playerIdentity == 1 ? -1 : 1);
-                //    CmdRotate(maquette, value);
-                //    CmdRotate(maquette2, value);
-                //}
-
+                CmdAcquire(playerIdentity);
             }
 
             if (Input.GetKeyUp(KeyCode.A))
             {
-                man.GetComponent<ManagerPlayers>().CmdReleaseLock();
+                CmdRelease();
             }
         }
     }
 
     [Command]
-    void CmdRotate(GameObject obj , float value)
+    public void CmdAcquire(int identity)
     {
-        RpcRotate(obj, value);
+        if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
+        {
+            man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
+            float value = (playerIdentity == 1 ? -1 : 1);
+            RpcRotate(maquette, value);
+            RpcRotate(maquette2, value);
+        }
+    }
+
+    [Command]
+    public void CmdRelease()
+    {
+        man.GetComponent<ManagerPlayers>().ReleaseLock();
     }
 
     [ClientRpc]
     void RpcRotate(GameObject obj , float value)
     {
-        obj.transform.Rotate(Vector3.up, value);
+        if (obj.GetComponent<NetworkIdentity>().hasAuthority)
+            obj.transform.Rotate(Vector3.up, value);
     }
 }

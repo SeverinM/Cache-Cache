@@ -24,15 +24,12 @@ public class ManagerPlayers : NetworkBehaviour
             return false;
     }
 
-    [Command]
-    public void CmdAcquireLock(int newid)
+    public void AcquireLock(int newid)
     {
         occ = newid;
     }
 
-
-    [Command]
-    public void CmdReleaseLock()
+    public void ReleaseLock()
     {
         occ = 0;
     }
