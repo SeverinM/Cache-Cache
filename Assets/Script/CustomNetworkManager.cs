@@ -10,9 +10,13 @@ public class CustomNetworkManager : NetworkManager
     public GameObject prefab1;
     public GameObject prefab2;
     public GameObject prefabSwappable;
+    public GameObject managerPrefab;
 
     GameObject player1;
     GameObject player2;
+
+    GameObject maq1;
+    GameObject maq2;
 
     public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
     {
@@ -26,39 +30,42 @@ public class CustomNetworkManager : NetworkManager
         }
 
         nbPlayer++;
-
-        if (player1 != null)
-            player2 = player;
-        else
-            player1 = player;
-
         if (nbPlayer == 1)
         {
-            GameObject gob = Instantiate(prefab1);
-            gob.transform.position = player1.transform.position;
-            player1.GetComponent<Player>().RpcLook(gob.transform.position);
-            NetworkServer.Spawn(gob);
+            NetworkServer.Spawn(Instantiate(managerPrefab));
+            maq1 = Instantiate(prefab1);
+            maq1.transform.position = player.transform.position;
+            player.GetComponent<Player>().RpcLook(maq1.transform.position);
+            NetworkServer.Spawn(maq1);
 
             GameObject objSample = Instantiate(prefabSwappable);
-            objSample.transform.position = gob.transform.position + new Vector3(0, 20, 0);
+            objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
             NetworkServer.SpawnWithClientAuthority(objSample, conn);
+
+            player1 = player;
+            
         }
 
         if (nbPlayer == 2)
         {
-            GameObject gob2 = Instantiate(prefab2);
-            gob2.transform.position = player2.transform.position;
-            player2.GetComponent<Player>().RpcLook(gob2.transform.position);
-            NetworkServer.Spawn(gob2);
+            maq2 = Instantiate(prefab2);
+            maq2.transform.position = player.transform.position;
+            player.GetComponent<Player>().RpcLook(maq2.transform.position);
+            NetworkServer.Spawn(maq2);
 
             GameObject objSample = Instantiate(prefabSwappable);
-            objSample.transform.position = gob2.transform.position + new Vector3(0, 20, 0);
+            objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
             NetworkServer.SpawnWithClientAuthority(objSample, conn);
+
+            player2 = player;
 
             //Initialize var
             Vector3 toTwo = player2.transform.position - player1.transform.position;
             player1.GetComponent<Player>().ToOtherPlayer = toTwo;
             player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
+
+            player.GetComponent<Player>().CmdInit(Occupation.PLAYER_1, maq1, maq2);
+            player.GetComponent<Player>().CmdInit(Occupation.PLAYER_2, maq2, maq1);
         }
     }
 }
