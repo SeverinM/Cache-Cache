@@ -67,22 +67,16 @@ public class Player : NetworkBehaviour
                 {
                     man.CmdAcquireLock(playerIdentity);
                     float value = (playerIdentity == 1 ? -1 : 1);
-                    CmdRotate(maquette, value);
-                    CmdRotate(maquette2, value);
+                    //CmdRotate(maquette, value);
+                    //CmdRotate(maquette2, value);
                 }
             }
 
             if (Input.GetKeyUp(KeyCode.A))
             {
-                CmdRelease();
+                //GameObject.FindObjectOfType<ManagerPlayers>().CmdReleaseLock();
             }
         }
-    }
-
-    [Command]
-    public void CmdRelease()
-    {
-        GameObject.FindObjectOfType<ManagerPlayers>().ReleaseLock();
     }
 
     [Command]
