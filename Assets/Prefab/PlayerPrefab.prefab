@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
+  playerIdentity: 0
 --- !u!114 &4115783573507442148
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -40,11 +40,12 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcLook(Vector3 vec)
+    public void RpcLook(Vector3 vec, int amount)
     {
         if (hasAuthority)
         {
             transform.position = vec + new Vector3(100, 100, 0);
+            transform.RotateAround(vec, Vector3.up, amount);
             transform.LookAt(vec);
         }
     }
@@ -63,12 +64,17 @@ public class Player : NetworkBehaviour
         if (hasAuthority)
         {
             if (maquette == null || maquette2 == null) return;
-            if (Input.GetKey(KeyCode.A))
+            if (Input.GetKey(KeyCode.D))
             {
-                CmdAcquire(playerIdentity);
+                CmdAcquire(playerIdentity, Vector3.up, playerIdentity == 1 ? -1 : 1, Space.World);
             }
 
-            if (Input.GetKeyUp(KeyCode.A))
+            if (Input.GetKey(KeyCode.Q))
+            {
+                CmdAcquire(playerIdentity, Vector3.up, playerIdentity == 1 ? 1 : -1, Space.World);
+            }
+
+            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Z))
             {
                 CmdRelease();
             }
@@ -76,14 +82,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdAcquire(int identity)
+    public void CmdAcquire(int identity, Vector3 axis, float value, Space spc)
     {
         if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
         {
             man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
-            float value = (playerIdentity == 1 ? -1 : 1);
-            RpcRotate(maquette, value);
-            RpcRotate(maquette2, value);
+            RpcRotate(maquette, value, axis, spc);
+            RpcRotate(maquette2, value, axis, spc);
         }
     }
 
@@ -94,9 +99,14 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcRotate(GameObject obj , float value)
+    void RpcRotate(GameObject obj , float value, Vector3 axis, Space spc)
     {
         if (obj.GetComponent<NetworkIdentity>().hasAuthority)
-            obj.transform.Rotate(Vector3.up, value);
+        {
+            Debug.Log(obj.transform.localEulerAngles.z + " / " + obj.transform.eulerAngles.z);
+            float modifiedValue = obj.transform.eulerAngles.z;
+            if (axis == Vector3.forward && (modifiedValue + value > 90 || modifiedValue + value < 0)) return;
+            obj.transform.Rotate(axis, value, spc);
+        }           
     }
 }
