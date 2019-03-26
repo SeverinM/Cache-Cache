@@ -8,13 +8,10 @@ public class Player : NetworkBehaviour
 {
     public Vector3 ToOtherPlayer { get; set; }
 
-    [SyncVar]
+    //[SyncVar]
     GameObject maquette;
 
-    [SyncVar]
-    GameObject maquette2;
-
-    [SyncVar]
+    //[SyncVar]
     GameObject man;
 
     [SyncVar]
@@ -42,7 +39,7 @@ public class Player : NetworkBehaviour
     [ClientRpc]
     public void RpcLook(Vector3 vec, int amount)
     {
-        if (hasAuthority)
+        if (isLocalPlayer)
         {
             transform.position = vec + new Vector3(100, 100, 0);
             transform.RotateAround(vec, Vector3.up, amount);
@@ -51,27 +48,33 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInit(int identity, GameObject gob, GameObject gob2, GameObject manager)
+    public void CmdInit(int identity, GameObject maq, GameObject manager)
     {
         playerIdentity = identity;
-        maquette = gob;
-        maquette2 = gob2;
         man = manager;
+        maquette = maq;
     }
+
 
     private void Update()
     {
         if (hasAuthority)
         {
-            if (maquette == null || maquette2 == null) return;
+            if (maquette == null) return;
             if (Input.GetKey(KeyCode.D))
             {
-                CmdAcquire(playerIdentity, Vector3.up, playerIdentity == 1 ? -1 : 1, Space.World);
+                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
+                {
+                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? 1 : -1);
+                }
             }
 
             if (Input.GetKey(KeyCode.Q))
             {
-                CmdAcquire(playerIdentity, Vector3.up, playerIdentity == 1 ? 1 : -1, Space.World);
+                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
+                {
+                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? -1 : 1);
+                }
             }
 
             if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Z))
@@ -82,13 +85,12 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdAcquire(int identity, Vector3 axis, float value, Space spc)
+    public void CmdAcquire(Vector3 pos, Vector3 axis, float value)
     {
-        if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
+        man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
+        foreach(GameObject gob in GameObject.FindGameObjectsWithTag("Player"))
         {
-            man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
-            RpcRotate(maquette, value, axis, spc);
-            RpcRotate(maquette2, value, axis, spc);
+            gob.GetComponent<Player>().RpcRotate(pos, value, axis);
         }
     }
 
@@ -99,14 +101,25 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcRotate(GameObject obj , float value, Vector3 axis, Space spc)
+    void RpcRotate(Vector3 pos,float value, Vector3 axis)
     {
-        if (obj.GetComponent<NetworkIdentity>().hasAuthority)
+        if (hasAuthority)
         {
-            Debug.Log(obj.transform.localEulerAngles.z + " / " + obj.transform.eulerAngles.z);
-            float modifiedValue = obj.transform.eulerAngles.z;
-            if (axis == Vector3.forward && (modifiedValue + value > 90 || modifiedValue + value < 0)) return;
-            obj.transform.Rotate(axis, value, spc);
+            Debug.Log(gameObject);
+            transform.RotateAround(pos, axis, value);
         }           
+    }
+
+    [ClientRpc]
+    void RpcRotateAll(Vector3 axis , float value)
+    {
+        foreach (GameObject gob in GameObject.FindGameObjectsWithTag("Swappable"))
+        {
+            if (gob.GetComponent<NetworkIdentity>().hasAuthority)
+            {
+                Debug.Log(maquette);
+                gob.transform.RotateAround(maquette.transform.position, axis, value);
+            }
+        }
     }
 }

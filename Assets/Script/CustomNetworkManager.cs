@@ -25,6 +25,7 @@ public class CustomNetworkManager : NetworkManager
         GameObject player = Instantiate(playerPrefab);
         NetworkServer.AddPlayerForConnection(conn, player);
         player.transform.position = (nbPlayer == 0 ? new Vector3(-1000, 0, 0) : new Vector3(1000, 0, 0));
+        player.name = "Joueur numero " + nbPlayer;
 
         foreach (Player plyr in GameObject.FindObjectsOfType<Player>())
         {
@@ -43,7 +44,6 @@ public class CustomNetworkManager : NetworkManager
 
             GameObject objSample = Instantiate(prefabSwappable);
             objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
-            objSample.transform.parent = maq1.transform;
             NetworkServer.SpawnWithClientAuthority(objSample, conn);
 
             player1 = player;            
@@ -59,7 +59,6 @@ public class CustomNetworkManager : NetworkManager
 
             GameObject objSample = Instantiate(prefabSwappable);
             objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
-            objSample.transform.parent = maq2.transform;
             NetworkServer.SpawnWithClientAuthority(objSample, conn);
 
             player2 = player;
@@ -69,8 +68,8 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().ToOtherPlayer = toTwo;
             player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
 
-            player1.GetComponent<Player>().CmdInit(1, maq1, maq2, instanceMan);
-            player2.GetComponent<Player>().CmdInit(2, maq2, maq1, instanceMan);
+            player1.GetComponent<Player>().CmdInit(1, maq1, instanceMan);
+            player2.GetComponent<Player>().CmdInit(2, maq2, instanceMan);
         }
     }
 }
