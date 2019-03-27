@@ -12,6 +12,9 @@ public class Player : NetworkBehaviour
     GameObject maquette;
 
     [SyncVar]
+    GameObject otherPlayer;
+
+    [SyncVar]
     GameObject man;
 
     [SyncVar]
@@ -48,13 +51,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInit(int identity, GameObject maq, GameObject manager)
+    public void CmdInit(int identity, GameObject maq, GameObject manager, GameObject other)
     {
         playerIdentity = identity;
         man = manager;
         maquette = maq;
+        otherPlayer = other;
     }
-
 
     private void Update()
     {
@@ -107,6 +110,27 @@ public class Player : NetworkBehaviour
         {
             Debug.Log(gameObject);
             transform.RotateAround(maquette.transform.position, axis, value);
+        }
+    }
+
+    [Command]
+    public void CmdChangeAuthority(GameObject target)
+    {
+        if (otherPlayer == null)
+        {
+            Debug.LogWarning("Aucun autre joueur connu , abandon");
+            return;
+        }
+
+        if (target.GetComponent<NetworkIdentity>().hasAuthority)
+        {
+            target.GetComponent<NetworkIdentity>().RemoveClientAuthority(connectionToClient);
+            target.GetComponent<NetworkIdentity>().AssignClientAuthority(otherPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+            target.GetComponent<Interactable>().Master = otherPlayer;
+        }
+        else
+        {
+            Debug.LogWarning("Pas d'autorité sur le gameobject cible");
         }
     }
 }
