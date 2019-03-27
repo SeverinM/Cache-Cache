@@ -78,7 +78,7 @@ public class CustomNetworkManager : NetworkManager
 
     public void StartInteraction(GameObject gob, float timestamp)
     {
-        Debug.Log(gob.GetComponent<NetworkIdentity>().clientAuthorityOwner);
+        Debug.Log(gob.GetComponent<NetworkIdentity>().hasAuthority);
         gob.transform.position += new Vector3(0, 10, 0);
     }
 }
