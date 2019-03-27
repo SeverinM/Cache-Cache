@@ -8,10 +8,10 @@ public class Player : NetworkBehaviour
 {
     public Vector3 ToOtherPlayer { get; set; }
 
-    //[SyncVar]
+    [SyncVar]
     GameObject maquette;
 
-    //[SyncVar]
+    [SyncVar]
     GameObject man;
 
     [SyncVar]
