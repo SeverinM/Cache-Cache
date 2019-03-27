@@ -108,7 +108,6 @@ public class Player : NetworkBehaviour
     {
         if (hasAuthority)
         {
-            Debug.Log(gameObject);
             transform.RotateAround(maquette.transform.position, axis, value);
         }
     }

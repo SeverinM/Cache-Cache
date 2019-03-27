@@ -26,7 +26,7 @@ public class Interactable : NetworkBehaviour
         {
             if (_interactable && !value)
             {
-                EndInteraction();
+                CmdEndInteraction();
             }
             _interactable = value;
         }
@@ -42,10 +42,13 @@ public class Interactable : NetworkBehaviour
     public EndInteractionDelegate OnEnd { get; set; }
     public MoveInteractionDelegate OnMove { get; set; }
     public PointerExit OnExit { get; set; }
-    public PointerEnter OnEnter { get; set; }
+    public PointerEnter OnEnter;
 
-    public void StartInteraction(float timeStamp)
+    [Command]
+    public void CmdStartInteraction(float timeStamp)
     {
+        Debug.Log(OnStart);
+        Debug.Log(CanInteract);
         if (!CanInteract || OnStart == null)
         {
             Debug.LogWarning("Start interaction a echoué : objet non interactible ou pas de delegate");
@@ -55,7 +58,8 @@ public class Interactable : NetworkBehaviour
         OnStart(gameObject, timeStamp);
     }
 
-    public void EndInteraction()
+    [Command]
+    public void CmdEndInteraction()
     {
         if (!CanInteract|| OnEnd == null)
         {
@@ -66,7 +70,8 @@ public class Interactable : NetworkBehaviour
         OnEnd(gameObject);
     }
 
-    public void MoveInteraction(Vector2 delta)
+    [Command]
+    public void CmdMoveInteraction(Vector2 delta)
     {
         if (!CanInteract || OnEnd == null)
         {
@@ -76,7 +81,8 @@ public class Interactable : NetworkBehaviour
         OnMove(gameObject,  delta);
     }
 
-    public void EnterInteraction(Vector3 position)
+    [Command]
+    public void CmdEnterInteraction(Vector3 position)
     {
         if (!CanInteract || OnEnter == null)
         {
@@ -86,7 +92,8 @@ public class Interactable : NetworkBehaviour
         OnEnter(gameObject, position);
     }
 
-    public void ExitInteraction(Vector3 position)
+    [Command]
+    public void CmdExitInteraction(Vector3 position)
     {
         if (!CanInteract || OnExit == null)
         {
@@ -99,6 +106,6 @@ public class Interactable : NetworkBehaviour
     private void OnMouseDown()
     {
         Debug.Log("debut interaction");
-        StartInteraction(Time.timeSinceLevelLoad);
+        CmdStartInteraction(Time.timeSinceLevelLoad);
     }
 }
