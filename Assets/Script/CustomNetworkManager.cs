@@ -46,7 +46,7 @@ public class CustomNetworkManager : NetworkManager
             objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
             objSample.GetComponent<Interactable>().OnStart = StartInteraction;
             objSample.GetComponent<Interactable>().Master = player;
-            NetworkServer.Spawn(objSample);
+            NetworkServer.SpawnWithClientAuthority(objSample, conn);
 
             player1 = player;            
         }
@@ -61,8 +61,9 @@ public class CustomNetworkManager : NetworkManager
 
             GameObject objSample = Instantiate(prefabSwappable);
             objSample.GetComponent<Interactable>().OnStart = StartInteraction;
+            objSample.GetComponent<Interactable>().Master = player;
             objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
-            NetworkServer.Spawn(objSample);
+            NetworkServer.SpawnWithClientAuthority(objSample, conn);
 
             player2 = player;
 
