@@ -90,7 +90,7 @@ public class Player : NetworkBehaviour
         man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
         foreach(GameObject gob in GameObject.FindGameObjectsWithTag("Player"))
         {
-            gob.GetComponent<Player>().RpcRotate(pos, value, axis);
+            gob.GetComponent<Player>().RpcRotateAll(axis, value);
         }
     }
 
@@ -101,25 +101,12 @@ public class Player : NetworkBehaviour
     }
 
     [ClientRpc]
-    void RpcRotate(Vector3 pos,float value, Vector3 axis)
+    void RpcRotateAll(Vector3 axis , float value)
     {
         if (hasAuthority)
         {
             Debug.Log(gameObject);
-            transform.RotateAround(pos, axis, value);
-        }           
-    }
-
-    [ClientRpc]
-    void RpcRotateAll(Vector3 axis , float value)
-    {
-        foreach (GameObject gob in GameObject.FindGameObjectsWithTag("Swappable"))
-        {
-            if (gob.GetComponent<NetworkIdentity>().hasAuthority)
-            {
-                Debug.Log(maquette);
-                gob.transform.RotateAround(maquette.transform.position, axis, value);
-            }
+            transform.RotateAround(maquette.transform.position, axis, value);
         }
     }
 }
