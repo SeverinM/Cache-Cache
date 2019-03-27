@@ -5,7 +5,8 @@ using Mirror;
 
 public class Interactable : NetworkBehaviour
 {
-    public GameObject Master { get; set; }
+    [SyncVar]
+    public GameObject Master;
 
     bool _interactable = true;
     bool _interacting = false;
@@ -44,8 +45,7 @@ public class Interactable : NetworkBehaviour
     public PointerExit OnExit { get; set; }
     public PointerEnter OnEnter;
 
-    [Command]
-    public void CmdStartInteraction(float timeStamp)
+    public void StartInteraction(float timeStamp)
     {
         Debug.Log(OnStart);
         Debug.Log(CanInteract);
@@ -105,7 +105,17 @@ public class Interactable : NetworkBehaviour
 
     private void OnMouseDown()
     {
-        Debug.Log("debut interaction");
-        CmdStartInteraction(Time.timeSinceLevelLoad);
+        Master.GetComponent<Player>().StartRelayInteraction(gameObject);
+    }
+
+    public void Teleport(Vector3 newPos)
+    {
+        RpcTeleport(newPos);
+    }
+
+    [ClientRpc]
+    public void RpcTeleport(Vector3 newPos)
+    {
+        transform.position = newPos;
     }
 }

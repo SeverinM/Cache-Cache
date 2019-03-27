@@ -132,4 +132,15 @@ public class Player : NetworkBehaviour
             Debug.LogWarning("Pas d'autorité sur le gameobject cible");
         }
     }
+
+    [Command]
+    public void CmdStartInteraction(GameObject obj)
+    {
+        obj.GetComponent<Interactable>().StartInteraction(Time.timeSinceLevelLoad);
+    }
+
+    public void StartRelayInteraction(GameObject gob)
+    {
+        CmdStartInteraction(gob);
+    }
 }

@@ -46,7 +46,7 @@ public class CustomNetworkManager : NetworkManager
             objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
             objSample.GetComponent<Interactable>().OnStart = StartInteraction;
             objSample.GetComponent<Interactable>().Master = player;
-            NetworkServer.SpawnWithClientAuthority(objSample, conn);
+            NetworkServer.Spawn(objSample);
 
             player1 = player;            
         }
@@ -63,7 +63,7 @@ public class CustomNetworkManager : NetworkManager
             objSample.GetComponent<Interactable>().OnStart = StartInteraction;
             objSample.GetComponent<Interactable>().Master = player;
             objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
-            NetworkServer.SpawnWithClientAuthority(objSample, conn);
+            NetworkServer.Spawn(objSample);
 
             player2 = player;
 
@@ -79,6 +79,6 @@ public class CustomNetworkManager : NetworkManager
 
     public void StartInteraction(GameObject gob, float timestamp)
     {
-        gob.transform.position += new Vector3(0, 10, 0);
+        gob.GetComponent<Interactable>().Teleport(gob.transform.position + new Vector3(0, 10, 0));
     }
 }
