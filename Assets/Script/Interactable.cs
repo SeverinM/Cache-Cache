@@ -8,6 +8,10 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     public GameObject Master;
 
+    [SyncVar]
+    bool grabbing = false;
+    public bool Grabbing => grabbing;
+
     [SerializeField]
     Material newMaterial;
 
@@ -57,6 +61,7 @@ public class Interactable : NetworkBehaviour
     public PointerExit OnExit { get; set; }
     public PointerEnter OnEnter;
 
+    #region securite
     public void StartInteraction(float timeStamp)
     {
         if (!CanInteract || OnStart == null)
@@ -110,9 +115,16 @@ public class Interactable : NetworkBehaviour
         OnExit(gameObject, position);
     }
 
+    #endregion
+
     private void OnMouseDown()
     {
         Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION);
+    }
+
+    private void OnMouseUp()
+    {
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.END_INTERACTION);
     }
 
     private void OnMouseEnter()
@@ -123,18 +135,6 @@ public class Interactable : NetworkBehaviour
     private void OnMouseExit()
     {
         Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION);
-    }
-
-    [ClientRpc]
-    public void RpcTeleport(Vector3 newPos)
-    {
-        transform.position = newPos;
-    }
-
-    [ClientRpc]
-    public void RpcChangeScale(float modifier)
-    {
-        transform.localScale *= modifier;
     }
 
     public void InteractionOnServer(TypeAction act)
@@ -161,4 +161,36 @@ public class Interactable : NetworkBehaviour
                 break;
         }
     }
+
+    public void ToggleGrab()
+    {
+        grabbing = !grabbing;
+    }
+
+    private void Update()
+    {
+        if(Input.GetMouseButtonUp(0) && hasAuthority)
+        {
+            grabbing = false;
+        }
+
+        if (grabbing && hasAuthority)
+        {
+            transform.position = AllInteractions.GetNextPosition(transform, Master.GetComponent<Camera>());
+        }
+    }
+
+    #region interactionClientServeur
+    [ClientRpc]
+    public void RpcTeleport(Vector3 newPos)
+    {
+        transform.position = newPos;
+    }
+
+    [ClientRpc]
+    public void RpcChangeScale(float modifier)
+    {
+        transform.localScale *= modifier;
+    }
+    #endregion
 }
