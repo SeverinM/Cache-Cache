@@ -8,6 +8,18 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     public GameObject Master;
 
+    [SerializeField]
+    Material newMaterial;
+
+    public enum TypeAction
+    {
+        START_INTERACTION,
+        END_INTERACTION,
+        MOVE_INTERACTION,
+        ENTER_INTERACTION,
+        EXIT_INTERACTION
+    }
+
     bool _interactable = true;
     bool _interacting = false;
     public bool Interacting
@@ -27,7 +39,7 @@ public class Interactable : NetworkBehaviour
         {
             if (_interactable && !value)
             {
-                CmdEndInteraction();
+                EndInteraction();
             }
             _interactable = value;
         }
@@ -47,8 +59,6 @@ public class Interactable : NetworkBehaviour
 
     public void StartInteraction(float timeStamp)
     {
-        Debug.Log(OnStart);
-        Debug.Log(CanInteract);
         if (!CanInteract || OnStart == null)
         {
             Debug.LogWarning("Start interaction a echoué : objet non interactible ou pas de delegate");
@@ -58,8 +68,7 @@ public class Interactable : NetworkBehaviour
         OnStart(gameObject, timeStamp);
     }
 
-    [Command]
-    public void CmdEndInteraction()
+    public void EndInteraction()
     {
         if (!CanInteract|| OnEnd == null)
         {
@@ -70,8 +79,7 @@ public class Interactable : NetworkBehaviour
         OnEnd(gameObject);
     }
 
-    [Command]
-    public void CmdMoveInteraction(Vector2 delta)
+    public void MoveInteraction(Vector2 delta)
     {
         if (!CanInteract || OnEnd == null)
         {
@@ -81,19 +89,18 @@ public class Interactable : NetworkBehaviour
         OnMove(gameObject,  delta);
     }
 
-    [Command]
-    public void CmdEnterInteraction(Vector3 position)
+    public void EnterInteraction(Vector3 position)
     {
         if (!CanInteract || OnEnter == null)
         {
             Debug.LogWarning("enter interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
+        Debug.Log(isServer);
         OnEnter(gameObject, position);
     }
 
-    [Command]
-    public void CmdExitInteraction(Vector3 position)
+    public void ExitInteraction(Vector3 position)
     {
         if (!CanInteract || OnExit == null)
         {
@@ -105,17 +112,53 @@ public class Interactable : NetworkBehaviour
 
     private void OnMouseDown()
     {
-        Master.GetComponent<Player>().StartRelayInteraction(gameObject);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION);
     }
 
-    public void Teleport(Vector3 newPos)
+    private void OnMouseEnter()
     {
-        RpcTeleport(newPos);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION);
+    }
+
+    private void OnMouseExit()
+    {
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION);
     }
 
     [ClientRpc]
     public void RpcTeleport(Vector3 newPos)
     {
         transform.position = newPos;
+    }
+
+    [ClientRpc]
+    public void RpcChangeScale(float modifier)
+    {
+        transform.localScale *= modifier;
+    }
+
+    public void InteractionOnServer(TypeAction act)
+    {
+        switch (act)
+        {
+            case TypeAction.START_INTERACTION:
+                StartInteraction(Time.timeSinceLevelLoad);
+                break;
+            case TypeAction.END_INTERACTION:
+                EndInteraction();
+                break;
+            case TypeAction.EXIT_INTERACTION:
+                ExitInteraction(Random.onUnitSphere);
+                break;
+            case TypeAction.MOVE_INTERACTION:
+                MoveInteraction(Vector2.zero);
+                break;
+            case TypeAction.ENTER_INTERACTION:
+                EnterInteraction(Vector2.zero);
+                break;
+            default:
+                Debug.LogError(act + " est inconnu");
+                break;
+        }
     }
 }

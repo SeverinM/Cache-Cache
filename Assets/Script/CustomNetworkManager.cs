@@ -44,7 +44,9 @@ public class CustomNetworkManager : NetworkManager
 
             GameObject objSample = Instantiate(prefabSwappable);
             objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
-            objSample.GetComponent<Interactable>().OnStart = StartInteraction;
+            objSample.GetComponent<Interactable>().OnStart = AllInteractions.START_INTERACTION;
+            objSample.GetComponent<Interactable>().OnExit = AllInteractions.EXIT_INTERACTION;
+            objSample.GetComponent<Interactable>().OnEnter = AllInteractions.ENTER_INTERACTION;
             objSample.GetComponent<Interactable>().Master = player;
             NetworkServer.Spawn(objSample);
 
@@ -60,7 +62,9 @@ public class CustomNetworkManager : NetworkManager
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
 
             GameObject objSample = Instantiate(prefabSwappable);
-            objSample.GetComponent<Interactable>().OnStart = StartInteraction;
+            objSample.GetComponent<Interactable>().OnStart = AllInteractions.START_INTERACTION;
+            objSample.GetComponent<Interactable>().OnExit = AllInteractions.EXIT_INTERACTION;
+            objSample.GetComponent<Interactable>().OnEnter = AllInteractions.ENTER_INTERACTION;
             objSample.GetComponent<Interactable>().Master = player;
             objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
             NetworkServer.Spawn(objSample);
@@ -75,10 +79,5 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().CmdInit(1, maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(2, maq2, instanceMan, player1);
         }
-    }
-
-    public void StartInteraction(GameObject gob, float timestamp)
-    {
-        gob.GetComponent<Interactable>().Teleport(gob.transform.position + new Vector3(0, 10, 0));
     }
 }

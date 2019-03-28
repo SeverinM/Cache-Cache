@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 1
+  m_LocalPlayerAuthority: 0
   m_AssetId: 167adfdb861e3464790af45e305ea85f
   m_SceneId: 0
 --- !u!65 &1134579988113221831
@@ -138,3 +138,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0
   Master: {fileID: 0}
+  newMaterial: {fileID: 2100000, guid: ada837659a9c0de4abc2fe6af10f60ba, type: 2}

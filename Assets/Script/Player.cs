@@ -134,13 +134,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdStartInteraction(GameObject obj)
+    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct)
     {
-        obj.GetComponent<Interactable>().StartInteraction(Time.timeSinceLevelLoad);
+        obj.GetComponent<Interactable>().InteractionOnServer(typeAct);
     }
 
-    public void StartRelayInteraction(GameObject gob)
+    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct)
     {
-        CmdStartInteraction(gob);
+        CmdInteraction(gob, typeAct);
     }
 }
