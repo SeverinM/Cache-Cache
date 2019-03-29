@@ -80,7 +80,7 @@ public class Player : NetworkBehaviour
                 }
             }
 
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Z))
+            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Q))
             {
                 CmdRelease();
             }

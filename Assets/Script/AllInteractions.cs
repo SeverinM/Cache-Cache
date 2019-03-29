@@ -30,11 +30,20 @@ public class AllInteractions
 
     public static Vector3 GetNextPosition(Transform trsf,Camera cam)
     {
-        Debug.Log(cam.gameObject);
         Plane pl = new Plane(cam.transform.forward, trsf.position);
         float dist = Vector3.Distance(trsf.transform.position, cam.transform.position);
-        Vector3 pos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
-        Vector3 delta = (pos - cam.transform.position).normalized;
-        return pl.ClosestPointOnPlane(cam.transform.position + (delta * dist));
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        float nb = 0;
+
+        if (pl.Raycast(ray,out nb))
+        {
+            return ray.GetPoint(nb);
+        }
+        else
+        {
+            Debug.Log("rien");
+            return Vector3.zero;
+        }
     }
 }

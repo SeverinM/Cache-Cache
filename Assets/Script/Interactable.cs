@@ -166,7 +166,7 @@ public class Interactable : NetworkBehaviour
         grabbing = !grabbing;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if(Input.GetMouseButtonUp(0) && hasAuthority)
         {
