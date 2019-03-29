@@ -134,13 +134,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct)
+    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct, GameObject master, Vector3 newPos)
     {
-        obj.GetComponent<Interactable>().InteractionOnServer(typeAct);
+        obj.GetComponent<Interactable>().InteractionOnServer(typeAct, master, newPos);
     }
 
-    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct)
+    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct, GameObject master, Vector3 optionalPos)
     {
-        CmdInteraction(gob, typeAct);
+        CmdInteraction(gob, typeAct, master, optionalPos);
     }
 }

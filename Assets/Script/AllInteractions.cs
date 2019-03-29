@@ -18,8 +18,9 @@ public class AllInteractions
         gob.GetComponent<Interactable>().ToggleGrab();
     }
 
-    public static void MOVE_INTERACTION(GameObject gob, Vector2 motion)
+    public static void MOVE_INTERACTION(GameObject gob, Vector3 newPosition)
     {
+        gob.GetComponent<Interactable>().RpcTeleport(newPosition);
     }
 
     public static void END_INTERACTION(GameObject gob)
@@ -29,8 +30,8 @@ public class AllInteractions
 
     public static Vector3 GetNextPosition(Transform trsf,Camera cam)
     {
+        Debug.Log(cam.gameObject);
         Plane pl = new Plane(cam.transform.forward, trsf.position);
-
         float dist = Vector3.Distance(trsf.transform.position, cam.transform.position);
         Vector3 pos = cam.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 1));
         Vector3 delta = (pos - cam.transform.position).normalized;

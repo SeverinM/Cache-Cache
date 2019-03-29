@@ -51,7 +51,7 @@ public class Interactable : NetworkBehaviour
 
     public delegate void StartInteractionDelegate(GameObject gob, float time);
     public delegate void EndInteractionDelegate(GameObject gob);
-    public delegate void MoveInteractionDelegate(GameObject gob, Vector2 delta);
+    public delegate void MoveInteractionDelegate(GameObject gob, Vector3 newPos);
     public delegate void PointerExit(GameObject gob, Vector3 position);
     public delegate void PointerEnter(GameObject gob, Vector3 position);
 
@@ -84,14 +84,14 @@ public class Interactable : NetworkBehaviour
         OnEnd(gameObject);
     }
 
-    public void MoveInteraction(Vector2 delta)
+    public void MoveInteraction(GameObject master, Vector3 pos)
     {
-        if (!CanInteract || OnEnd == null)
+        if (!CanInteract || OnMove == null)
         {
             Debug.LogWarning("move interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnMove(gameObject,  delta);
+        OnMove(gameObject, pos);
     }
 
     public void EnterInteraction(Vector3 position)
@@ -101,7 +101,6 @@ public class Interactable : NetworkBehaviour
             Debug.LogWarning("enter interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        Debug.Log(isServer);
         OnEnter(gameObject, position);
     }
 
@@ -119,25 +118,25 @@ public class Interactable : NetworkBehaviour
 
     private void OnMouseDown()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION, Master, Vector3.zero);
     }
 
     private void OnMouseUp()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.END_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.END_INTERACTION, Master, Vector3.zero);
     }
 
     private void OnMouseEnter()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION, Master, Vector3.zero);
     }
 
     private void OnMouseExit()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION, Master, Vector3.zero);
     }
 
-    public void InteractionOnServer(TypeAction act)
+    public void InteractionOnServer(TypeAction act, GameObject master, Vector3 pos)
     {
         switch (act)
         {
@@ -151,7 +150,7 @@ public class Interactable : NetworkBehaviour
                 ExitInteraction(Random.onUnitSphere);
                 break;
             case TypeAction.MOVE_INTERACTION:
-                MoveInteraction(Vector2.zero);
+                MoveInteraction(master, pos);
                 break;
             case TypeAction.ENTER_INTERACTION:
                 EnterInteraction(Vector2.zero);
@@ -174,9 +173,10 @@ public class Interactable : NetworkBehaviour
             grabbing = false;
         }
 
-        if (grabbing && hasAuthority)
+        if (grabbing && Master.GetComponent<NetworkIdentity>().hasAuthority)
         {
-            transform.position = AllInteractions.GetNextPosition(transform, Master.GetComponent<Camera>());
+            Vector3 position = AllInteractions.GetNextPosition(transform, Master.GetComponent<Camera>());
+            Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.MOVE_INTERACTION, Master, position);
         }
     }
 
