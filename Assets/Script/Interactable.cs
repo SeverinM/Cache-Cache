@@ -8,12 +8,11 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     public GameObject Master;
 
-    [SyncVar]
-    bool grabbing = false;
-    public bool Grabbing => grabbing;
-
     [SerializeField]
     Material newMaterial;
+
+    [SerializeField]
+    AnimationCurve animation;
 
     public enum TypeAction
     {
@@ -41,28 +40,20 @@ public class Interactable : NetworkBehaviour
         }
         set
         {
-            if (_interactable && !value)
-            {
-                EndInteraction();
-            }
             _interactable = value;
         }
     }
 
-    public delegate void StartInteractionDelegate(GameObject gob, float time);
-    public delegate void EndInteractionDelegate(GameObject gob);
-    public delegate void MoveInteractionDelegate(GameObject gob, Vector3 newPos);
-    public delegate void PointerExit(GameObject gob, Vector3 position);
-    public delegate void PointerEnter(GameObject gob, Vector3 position);
+    public delegate void InteractionDelegate (GameObject gob, GameObject master);
 
-    public StartInteractionDelegate OnStart { get; set; }
-    public EndInteractionDelegate OnEnd { get; set; }
-    public MoveInteractionDelegate OnMove { get; set; }
-    public PointerExit OnExit { get; set; }
-    public PointerEnter OnEnter;
+    public InteractionDelegate OnStart { get; set; }
+    public InteractionDelegate OnEnd { get; set; }
+    public InteractionDelegate OnMove { get; set; }
+    public InteractionDelegate OnExit { get; set; }
+    public InteractionDelegate OnEnter { get; set; }
 
     #region securite
-    public void StartInteraction(float timeStamp)
+    public void StartInteraction(GameObject master)
     {
         if (!CanInteract || OnStart == null)
         {
@@ -70,10 +61,10 @@ public class Interactable : NetworkBehaviour
             return;
         }
         _interacting = true;
-        OnStart(gameObject, timeStamp);
+        OnStart(gameObject, master);
     }
 
-    public void EndInteraction()
+    public void EndInteraction(GameObject master)
     {
         if (!CanInteract|| OnEnd == null)
         {
@@ -81,79 +72,83 @@ public class Interactable : NetworkBehaviour
             return;
         }
         _interacting = false;
-        OnEnd(gameObject);
+        OnEnd(gameObject, master);
     }
 
-    public void MoveInteraction(GameObject master, Vector3 pos)
+    public void MoveInteraction(GameObject master)
     {
         if (!CanInteract || OnMove == null)
         {
             Debug.LogWarning("move interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnMove(gameObject, pos);
+        OnMove(gameObject, master);
     }
 
-    public void EnterInteraction(Vector3 position)
+    public void EnterInteraction(GameObject master)
     {
         if (!CanInteract || OnEnter == null)
         {
             Debug.LogWarning("enter interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnEnter(gameObject, position);
+        OnEnter(gameObject, master);
     }
 
-    public void ExitInteraction(Vector3 position)
+    public void ExitInteraction(GameObject master)
     {
         if (!CanInteract || OnExit == null)
         {
             Debug.LogWarning("exit interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnExit(gameObject, position);
+        OnExit(gameObject, master);
     }
 
     #endregion
 
-    private void OnMouseDown()
+    private void Update()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION, Master, Vector3.zero);
+        //C'est le meme gameobject
+        if (Input.GetMouseButtonUp(0) && Master.GetComponent<Player>().HoldGameObject == gameObject)
+        {
+            Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.END_INTERACTION);
+        }
     }
 
-    private void OnMouseUp()
+    private void OnMouseDown()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.END_INTERACTION, Master, Vector3.zero);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION);
     }
 
     private void OnMouseEnter()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION, Master, Vector3.zero);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION);
     }
 
     private void OnMouseExit()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION, Master, Vector3.zero);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION);
     }
 
-    public void InteractionOnServer(TypeAction act, GameObject master, Vector3 pos)
+    public void InteractionOnServer(TypeAction act, GameObject master)
     {
         switch (act)
         {
             case TypeAction.START_INTERACTION:
-                StartInteraction(Time.timeSinceLevelLoad);
+                StartInteraction(master);
                 break;
             case TypeAction.END_INTERACTION:
-                EndInteraction();
+                EndInteraction(master);
                 break;
             case TypeAction.EXIT_INTERACTION:
-                ExitInteraction(Random.onUnitSphere);
+                ExitInteraction(master);
                 break;
             case TypeAction.MOVE_INTERACTION:
-                MoveInteraction(master, pos);
+                MoveInteraction(master);
                 break;
             case TypeAction.ENTER_INTERACTION:
-                EnterInteraction(Vector2.zero);
+                EnterInteraction(master);
                 break;
             default:
                 Debug.LogError(act + " est inconnu");
@@ -161,23 +156,17 @@ public class Interactable : NetworkBehaviour
         }
     }
 
-    public void ToggleGrab()
+    public IEnumerator Move(float timeEnd, Vector3 positionBegin , Vector3 positionEnd)
     {
-        grabbing = !grabbing;
-    }
-
-    private void LateUpdate()
-    {
-        if(Input.GetMouseButtonUp(0) && hasAuthority)
+        CanInteract = false;
+        float time = 0;
+        while (time < timeEnd)
         {
-            grabbing = false;
+            time += Time.deltaTime;
+            transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
+            yield return null;
         }
-
-        if (grabbing && Master.GetComponent<NetworkIdentity>().hasAuthority)
-        {
-            Vector3 position = AllInteractions.GetNextPosition(transform, Master.GetComponent<Camera>());
-            Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.MOVE_INTERACTION, Master, position);
-        }
+        CanInteract = true;
     }
 
     #region interactionClientServeur

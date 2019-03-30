@@ -47,6 +47,7 @@ public class CustomNetworkManager : NetworkManager
             objSample.GetComponent<Interactable>().OnStart = AllInteractions.START_INTERACTION;
             objSample.GetComponent<Interactable>().OnMove = AllInteractions.MOVE_INTERACTION;
             objSample.GetComponent<Interactable>().OnExit = AllInteractions.EXIT_INTERACTION;
+            objSample.GetComponent<Interactable>().OnEnd = AllInteractions.END_INTERACTION;
             objSample.GetComponent<Interactable>().Master = player;
             NetworkServer.Spawn(objSample);
 
@@ -66,6 +67,7 @@ public class CustomNetworkManager : NetworkManager
             objSample.GetComponent<Interactable>().OnMove = AllInteractions.MOVE_INTERACTION;
             objSample.GetComponent<Interactable>().Master = player;
             objSample.GetComponent<Interactable>().OnExit = AllInteractions.EXIT_INTERACTION;
+            objSample.GetComponent<Interactable>().OnEnd = AllInteractions.END_INTERACTION;
             objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
             NetworkServer.Spawn(objSample);
 

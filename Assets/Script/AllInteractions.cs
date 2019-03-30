@@ -5,27 +5,42 @@ using Mirror;
 
 public class AllInteractions
 {
-    public static void ENTER_INTERACTION(GameObject gob, Vector3 pos)
+    public static void ENTER_INTERACTION(GameObject gob, GameObject master)
     {
     }
 
-    public static void EXIT_INTERACTION(GameObject gob , Vector3 position)
+    public static void EXIT_INTERACTION(GameObject gob , GameObject master)
     {
     }
 
-    public static void START_INTERACTION(GameObject gob, float timeStamp)
+    public static void START_INTERACTION(GameObject gob, GameObject master)
     {
-        gob.GetComponent<Interactable>().ToggleGrab();
+        if (master.GetComponent<Player>().HoldGameObject == null)
+        {
+            Interactable inter = gob.GetComponent<Interactable>();
+            master.GetComponent<Player>().HoldGameObject = inter.gameObject;
+            inter.StartCoroutine(inter.Move(1, gob.transform.position, master.transform.position + (master.transform.forward * 100)));
+        }
     }
 
-    public static void MOVE_INTERACTION(GameObject gob, Vector3 newPosition)
+    public static void MOVE_INTERACTION(GameObject gob, GameObject master)
     {
-        gob.GetComponent<Interactable>().RpcTeleport(newPosition);
     }
 
-    public static void END_INTERACTION(GameObject gob)
+    public static void END_INTERACTION(GameObject gob, GameObject master)
     {
-        gob.GetComponent<Interactable>().ToggleGrab();
+        Interactable inter = gob.GetComponent<Interactable>();
+        Ray ray = master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+        Debug.DrawRay(ray.origin, ray.direction * 10000, Color.blue, 10);
+        foreach (RaycastHit hit in Physics.RaycastAll(ray,1000))
+        {
+            if (hit.collider.tag == "Maquette")
+            {
+                inter.StartCoroutine(inter.Move(1, gob.transform.position, hit.point));
+                master.GetComponent<Player>().HoldGameObject = null;
+                break;
+            }
+        }
     }
 
     public static Vector3 GetNextPosition(Transform trsf,Camera cam)

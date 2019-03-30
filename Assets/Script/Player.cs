@@ -9,6 +9,9 @@ public class Player : NetworkBehaviour
     public Vector3 ToOtherPlayer { get; set; }
 
     [SyncVar]
+    public GameObject HoldGameObject;
+
+    [SyncVar]
     GameObject maquette;
 
     [SyncVar]
@@ -84,6 +87,11 @@ public class Player : NetworkBehaviour
             {
                 CmdRelease();
             }
+
+            if (HoldGameObject != null && Input.GetMouseButtonUp(0))
+            {
+                CmdInteraction(HoldGameObject.gameObject, Interactable.TypeAction.END_INTERACTION, gameObject);
+            }
         }
     }
 
@@ -134,13 +142,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct, GameObject master, Vector3 newPos)
+    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct, GameObject master)
     {
-        obj.GetComponent<Interactable>().InteractionOnServer(typeAct, master, newPos);
+        obj.GetComponent<Interactable>().InteractionOnServer(typeAct, master);
     }
 
-    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct, GameObject master, Vector3 optionalPos)
+    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct)
     {
-        CmdInteraction(gob, typeAct, master, optionalPos);
+        CmdInteraction(gob, typeAct, gameObject);
     }
 }
