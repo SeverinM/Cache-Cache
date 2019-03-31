@@ -20,9 +20,10 @@ public class AllInteractions
             Interactable inter = gob.GetComponent<Interactable>();
             master.GetComponent<Player>().HoldGameObject = inter.gameObject;
             gob.transform.parent = master.transform;
-            IEnumerator routine = inter.Move(0.25f, gob.transform.position, master.transform.position + (master.transform.forward * 100));
+            IEnumerator routine = inter.Move(0.25f, gob.transform.position, gob.transform.position + new Vector3(0,10,0));
             inter.StartCoroutine(routine);
             inter.CurrentCoroutine = routine;
+            inter.RpcChangeMat();
         }
     }
 
@@ -46,6 +47,7 @@ public class AllInteractions
                 inter.StartCoroutine(inter.Move(0.25f, gob.transform.position, hit.point));
                 master.GetComponent<Player>().HoldGameObject = null;
                 gob.transform.parent = null;
+                inter.RpcChangeMat();
                 break;
             }
         }

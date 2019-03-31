@@ -149,6 +149,7 @@ public class Player : NetworkBehaviour
 
     public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct, Vector3 position)
     {
+        if (maquette == null) return;
         CmdInteraction(gob, typeAct, gameObject, position);
     }
 }

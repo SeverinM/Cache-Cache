@@ -9,7 +9,7 @@ public class Interactable : NetworkBehaviour
     public GameObject Master;
 
     [SerializeField]
-    Material newMaterial;
+    public Material newMaterial;
 
     [SerializeField]
     AnimationCurve animation;
@@ -171,6 +171,14 @@ public class Interactable : NetworkBehaviour
     public void RpcChangeScale(float modifier)
     {
         transform.localScale *= modifier;
+    }
+
+    [ClientRpc]
+    public void RpcChangeMat()
+    {
+        Material currentMat = GetComponent<MeshRenderer>().material;
+        GetComponent<MeshRenderer>().material = newMaterial;
+        newMaterial = currentMat;
     }
     #endregion
 }
