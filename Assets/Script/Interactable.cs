@@ -14,6 +14,8 @@ public class Interactable : NetworkBehaviour
     [SerializeField]
     AnimationCurve animation;
 
+    public IEnumerator CurrentCoroutine { get; set; }
+
     public enum TypeAction
     {
         START_INTERACTION,
@@ -44,7 +46,7 @@ public class Interactable : NetworkBehaviour
         }
     }
 
-    public delegate void InteractionDelegate (GameObject gob, GameObject master);
+    public delegate void InteractionDelegate (GameObject gob, GameObject master, Vector3 optionalPosition);
 
     public InteractionDelegate OnStart { get; set; }
     public InteractionDelegate OnEnd { get; set; }
@@ -53,7 +55,7 @@ public class Interactable : NetworkBehaviour
     public InteractionDelegate OnEnter { get; set; }
 
     #region securite
-    public void StartInteraction(GameObject master)
+    public void StartInteraction(GameObject master, Vector3 position)
     {
         if (!CanInteract || OnStart == null)
         {
@@ -61,10 +63,10 @@ public class Interactable : NetworkBehaviour
             return;
         }
         _interacting = true;
-        OnStart(gameObject, master);
+        OnStart(gameObject, master, position);
     }
 
-    public void EndInteraction(GameObject master)
+    public void EndInteraction(GameObject master, Vector3 position)
     {
         if (!CanInteract|| OnEnd == null)
         {
@@ -72,83 +74,74 @@ public class Interactable : NetworkBehaviour
             return;
         }
         _interacting = false;
-        OnEnd(gameObject, master);
+        OnEnd(gameObject, master, position);
     }
 
-    public void MoveInteraction(GameObject master)
+    public void MoveInteraction(GameObject master, Vector3 position)
     {
         if (!CanInteract || OnMove == null)
         {
             Debug.LogWarning("move interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnMove(gameObject, master);
+        OnMove(gameObject, master, position);
     }
 
-    public void EnterInteraction(GameObject master)
+    public void EnterInteraction(GameObject master, Vector3 position)
     {
         if (!CanInteract || OnEnter == null)
         {
             Debug.LogWarning("enter interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnEnter(gameObject, master);
+        OnEnter(gameObject, master, position);
     }
 
-    public void ExitInteraction(GameObject master)
+    public void ExitInteraction(GameObject master, Vector3 position)
     {
         if (!CanInteract || OnExit == null)
         {
             Debug.LogWarning("exit interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        OnExit(gameObject, master);
+        OnExit(gameObject, master, position);
     }
 
     #endregion
 
-    private void Update()
-    {
-        //C'est le meme gameobject
-        if (Input.GetMouseButtonUp(0) && Master.GetComponent<Player>().HoldGameObject == gameObject)
-        {
-            Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.END_INTERACTION);
-        }
-    }
-
     private void OnMouseDown()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION, Vector3.zero);
     }
 
     private void OnMouseEnter()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION, Vector3.zero);
     }
 
     private void OnMouseExit()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION);
+        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION, Vector3.zero);
     }
 
-    public void InteractionOnServer(TypeAction act, GameObject master)
+    public void InteractionOnServer(TypeAction act, GameObject master, Vector3 position)
     {
         switch (act)
         {
             case TypeAction.START_INTERACTION:
-                StartInteraction(master);
+                StartInteraction(master, position);
                 break;
             case TypeAction.END_INTERACTION:
-                EndInteraction(master);
+                EndInteraction(master, position);
                 break;
             case TypeAction.EXIT_INTERACTION:
-                ExitInteraction(master);
+                ExitInteraction(master, position);
                 break;
             case TypeAction.MOVE_INTERACTION:
-                MoveInteraction(master);
+                MoveInteraction(master, position);
                 break;
             case TypeAction.ENTER_INTERACTION:
-                EnterInteraction(master);
+                EnterInteraction(master, position);
                 break;
             default:
                 Debug.LogError(act + " est inconnu");
@@ -158,7 +151,6 @@ public class Interactable : NetworkBehaviour
 
     public IEnumerator Move(float timeEnd, Vector3 positionBegin , Vector3 positionEnd)
     {
-        CanInteract = false;
         float time = 0;
         while (time < timeEnd)
         {
@@ -166,7 +158,6 @@ public class Interactable : NetworkBehaviour
             transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
             yield return null;
         }
-        CanInteract = true;
     }
 
     #region interactionClientServeur

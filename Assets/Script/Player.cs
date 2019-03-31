@@ -90,7 +90,7 @@ public class Player : NetworkBehaviour
 
             if (HoldGameObject != null && Input.GetMouseButtonUp(0))
             {
-                CmdInteraction(HoldGameObject.gameObject, Interactable.TypeAction.END_INTERACTION, gameObject);
+                CmdInteraction(HoldGameObject.gameObject, Interactable.TypeAction.END_INTERACTION, gameObject, Input.mousePosition);
             }
         }
     }
@@ -142,13 +142,13 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct, GameObject master)
+    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct, GameObject master, Vector3 position)
     {
-        obj.GetComponent<Interactable>().InteractionOnServer(typeAct, master);
+        obj.GetComponent<Interactable>().InteractionOnServer(typeAct, master, position);
     }
 
-    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct)
+    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct, Vector3 position)
     {
-        CmdInteraction(gob, typeAct, gameObject);
+        CmdInteraction(gob, typeAct, gameObject, position);
     }
 }
