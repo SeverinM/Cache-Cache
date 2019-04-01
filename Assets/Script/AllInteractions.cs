@@ -39,6 +39,8 @@ public class AllInteractions
             inter.StopCoroutine(inter.CurrentCoroutine);
         }
 
+        position.x *= master.GetComponent<Camera>().pixelWidth;
+        position.y *= master.GetComponent<Camera>().pixelHeight;
         Ray ray = master.GetComponent<Camera>().ScreenPointToRay(position);
         foreach (RaycastHit hit in Physics.RaycastAll(ray,1000))
         {
@@ -50,25 +52,6 @@ public class AllInteractions
                 inter.RpcChangeMat();
                 break;
             }
-        }
-    }
-
-    public static Vector3 GetNextPosition(Transform trsf,Camera cam)
-    {
-        Plane pl = new Plane(cam.transform.forward, trsf.position);
-        float dist = Vector3.Distance(trsf.transform.position, cam.transform.position);
-        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
-
-        float nb = 0;
-
-        if (pl.Raycast(ray,out nb))
-        {
-            return ray.GetPoint(nb);
-        }
-        else
-        {
-            Debug.Log("rien");
-            return Vector3.zero;
         }
     }
 }

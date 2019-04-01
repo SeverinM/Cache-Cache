@@ -90,7 +90,11 @@ public class Player : NetworkBehaviour
 
             if (HoldGameObject != null && Input.GetMouseButtonUp(0))
             {
-                CmdInteraction(HoldGameObject.gameObject, Interactable.TypeAction.END_INTERACTION, gameObject, Input.mousePosition);
+                Vector3 relativeMousePos = Input.mousePosition;
+                Camera cam = GetComponent<Camera>();
+                relativeMousePos.x /= cam.pixelWidth;
+                relativeMousePos.y /= cam.pixelHeight;
+                CmdInteraction(HoldGameObject.gameObject, Interactable.TypeAction.END_INTERACTION, gameObject, relativeMousePos);
             }
         }
     }
