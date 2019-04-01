@@ -109,22 +109,19 @@ public class Interactable : NetworkBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        OnStart = AllInteractions.START_INTERACTION;
+        OnEnd = AllInteractions.END_INTERACTION;
+    }
+
     private void OnMouseDown()
     {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.START_INTERACTION, Vector3.zero);
+        Debug.Log("start 0");
+        Interaction(TypeAction.START_INTERACTION, Master, Vector3.zero);
     }
 
-    private void OnMouseEnter()
-    {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.ENTER_INTERACTION, Vector3.zero);
-    }
-
-    private void OnMouseExit()
-    {
-        Master.GetComponent<Player>().RelayInteraction(gameObject, TypeAction.EXIT_INTERACTION, Vector3.zero);
-    }
-
-    public void InteractionOnServer(TypeAction act, GameObject master, Vector3 position)
+    public void Interaction(TypeAction act, GameObject master, Vector3 position)
     {
         switch (act)
         {
@@ -159,26 +156,4 @@ public class Interactable : NetworkBehaviour
             yield return null;
         }
     }
-
-    #region interactionClientServeur
-    [ClientRpc]
-    public void RpcTeleport(Vector3 newPos)
-    {
-        transform.position = newPos;
-    }
-
-    [ClientRpc]
-    public void RpcChangeScale(float modifier)
-    {
-        transform.localScale *= modifier;
-    }
-
-    [ClientRpc]
-    public void RpcChangeMat()
-    {
-        Material currentMat = GetComponent<MeshRenderer>().material;
-        GetComponent<MeshRenderer>().material = newMaterial;
-        newMaterial = currentMat;
-    }
-    #endregion
 }

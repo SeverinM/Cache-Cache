@@ -15,15 +15,15 @@ public class AllInteractions
 
     public static void START_INTERACTION(GameObject gob, GameObject master, Vector3 position)
     {
-        if (master.GetComponent<Player>().HoldGameObject == null)
+        maquette mqt = master.GetComponent<Player>().maquette.GetComponent<maquette>();
+        if (mqt.holdGameObject == null)
         {
             Interactable inter = gob.GetComponent<Interactable>();
-            master.GetComponent<Player>().HoldGameObject = inter.gameObject;
+            mqt.holdGameObject = inter.gameObject;
             gob.transform.parent = master.transform;
             IEnumerator routine = inter.Move(0.25f, gob.transform.position, gob.transform.position + new Vector3(0,10,0));
             inter.StartCoroutine(routine);
             inter.CurrentCoroutine = routine;
-            inter.RpcChangeMat();
         }
     }
 
@@ -47,9 +47,8 @@ public class AllInteractions
             if (hit.collider.tag == "Maquette")
             {
                 inter.StartCoroutine(inter.Move(0.25f, gob.transform.position, hit.point));
-                master.GetComponent<Player>().HoldGameObject = null;
+                master.GetComponent<Player>().maquette.GetComponent<maquette>().holdGameObject = null;
                 gob.transform.parent = null;
-                inter.RpcChangeMat();
                 break;
             }
         }

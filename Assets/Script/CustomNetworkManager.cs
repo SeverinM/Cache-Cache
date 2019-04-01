@@ -34,23 +34,16 @@ public class CustomNetworkManager : NetworkManager
 
         nbPlayer++;
 
-        GameObject objSample = Instantiate(prefabSwappable);
-        objSample.GetComponent<Interactable>().OnStart = AllInteractions.START_INTERACTION;
-        objSample.GetComponent<Interactable>().OnMove = AllInteractions.MOVE_INTERACTION;
-        objSample.GetComponent<Interactable>().Master = player;
-        objSample.GetComponent<Interactable>().OnExit = AllInteractions.EXIT_INTERACTION;
-        objSample.GetComponent<Interactable>().OnEnd = AllInteractions.END_INTERACTION;
-
         if (nbPlayer == 1)
         {
             instanceMan = Instantiate(managerPrefab);
             NetworkServer.Spawn(instanceMan);
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
+            maq1.GetComponent<maquette>().master = player;
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
             NetworkServer.SpawnWithClientAuthority(maq1, conn);
 
-            objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
             player1 = player;            
         }
 
@@ -59,9 +52,9 @@ public class CustomNetworkManager : NetworkManager
             maq2 = Instantiate(prefab2);
             maq2.transform.position = player.transform.position;
             maq2.transform.parent = player.transform;
+            maq2.GetComponent<maquette>().master = player;
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
-            objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
 
             player2 = player;
 
@@ -73,7 +66,5 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().CmdInit(1, maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(2, maq2, instanceMan, player1);
         }
-
-        NetworkServer.Spawn(objSample);
     }
 }

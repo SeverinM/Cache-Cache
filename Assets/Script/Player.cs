@@ -9,10 +9,7 @@ public class Player : NetworkBehaviour
     public Vector3 ToOtherPlayer { get; set; }
 
     [SyncVar]
-    public GameObject HoldGameObject;
-
-    [SyncVar]
-    GameObject maquette;
+    public GameObject maquette;
 
     [SyncVar]
     GameObject otherPlayer;
@@ -87,15 +84,6 @@ public class Player : NetworkBehaviour
             {
                 CmdRelease();
             }
-
-            if (HoldGameObject != null && Input.GetMouseButtonUp(0))
-            {
-                Vector3 relativeMousePos = Input.mousePosition;
-                Camera cam = GetComponent<Camera>();
-                relativeMousePos.x /= cam.pixelWidth;
-                relativeMousePos.y /= cam.pixelHeight;
-                CmdInteraction(HoldGameObject.gameObject, Interactable.TypeAction.END_INTERACTION, gameObject, relativeMousePos);
-            }
         }
     }
 
@@ -143,17 +131,5 @@ public class Player : NetworkBehaviour
         {
             Debug.LogWarning("Pas d'autorité sur le gameobject cible");
         }
-    }
-
-    [Command]
-    public void CmdInteraction(GameObject obj, Interactable.TypeAction typeAct, GameObject master, Vector3 position)
-    {
-        obj.GetComponent<Interactable>().InteractionOnServer(typeAct, master, position);
-    }
-
-    public void RelayInteraction(GameObject gob, Interactable.TypeAction typeAct, Vector3 position)
-    {
-        if (maquette == null) return;
-        CmdInteraction(gob, typeAct, gameObject, position);
     }
 }
