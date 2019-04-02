@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ServerOnly: 0
-  m_LocalPlayerAuthority: 0
+  m_LocalPlayerAuthority: 1
   m_AssetId: 167adfdb861e3464790af45e305ea85f
   m_SceneId: 0
 --- !u!65 &1134579988113221831
@@ -163,3 +163,5 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  otherMat: {fileID: 2100000, guid: d19d2f56fd22e624f83318aeaf3b054d, type: 2}
+  dragg: 0

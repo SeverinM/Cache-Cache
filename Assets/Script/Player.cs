@@ -13,6 +13,7 @@ public class Player : NetworkBehaviour
 
     [SyncVar]
     GameObject otherPlayer;
+    public GameObject OtherPlayer => otherPlayer;
 
     [SyncVar]
     GameObject man;
@@ -112,24 +113,21 @@ public class Player : NetworkBehaviour
         }
     }
 
-    [Command]
-    public void CmdChangeAuthority(GameObject target)
+    public void Move(GameObject who)
     {
-        if (otherPlayer == null)
-        {
-            Debug.LogWarning("Aucun autre joueur connu , abandon");
-            return;
-        }
+        CmdSpawn(who, gameObject, who.transform.position + (OtherPlayer.GetComponent<Player>().maquette.transform.position - maquette.transform.position));
+    }
 
-        if (target.GetComponent<NetworkIdentity>().hasAuthority)
-        {
-            target.GetComponent<NetworkIdentity>().RemoveClientAuthority(connectionToClient);
-            target.GetComponent<NetworkIdentity>().AssignClientAuthority(otherPlayer.GetComponent<NetworkIdentity>().connectionToClient);
-            target.GetComponent<Interactable>().Master = otherPlayer;
-        }
-        else
-        {
-            Debug.LogWarning("Pas d'autorité sur le gameobject cible");
-        }
+    [Command]
+    public void CmdSpawn(GameObject who, GameObject player, Vector3 position)
+    {
+        Debug.Log(who);
+        who.transform.parent = null;
+        GameObject instance = Instantiate(who);
+        instance.transform.position = position;
+        NetworkServer.SpawnWithClientAuthority(instance, player);
+        NetworkServer.UnSpawn(who);
+        Destroy(who);
+        //NetworkServer.SpawnWithClientAuthority(who, player.GetComponent<NetworkIdentity>().connectionToClient);
     }
 }

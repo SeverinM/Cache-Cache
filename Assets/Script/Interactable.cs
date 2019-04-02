@@ -14,6 +14,28 @@ public class Interactable : NetworkBehaviour
     [SerializeField]
     AnimationCurve animation;
 
+    [SyncVar]
+    bool spawned = false;
+    public bool Spawned
+    {
+        get
+        {
+            return spawned;
+        }
+        set
+        {
+            if (!value)
+            {
+                Debug.LogError("impossible de mettre a false");
+            }
+            spawned = true;
+        }
+    }
+
+    [SerializeField]
+    Material otherMat;
+    public Material OtherMat => otherMat;
+
     public IEnumerator CurrentCoroutine { get; set; }
 
     public enum TypeAction
@@ -25,26 +47,10 @@ public class Interactable : NetworkBehaviour
         EXIT_INTERACTION
     }
 
-    bool _interactable = true;
-    bool _interacting = false;
-    public bool Interacting
-    {
-        get
-        {
-            return _interacting;
-        }
-    }
-    public bool CanInteract
-    {
-        get
-        {
-            return _interactable;
-        }
-        set
-        {
-            _interactable = value;
-        }
-    }
+    public bool dragg = false;
+
+    bool _canInteract = true;
+    public bool CanInteract => _canInteract;
 
     public delegate void InteractionDelegate (GameObject gob, GameObject master, Vector3 optionalPosition);
 
@@ -62,18 +68,16 @@ public class Interactable : NetworkBehaviour
             Debug.LogWarning("Start interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        _interacting = true;
         OnStart(gameObject, master, position);
     }
 
     public void EndInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract|| OnEnd == null)
+        if (!CanInteract || OnEnd == null)
         {
             Debug.LogWarning("End interaction a echoué : objet non interactible ou pas de delegate");
             return;
         }
-        _interacting = false;
         OnEnd(gameObject, master, position);
     }
 
@@ -113,11 +117,11 @@ public class Interactable : NetworkBehaviour
     {
         OnStart = AllInteractions.START_INTERACTION;
         OnEnd = AllInteractions.END_INTERACTION;
+        OnMove = AllInteractions.MOVE_INTERACTION;
     }
 
     private void OnMouseDown()
     {
-        Debug.Log("start 0");
         Interaction(TypeAction.START_INTERACTION, Master, Vector3.zero);
     }
 
@@ -148,6 +152,7 @@ public class Interactable : NetworkBehaviour
 
     public IEnumerator Move(float timeEnd, Vector3 positionBegin , Vector3 positionEnd)
     {
+        dragg = true;
         float time = 0;
         while (time < timeEnd)
         {
@@ -155,5 +160,14 @@ public class Interactable : NetworkBehaviour
             transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
             yield return null;
         }
+        dragg = false;
+    }
+
+    public void ToggleMat()
+    {
+        MeshRenderer mesh = GetComponent<MeshRenderer>();
+        Material mat = mesh.material;
+        mesh.material = otherMat;
+        otherMat = mat;
     }
 }
