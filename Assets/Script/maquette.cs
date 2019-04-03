@@ -13,6 +13,12 @@ public class maquette : NetworkBehaviour
 
     public Vector3 lastLegitPos;
 
+    [Command]
+    public void CmdTest(GameObject gob)
+    {
+        Debug.Log(gob);
+    }
+
     private void Update()
     {
         if (!hasAuthority) return;
@@ -56,14 +62,16 @@ public class maquette : NetworkBehaviour
         {
             if (Input.GetMouseButtonDown(1))
             {
+                GameObject obj;
                 Ray ray = master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
                 foreach (RaycastHit hit in Physics.RaycastAll(ray, 1000))
                 {
                     if (hit.collider.GetComponent<Interactable>())
                     {
+                        obj = hit.collider.gameObject;
                         Player plr = master.GetComponent<Player>();
-                        hit.collider.transform.parent = null;
-                        plr.Move(hit.collider.gameObject);
+                        Debug.Log(obj);
+                        CmdTest(obj);
                         break;
                     }
                 }

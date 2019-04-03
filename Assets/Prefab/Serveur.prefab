@@ -34,7 +34,7 @@ Transform:
   m_LocalPosition: {x: 38.32604, y: 7.24547, z: -13442.369}
   m_LocalScale: {x: 100, y: 1, z: 100}
   m_Children:
-  - {fileID: 1812896050888600458}
+  - {fileID: 2806915954728233408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0.1
+  syncInterval: 0.03
   compressRotation: 1
 --- !u!54 &2707035440059666810
 Rigidbody:
@@ -256,9 +256,14 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8576787246521260997, guid: 167adfdb861e3464790af45e305ea85f,
+        type: 3}
+      propertyPath: syncInterval
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 167adfdb861e3464790af45e305ea85f, type: 3}
---- !u!4 &1812896050888600458 stripped
+--- !u!4 &2806915954728233408 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4601720500503151199, guid: 167adfdb861e3464790af45e305ea85f,
     type: 3}

@@ -58,6 +58,7 @@ public class Player : NetworkBehaviour
         man = manager;
         maquette = maq;
         otherPlayer = other;
+        maquette.transform.parent = null;
     }
 
     private void Update()
@@ -111,23 +112,5 @@ public class Player : NetworkBehaviour
         {
             transform.RotateAround(maquette.transform.position, axis, value);
         }
-    }
-
-    public void Move(GameObject who)
-    {
-        CmdSpawn(who, gameObject, who.transform.position + (OtherPlayer.GetComponent<Player>().maquette.transform.position - maquette.transform.position));
-    }
-
-    [Command]
-    public void CmdSpawn(GameObject who, GameObject player, Vector3 position)
-    {
-        Debug.Log(who);
-        who.transform.parent = null;
-        GameObject instance = Instantiate(who);
-        instance.transform.position = position;
-        NetworkServer.SpawnWithClientAuthority(instance, player);
-        NetworkServer.UnSpawn(who);
-        Destroy(who);
-        //NetworkServer.SpawnWithClientAuthority(who, player.GetComponent<NetworkIdentity>().connectionToClient);
     }
 }
