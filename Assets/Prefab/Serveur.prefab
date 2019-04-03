@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1756315516020886327}
   - component: {fileID: 5983892617063216763}
   - component: {fileID: 2707035440059666810}
-  - component: {fileID: 9082908449374456224}
+  - component: {fileID: 1160448736820247550}
   m_Layer: 0
   m_Name: Serveur
   m_TagString: Maquette
@@ -142,7 +142,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &9082908449374456224
+--- !u!114 &1160448736820247550
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,14 +151,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 5192233636339398333}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c86a3b3572995f64088deba9eb936bd6, type: 3}
+  m_Script: {fileID: 11500000, guid: 734b48bea0b204338958ee3d885e11f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  master: {fileID: 0}
-  holdGameObject: {fileID: 0}
-  copiedGob: {fileID: 0}
-  lastLegitPos: {x: 0, y: 0, z: 0}
+  syncInterval: 0
+  compressRotation: 1
+  target: {fileID: 2806915954728233408}
 --- !u!1001 &1812896050888600479
 PrefabInstance:
   m_ObjectHideFlags: 0

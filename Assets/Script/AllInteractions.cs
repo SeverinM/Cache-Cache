@@ -15,18 +15,18 @@ public class AllInteractions
 
     public static void START_INTERACTION(GameObject gob, GameObject master, Vector3 position)
     {
-        maquette mqt = master.GetComponent<Player>().maquette.GetComponent<maquette>();
-        if (mqt.holdGameObject == null)
+        Player plr = master.GetComponent<Player>();
+        if (plr.holdGameObject == null)
         {
             Interactable inter = gob.GetComponent<Interactable>();
-            mqt.copiedGob = DuplicateVisual(gob);
-            mqt.holdGameObject = inter.gameObject;
-            mqt.copiedGob.GetComponent<MeshRenderer>().material = mqt.holdGameObject.GetComponent<Interactable>().OtherMat;
+            plr.copiedGob = DuplicateVisual(gob);
+            plr.holdGameObject = inter.gameObject;
+            plr.copiedGob.GetComponent<MeshRenderer>().material = plr.holdGameObject.GetComponent<Interactable>().OtherMat;
             gob.transform.parent = master.transform;
             IEnumerator routine = inter.Move(0.25f, gob.transform.position, gob.transform.position + new Vector3(0,10,0));
             inter.StartCoroutine(routine);
             inter.CurrentCoroutine = routine;
-            mqt.lastLegitPos = position;
+            plr.lastLegitPos = position;
         }
     }
 
@@ -35,7 +35,7 @@ public class AllInteractions
         if (!gob.GetComponent<Interactable>().dragg)
         {
             gob.transform.position = position + new Vector3(0, 10, 0);
-            master.GetComponent<Player>().maquette.GetComponent<maquette>().lastLegitPos = position + new Vector3(0, 5, 0);
+            master.GetComponent<Player>().lastLegitPos = position + new Vector3(0, 5, 0);
         }
     }
 
@@ -48,11 +48,11 @@ public class AllInteractions
             inter.StopCoroutine(inter.CurrentCoroutine);
         }
 
-        maquette mqt = master.GetComponent<Player>().maquette.GetComponent<maquette>();
-        inter.StartCoroutine(inter.Move(0.1f, gob.transform.position, mqt.lastLegitPos));
-        master.GetComponent<Player>().maquette.GetComponent<maquette>().holdGameObject = null;
+        Player pl = master.GetComponent<Player>();
+        inter.StartCoroutine(inter.Move(0.1f, gob.transform.position, pl.lastLegitPos));
+        master.GetComponent<Player>().holdGameObject = null;
         gob.transform.parent = master.GetComponent<Player>().maquette.transform;
-        GameObject.Destroy(mqt.copiedGob);
+        GameObject.Destroy(pl.copiedGob);
     }
 
     public static GameObject DuplicateVisual(GameObject gob)
