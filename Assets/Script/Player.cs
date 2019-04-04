@@ -9,52 +9,43 @@ public class Player : NetworkBehaviour
     public Vector3 ToOtherPlayer { get; set; }
 
     [SyncVar]
-    GameObject maquette;
+    public GameObject maquette;
+
+    [SyncVar]
+    GameObject otherPlayer;
+    public GameObject OtherPlayer => otherPlayer;
 
     [SyncVar]
     GameObject man;
 
+    public GameObject holdGameObject;
+    GameObject copiedGob;
+    public GameObject CopiedGob
+    {
+        get
+        {
+            return copiedGob;
+        }
+
+        set
+        {
+            Destroy(copiedGob);
+            copiedGob = value;
+        }
+    }
+    
+
+    public Vector3 lastLegitPos;
+
     [SyncVar]
     public int playerIdentity;
 
-    [ClientRpc]
-    public void RpcUpdateCam()
-    {
-        if (hasAuthority)
-        {
-            foreach (Camera cam in GameObject.FindObjectsOfType<Camera>())
-            {
-                if (cam.gameObject != gameObject)
-                {
-                    cam.enabled = false;
-                }
-                else
-                {
-                    cam.enabled = true;
-                }
-            }
-        }
-    }
-
-    [ClientRpc]
-    public void RpcLook(Vector3 vec, int amount)
-    {
-        if (isLocalPlayer)
-        {
-            transform.position = vec + new Vector3(100, 100, 0);
-            transform.RotateAround(vec, Vector3.up, amount);
-            transform.LookAt(vec);
-        }
-    }
-
     [Command]
-    public void CmdInit(int identity, GameObject maq, GameObject manager)
+    public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
     {
-        playerIdentity = identity;
-        man = manager;
-        maquette = maq;
+        gob.GetComponent<NetworkIdentity>().RemoveClientAuthority(oldPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+        gob.GetComponent<NetworkIdentity>().AssignClientAuthority(newPlayer.GetComponent<NetworkIdentity>().connectionToClient);
     }
-
 
     private void Update()
     {
@@ -77,13 +68,31 @@ public class Player : NetworkBehaviour
                 }
             }
 
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Z))
+            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Q))
             {
                 CmdRelease();
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+                {
+                    if (hit.collider.GetComponent<Interactable>())
+                    {
+                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, gameObject, hit.point);
+                        break;
+                    }
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0) && holdGameObject)
+            {
+                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION, gameObject, Vector3.zero);
             }
         }
     }
 
+    #region RPC et command
     [Command]
     public void CmdAcquire(Vector3 pos, Vector3 axis, float value)
     {
@@ -105,8 +114,60 @@ public class Player : NetworkBehaviour
     {
         if (hasAuthority)
         {
-            Debug.Log(gameObject);
             transform.RotateAround(maquette.transform.position, axis, value);
         }
     }
+
+    [ClientRpc]
+    public void RpcUpdateCam()
+    {
+        if (hasAuthority)
+        {
+            foreach (Camera cam in GameObject.FindObjectsOfType<Camera>())
+            {
+                if (cam.gameObject != gameObject)
+                {
+                    cam.enabled = false;
+                }
+                else
+                {
+                    cam.enabled = true;
+                }
+            }
+        }
+    }
+
+    [Command]
+    public void CmdTeleport(GameObject gob , Vector3 vec)
+    {
+        RpcTeleport(gob, vec);
+    }
+
+    [ClientRpc]
+    public void RpcTeleport(GameObject gob , Vector3 vec)
+    {
+        gob.transform.position = vec;
+    }
+
+    [ClientRpc]
+    public void RpcLook(Vector3 vec, int amount)
+    {
+        if (isLocalPlayer)
+        {
+            transform.position = vec + new Vector3(100, 100, 0);
+            transform.RotateAround(vec, Vector3.up, amount);
+            transform.LookAt(vec);
+        }
+    }
+
+    [Command]
+    public void CmdInit(int identity, GameObject maq, GameObject manager, GameObject other)
+    {
+        playerIdentity = identity;
+        man = manager;
+        maquette = maq;
+        otherPlayer = other;
+    }
+
+    #endregion
 }
