@@ -17,7 +17,7 @@ public class AllInteractions
     public static Interactable.InteractionDelegate GetDelegate(int index)
     {
         Interactable.InteractionDelegate output = delegate { };
-            Actions act = (Actions)index;
+        Actions act = (Actions)index;
 
         switch (act)
         {
@@ -31,6 +31,10 @@ public class AllInteractions
 
             case Actions.MOVE_DRAG:
                 output += MOVE_DRAG;
+                break;
+
+            case Actions.TELEPORT:
+                output += TELEPORT;
                 break;
         }
 

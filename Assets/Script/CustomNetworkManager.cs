@@ -40,18 +40,6 @@ public class CustomNetworkManager : NetworkManager
             NetworkServer.Spawn(instanceMan);
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
-
-            foreach(Transform trsf in maq1.transform)
-            {
-                GameObject gob = Instantiate(prefabSwappable);
-                gob.GetComponent<Interactable>().Master = player;
-                gob.transform.position = trsf.transform.position;
-                NetworkServer.SpawnWithClientAuthority(gob, conn);
-                gob.GetComponent<Interactable>().RpcAddStart(0);
-                gob.GetComponent<Interactable>().RpcAddMove(2);
-                gob.GetComponent<Interactable>().RpcAddEnd(1);
-            }
-
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
             NetworkServer.SpawnWithClientAuthority(maq1, conn);
 
@@ -63,13 +51,24 @@ public class CustomNetworkManager : NetworkManager
             maq2 = Instantiate(prefab2);
             maq2.transform.position = player.transform.position;
             maq2.transform.parent = player.transform;
+            player2 = player;
 
+            //Interprete tous les enfants pour spawn
             foreach (Transform trsf in maq2.transform)
             {
                 GameObject gob = Instantiate(prefabSwappable);
-                gob.GetComponent<Interactable>().Master = player;
+                gob.GetComponent<Interactable>().Master = player2;
                 gob.transform.position = trsf.transform.position;
                 NetworkServer.SpawnWithClientAuthority(gob, conn);
+                gob.GetComponent<Interactable>().RpcAddStart(4);
+            }
+
+            foreach (Transform trsf in maq1.transform)
+            {
+                GameObject gob = Instantiate(prefabSwappable);
+                gob.GetComponent<Interactable>().Master = player1;
+                gob.transform.position = trsf.transform.position;
+                NetworkServer.SpawnWithClientAuthority(gob, player1.GetComponent<NetworkIdentity>().connectionToClient);
                 gob.GetComponent<Interactable>().RpcAddStart(0);
                 gob.GetComponent<Interactable>().RpcAddMove(2);
                 gob.GetComponent<Interactable>().RpcAddEnd(1);
@@ -77,8 +76,6 @@ public class CustomNetworkManager : NetworkManager
 
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
-
-            player2 = player;
 
             //Initialize var
             Vector3 toTwo = player2.transform.position - player1.transform.position;
