@@ -16,6 +16,7 @@ public class Interactable : NetworkBehaviour
 
     [SyncVar]
     bool spawned = false;
+
     public bool Spawned
     {
         get
@@ -47,10 +48,9 @@ public class Interactable : NetworkBehaviour
         EXIT_INTERACTION
     }
 
-    public bool dragg = false;
-
     bool _canInteract = true;
     public bool CanInteract => _canInteract;
+    public bool Dragg = false;
 
     public delegate void InteractionDelegate (GameObject gob, GameObject master, Vector3 optionalPosition);
 
@@ -115,14 +115,24 @@ public class Interactable : NetworkBehaviour
 
     private void Awake()
     {
-        OnStart = AllInteractions.START_INTERACTION;
-        OnEnd = AllInteractions.END_INTERACTION;
-        OnMove = AllInteractions.MOVE_INTERACTION;
+        OnEnd = AllInteractions.END_DRAG;
+        OnMove = AllInteractions.MOVE_DRAG;
+        OnStart = AllInteractions.START_DRAG;
     }
 
-    private void OnMouseDown()
+    private void Update()
     {
-        Interaction(TypeAction.START_INTERACTION, Master, Vector3.zero);
+        if (Dragg)
+        {
+            foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+            {
+                if (hit.collider.tag == "Maquette")
+                {
+                    Interaction(TypeAction.MOVE_INTERACTION, Master, hit.point);
+                    break;
+                }
+            }
+        }
     }
 
     public void Interaction(TypeAction act, GameObject master, Vector3 position)
@@ -152,7 +162,6 @@ public class Interactable : NetworkBehaviour
 
     public IEnumerator Move(float timeEnd, Vector3 positionBegin , Vector3 positionEnd)
     {
-        dragg = true;
         float time = 0;
         while (time < timeEnd)
         {
@@ -160,7 +169,6 @@ public class Interactable : NetworkBehaviour
             transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
             yield return null;
         }
-        dragg = false;
     }
 
     public void ToggleMat()

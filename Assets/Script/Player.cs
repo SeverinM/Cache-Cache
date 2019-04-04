@@ -19,16 +19,32 @@ public class Player : NetworkBehaviour
     GameObject man;
 
     public GameObject holdGameObject;
-    public GameObject copiedGob;
+    GameObject copiedGob;
+    public GameObject CopiedGob
+    {
+        get
+        {
+            return copiedGob;
+        }
+
+        set
+        {
+            Destroy(copiedGob);
+            copiedGob = value;
+        }
+    }
+    
+
     public Vector3 lastLegitPos;
 
     [SyncVar]
     public int playerIdentity;
 
     [Command]
-    public void CmdTest(GameObject gob)
+    public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
     {
-        Debug.Log(gob);
+        gob.GetComponent<NetworkIdentity>().RemoveClientAuthority(oldPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+        gob.GetComponent<NetworkIdentity>().AssignClientAuthority(newPlayer.GetComponent<NetworkIdentity>().connectionToClient);
     }
 
     private void Update()
@@ -57,62 +73,23 @@ public class Player : NetworkBehaviour
                 CmdRelease();
             }
 
-            if (Input.GetMouseButtonDown(0) && holdGameObject == null)
+            if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-                foreach (RaycastHit hit in Physics.RaycastAll(ray, 1000))
+                foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
                 {
                     if (hit.collider.GetComponent<Interactable>())
                     {
-                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, gameObject, Vector3.zero);
+                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, gameObject, hit.point);
                         break;
                     }
                 }
             }
 
-            if (holdGameObject != null)
+            if (Input.GetMouseButtonUp(0) && holdGameObject)
             {
-                if (Input.GetMouseButtonUp(0))
-                {
-                    Vector3 mouse = Input.mousePosition;
-                    mouse.x /= GetComponent<Camera>().pixelWidth;
-                    mouse.y /= GetComponent<Camera>().pixelHeight;
-                    holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION, gameObject, mouse);
-                }
-                else
-                {
-                    Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-                    foreach (RaycastHit hit in Physics.RaycastAll(ray, 1000))
-                    {
-                        if (!hit.collider.GetComponent<Interactable>())
-                        {
-                            holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.MOVE_INTERACTION, gameObject, hit.point);
-                            break;
-                        }
-                    }
-                }
+                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION, gameObject, Vector3.zero);
             }
-
-            else
-            {
-                if (Input.GetMouseButtonDown(1))
-                {
-                    GameObject obj;
-                    Ray ray = GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
-                    foreach (RaycastHit hit in Physics.RaycastAll(ray, 1000))
-                    {
-                        if (hit.collider.GetComponent<Interactable>())
-                        {
-                            obj = hit.collider.gameObject;
-                            Player plr = GetComponent<Player>();
-                            obj.transform.position += new Vector3(0, 20, 0);
-                            break;
-                        }
-                    }
-                }
-
-            }
-         }
+        }
     }
 
     #region RPC et command
@@ -160,6 +137,18 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [Command]
+    public void CmdTeleport(GameObject gob , Vector3 vec)
+    {
+        RpcTeleport(gob, vec);
+    }
+
+    [ClientRpc]
+    public void RpcTeleport(GameObject gob , Vector3 vec)
+    {
+        gob.transform.position = vec;
+    }
+
     [ClientRpc]
     public void RpcLook(Vector3 vec, int amount)
     {
@@ -178,7 +167,7 @@ public class Player : NetworkBehaviour
         man = manager;
         maquette = maq;
         otherPlayer = other;
-        maquette.transform.parent = null;
     }
+
     #endregion
 }
