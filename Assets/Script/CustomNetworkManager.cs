@@ -47,6 +47,9 @@ public class CustomNetworkManager : NetworkManager
                 gob.GetComponent<Interactable>().Master = player;
                 gob.transform.position = trsf.transform.position;
                 NetworkServer.SpawnWithClientAuthority(gob, conn);
+                gob.GetComponent<Interactable>().RpcAddStart(0);
+                gob.GetComponent<Interactable>().RpcAddMove(2);
+                gob.GetComponent<Interactable>().RpcAddEnd(1);
             }
 
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
@@ -67,6 +70,9 @@ public class CustomNetworkManager : NetworkManager
                 gob.GetComponent<Interactable>().Master = player;
                 gob.transform.position = trsf.transform.position;
                 NetworkServer.SpawnWithClientAuthority(gob, conn);
+                gob.GetComponent<Interactable>().RpcAddStart(0);
+                gob.GetComponent<Interactable>().RpcAddMove(2);
+                gob.GetComponent<Interactable>().RpcAddEnd(1);
             }
 
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);

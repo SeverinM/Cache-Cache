@@ -113,13 +113,6 @@ public class Interactable : NetworkBehaviour
 
     #endregion
 
-    private void Awake()
-    {
-        OnEnd = AllInteractions.END_DRAG;
-        OnMove = AllInteractions.MOVE_DRAG;
-        OnStart = AllInteractions.START_DRAG;
-    }
-
     private void Update()
     {
         if (Dragg)
@@ -177,5 +170,23 @@ public class Interactable : NetworkBehaviour
         Material mat = mesh.material;
         mesh.material = otherMat;
         otherMat = mat;
+    }
+
+    [ClientRpc]
+    public void RpcAddStart(int index)
+    {
+        OnStart += AllInteractions.GetDelegate(index);
+    }
+
+    [ClientRpc]
+    public void RpcAddEnd(int index)
+    {
+        OnEnd += AllInteractions.GetDelegate(index);
+    }
+
+    [ClientRpc]
+    public void RpcAddMove(int index)
+    {
+        OnMove += AllInteractions.GetDelegate(index);
     }
 }

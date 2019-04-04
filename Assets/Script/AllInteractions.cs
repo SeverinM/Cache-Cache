@@ -14,28 +14,24 @@ public class AllInteractions
         TELEPORT = 4
     }
 
-    public Interactable.InteractionDelegate GetDelegate(List<int> index)
+    public static Interactable.InteractionDelegate GetDelegate(int index)
     {
         Interactable.InteractionDelegate output = delegate { };
+            Actions act = (Actions)index;
 
-        foreach (int ind in index)
+        switch (act)
         {
-            Actions act = (Actions)ind;
+            case Actions.START_DRAG:
+                output += START_DRAG;
+                break;
 
-            switch (act)
-            {
-                case Actions.START_DRAG:
-                    output += START_DRAG;
-                    break;
+            case Actions.END_DRAG:
+                output += END_DRAG;
+                break;
 
-                case Actions.END_DRAG:
-                    output += END_DRAG;
-                    break;
-
-                case Actions.MOVE_DRAG:
-                    output += MOVE_DRAG;
-                    break;
-            }
+            case Actions.MOVE_DRAG:
+                output += MOVE_DRAG;
+                break;
         }
 
         return output;
