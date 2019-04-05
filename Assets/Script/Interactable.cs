@@ -18,7 +18,8 @@ public class Interactable : NetworkBehaviour
     bool spawned = false;
 
     List<Spot> allSpots = new List<Spot>();
-    class Spot
+    public List<Spot> AllSpots => allSpots;
+    public class Spot
     {
         public Vector3 position;
         public GameObject obj;
@@ -136,8 +137,8 @@ public class Interactable : NetworkBehaviour
 
     private void Awake()
     {
-        allSpots.Add(new Spot(transform.position + new Vector3(10, 0, 10)));
-        allSpots.Add(new Spot(transform.position + new Vector3(-10, 0, -10)));
+        allSpots.Add(new Spot(transform.position + new Vector3(20, 0, 20)));
+        allSpots.Add(new Spot(transform.position + new Vector3(-20, 0, -20)));
     }
 
     public void SetAllSpots(bool value)
