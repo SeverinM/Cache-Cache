@@ -56,22 +56,12 @@ public class CustomNetworkManager : NetworkManager
             //Interprete tous les enfants pour spawn
             foreach (Transform trsf in maq2.transform)
             {
-                GameObject gob = Instantiate(prefabSwappable);
-                gob.GetComponent<Interactable>().Master = player2;
-                gob.transform.position = trsf.transform.position;
-                NetworkServer.SpawnWithClientAuthority(gob, conn);
-                gob.GetComponent<Interactable>().RpcAddStart(4);
+                trsf.GetComponent<Interpretable>().Interpret(trsf.transform.position, player2);
             }
 
             foreach (Transform trsf in maq1.transform)
             {
-                GameObject gob = Instantiate(prefabSwappable);
-                gob.GetComponent<Interactable>().Master = player1;
-                gob.transform.position = trsf.transform.position;
-                NetworkServer.SpawnWithClientAuthority(gob, player1.GetComponent<NetworkIdentity>().connectionToClient);
-                gob.GetComponent<Interactable>().RpcAddStart(0);
-                gob.GetComponent<Interactable>().RpcAddMove(2);
-                gob.GetComponent<Interactable>().RpcAddEnd(1);
+                trsf.GetComponent<Interpretable>().Interpret(trsf.transform.position, player1);
             }
 
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);

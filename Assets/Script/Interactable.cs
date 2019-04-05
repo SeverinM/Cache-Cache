@@ -63,7 +63,7 @@ public class Interactable : NetworkBehaviour
     #region securite
     public void StartInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnStart == null)
+        if (OnStart == null)
         {
             Debug.LogWarning("Start interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -73,7 +73,7 @@ public class Interactable : NetworkBehaviour
 
     public void EndInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnEnd == null)
+        if (OnEnd == null)
         {
             Debug.LogWarning("End interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -83,7 +83,7 @@ public class Interactable : NetworkBehaviour
 
     public void MoveInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnMove == null)
+        if (OnMove == null)
         {
             Debug.LogWarning("move interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -93,7 +93,7 @@ public class Interactable : NetworkBehaviour
 
     public void EnterInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnEnter == null)
+        if (OnEnter == null)
         {
             Debug.LogWarning("enter interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -103,7 +103,7 @@ public class Interactable : NetworkBehaviour
 
     public void ExitInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnExit == null)
+        if (OnExit == null)
         {
             Debug.LogWarning("exit interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -130,8 +130,12 @@ public class Interactable : NetworkBehaviour
 
     public void Interaction(TypeAction act, GameObject master, Vector3 position)
     {
+        if (!CanInteract) Debug.LogWarning("L'objet n'est pas interactible pour le moment");
+        if (!hasAuthority) Debug.LogWarning("Pas d'autorité");
+
         switch (act)
         {
+
             case TypeAction.START_INTERACTION:
                 StartInteraction(master, position);
                 break;
