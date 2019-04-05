@@ -17,6 +17,27 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     bool spawned = false;
 
+    List<Spot> allSpots = new List<Spot>();
+    class Spot
+    {
+        public Vector3 position;
+        public GameObject obj;
+
+        public Spot(Vector3 firstPos)
+        {
+            position = firstPos;
+            obj = null;
+        }
+
+        public void SetGob(GameObject gob, Material mat)
+        {
+            obj = gob;
+            if (gob != null)
+                obj.transform.position = position;
+                obj.GetComponent<MeshRenderer>().material = mat;
+        }
+    }
+
     public bool Spawned
     {
         get
@@ -113,6 +134,25 @@ public class Interactable : NetworkBehaviour
 
     #endregion
 
+    private void Awake()
+    {
+        allSpots.Add(new Spot(transform.position + new Vector3(10, 0, 10)));
+        allSpots.Add(new Spot(transform.position + new Vector3(-10, 0, -10)));
+    }
+
+    public void SetAllSpots(bool value)
+    {
+        foreach(Spot sp in allSpots)
+        {
+            if (value)
+                sp.SetGob(AllInteractions.DuplicateVisual(gameObject), OtherMat);
+            else
+            {
+                Destroy(sp.obj);
+            }
+        }
+    }
+
     private void Update()
     {
         if (Dragg)
@@ -166,14 +206,6 @@ public class Interactable : NetworkBehaviour
             transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
             yield return null;
         }
-    }
-
-    public void ToggleMat()
-    {
-        MeshRenderer mesh = GetComponent<MeshRenderer>();
-        Material mat = mesh.material;
-        mesh.material = otherMat;
-        otherMat = mat;
     }
 
     [ClientRpc]

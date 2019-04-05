@@ -48,14 +48,13 @@ public class AllInteractions
         if (plr.holdGameObject == null && !inter.Dragg)
         {
             gob.GetComponent<Interactable>().Dragg = true;          
-            plr.CopiedGob = DuplicateVisual(gob);
             plr.holdGameObject = inter.gameObject;
-            plr.CopiedGob.GetComponent<MeshRenderer>().material = plr.holdGameObject.GetComponent<Interactable>().OtherMat;
             gob.transform.parent = master.transform;
             IEnumerator routine = inter.Move(0.25f, gob.transform.position, gob.transform.position + new Vector3(0,10,0));
             inter.StartCoroutine(routine);
             inter.CurrentCoroutine = routine;
             plr.lastLegitPos = position;
+            inter.SetAllSpots(true);
         }
     }
 
@@ -73,18 +72,17 @@ public class AllInteractions
             inter.StopCoroutine(inter.CurrentCoroutine);
         }
         inter.Dragg = false;
+        inter.SetAllSpots(false);
 
         Player pl = master.GetComponent<Player>();
         inter.StartCoroutine(inter.Move(0.1f, gob.transform.position, pl.lastLegitPos));
         master.GetComponent<Player>().holdGameObject = null;
         gob.transform.parent = master.GetComponent<Player>().maquette.transform;
-        GameObject.Destroy(pl.CopiedGob);
     }
 
     public static void TELEPORT(GameObject gob , GameObject master , Vector3 position)
     {
         Player plr = master.GetComponent<Player>();
-        GameObject.Destroy(plr.CopiedGob);
         plr.CmdTeleport(gob, gob.transform.position + (plr.OtherPlayer.GetComponent<Player>().maquette.transform.position - plr.maquette.transform.position));
         plr.CmdChangeAuthority(gob, plr.gameObject, plr.OtherPlayer);
     }

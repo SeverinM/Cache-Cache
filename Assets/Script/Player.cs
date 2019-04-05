@@ -19,20 +19,6 @@ public class Player : NetworkBehaviour
     GameObject man;
 
     public GameObject holdGameObject;
-    GameObject copiedGob;
-    public GameObject CopiedGob
-    {
-        get
-        {
-            return copiedGob;
-        }
-
-        set
-        {
-            Destroy(copiedGob);
-            copiedGob = value;
-        }
-    }
     
 
     public Vector3 lastLegitPos;
