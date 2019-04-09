@@ -31,6 +31,7 @@ public class Player : NetworkBehaviour
     {
         gob.GetComponent<NetworkIdentity>().RemoveClientAuthority(oldPlayer.GetComponent<NetworkIdentity>().connectionToClient);
         gob.GetComponent<NetworkIdentity>().AssignClientAuthority(newPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+        gob.GetComponent<Interactable>().Master = newPlayer;
     }
 
     private void Update()
@@ -65,7 +66,7 @@ public class Player : NetworkBehaviour
                 {
                     if (hit.collider.GetComponent<Interactable>())
                     {
-                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, gameObject, hit.point);
+                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, hit.point);
                         break;
                     }
                 }
@@ -73,7 +74,7 @@ public class Player : NetworkBehaviour
 
             if (Input.GetMouseButtonUp(0) && holdGameObject)
             {
-                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION, gameObject, Vector3.zero);
+                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION ,Vector3.zero);
             }
         }
     }
@@ -153,6 +154,17 @@ public class Player : NetworkBehaviour
         man = manager;
         maquette = maq;
         otherPlayer = other;
+    }
+
+    [ClientRpc]
+    public void RpcName(string nm)
+    {
+        name = nm;
+    }
+
+    public void RelayInteraction(Interactable.TypeAction acts , Interactable inter , Vector3 position)
+    {
+        inter.CmdInteractionEcho(acts, inter.gameObject, position);
     }
 
     #endregion

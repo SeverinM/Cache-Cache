@@ -17,6 +17,9 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     bool spawned = false;
 
+    Interactable echo;
+    public Interactable Echo => echo;
+
     List<Spot> allSpots = new List<Spot>();
     public List<Spot> AllSpots => allSpots;
     public class Spot
@@ -162,39 +165,44 @@ public class Interactable : NetworkBehaviour
             {
                 if (hit.collider.tag == "Maquette")
                 {
-                    Interaction(TypeAction.MOVE_INTERACTION, Master, hit.point);
+                    Interaction(TypeAction.MOVE_INTERACTION, hit.point);
                     break;
                 }
             }
         }
     }
 
-    public void Interaction(TypeAction act, GameObject master, Vector3 position)
+    public void Interaction(TypeAction act, Vector3 position, bool first = true)
     {
         if (!CanInteract) Debug.LogWarning("L'objet n'est pas interactible pour le moment");
-        if (!hasAuthority) Debug.LogWarning("Pas d'autorité");
+        if (!hasAuthority) Debug.LogWarning("Pas d'autorité ");
 
         switch (act)
         {
 
             case TypeAction.START_INTERACTION:
-                StartInteraction(master, position);
+                StartInteraction(Master, position);
                 break;
             case TypeAction.END_INTERACTION:
-                EndInteraction(master, position);
+                EndInteraction(Master, position);
                 break;
             case TypeAction.EXIT_INTERACTION:
-                ExitInteraction(master, position);
+                ExitInteraction(Master, position);
                 break;
             case TypeAction.MOVE_INTERACTION:
-                MoveInteraction(master, position);
+                MoveInteraction(Master, position);
                 break;
             case TypeAction.ENTER_INTERACTION:
-                EnterInteraction(master, position);
+                EnterInteraction(Master, position);
                 break;
             default:
                 Debug.LogError(act + " est inconnu");
                 break;
+        }
+
+        if (Echo && first)
+        {
+            Echo.GetComponent<Interactable>().Master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
         }
     }
 
@@ -225,5 +233,27 @@ public class Interactable : NetworkBehaviour
     public void RpcAddMove(int index)
     {
         OnMove += AllInteractions.GetDelegate(index);
+    }
+
+    [ClientRpc]
+    public void RpcSetEcho(GameObject obj)
+    {
+        echo = obj.GetComponent<Interactable>();
+    }
+
+    [Command]
+    public void CmdInteractionEcho(TypeAction act, GameObject gob, Vector3 position)
+    {
+        Debug.Log(act);
+        Debug.Log(gob);
+        Debug.Log(position);
+        Debug.Log(gob.GetComponent<Interactable>().Master.GetComponent<NetworkIdentity>().connectionToClient);
+        TargetEcho(gob.GetComponent<Interactable>().Master.GetComponent<NetworkIdentity>().connectionToClient, act, position);
+    }
+
+    [TargetRpc]
+    public void TargetEcho(NetworkConnection conn, TypeAction act , Vector3 position)
+    {
+        GetComponent<Interactable>().Interaction(act,position, false);
     }
 }

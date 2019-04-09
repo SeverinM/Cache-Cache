@@ -42,7 +42,6 @@ public class CustomNetworkManager : NetworkManager
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
             NetworkServer.SpawnWithClientAuthority(maq1, conn);
-
             player1 = player;            
         }
 
@@ -56,12 +55,38 @@ public class CustomNetworkManager : NetworkManager
             //Interprete tous les enfants pour spawn
             foreach (Transform trsf in maq2.transform)
             {
-                trsf.GetComponent<Interpretable>().Interpret(trsf.transform.position, player2);
+                trsf.GetComponent<Interpretable>().Interpret(player2);
             }
 
             foreach (Transform trsf in maq1.transform)
             {
-                trsf.GetComponent<Interpretable>().Interpret(trsf.transform.position, player1);
+                trsf.GetComponent<Interpretable>().Interpret(player1);
+            }
+
+            List<Interpretable> allInterpr1 = maq2.GetComponentsInChildren<Interpretable>().ToList();
+            List<Interpretable> allInterpr2 = maq1.GetComponentsInChildren<Interpretable>().ToList();
+            foreach (Interpretable interpr in allInterpr1)
+            {
+                int index = interpr.IndexEcho;
+                if (index >= 0)
+                {
+                    IEnumerable<Interpretable> listInterpr = allInterpr2.Where(x => index == x.Index);
+                    if (listInterpr.Count() > 0)
+                        interpr.ApplyEcho(listInterpr.ToList()[0], player1.GetComponent<Player>());
+                }
+            }
+
+            foreach (Interpretable interpr in allInterpr2)
+            {
+                int index = interpr.IndexEcho;
+                if (index >= 0)
+                {
+                    IEnumerable<Interpretable> listInterpr = allInterpr1.Where(x => index == x.Index);
+                    if (listInterpr.Count() > 0)
+                    {
+                        interpr.ApplyEcho(listInterpr.ToList()[0], player2.GetComponent<Player>());
+                    }                       
+                }
             }
 
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);
@@ -71,6 +96,8 @@ public class CustomNetworkManager : NetworkManager
             Vector3 toTwo = player2.transform.position - player1.transform.position;
             player1.GetComponent<Player>().ToOtherPlayer = toTwo;
             player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
+            player1.GetComponent<Player>().RpcName("Joueur numero 1");
+            player2.GetComponent<Player>().RpcName("Joueur numero 2");
 
             player1.GetComponent<Player>().CmdInit(1, maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(2, maq2, instanceMan, player1);
