@@ -202,7 +202,7 @@ public class Interactable : NetworkBehaviour
 
         if (Echo && first)
         {
-            Echo.GetComponent<Interactable>().Master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
+            Master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
         }
     }
 
