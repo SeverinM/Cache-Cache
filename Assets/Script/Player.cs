@@ -19,20 +19,6 @@ public class Player : NetworkBehaviour
     GameObject man;
 
     public GameObject holdGameObject;
-    GameObject copiedGob;
-    public GameObject CopiedGob
-    {
-        get
-        {
-            return copiedGob;
-        }
-
-        set
-        {
-            Destroy(copiedGob);
-            copiedGob = value;
-        }
-    }
     
 
     public Vector3 lastLegitPos;
@@ -45,6 +31,7 @@ public class Player : NetworkBehaviour
     {
         gob.GetComponent<NetworkIdentity>().RemoveClientAuthority(oldPlayer.GetComponent<NetworkIdentity>().connectionToClient);
         gob.GetComponent<NetworkIdentity>().AssignClientAuthority(newPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+        gob.GetComponent<Interactable>().Master = newPlayer;
     }
 
     private void Update()
@@ -79,7 +66,7 @@ public class Player : NetworkBehaviour
                 {
                     if (hit.collider.GetComponent<Interactable>())
                     {
-                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, gameObject, hit.point);
+                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, hit.point);
                         break;
                     }
                 }
@@ -87,7 +74,7 @@ public class Player : NetworkBehaviour
 
             if (Input.GetMouseButtonUp(0) && holdGameObject)
             {
-                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION, gameObject, Vector3.zero);
+                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION ,Vector3.zero);
             }
         }
     }
@@ -167,6 +154,23 @@ public class Player : NetworkBehaviour
         man = manager;
         maquette = maq;
         otherPlayer = other;
+    }
+
+    [ClientRpc]
+    public void RpcName(string nm)
+    {
+        name = nm;
+    }
+
+    public void RelayInteraction(Interactable.TypeAction acts , Interactable inter , Vector3 position)
+    {
+        CmdInter(acts, inter.gameObject, position);
+    }
+
+    [Command]
+    public void CmdInter(Interactable.TypeAction acts, GameObject inter, Vector3 position)
+    {
+        inter.GetComponent<Interactable>().Interaction(acts, position, false);
     }
 
     #endregion

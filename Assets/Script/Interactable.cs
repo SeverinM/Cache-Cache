@@ -17,6 +17,31 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     bool spawned = false;
 
+    Interactable echo;
+    public Interactable Echo => echo;
+
+    List<Spot> allSpots = new List<Spot>();
+    public List<Spot> AllSpots => allSpots;
+    public class Spot
+    {
+        public Vector3 position;
+        public GameObject obj;
+
+        public Spot(Vector3 firstPos)
+        {
+            position = firstPos;
+            obj = null;
+        }
+
+        public void SetGob(GameObject gob, Material mat)
+        {
+            obj = gob;
+            if (gob != null)
+                obj.transform.position = position;
+                obj.GetComponent<MeshRenderer>().material = mat;
+        }
+    }
+
     public bool Spawned
     {
         get
@@ -63,7 +88,7 @@ public class Interactable : NetworkBehaviour
     #region securite
     public void StartInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnStart == null)
+        if (OnStart == null)
         {
             Debug.LogWarning("Start interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -73,7 +98,7 @@ public class Interactable : NetworkBehaviour
 
     public void EndInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnEnd == null)
+        if (OnEnd == null)
         {
             Debug.LogWarning("End interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -83,7 +108,7 @@ public class Interactable : NetworkBehaviour
 
     public void MoveInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnMove == null)
+        if (OnMove == null)
         {
             Debug.LogWarning("move interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -93,7 +118,7 @@ public class Interactable : NetworkBehaviour
 
     public void EnterInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnEnter == null)
+        if (OnEnter == null)
         {
             Debug.LogWarning("enter interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -103,7 +128,7 @@ public class Interactable : NetworkBehaviour
 
     public void ExitInteraction(GameObject master, Vector3 position)
     {
-        if (!CanInteract || OnExit == null)
+        if (OnExit == null)
         {
             Debug.LogWarning("exit interaction a echoué : objet non interactible ou pas de delegate");
             return;
@@ -113,6 +138,27 @@ public class Interactable : NetworkBehaviour
 
     #endregion
 
+    [ClientRpc]
+    public void RpcAddSpot(Vector3 position)
+    {
+        allSpots.Add(new Spot(position));
+    }
+
+    public void SetAllSpots(bool value)
+    {
+        foreach(Spot sp in allSpots)
+        {
+            if (value)
+            {
+                sp.SetGob(AllInteractions.DuplicateVisual(gameObject), OtherMat);
+            }
+            else
+            {
+                Destroy(sp.obj);
+            }
+        }
+    }
+
     private void Update()
     {
         if (Dragg)
@@ -121,35 +167,46 @@ public class Interactable : NetworkBehaviour
             {
                 if (hit.collider.tag == "Maquette")
                 {
-                    Interaction(TypeAction.MOVE_INTERACTION, Master, hit.point);
+                    Interaction(TypeAction.MOVE_INTERACTION, hit.point);
                     break;
                 }
             }
         }
     }
 
-    public void Interaction(TypeAction act, GameObject master, Vector3 position)
+    public void Interaction(TypeAction act, Vector3 position, bool first = true)
     {
+        GameObject master = first ? Master : Master.GetComponent<Player>().OtherPlayer;
+
+        if (!CanInteract) Debug.LogWarning("L'objet n'est pas interactible pour le moment");
+        if (!master.GetComponent<NetworkIdentity>().hasAuthority) Debug.LogWarning("Pas d'autorité , echo " + !first);
+
         switch (act)
         {
+
             case TypeAction.START_INTERACTION:
-                StartInteraction(master, position);
+                StartInteraction(Master, position);
                 break;
             case TypeAction.END_INTERACTION:
-                EndInteraction(master, position);
+                EndInteraction(Master, position);
                 break;
             case TypeAction.EXIT_INTERACTION:
-                ExitInteraction(master, position);
+                ExitInteraction(Master, position);
                 break;
             case TypeAction.MOVE_INTERACTION:
-                MoveInteraction(master, position);
+                MoveInteraction(Master, position);
                 break;
             case TypeAction.ENTER_INTERACTION:
-                EnterInteraction(master, position);
+                EnterInteraction(Master, position);
                 break;
             default:
                 Debug.LogError(act + " est inconnu");
                 break;
+        }
+
+        if (Echo && first)
+        {
+            master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
         }
     }
 
@@ -162,14 +219,6 @@ public class Interactable : NetworkBehaviour
             transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
             yield return null;
         }
-    }
-
-    public void ToggleMat()
-    {
-        MeshRenderer mesh = GetComponent<MeshRenderer>();
-        Material mat = mesh.material;
-        mesh.material = otherMat;
-        otherMat = mat;
     }
 
     [ClientRpc]
@@ -188,5 +237,23 @@ public class Interactable : NetworkBehaviour
     public void RpcAddMove(int index)
     {
         OnMove += AllInteractions.GetDelegate(index);
+    }
+
+    [ClientRpc]
+    public void RpcSetEcho(GameObject obj)
+    {
+        echo = obj.GetComponent<Interactable>();
+    }
+
+    [Command]
+    public void CmdInteractionEcho(TypeAction act, GameObject gob, Vector3 position)
+    {
+        TargetEcho(gob.GetComponent<Interactable>().Master.GetComponent<NetworkIdentity>().connectionToClient, act, position);
+    }
+
+    [TargetRpc]
+    public void TargetEcho(NetworkConnection conn, TypeAction act , Vector3 position)
+    {
+        GetComponent<Interactable>().Interaction(act,position, false);
     }
 }

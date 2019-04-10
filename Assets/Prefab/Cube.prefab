@@ -150,7 +150,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   otherMat: {fileID: 2100000, guid: d19d2f56fd22e624f83318aeaf3b054d, type: 2}
-  dragg: 0
+  Dragg: 0
 --- !u!114 &5701166287881878012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,5 +163,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0.1
+  syncInterval: 0
   compressRotation: 1
