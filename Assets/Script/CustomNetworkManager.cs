@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -10,7 +11,9 @@ public class CustomNetworkManager : NetworkManager
     public GameObject prefab1;
     public GameObject prefab2;
     public GameObject prefabSwappable;
-    public GameObject managerPrefab;
+
+    [SerializeField]
+    List<Button> allButtons;
 
     GameObject player1;
     GameObject player2;
@@ -36,8 +39,6 @@ public class CustomNetworkManager : NetworkManager
 
         if (nbPlayer == 1)
         {
-            instanceMan = Instantiate(managerPrefab);
-            NetworkServer.Spawn(instanceMan);
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
@@ -99,8 +100,8 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().RpcName("Joueur numero 1");
             player2.GetComponent<Player>().RpcName("Joueur numero 2");
 
-            player1.GetComponent<Player>().CmdInit(1, maq1, instanceMan, player2);
-            player2.GetComponent<Player>().CmdInit(2, maq2, instanceMan, player1);
+            player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
+            player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
         }
     }
 }

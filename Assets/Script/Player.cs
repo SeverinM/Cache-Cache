@@ -19,12 +19,10 @@ public class Player : NetworkBehaviour
     GameObject man;
 
     public GameObject holdGameObject;
-    
-
     public Vector3 lastLegitPos;
 
     [SyncVar]
-    public int playerIdentity;
+    bool CanRotate;
 
     [Command]
     public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
@@ -41,23 +39,17 @@ public class Player : NetworkBehaviour
             if (maquette == null) return;
             if (Input.GetKey(KeyCode.D))
             {
-                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
-                {
-                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? 1 : -1);
-                }
+                CmdTryRotate(gameObject, -1);
             }
 
             if (Input.GetKey(KeyCode.Q))
             {
-                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
-                {
-                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? -1 : 1);
-                }
+                CmdTryRotate(gameObject, 1);
             }
 
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Q))
+            if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.D) && CanRotate)
             {
-                CmdRelease();
+                CmdRelease(gameObject);
             }
 
             if (Input.GetMouseButtonDown(0))
@@ -80,21 +72,6 @@ public class Player : NetworkBehaviour
     }
 
     #region RPC et command
-    [Command]
-    public void CmdAcquire(Vector3 pos, Vector3 axis, float value)
-    {
-        man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
-        foreach(GameObject gob in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            gob.GetComponent<Player>().RpcRotateAll(axis, value);
-        }
-    }
-
-    [Command]
-    public void CmdRelease()
-    {
-        man.GetComponent<ManagerPlayers>().ReleaseLock();
-    }
 
     [ClientRpc]
     void RpcRotateAll(Vector3 axis , float value)
@@ -148,12 +125,29 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInit(int identity, GameObject maq, GameObject manager, GameObject other)
+    public void CmdInit(GameObject maq, GameObject manager, GameObject other)
     {
-        playerIdentity = identity;
         man = manager;
         maquette = maq;
         otherPlayer = other;
+        CanRotate = true;
+    }
+
+    [Command]
+    public void CmdTryRotate(GameObject concerned, float value)
+    {
+        if (CanRotate)
+        {
+            concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = false;
+            RpcRotateAll(Vector3.up, value);
+            OtherPlayer.GetComponent<Player>().RpcRotateAll(Vector3.up, value);
+        }
+    }
+
+    [Command]
+    public void CmdRelease(GameObject concerned)
+    {
+        concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = true;
     }
 
     [ClientRpc]
