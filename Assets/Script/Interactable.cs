@@ -138,10 +138,10 @@ public class Interactable : NetworkBehaviour
 
     #endregion
 
-    private void Awake()
+    [ClientRpc]
+    public void RpcAddSpot(Vector3 position)
     {
-        allSpots.Add(new Spot(transform.position + new Vector3(20, 0, 20)));
-        allSpots.Add(new Spot(transform.position + new Vector3(-20, 0, -20)));
+        allSpots.Add(new Spot(position));
     }
 
     public void SetAllSpots(bool value)
@@ -149,7 +149,9 @@ public class Interactable : NetworkBehaviour
         foreach(Spot sp in allSpots)
         {
             if (value)
+            {
                 sp.SetGob(AllInteractions.DuplicateVisual(gameObject), OtherMat);
+            }
             else
             {
                 Destroy(sp.obj);
@@ -174,8 +176,10 @@ public class Interactable : NetworkBehaviour
 
     public void Interaction(TypeAction act, Vector3 position, bool first = true)
     {
+        GameObject master = first ? Master : Master.GetComponent<Player>().OtherPlayer;
+
         if (!CanInteract) Debug.LogWarning("L'objet n'est pas interactible pour le moment");
-        if (!hasAuthority) Debug.LogWarning("Pas d'autorité ");
+        if (!master.GetComponent<NetworkIdentity>().hasAuthority) Debug.LogWarning("Pas d'autorité , echo " + !first);
 
         switch (act)
         {
@@ -202,7 +206,7 @@ public class Interactable : NetworkBehaviour
 
         if (Echo && first)
         {
-            Master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
+            master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
         }
     }
 
@@ -244,10 +248,6 @@ public class Interactable : NetworkBehaviour
     [Command]
     public void CmdInteractionEcho(TypeAction act, GameObject gob, Vector3 position)
     {
-        Debug.Log(act);
-        Debug.Log(gob);
-        Debug.Log(position);
-        Debug.Log(gob.GetComponent<Interactable>().Master.GetComponent<NetworkIdentity>().connectionToClient);
         TargetEcho(gob.GetComponent<Interactable>().Master.GetComponent<NetworkIdentity>().connectionToClient, act, position);
     }
 

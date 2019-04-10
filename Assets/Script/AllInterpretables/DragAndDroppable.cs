@@ -5,6 +5,9 @@ using Mirror;
 
 public class DragAndDroppable : Interpretable
 {
+    [SerializeField]
+    List<Transform> allTrsf;
+
     public override void Interpret(GameObject master)
     {
         if (!spawn)
@@ -16,6 +19,11 @@ public class DragAndDroppable : Interpretable
             inter.RpcAddMove(2);
             inter.RpcAddEnd(1);
             inter.Master = master;
+
+            foreach(Transform trsf in allTrsf)
+            {
+                inter.RpcAddSpot(trsf.position);
+            }
         }
     }
 }

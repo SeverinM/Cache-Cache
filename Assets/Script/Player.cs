@@ -164,7 +164,13 @@ public class Player : NetworkBehaviour
 
     public void RelayInteraction(Interactable.TypeAction acts , Interactable inter , Vector3 position)
     {
-        inter.CmdInteractionEcho(acts, inter.gameObject, position);
+        CmdInter(acts, inter.gameObject, position);
+    }
+
+    [Command]
+    public void CmdInter(Interactable.TypeAction acts, GameObject inter, Vector3 position)
+    {
+        inter.GetComponent<Interactable>().Interaction(acts, position, false);
     }
 
     #endregion
