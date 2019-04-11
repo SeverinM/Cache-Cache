@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Player : NetworkBehaviour
 {
@@ -18,11 +20,27 @@ public class Player : NetworkBehaviour
     [SyncVar]
     GameObject man;
 
+    //Utilisé dans le drag and drop
     public GameObject holdGameObject;
     public Vector3 lastLegitPos;
 
-    [SyncVar]
-    bool CanRotate;
+    Button btnRight;
+    Button btnLeft;
+
+    [SyncVar(hook = nameof(ChangeRotate))]
+    public bool CanRotate = true;
+
+    [SerializeField]
+    GameObject prefabUI;
+
+    public void ChangeRotate(bool newValue)
+    {
+        if (btnLeft && btnRight)
+        {
+            btnRight.interactable = newValue;
+            btnLeft.interactable = newValue;
+        }
+    }
 
     [Command]
     public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
@@ -32,25 +50,42 @@ public class Player : NetworkBehaviour
         gob.GetComponent<Interactable>().Master = newPlayer;
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        GameObject gob = Instantiate(prefabUI);
+        btnRight = gob.transform.GetChild(0).GetComponent<Button>();
+        btnLeft = gob.transform.GetChild(1).GetComponent<Button>();
+
+        btnLeft.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
+        {
+            if (x)
+            {
+                CmdTryRotate(gameObject, -1);
+            }
+            else
+            {
+                CmdRelease(gameObject);
+            }
+        };
+
+        btnRight.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
+        {
+            if (x)
+            {
+                CmdTryRotate(gameObject, 1);
+            }
+            else
+            {
+                CmdRelease(gameObject);
+            }
+        };
+    }
+
     private void Update()
     {
         if (hasAuthority)
         {
             if (maquette == null) return;
-            if (Input.GetKey(KeyCode.D))
-            {
-                CmdTryRotate(gameObject, -1);
-            }
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                CmdTryRotate(gameObject, 1);
-            }
-
-            if (!Input.GetKey(KeyCode.Q) && !Input.GetKey(KeyCode.D) && CanRotate)
-            {
-                CmdRelease(gameObject);
-            }
 
             if (Input.GetMouseButtonDown(0))
             {

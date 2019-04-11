@@ -43,7 +43,8 @@ public class CustomNetworkManager : NetworkManager
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
             NetworkServer.SpawnWithClientAuthority(maq1, conn);
-            player1 = player;            
+            player1 = player;
+            //player1.GetComponent<Player>().CanRotate = false;
         }
 
         if (nbPlayer == 2)

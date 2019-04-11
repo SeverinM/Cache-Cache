@@ -104,8 +104,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa099324899aa94d9b7c37b1081e64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  playerIdentity: 0
+  syncInterval: 0
+  maquette: {fileID: 0}
+  holdGameObject: {fileID: 0}
+  lastLegitPos: {x: 0, y: 0, z: 0}
+  prefabUI: {fileID: 8642076894346498395, guid: e3d9356dc23d40f44b99bdafb414bba6,
+    type: 3}
 --- !u!114 &4115783573507442148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,5 +122,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f74aedd71d9a4f55b3ce499326d45fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0.1
+  syncInterval: 0
   compressRotation: 1
