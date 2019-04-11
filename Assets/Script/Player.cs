@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Player : NetworkBehaviour
 {
@@ -18,13 +20,26 @@ public class Player : NetworkBehaviour
     [SyncVar]
     GameObject man;
 
+    //Utilisé dans le drag and drop
     public GameObject holdGameObject;
-    
-
     public Vector3 lastLegitPos;
 
-    [SyncVar]
-    public int playerIdentity;
+    Button btnRight;
+    Button btnLeft;
+
+    [SyncVar(hook = nameof(ChangeRotate))]
+    public bool CanRotate = false;
+
+    public GameObject prefabUI;
+
+    public void ChangeRotate(bool newValue)
+    {
+        if (btnLeft && btnRight)
+        {
+            btnRight.interactable = newValue;
+            btnLeft.interactable = newValue;
+        }
+    }
 
     [Command]
     public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
@@ -34,31 +49,42 @@ public class Player : NetworkBehaviour
         gob.GetComponent<Interactable>().Master = newPlayer;
     }
 
+    public override void OnStartLocalPlayer()
+    {
+        GameObject gob = Instantiate(prefabUI);
+        btnRight = gob.transform.GetChild(0).GetComponent<Button>();
+        btnLeft = gob.transform.GetChild(1).GetComponent<Button>();
+
+        btnLeft.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
+        {
+            if (x)
+            {
+                CmdTryRotate(gameObject, -1);
+            }
+            else
+            {
+                CmdRelease(gameObject);
+            }
+        };
+
+        btnRight.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
+        {
+            if (x)
+            {
+                CmdTryRotate(gameObject, 1);
+            }
+            else
+            {
+                CmdRelease(gameObject);
+            }
+        };
+    }
+
     private void Update()
     {
         if (hasAuthority)
         {
             if (maquette == null) return;
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
-                {
-                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? 1 : -1);
-                }
-            }
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
-                {
-                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? -1 : 1);
-                }
-            }
-
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Q))
-            {
-                CmdRelease();
-            }
 
             if (Input.GetMouseButtonDown(0))
             {
@@ -80,21 +106,6 @@ public class Player : NetworkBehaviour
     }
 
     #region RPC et command
-    [Command]
-    public void CmdAcquire(Vector3 pos, Vector3 axis, float value)
-    {
-        man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
-        foreach(GameObject gob in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            gob.GetComponent<Player>().RpcRotateAll(axis, value);
-        }
-    }
-
-    [Command]
-    public void CmdRelease()
-    {
-        man.GetComponent<ManagerPlayers>().ReleaseLock();
-    }
 
     [ClientRpc]
     void RpcRotateAll(Vector3 axis , float value)
@@ -148,12 +159,29 @@ public class Player : NetworkBehaviour
     }
 
     [Command]
-    public void CmdInit(int identity, GameObject maq, GameObject manager, GameObject other)
+    public void CmdInit(GameObject maq, GameObject manager, GameObject other)
     {
-        playerIdentity = identity;
         man = manager;
         maquette = maq;
         otherPlayer = other;
+        CanRotate = true;
+    }
+
+    [Command]
+    public void CmdTryRotate(GameObject concerned, float value)
+    {
+        if (CanRotate)
+        {
+            concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = false;
+            RpcRotateAll(Vector3.up, value);
+            OtherPlayer.GetComponent<Player>().RpcRotateAll(Vector3.up, value);
+        }
+    }
+
+    [Command]
+    public void CmdRelease(GameObject concerned)
+    {
+        concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = true;
     }
 
     [ClientRpc]
