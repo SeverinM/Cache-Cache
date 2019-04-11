@@ -8,11 +8,8 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     public GameObject Master;
 
-    [SerializeField]
     public Material newMaterial;
-
-    [SerializeField]
-    AnimationCurve animation;
+    public AnimationCurve animation;
 
     [SyncVar]
     bool spawned = false;

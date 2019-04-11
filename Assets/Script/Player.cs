@@ -30,8 +30,7 @@ public class Player : NetworkBehaviour
     [SyncVar(hook = nameof(ChangeRotate))]
     public bool CanRotate = false;
 
-    [SerializeField]
-    GameObject prefabUI;
+    public GameObject prefabUI;
 
     public void ChangeRotate(bool newValue)
     {
