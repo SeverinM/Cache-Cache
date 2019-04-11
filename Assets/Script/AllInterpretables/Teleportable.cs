@@ -9,7 +9,8 @@ public class Teleportable : Interpretable
     {
         if (!spawn)
         {
-            spawn = Instantiate(prefab, transform.position, Quaternion.identity);
+            spawn = Instantiate(prefab);
+            spawn.GetComponent<Interactable>().Position = transform.position;
             NetworkServer.SpawnWithClientAuthority(spawn, master);
             Interactable inter = spawn.GetComponent<Interactable>();
             inter.RpcAddStart(4);

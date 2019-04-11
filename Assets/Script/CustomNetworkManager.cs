@@ -65,6 +65,8 @@ public class CustomNetworkManager : NetworkManager
                 trsf.GetComponent<Interpretable>().Interpret(player1);
             }
 
+
+            //Binding des echos s'il y en a 
             List<Interpretable> allInterpr1 = maq2.GetComponentsInChildren<Interpretable>().ToList();
             List<Interpretable> allInterpr2 = maq1.GetComponentsInChildren<Interpretable>().ToList();
             foreach (Interpretable interpr in allInterpr1)

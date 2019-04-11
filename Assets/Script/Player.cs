@@ -107,6 +107,18 @@ public class Player : NetworkBehaviour
 
     #region RPC et command
 
+    [Command]
+    public void CmdMove(GameObject gob, Vector3 pos)
+    {
+        RpcMove(gob, pos);
+    }
+
+    [ClientRpc]
+    public void RpcMove(GameObject gob , Vector3 pos)
+    {
+        gob.transform.position = pos;
+    }
+
     [ClientRpc]
     void RpcRotateAll(Vector3 axis , float value)
     {
@@ -133,18 +145,6 @@ public class Player : NetworkBehaviour
                 }
             }
         }
-    }
-
-    [Command]
-    public void CmdTeleport(GameObject gob , Vector3 vec)
-    {
-        RpcTeleport(gob, vec);
-    }
-
-    [ClientRpc]
-    public void RpcTeleport(GameObject gob , Vector3 vec)
-    {
-        gob.transform.position = vec;
     }
 
     [ClientRpc]

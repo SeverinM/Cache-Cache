@@ -12,7 +12,8 @@ public class DragAndDroppable : Interpretable
     {
         if (!spawn)
         {
-            spawn = Instantiate(prefab, transform.position, Quaternion.identity);
+            spawn = Instantiate(prefab);
+            spawn.GetComponent<Interactable>().Position = transform.position;
             Interactable inter = spawn.GetComponent<Interactable>();
             NetworkServer.SpawnWithClientAuthority(spawn, master);
             inter.RpcAddStart(0);

@@ -98,7 +98,10 @@ public class AllInteractions
     public static void TELEPORT(GameObject gob , GameObject master , Vector3 position)
     {
         Player plr = master.GetComponent<Player>();
-        plr.CmdTeleport(gob, gob.transform.position + (plr.OtherPlayer.GetComponent<Player>().maquette.transform.position - plr.maquette.transform.position));
+        Player other = plr.OtherPlayer.GetComponent<Player>();
+        Vector3 delta = (other.maquette.transform.position - plr.maquette.transform.position);
+        Debug.Log(delta);
+        plr.CmdMove(gob, gob.transform.position + (other.maquette.transform.position - plr.maquette.transform.position));
         plr.CmdChangeAuthority(gob, plr.gameObject, plr.OtherPlayer);
     }
 

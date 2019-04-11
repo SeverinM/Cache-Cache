@@ -14,6 +14,9 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     bool spawned = false;
 
+    [SyncVar(hook = nameof(MoveTo))]
+    public Vector3 Position;
+
     Interactable echo;
     public Interactable Echo => echo;
 
@@ -141,6 +144,11 @@ public class Interactable : NetworkBehaviour
         allSpots.Add(new Spot(position));
     }
 
+    public void MoveTo(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
     public void SetAllSpots(bool value)
     {
         foreach(Spot sp in allSpots)
@@ -173,7 +181,7 @@ public class Interactable : NetworkBehaviour
 
     public void Interaction(TypeAction act, Vector3 position, bool first = true)
     {
-        GameObject master = first ? Master : Master.GetComponent<Player>().OtherPlayer;
+        GameObject master = Master;
 
         if (!CanInteract) Debug.LogWarning("L'objet n'est pas interactible pour le moment");
         if (!master.GetComponent<NetworkIdentity>().hasAuthority) Debug.LogWarning("Pas d'autorité , echo " + !first);
@@ -203,7 +211,7 @@ public class Interactable : NetworkBehaviour
 
         if (Echo && first)
         {
-            master.GetComponent<Player>().RelayInteraction(act, Echo.GetComponent<Interactable>(), position);
+            //CmdInteractionEcho(act, master, position);
         }
     }
 
@@ -245,7 +253,7 @@ public class Interactable : NetworkBehaviour
     [Command]
     public void CmdInteractionEcho(TypeAction act, GameObject gob, Vector3 position)
     {
-        TargetEcho(gob.GetComponent<Interactable>().Master.GetComponent<NetworkIdentity>().connectionToClient, act, position);
+        TargetEcho(gob.GetComponent<NetworkIdentity>().connectionToClient, act, position);
     }
 
     [TargetRpc]
