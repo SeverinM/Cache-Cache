@@ -28,7 +28,7 @@ public class Player : NetworkBehaviour
     Button btnLeft;
 
     [SyncVar(hook = nameof(ChangeRotate))]
-    public bool CanRotate = true;
+    public bool CanRotate = false;
 
     [SerializeField]
     GameObject prefabUI;
