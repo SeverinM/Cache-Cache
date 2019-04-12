@@ -12,9 +12,6 @@ public class CustomNetworkManager : NetworkManager
     public GameObject prefab2;
     public GameObject prefabSwappable;
 
-    [SerializeField]
-    List<Button> allButtons;
-
     GameObject player1;
     GameObject player2;
 
@@ -55,16 +52,15 @@ public class CustomNetworkManager : NetworkManager
             player2 = player;
 
             //Interprete tous les enfants pour spawn
-            foreach (Transform trsf in maq2.transform)
+            foreach (Interpretable inter in maq2.transform.GetComponentsInChildren<Interpretable>())
             {
-                trsf.GetComponent<Interpretable>().Interpret(player2);
+                inter.Interpret(player2);
             }
 
-            foreach (Transform trsf in maq1.transform)
+            foreach (Interpretable inter in maq1.transform.GetComponentsInChildren<Interpretable>())
             {
-                trsf.GetComponent<Interpretable>().Interpret(player1);
+                inter.Interpret(player1);
             }
-
 
             //Binding des echos s'il y en a 
             List<Interpretable> allInterpr1 = maq2.GetComponentsInChildren<Interpretable>().ToList();
@@ -92,6 +88,7 @@ public class CustomNetworkManager : NetworkManager
                     }                       
                 }
             }
+
 
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
