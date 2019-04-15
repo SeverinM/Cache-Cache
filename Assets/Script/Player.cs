@@ -122,34 +122,26 @@ public class Player : NetworkBehaviour
                 if (Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition),out hit))
                 {
                     zoomed = true;
-                    focusZoom = hit.point;
-                    previousForward = transform.forward;
                     if (zoomCoroutine != null)
                     {
                         StopCoroutine(zoomCoroutine);
                         GetComponent<Camera>().fieldOfView = lastFOV;
                     }
 
-                    zoomCoroutine = InterpolateZoom(1, previousForward, (focusZoom - transform.position).normalized, -30);
+                    if (zoomed)
+                    {
+                        zoomCoroutine = InterpolateZoom(1,(focusZoom - transform.position).normalized, previousForward, -30);
+                    }
+                    else
+                    {
+                        zoomCoroutine = InterpolateZoom(1, transform.forward, (hit.point - transform.position).normalized, 30);
+                    }
+                    
                     StartCoroutine(zoomCoroutine);
                     lastFOV = GetComponent<Camera>().fieldOfView - 30;
-                }
-            }
-
-            if (Input.GetMouseButtonUp(1))
-            {
-                if (zoomed)
-                {
-                    zoomed = false;
-                    if (zoomCoroutine != null)
-                    {
-                        StopCoroutine(zoomCoroutine);
-                        GetComponent<Camera>().fieldOfView = lastFOV;
-                    }
-
-                    zoomCoroutine = InterpolateZoom(1, (focusZoom - transform.position).normalized, previousForward, 30);
-                    StartCoroutine(zoomCoroutine);
-                    lastFOV = GetComponent<Camera>().fieldOfView + 30;
+                    previousForward = transform.forward;
+                    focusZoom = hit.point;
+                    zoomed = !zoomed;
                 }
             }
         }
