@@ -41,7 +41,12 @@ public class CustomNetworkManager : NetworkManager
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
             NetworkServer.SpawnWithClientAuthority(maq1, conn);
             player1 = player;
-            //player1.GetComponent<Player>().CanRotate = false;
+
+            string hostName = System.Net.Dns.GetHostName();
+
+            System.Net.IPAddress[] allAddr = System.Net.Dns.GetHostEntry(hostName).AddressList;
+
+            Debug.Log(allAddr[allAddr.Length - 1]);
         }
 
         if (nbPlayer == 2)
