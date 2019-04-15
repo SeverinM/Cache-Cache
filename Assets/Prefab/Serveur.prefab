@@ -165,9 +165,10 @@ GameObject:
   - component: {fileID: 5192233636339398329}
   - component: {fileID: 1756315516020886327}
   - component: {fileID: 5983892617063216763}
+  - component: {fileID: 5368122176959591161}
   m_Layer: 0
   m_Name: Serveur
-  m_TagString: Untagged
+  m_TagString: Maquette
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -219,6 +220,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0
   compressRotation: 1
+--- !u!65 &5368122176959591161
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5192233636339398333}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8826262018864304801
 GameObject:
   m_ObjectHideFlags: 0
