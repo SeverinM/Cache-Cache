@@ -102,6 +102,9 @@ public class CustomNetworkManager : NetworkManager
 
             player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
+
+            Debug.Log(player1.GetComponent<NetworkIdentity>().connectionToClient.address);
+            Debug.Log(player2.GetComponent<NetworkIdentity>().connectionToClient.address);
         }
     }
 }
