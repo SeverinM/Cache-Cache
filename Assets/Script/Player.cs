@@ -19,6 +19,16 @@ public class Player : NetworkBehaviour
 
     [SyncVar]
     GameObject man;
+    
+    //Zoom
+    IEnumerator zoomCoroutine;
+    Vector3 focusZoom;
+    Vector3 previousForward;
+    float lastFOV;
+    bool zoomed = false;
+
+    [SerializeField]
+    AnimationCurve curve;
 
     //Utilisé dans le drag and drop
     public GameObject holdGameObject;
@@ -86,6 +96,7 @@ public class Player : NetworkBehaviour
         {
             if (maquette == null) return;
 
+            //On proc la fin d'interaction pour l'objet tenu
             if (Input.GetMouseButtonDown(0))
             {
                 foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
@@ -102,7 +113,54 @@ public class Player : NetworkBehaviour
             {
                 holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION ,Vector3.zero);
             }
+
+            //Clic droit appuyé
+            if (Input.GetMouseButtonDown(1))
+            {
+                RaycastHit hit;
+                //On zoom sur la premiere collision trouvé
+                if (Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition),out hit))
+                {
+                    zoomed = true;
+                    if (zoomCoroutine != null)
+                    {
+                        StopCoroutine(zoomCoroutine);
+                        GetComponent<Camera>().fieldOfView = lastFOV;
+                    }
+
+                    if (zoomed)
+                    {
+                        zoomCoroutine = InterpolateZoom(1,(focusZoom - transform.position).normalized, previousForward, -30);
+                    }
+                    else
+                    {
+                        zoomCoroutine = InterpolateZoom(1, transform.forward, (hit.point - transform.position).normalized, 30);
+                    }
+                    
+                    StartCoroutine(zoomCoroutine);
+                    lastFOV = GetComponent<Camera>().fieldOfView - 30;
+                    previousForward = transform.forward;
+                    focusZoom = hit.point;
+                    zoomed = !zoomed;
+                }
+            }
         }
+    }
+
+    IEnumerator InterpolateZoom(float duration, Vector3 initialForward, Vector3 finalForward, float modifierFOV)
+    {
+        float time = 0;
+        float ratio = 0;
+        float firstFOV = GetComponent<Camera>().fieldOfView;
+        while (time < duration)
+        {
+            time += Time.deltaTime;
+            ratio = curve.Evaluate(time / duration);
+            transform.forward = Vector3.Lerp(initialForward, finalForward, ratio);
+            GetComponent<Camera>().fieldOfView = firstFOV + (ratio * modifierFOV);
+            yield return 1;
+        }
+        zoomCoroutine = null;
     }
 
     #region RPC et command
@@ -152,7 +210,7 @@ public class Player : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = vec + new Vector3(100, 100, 0);
+            transform.position = vec + new Vector3(100, 50, 0);
             transform.RotateAround(vec, Vector3.up, amount);
             transform.LookAt(vec);
         }
