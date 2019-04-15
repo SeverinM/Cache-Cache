@@ -14,9 +14,6 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     bool spawned = false;
 
-    [SyncVar(hook = nameof(MoveTo))]
-    public Vector3 Position;
-
     Interactable echo;
     public Interactable Echo => echo;
 
@@ -144,9 +141,10 @@ public class Interactable : NetworkBehaviour
         allSpots.Add(new Spot(position));
     }
 
-    public void MoveTo(Vector3 pos)
+    [ClientRpc]
+    public void RpcTeleport(Vector3 position)
     {
-        transform.position = pos;
+        transform.position = position;
     }
 
     public void SetAllSpots(bool value)
@@ -227,21 +225,21 @@ public class Interactable : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcAddStart(int index)
+    public void RpcAddStart(AllInteractions.Actions act)
     {
-        OnStart += AllInteractions.GetDelegate(index);
+        OnStart += AllInteractions.GetDelegate(act);
     }
 
     [ClientRpc]
-    public void RpcAddEnd(int index)
+    public void RpcAddEnd(AllInteractions.Actions act)
     {
-        OnEnd += AllInteractions.GetDelegate(index);
+        OnEnd += AllInteractions.GetDelegate(act);
     }
 
     [ClientRpc]
-    public void RpcAddMove(int index)
+    public void RpcAddMove(AllInteractions.Actions act)
     {
-        OnMove += AllInteractions.GetDelegate(index);
+        OnMove += AllInteractions.GetDelegate(act);
     }
 
     [ClientRpc]

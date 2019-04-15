@@ -15,12 +15,11 @@ public class AllInteractions
         TELEPORT = 4
     }
 
-    public static Interactable.InteractionDelegate GetDelegate(int index)
+    public static Interactable.InteractionDelegate GetDelegate(AllInteractions.Actions acts)
     {
         Interactable.InteractionDelegate output = delegate { };
-        Actions act = (Actions)index;
 
-        switch (act)
+        switch (acts)
         {
             case Actions.START_DRAG:
                 output += START_DRAG;
