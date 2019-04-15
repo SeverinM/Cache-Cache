@@ -1,34 +1,24 @@
 fileFormatVersion: 2
-guid: 88769fbe7cd7dd4419461b14b6446cb3
+guid: 3253cd6e5b5f0af4bb2b00d7ca555509
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: //RootNode
-    100002: lunebas
-    100004: lunebas2
-    100006: lunehaut
-    100008: lunehaut2
+    100002: lunebas2
+    100004: lunehaut2
     400000: //RootNode
-    400002: lunebas
-    400004: lunebas2
-    400006: lunehaut
-    400008: lunehaut2
+    400002: lunebas2
+    400004: lunehaut2
     2100000: lambert1
-    2300000: lunebas
-    2300002: lunebas2
-    2300004: lunehaut
-    2300006: lunehaut2
-    3300000: lunebas
-    3300002: lunebas2
-    3300004: lunehaut
-    3300006: lunehaut2
-    4300000: lunebas
-    4300002: lunehaut
-    4300004: lunebas2
-    4300006: lunehaut2
+    2300000: lunebas2
+    2300002: lunehaut2
+    3300000: lunebas2
+    3300002: lunehaut2
+    4300000: lunebas2
+    4300002: lunehaut2
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
