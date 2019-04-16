@@ -48,6 +48,11 @@ public class Manager : MonoBehaviour
         manager.StartHost();
     }
 
+    public void StartResearch()
+    {
+        StartCoroutine(SearchingCoroutine());
+    }
+
     public void StartAsClient(string addr)
     {
         manager.networkAddress = addr;
@@ -67,6 +72,7 @@ public class Manager : MonoBehaviour
         Mirror.LiteNetLib4Mirror.LiteNetLib4MirrorDiscovery.InitializeFinder();
         while (!found)
         {
+            Debug.Log("recherche");
             yield return new WaitForSeconds(0.5f);
             Mirror.LiteNetLib4Mirror.LiteNetLib4MirrorDiscovery.SendDiscoveryRequest("START");
         }
