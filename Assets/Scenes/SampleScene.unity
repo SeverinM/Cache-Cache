@@ -194,7 +194,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 26.2, y: 0, z: 0}
---- !u!1001 &831535046
+--- !u!1001 &1312254837
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -341,56 +341,19 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
-    - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
+    - target: {fileID: 5017828225107670152, guid: fad7a03673bdf174e964f0b17de54f5e,
         type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1997298375}
-    - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartAsClient
-      objectReference: {fileID: 0}
-    - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000076293945
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fad7a03673bdf174e964f0b17de54f5e, type: 3}
---- !u!1 &831535047 stripped
+--- !u!1 &1312254838 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5017828224221826256, guid: fad7a03673bdf174e964f0b17de54f5e,
     type: 3}
-  m_PrefabInstance: {fileID: 831535046}
+  m_PrefabInstance: {fileID: 1312254837}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &831535048 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5017828225278556179, guid: fad7a03673bdf174e964f0b17de54f5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 831535046}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 575553740, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1521186033
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,8 +449,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8fac558bc61eca4c9bcddd114b480b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  referenceCanvas: {fileID: 831535047}
-  input: {fileID: 831535048}
+  referenceCanvas: {fileID: 1312254838}
   prefabIP: {fileID: 167489997720141888, guid: d37879bf45bdfc94c834554193ace018, type: 3}
   manager: {fileID: 2088040802}
 --- !u!4 &1997298376

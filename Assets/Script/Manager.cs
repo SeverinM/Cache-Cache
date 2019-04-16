@@ -10,15 +10,13 @@ public class Manager : MonoBehaviour
     GameObject referenceCanvas;
 
     [SerializeField]
-    InputField input;
-
-    [SerializeField]
     GameObject prefabIP;
 
     [SerializeField]
     CustomNetworkManager manager;
 
     Text txt;
+    bool found = false;
 
     static Manager _instance;
 
@@ -47,19 +45,30 @@ public class Manager : MonoBehaviour
     public void StartAsHost()
     {
         Destroy(referenceCanvas);
-        GameObject gob = Instantiate(prefabIP);
-        string hostName = System.Net.Dns.GetHostName();
-        System.Net.IPAddress[] allAddr = System.Net.Dns.GetHostEntry(hostName).AddressList;
-        string addrIP = allAddr[allAddr.Length - 1].ToString();
-        GameObject.FindObjectOfType<Text>().text = "Votre adresse est : " + addrIP;
         manager.StartHost();
-        manager.CanvasServer = gob;
     }
 
-    public void StartAsClient()
+    public void StartAsClient(string addr)
     {
-        manager.networkAddress = input.text;
+        manager.networkAddress = addr;
         manager.StartClient();
         Destroy(referenceCanvas);
+    }
+
+    public void Discovered(System.Net.IPEndPoint ip , string data)
+    {
+        found = true;
+        Debug.Log(ip.ToString());
+        StartAsClient(ip.ToString());
+    }
+
+    IEnumerator SearchingCoroutine()
+    {
+        Mirror.LiteNetLib4Mirror.LiteNetLib4MirrorDiscovery.InitializeFinder();
+        while (!found)
+        {
+            yield return new WaitForSeconds(0.5f);
+            Mirror.LiteNetLib4Mirror.LiteNetLib4MirrorDiscovery.SendDiscoveryRequest("START");
+        }
     }
 }

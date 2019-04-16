@@ -20,8 +20,6 @@ public class CustomNetworkManager : NetworkManager
 
     GameObject instanceMan;
 
-    public GameObject CanvasServer { get; set; }
-
     public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
     {
         GameObject player = Instantiate(playerPrefab);
@@ -41,16 +39,13 @@ public class CustomNetworkManager : NetworkManager
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
-            NetworkServer.SpawnWithClientAuthority(maq1, conn);
+            NetworkServer.Spawn(maq1);
             player1 = player;
         }
 
         if (nbPlayer == 2)
         {
-            if (CanvasServer)
-            {
-                Destroy(CanvasServer);
-            }
+            Debug.Log("???");
 
             maq2 = Instantiate(prefab2);
             maq2.transform.position = player.transform.position;
