@@ -58,8 +58,9 @@ namespace Mirror.LiteNetLib4Mirror
 
 				foreach (ushort port in Singleton.ports)
 				{
+                    Debug.Log(port);
 					LiteNetLib4MirrorCore.Host.SendBroadcast(DataWriter, port);
-				}
+                }
 			}
 		}
 

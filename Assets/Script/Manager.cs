@@ -63,7 +63,6 @@ public class Manager : MonoBehaviour
     public void Discovered(System.Net.IPEndPoint ip , string data)
     {
         found = true;
-        Debug.Log(ip.ToString());
         StartAsClient(ip.ToString());
     }
 
