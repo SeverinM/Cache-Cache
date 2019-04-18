@@ -125,11 +125,11 @@ public class Player : NetworkBehaviour
             {
                 if (speedZoom == 0)
                 {
-                    speedZoom = 10;
+                    speedZoom = 20;
                 }
 
                 //On zoom
-                if (speedZoom < 0)
+                if (speedZoom > 0)
                 {
                     foreach (RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
                     {
@@ -137,6 +137,8 @@ public class Player : NetworkBehaviour
                         {
                             target = (hit.point - transform.position).normalized - ForwardMaquette;
                             source = Vector3.zero;
+                            Debug.DrawRay(transform.position + transform.forward, target * 100, Color.green, 100);
+
                             speedZoom *= -1;
                             break;
                         }
@@ -150,10 +152,8 @@ public class Player : NetworkBehaviour
 
             if (speedZoom != 0)
             {
-                Debug.Log("===");
-                Debug.Log(ForwardMaquette + source);
-                Debug.Log(ForwardMaquette + target);
-                transform.forward = Vector3.Lerp(ForwardMaquette + source, ForwardMaquette + target, (maxZoom - minZoom) / (GetComponent<Camera>().fieldOfView - minZoom));
+                float ratio = (GetComponent<Camera>().fieldOfView - minZoom) / (maxZoom - minZoom);
+                transform.forward = Vector3.Lerp(ForwardMaquette + source, ForwardMaquette + target, ratio);
             }
             transform.forward = ForwardMaquette;
             GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView + (speedZoom * Time.deltaTime),minZoom, maxZoom);
