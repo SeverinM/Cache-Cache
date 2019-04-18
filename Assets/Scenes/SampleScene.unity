@@ -620,6 +620,7 @@ MonoBehaviour:
   - {fileID: 8826380129394318526, guid: 0e0aebda070e1fa4d8c47a1414c62ac5, type: 3}
   - {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f, type: 3}
   - {fileID: 2335862969281860444, guid: c80eb32ea9cb9a14aa461b1ca24cd77b, type: 3}
+  - {fileID: 6773315637210192406, guid: 1e7f4e836eb1a1f4d95a55bffe7e36e8, type: 3}
   prefab1: {fileID: 5192233636339398333, guid: 72d672477fcef6e4381fca73ec92d9c3, type: 3}
   prefab2: {fileID: 8826380129394318526, guid: 0e0aebda070e1fa4d8c47a1414c62ac5, type: 3}
   prefabSwappable: {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f,

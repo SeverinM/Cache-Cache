@@ -80,13 +80,12 @@ public class AllInteractions
 
         if (inter.currentSpot != before)
         {
-            if (before) before.CursorExit();
-            if (inter.currentSpot) inter.currentSpot.CursorEnter();
+            if (before) before.CursorExit(gob);
+            if (inter.currentSpot) inter.currentSpot.CursorEnter(gob);
         }
 
         master.GetComponent<Player>().lastLegitPos = position;
         gob.transform.position = position;
-        Debug.Log(inter.currentSpot);
     }
 
     public static void END_DRAG(GameObject gob, GameObject master, Vector3 position)
@@ -96,7 +95,7 @@ public class AllInteractions
         if (inter.currentSpot)
         {
             //Laché sur le spot
-            inter.currentSpot.CursorRelease();
+            inter.currentSpot.CursorRelease(gob);
             inter.currentSpot = null;
         }
         else
@@ -106,6 +105,7 @@ public class AllInteractions
 
         inter.Dragg = false;
         inter.SetAllSpots(false);
+        gob.transform.parent = null;
 
         Player pl = master.GetComponent<Player>();
         master.GetComponent<Player>().holdGameObject = null;

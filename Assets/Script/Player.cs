@@ -30,6 +30,10 @@ public class Player : NetworkBehaviour
     [SerializeField]
     AnimationCurve curve;
 
+    [SerializeField]
+    GameObject moon;
+    public GameObject Moon => moon;
+
     //Utilisé dans le drag and drop
     public GameObject holdGameObject;
     public Vector3 lastLegitPos;
@@ -223,6 +227,14 @@ public class Player : NetworkBehaviour
         maquette = maq;
         otherPlayer = other;
         CanRotate = true;
+
+        moon = Instantiate(moon);
+
+        float width = GetComponent<Camera>().pixelWidth;
+        float height = GetComponent<Camera>().pixelHeight;
+        moon.transform.position = maq.transform.position + new Vector3(0, 30, 0);
+
+        NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
 
     [Command]

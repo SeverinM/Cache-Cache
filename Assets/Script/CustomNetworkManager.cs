@@ -100,14 +100,23 @@ public class CustomNetworkManager : NetworkManager
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
 
             //Initialize var
-            Vector3 toTwo = player2.transform.position - player1.transform.position;
-            player1.GetComponent<Player>().ToOtherPlayer = toTwo;
-            player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
             player1.GetComponent<Player>().RpcName("Joueur numero 1");
             player2.GetComponent<Player>().RpcName("Joueur numero 2");
 
             player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
+
+            GameObject moon = player1.GetComponent<Player>().Moon;
+            foreach (Interactable inter in allInterpr1.Select(x => x.Spawn.GetComponent<Interactable>()))
+            {
+                inter.RpcAddSpot(moon.transform.position, moon);
+            }
+
+            GameObject moon2 = player2.GetComponent<Player>().Moon;
+            foreach (Interactable inter in allInterpr2.Select(x => x.Spawn.GetComponent<Interactable>()))
+            {
+                inter.RpcAddSpot(moon2.transform.position, moon2);
+            }
         }
     }
 }

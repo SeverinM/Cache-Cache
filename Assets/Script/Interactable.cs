@@ -135,7 +135,7 @@ public class Interactable : NetworkBehaviour
     {
         Debug.Log(gob);
         allSpots.Add(new SpotDragAndDropInter(position, gob));
-        gob.SetActive(false);
+        gob.GetComponent<Spot>().SetState(false);
     }
 
     [ClientRpc]
@@ -148,7 +148,7 @@ public class Interactable : NetworkBehaviour
     {
         foreach (SpotDragAndDropInter sp in allSpots)
         {
-            sp.instance.SetActive(value);
+            sp.instance.GetComponent<Spot>().SetState(value);
         }
     }
 

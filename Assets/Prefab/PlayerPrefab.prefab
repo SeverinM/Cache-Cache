@@ -130,6 +130,7 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  moon: {fileID: 6773315637210192406, guid: 1e7f4e836eb1a1f4d95a55bffe7e36e8, type: 3}
   holdGameObject: {fileID: 0}
   lastLegitPos: {x: 0, y: 0, z: 0}
   CanRotate: 0
