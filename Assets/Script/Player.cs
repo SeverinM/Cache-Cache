@@ -232,7 +232,7 @@ public class Player : NetworkBehaviour
 
         float width = GetComponent<Camera>().pixelWidth;
         float height = GetComponent<Camera>().pixelHeight;
-        moon.transform.position = maq.transform.position + new Vector3(0, 30, 0);
+        moon.transform.position = maq.transform.position + new Vector3(0, 40, 0);
 
         NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
