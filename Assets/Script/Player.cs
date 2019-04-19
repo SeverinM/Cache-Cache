@@ -45,7 +45,6 @@ public class Player : NetworkBehaviour
     float speedZoom = 0;
     Vector3 ForwardMaquette => (maquette.transform.position - transform.position).normalized;
     Vector3 target;
-    Vector3 source;
 
     public void ChangeRotate(bool newValue)
     {
@@ -131,16 +130,17 @@ public class Player : NetworkBehaviour
                 //On zoom
                 if (speedZoom > 0)
                 {
-                    foreach (RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+                    //On ne peut rezoomer qu'une fois etre completement dezoomé
+                    if (GetComponent<Camera>().fieldOfView >= maxZoom)
                     {
-                        if (hit.collider.tag == "Maquette")
+                        foreach (RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
                         {
-                            target = (hit.point - transform.position).normalized - ForwardMaquette;
-                            source = Vector3.zero;
-                            Debug.DrawRay(transform.position + transform.forward, target * 100, Color.green, 100);
-
-                            speedZoom *= -1;
-                            break;
+                            if (hit.collider.tag == "Maquette")
+                            {
+                                target = hit.point;
+                                speedZoom *= -1;
+                                break;
+                            }
                         }
                     }
                 }
@@ -152,10 +152,9 @@ public class Player : NetworkBehaviour
 
             if (speedZoom != 0)
             {
-                float ratio = (GetComponent<Camera>().fieldOfView - minZoom) / (maxZoom - minZoom);
-                transform.forward = Vector3.Lerp(ForwardMaquette + source, ForwardMaquette + target, ratio);
+                float ratio = 1 - ((GetComponent<Camera>().fieldOfView - minZoom) / (maxZoom - minZoom));
+                transform.LookAt(Vector3.Lerp(maquette.transform.position,target, ratio));
             }
-            transform.forward = ForwardMaquette;
             GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView + (speedZoom * Time.deltaTime),minZoom, maxZoom);
         }
     }
