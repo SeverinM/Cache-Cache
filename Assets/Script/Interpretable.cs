@@ -8,8 +8,16 @@ public class Interpretable : MonoBehaviour
     [SerializeField]
     protected GameObject prefab;
 
+    [System.Serializable]
+    public class SpotDragAndDrop
+    {
+        public GameObject instance;
+        public Transform where;
+    }
+
+
     [SerializeField]
-    List<Transform> allTrsf;
+    List<SpotDragAndDrop> allTrsf;
 
     [SerializeField]
     List<AllInteractions.Actions> StartInteraction;
@@ -58,9 +66,12 @@ public class Interpretable : MonoBehaviour
                 inter.RpcAddEnd(interStop);
             }
 
-            foreach (Transform trsf in allTrsf)
+            foreach (SpotDragAndDrop dnd in allTrsf)
             {
-                inter.RpcAddSpot(trsf.position);
+                dnd.instance = Instantiate(dnd.instance);
+                dnd.instance.transform.position = dnd.where.position;
+                NetworkServer.SpawnWithClientAuthority(dnd.instance, master);
+                inter.RpcAddSpot(dnd.where.position, dnd.instance);
             }
 
             inter.Master = master;

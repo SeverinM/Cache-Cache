@@ -5,6 +5,17 @@ using Mirror;
 
 public class Interactable : NetworkBehaviour
 {
+    class SpotDragAndDropInter
+    {
+        public Vector3 position;
+        public GameObject instance;
+        public SpotDragAndDropInter(Vector3 firstPosition , GameObject firstInst)
+        {
+            position = firstPosition;
+            instance = firstInst;
+        }
+    }
+
     [SyncVar]
     public GameObject Master;
 
@@ -14,30 +25,14 @@ public class Interactable : NetworkBehaviour
     [SyncVar]
     bool spawned = false;
 
+    public Spot currentSpot;
+    public Vector3 startPosition;
+
     Interactable echo;
     public Interactable Echo => echo;
 
-    List<Spot> allSpots = new List<Spot>();
-    public List<Spot> AllSpots => allSpots;
-    public class Spot
-    {
-        public Vector3 position;
-        public GameObject obj;
-
-        public Spot(Vector3 firstPos)
-        {
-            position = firstPos;
-            obj = null;
-        }
-
-        public void SetGob(GameObject gob, Material mat)
-        {
-            obj = gob;
-            if (gob != null)
-                obj.transform.position = position;
-                obj.GetComponent<MeshRenderer>().material = mat;
-        }
-    }
+    List<SpotDragAndDropInter> allSpots = new List<SpotDragAndDropInter>();
+    List<SpotDragAndDropInter> AllSpots => allSpots;
 
     public bool Spawned
     {
@@ -136,9 +131,11 @@ public class Interactable : NetworkBehaviour
     #endregion
 
     [ClientRpc]
-    public void RpcAddSpot(Vector3 position)
+    public void RpcAddSpot(Vector3 position, GameObject gob)
     {
-        allSpots.Add(new Spot(position));
+        Debug.Log(gob);
+        allSpots.Add(new SpotDragAndDropInter(position, gob));
+        gob.GetComponent<Spot>().SetState(false);
     }
 
     [ClientRpc]
@@ -149,16 +146,9 @@ public class Interactable : NetworkBehaviour
 
     public void SetAllSpots(bool value)
     {
-        foreach(Spot sp in allSpots)
+        foreach (SpotDragAndDropInter sp in allSpots)
         {
-            if (value)
-            {
-                sp.SetGob(AllInteractions.DuplicateVisual(gameObject), OtherMat);
-            }
-            else
-            {
-                Destroy(sp.obj);
-            }
+            sp.instance.GetComponent<Spot>().SetState(value);
         }
     }
 
@@ -205,22 +195,6 @@ public class Interactable : NetworkBehaviour
             default:
                 Debug.LogError(act + " est inconnu");
                 break;
-        }
-
-        if (Echo && first)
-        {
-            //CmdInteractionEcho(act, master, position);
-        }
-    }
-
-    public IEnumerator Move(float timeEnd, Vector3 positionBegin , Vector3 positionEnd)
-    {
-        float time = 0;
-        while (time < timeEnd)
-        {
-            time += Time.deltaTime;
-            transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
-            yield return null;
         }
     }
 

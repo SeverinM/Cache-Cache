@@ -45,14 +45,13 @@ public class AllInteractions
     {
         Player plr = master.GetComponent<Player>();
         Interactable inter = gob.GetComponent<Interactable>();
+        //Cant hold 2 gameobject at the same time
         if (plr.holdGameObject == null && !inter.Dragg)
         {
+            inter.startPosition = position;
             gob.GetComponent<Interactable>().Dragg = true;          
             plr.holdGameObject = inter.gameObject;
             gob.transform.parent = master.transform;
-            IEnumerator routine = inter.Move(0.25f, gob.transform.position, gob.transform.position + new Vector3(0,10,0));
-            inter.StartCoroutine(routine);
-            inter.CurrentCoroutine = routine;
             plr.lastLegitPos = position;
             inter.SetAllSpots(true);
         }
@@ -60,38 +59,56 @@ public class AllInteractions
 
     public static void MOVE_DRAG(GameObject gob, GameObject master, Vector3 position)
     {
-        bool found = false;
         Interactable inter = gob.GetComponent<Interactable>();
+        bool found = false;
+        Spot before = inter.currentSpot;
         foreach(RaycastHit hit in Physics.RaycastAll(master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
         {
-            int index = inter.AllSpots.FindIndex(x => x.obj == hit.collider.gameObject);
-            if (index >= 0)
+            Spot sp = hit.collider.GetComponent<Spot>();
+            if (sp != null)
             {
                 found = true;
-                gob.transform.position = hit.collider.gameObject.transform.position;
+                inter.currentSpot = sp;
                 break;
             }
         }
 
         if (!found)
-            gob.transform.position = position + new Vector3(0, 10, 0);
-        master.GetComponent<Player>().lastLegitPos = position + new Vector3(0, 5, 0);
+        {
+            inter.currentSpot = null;
+        }
+
+        if (inter.currentSpot != before)
+        {
+            if (before) before.CursorExit(gob);
+            if (inter.currentSpot) inter.currentSpot.CursorEnter(gob);
+        }
+
+        master.GetComponent<Player>().lastLegitPos = position;
+        gob.transform.position = position;
     }
 
     public static void END_DRAG(GameObject gob, GameObject master, Vector3 position)
     {
         Interactable inter = gob.GetComponent<Interactable>();
-        if (inter.CurrentCoroutine != null)
+
+        if (inter.currentSpot)
         {
-            inter.StopCoroutine(inter.CurrentCoroutine);
+            //Laché sur le spot
+            inter.currentSpot.CursorRelease(gob);
+            inter.currentSpot = null;
         }
+        else
+        {
+            gob.transform.position = inter.startPosition;
+        }
+
         inter.Dragg = false;
         inter.SetAllSpots(false);
+        gob.transform.parent = null;
 
         Player pl = master.GetComponent<Player>();
-        inter.StartCoroutine(inter.Move(0.1f, gob.transform.position, pl.lastLegitPos));
         master.GetComponent<Player>().holdGameObject = null;
-        gob.transform.parent = master.GetComponent<Player>().maquette.transform;
     }
 
     public static void TELEPORT(GameObject gob , GameObject master , Vector3 position)

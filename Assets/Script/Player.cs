@@ -19,16 +19,13 @@ public class Player : NetworkBehaviour
 
     [SyncVar]
     GameObject man;
-    
-    //Zoom
-    IEnumerator zoomCoroutine;
-    Vector3 focusZoom;
-    Vector3 previousForward;
-    float lastFOV;
-    bool zoomed = false;
 
     [SerializeField]
     AnimationCurve curve;
+
+    [SerializeField]
+    GameObject moon;
+    public GameObject Moon => moon;
 
     //Utilisé dans le drag and drop
     public GameObject holdGameObject;
@@ -41,6 +38,13 @@ public class Player : NetworkBehaviour
     public bool CanRotate = false;
 
     public GameObject prefabUI;
+
+    float maxZoom;
+    float minZoom = 30;
+    float delta = 0;
+    float speedZoom = 0;
+    Vector3 ForwardMaquette => (maquette.transform.position - transform.position).normalized;
+    Vector3 target;
 
     public void ChangeRotate(bool newValue)
     {
@@ -64,6 +68,7 @@ public class Player : NetworkBehaviour
         GameObject gob = Instantiate(prefabUI);
         btnRight = gob.transform.GetChild(0).GetComponent<Button>();
         btnLeft = gob.transform.GetChild(1).GetComponent<Button>();
+        maxZoom = GetComponent<Camera>().fieldOfView;
 
         btnLeft.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
         {
@@ -114,53 +119,44 @@ public class Player : NetworkBehaviour
                 holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION ,Vector3.zero);
             }
 
-            //Clic droit appuyé
+            //Clic droit 
             if (Input.GetMouseButtonDown(1))
             {
-                RaycastHit hit;
-                //On zoom sur la premiere collision trouvé
-                if (Physics.Raycast(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition),out hit))
+                if (speedZoom == 0)
                 {
-                    zoomed = true;
-                    if (zoomCoroutine != null)
-                    {
-                        StopCoroutine(zoomCoroutine);
-                        GetComponent<Camera>().fieldOfView = lastFOV;
-                    }
+                    speedZoom = 20;
+                }
 
-                    if (zoomed)
+                //On zoom
+                if (speedZoom > 0)
+                {
+                    //On ne peut rezoomer qu'une fois etre completement dezoomé
+                    if (GetComponent<Camera>().fieldOfView >= maxZoom)
                     {
-                        zoomCoroutine = InterpolateZoom(1,(focusZoom - transform.position).normalized, previousForward, -30);
+                        foreach (RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+                        {
+                            if (hit.collider.tag == "Maquette")
+                            {
+                                target = hit.point;
+                                speedZoom *= -1;
+                                break;
+                            }
+                        }
                     }
-                    else
-                    {
-                        zoomCoroutine = InterpolateZoom(1, transform.forward, (hit.point - transform.position).normalized, 30);
-                    }
-                    
-                    StartCoroutine(zoomCoroutine);
-                    lastFOV = GetComponent<Camera>().fieldOfView - 30;
-                    previousForward = transform.forward;
-                    focusZoom = hit.point;
-                    zoomed = !zoomed;
+                }
+                else
+                {
+                    speedZoom *= -1;
                 }
             }
-        }
-    }
 
-    IEnumerator InterpolateZoom(float duration, Vector3 initialForward, Vector3 finalForward, float modifierFOV)
-    {
-        float time = 0;
-        float ratio = 0;
-        float firstFOV = GetComponent<Camera>().fieldOfView;
-        while (time < duration)
-        {
-            time += Time.deltaTime;
-            ratio = curve.Evaluate(time / duration);
-            transform.forward = Vector3.Lerp(initialForward, finalForward, ratio);
-            GetComponent<Camera>().fieldOfView = firstFOV + (ratio * modifierFOV);
-            yield return 1;
+            if (speedZoom != 0)
+            {
+                float ratio = 1 - ((GetComponent<Camera>().fieldOfView - minZoom) / (maxZoom - minZoom));
+                transform.LookAt(Vector3.Lerp(maquette.transform.position,target, ratio));
+            }
+            GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView + (speedZoom * Time.deltaTime),minZoom, maxZoom);
         }
-        zoomCoroutine = null;
     }
 
     #region RPC et command
@@ -223,6 +219,14 @@ public class Player : NetworkBehaviour
         maquette = maq;
         otherPlayer = other;
         CanRotate = true;
+
+        moon = Instantiate(moon);
+
+        float width = GetComponent<Camera>().pixelWidth;
+        float height = GetComponent<Camera>().pixelHeight;
+        moon.transform.position = maq.transform.position + new Vector3(0, 40, 0);
+
+        NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
 
     [Command]
