@@ -73,8 +73,11 @@ public class Manager : MonoBehaviour
         //Quand le serveur recoit quelque chose , renvoit autre chose
         clientUdp.EndReceive(ar, ref interNetwork);
         byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
-        clientUdp.Send(Response, Response.Length, interNetwork);
-        Debug.Log("le serveur a recu " + interNetwork.Address.ToString());
+
+        IPAddress addr = IPAddress.Parse(interNetwork.Address.ToString());
+
+        clientUdp.Send(Response, Response.Length, new IPEndPoint(addr, port));
+        Debug.Log("le serveur a envoyé " + DISCOVERY_FOUND + " a " + addr.ToString());
     }
 
     public void StartResearch()
