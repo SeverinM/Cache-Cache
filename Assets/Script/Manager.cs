@@ -74,13 +74,10 @@ public class Manager : MonoBehaviour
     {
         //Quand le serveur recoit quelque chose , renvoit autre chose
         clientUdp.EndReceive(ar, ref interNetwork);
-        byte[] Response = Encoding.ASCII.GetBytes(GetLocalIPAddress());
-        Debug.Log(GetLocalIPAddress());
-
+        byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
         IPAddress addr = IPAddress.Parse(interNetwork.Address.ToString());
 
         clientUdp.Send(Response, Response.Length, new IPEndPoint(addr, port));
-        Debug.Log("le serveur a envoyé " + DISCOVERY_FOUND + " a " + addr.ToString());
     }
 
     public void StartResearch()
@@ -95,9 +92,9 @@ public class Manager : MonoBehaviour
         byte[] RequestData = Encoding.ASCII.GetBytes(REQUEST_DISCOVERY);
         interNetwork = new IPEndPoint(IPAddress.Any, 0);
         clientUdp.EnableBroadcast = true;
-        clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
         while (!found)
         {
+            clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
             IPAddress addr = IPAddress.Parse("10.1.61.255");
             Debug.Log("recherche : " + Time.timeSinceLevelLoad);
             clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
@@ -117,15 +114,15 @@ public class Manager : MonoBehaviour
         Debug.Log("reponse recu client");
         if (!found)
         {
-            string addr = Encoding.ASCII.GetString(clientUdp.EndReceive(ar, ref interNetwork));
-            Debug.Log(addr);
-            if (addr != "0.0.0.0")
+            string Response = Encoding.ASCII.GetString(clientUdp.EndReceive(ar, ref interNetwork));
+            string addr = interNetwork.Address.ToString();
+            if (Response == DISCOVERY_FOUND)
             {
-                Debug.Log(addr);
                 found = true;
+                Debug.Log(addr);
                 StartAsClient(addr);
             }
-        }      
+        }
     }
 
     public static string GetLocalIPAddress()
