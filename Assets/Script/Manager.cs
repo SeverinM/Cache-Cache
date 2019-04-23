@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System;
 
 public class Manager : MonoBehaviour
 {
@@ -13,10 +17,19 @@ public class Manager : MonoBehaviour
     GameObject prefabIP;
 
     [SerializeField]
+    int port;
+
+    [SerializeField]
     CustomNetworkManager manager;
+
+    const string REQUEST_DISCOVERY = "CacheCache";
+    const string DISCOVERY_FOUND = "CacheCacheOK";
 
     Text txt;
     bool found = false;
+
+    UdpClient clientUdp;
+    IPEndPoint interNetwork;
 
     static Manager _instance;
 
@@ -46,34 +59,66 @@ public class Manager : MonoBehaviour
     {
         Destroy(referenceCanvas);
         manager.StartHost();
+
+        //Ecoute pour discovery
+        clientUdp = new UdpClient(port);
+        byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
+        //On ecoute toutes les interfaces reseaux du serveur
+        interNetwork = new IPEndPoint(IPAddress.Any, 0);
+        clientUdp.BeginReceive(new AsyncCallback(ServerResponse), null);
+    }
+
+    void ServerResponse(IAsyncResult ar)
+    {
+        //Quand le serveur recoit quelque chose , renvoit autre chose
+        clientUdp.EndReceive(ar, ref interNetwork);
+        byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
+        clientUdp.Send(Response, Response.Length, interNetwork);
+        Debug.Log("le serveur a recu");
     }
 
     public void StartResearch()
     {
-        StartCoroutine(SearchingCoroutine());
+        if (clientUdp == null)
+            StartCoroutine(Research());
+    }
+
+    IEnumerator Research()
+    {
+        clientUdp = new UdpClient(port);
+        byte[] RequestData = Encoding.ASCII.GetBytes(REQUEST_DISCOVERY);
+        interNetwork = new IPEndPoint(IPAddress.Any, 0);
+        clientUdp.EnableBroadcast = true;
+        clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
+        while (!found)
+        {
+            Debug.Log("recherche : " + Time.timeSinceLevelLoad);
+            clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            yield return new WaitForSeconds(2f);
+        }
     }
 
     public void StartAsClient(string addr)
     {
         manager.networkAddress = addr;
         manager.StartClient();
-        Destroy(referenceCanvas);
+        Destroy(referenceCanvas);       
     }
 
-    public void Discovered(System.Net.IPEndPoint ip , string data)
+    void ClientResponse(IAsyncResult ar)
     {
-        found = true;
-        StartAsClient(ip.ToString());
-    }
-
-    IEnumerator SearchingCoroutine()
-    {
-        Mirror.LiteNetLib4Mirror.LiteNetLib4MirrorDiscovery.InitializeFinder();
-        while (!found)
+        if (!found)
         {
-            Debug.Log("recherche");
-            yield return new WaitForSeconds(0.5f);
-            Mirror.LiteNetLib4Mirror.LiteNetLib4MirrorDiscovery.SendDiscoveryRequest("START");
-        }
+            byte[] reponseData = clientUdp.EndReceive(ar, ref interNetwork);
+            string Response = Encoding.ASCII.GetString(reponseData);
+            Debug.Log("recu : " + Response + " de " + interNetwork.Address.ToString() + " a " + Time.timeSinceLevelLoad);
+
+            if (Response == DISCOVERY_FOUND)
+            {
+                found = true;
+                StartAsClient(interNetwork.Address.ToString());
+                Debug.Log("demarrage client");
+            }
+        }        
     }
 }
