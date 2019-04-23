@@ -568,8 +568,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1997298376}
   - component: {fileID: 1997298375}
-  - component: {fileID: 1997298378}
-  - component: {fileID: 1997298377}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -591,6 +589,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceCanvas: {fileID: 1312254838}
   prefabIP: {fileID: 167489997720141888, guid: d37879bf45bdfc94c834554193ace018, type: 3}
+  port: 4000
   manager: {fileID: 2088040802}
 --- !u!4 &1997298376
 Transform:
@@ -606,114 +605,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1997298377
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997298374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93372bc1dacdbf74185a7f5093672cdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  onDiscoveryResponse:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1997298375}
-        m_MethodName: Discovered
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: Mirror.LiteNetLib4Mirror.UnityEventIpEndpointString, Mirror, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  ports: 611e
---- !u!114 &1997298378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1997298374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5671dcb80f9d69240b71f5612676a3fd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnClientConnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnClientDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventByteArray, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnClientError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventException, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnClientDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  OnServerConnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventInt, Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  OnServerDataReceived:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventIntByteArray, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnServerError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventIntException, Mirror, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  OnServerDisconnected:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.UnityEventInt, Mirror, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  clientAddress: 127.0.0.1
-  serverIPv4BindAddress: 0.0.0.0
-  serverIPv6BindAddress: '::'
-  port: 7777
-  useUpnP: 1
-  maxConnections: 20
-  ipv6Enabled: 1
-  channels: 0300000000000000020000000400000001000000
-  authCode: 
-  updateTime: 15
-  pingInterval: 1000
-  disconnectTimeout: 5000
-  reconnectDelay: 500
-  maxConnectAttempts: 10
-  simulatePacketLoss: 0
-  simulationPacketLossChance: 10
-  simulateLatency: 0
-  simulationMinLatency: 30
-  simulationMaxLatency: 100
-  onClientSocketError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.LiteNetLib4Mirror.UnityEventError, Mirror, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-  onServerSocketError:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: Mirror.LiteNetLib4Mirror.UnityEventIntError, Mirror, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
 --- !u!1 &2088040798
 GameObject:
   m_ObjectHideFlags: 0
