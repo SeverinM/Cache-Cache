@@ -7,6 +7,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System;
+using System.Net.NetworkInformation;
 
 public class Manager : MonoBehaviour
 {
@@ -62,6 +63,7 @@ public class Manager : MonoBehaviour
 
         //Ecoute pour discovery
         clientUdp = new UdpClient(port);
+
         byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
         //On ecoute toutes les interfaces reseaux du serveur
         interNetwork = new IPEndPoint(IPAddress.Any, 0);
@@ -72,7 +74,8 @@ public class Manager : MonoBehaviour
     {
         //Quand le serveur recoit quelque chose , renvoit autre chose
         clientUdp.EndReceive(ar, ref interNetwork);
-        byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
+        byte[] Response = Encoding.ASCII.GetBytes(GetLocalIPAddress());
+        Debug.Log(GetLocalIPAddress());
 
         IPAddress addr = IPAddress.Parse(interNetwork.Address.ToString());
 
@@ -97,9 +100,8 @@ public class Manager : MonoBehaviour
         {
             IPAddress addr = IPAddress.Parse("10.1.61.255");
             Debug.Log("recherche : " + Time.timeSinceLevelLoad);
-            //clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(IPAddress.Broadcast, port));
             clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -112,18 +114,24 @@ public class Manager : MonoBehaviour
 
     void ClientResponse(IAsyncResult ar)
     {
+        Debug.Log("reponse recu client");
         if (!found)
         {
-            byte[] reponseData = clientUdp.EndReceive(ar, ref interNetwork);
-            string Response = Encoding.ASCII.GetString(reponseData);
-            Debug.Log("recu : " + Response + " de " + interNetwork.Address.ToString() + " a " + Time.timeSinceLevelLoad);
-
-            if (Response == DISCOVERY_FOUND)
+            string addr = Encoding.ASCII.GetString(clientUdp.EndReceive(ar, ref interNetwork));
+            Debug.Log(addr);
+            if (addr != "0.0.0.0")
             {
+                Debug.Log(addr);
                 found = true;
-                StartAsClient(interNetwork.Address.ToString());
-                Debug.Log("demarrage client");
+                StartAsClient(addr);
             }
-        }        
+        }      
+    }
+
+    public static string GetLocalIPAddress()
+    {
+        string hostName = Dns.GetHostName();
+        IPAddress[] allAddr = Dns.GetHostEntry(hostName).AddressList;
+        return allAddr[allAddr.Length - 1].ToString();
     }
 }
