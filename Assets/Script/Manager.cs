@@ -74,7 +74,7 @@ public class Manager : MonoBehaviour
         clientUdp.EndReceive(ar, ref interNetwork);
         byte[] Response = Encoding.ASCII.GetBytes(DISCOVERY_FOUND);
         clientUdp.Send(Response, Response.Length, interNetwork);
-        Debug.Log("le serveur a recu");
+        Debug.Log("le serveur a recu " + interNetwork.Address.ToString());
     }
 
     public void StartResearch()
@@ -92,8 +92,10 @@ public class Manager : MonoBehaviour
         clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
         while (!found)
         {
+            IPAddress addr = IPAddress.Parse("10.1.61.255");
             Debug.Log("recherche : " + Time.timeSinceLevelLoad);
-            clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            //clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(IPAddress.Broadcast, port));
+            clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
             yield return new WaitForSeconds(2f);
         }
     }
