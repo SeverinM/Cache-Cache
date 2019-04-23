@@ -32,6 +32,9 @@ public class Manager : MonoBehaviour
     UdpClient clientUdp;
     IPEndPoint interNetwork;
 
+    string connectIp = "";
+    bool connecting = false;
+
     static Manager _instance;
 
     private void Awake()
@@ -43,6 +46,15 @@ public class Manager : MonoBehaviour
         else
         {
             _instance = this;
+        }
+    }
+
+    private void Update()
+    {
+        if (connecting)
+        {
+            connecting = false;
+            Connect(connectIp);
         }
     }
 
@@ -98,15 +110,15 @@ public class Manager : MonoBehaviour
             IPAddress addr = IPAddress.Parse("10.1.61.255");
             Debug.Log("recherche : " + Time.timeSinceLevelLoad);
             clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(2f);
         }
     }
 
-    public void StartAsClient(string addr)
+    public void Connect(string ip)
     {
-        manager.networkAddress = addr;
+        Destroy(referenceCanvas);
+        manager.networkAddress = ip;
         manager.StartClient();
-        Destroy(referenceCanvas);       
     }
 
     void ClientResponse(IAsyncResult ar)
@@ -118,9 +130,10 @@ public class Manager : MonoBehaviour
             string addr = interNetwork.Address.ToString();
             if (Response == DISCOVERY_FOUND)
             {
+                string addrCopy = (string)addr.Clone();
                 found = true;
-                Debug.Log(addr);
-                StartAsClient(addr);
+                connectIp = addrCopy;
+                connecting = true;
             }
         }
     }
