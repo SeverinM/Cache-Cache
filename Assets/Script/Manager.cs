@@ -107,7 +107,7 @@ public class Manager : MonoBehaviour
         while (!found)
         {
             clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
-            IPAddress addr = IPAddress.Parse("10.1.61.255");
+            IPAddress addr = IPAddress.Parse(GetBroadcastAdress());
             Debug.Log("recherche : " + Time.timeSinceLevelLoad);
             clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
             yield return new WaitForSeconds(2f);
@@ -123,13 +123,13 @@ public class Manager : MonoBehaviour
 
     void ClientResponse(IAsyncResult ar)
     {
-        Debug.Log("reponse recu client");
         if (!found)
         {
             string Response = Encoding.ASCII.GetString(clientUdp.EndReceive(ar, ref interNetwork));
             string addr = interNetwork.Address.ToString();
             if (Response == DISCOVERY_FOUND)
             {
+                Debug.Log("trouve");
                 string addrCopy = (string)addr.Clone();
                 found = true;
                 connectIp = addrCopy;
@@ -138,10 +138,54 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public static string GetLocalIPAddress()
+    public static string GetBroadcastAdress()
     {
         string hostName = Dns.GetHostName();
         IPAddress[] allAddr = Dns.GetHostEntry(hostName).AddressList;
-        return allAddr[allAddr.Length - 1].ToString();
+        IPAddress addr = allAddr[allAddr.Length - 1];
+        IPAddress mask = null;
+        bool stop = false;
+
+        foreach (NetworkInterface ni in NetworkInterface.GetAllNetworkInterfaces())
+        {
+            if (stop) break;
+            foreach (UnicastIPAddressInformation uipi in ni.GetIPProperties().UnicastAddresses)
+            {
+                string tempAddr = uipi.Address.ToString();
+                //Pas d'adresse IPV4
+                if (uipi.Address.ToString() == addr.ToString())
+                {
+                    mask = uipi.IPv4Mask;
+                    stop = true;
+                    break;
+                }
+            }        
+        }
+
+
+        string output = "";
+        if (mask != null)
+        {
+            output = SplitBytes(addr, mask).ToString();
+        }
+
+        Debug.Log(output);
+        return output;
+    }
+
+    public static IPAddress SplitBytes(IPAddress address, IPAddress subnetMask)
+    {
+        byte[] ipAdressBytes = address.GetAddressBytes();
+        byte[] subnetMaskBytes = subnetMask.GetAddressBytes();
+
+        if (ipAdressBytes.Length != subnetMaskBytes.Length)
+            throw new ArgumentException("Lengths of IP address and subnet mask do not match.");
+
+        byte[] broadcastAddress = new byte[ipAdressBytes.Length];
+        for (int i = 0; i < broadcastAddress.Length; i++)
+        {
+            broadcastAddress[i] = (byte)(ipAdressBytes[i] | (subnetMaskBytes[i] ^ 255));
+        }
+        return new IPAddress(broadcastAddress);
     }
 }
