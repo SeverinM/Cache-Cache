@@ -188,6 +188,7 @@ Transform:
   - {fileID: 1050754139893613315}
   - {fileID: 3454470839361721627}
   - {fileID: 6598372824797281918}
+  - {fileID: 8448436916722029036}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -284,6 +285,50 @@ MonoBehaviour:
   EndInteraction: 
   indexEcho: 1
   index: 1
+--- !u!1 &7470216115248291125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8448436916722029036}
+  - component: {fileID: 4231458296339180800}
+  m_Layer: 0
+  m_Name: Rallonge
+  m_TagString: Rallonge
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8448436916722029036
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470216115248291125}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5192233636339398329}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &4231458296339180800
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7470216115248291125}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 15.683587, y: 1, z: 16.015207}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8826262018864304801
 GameObject:
   m_ObjectHideFlags: 0
@@ -329,8 +374,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f, type: 3}
   allTrsf: []
-  StartInteraction: 04000000
-  MoveInteraction: 
-  EndInteraction: 
+  StartInteraction: 00000000
+  MoveInteraction: 02000000
+  EndInteraction: 01000000
   indexEcho: -1
   index: 0

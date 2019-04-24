@@ -80,8 +80,8 @@ public class AllInteractions
         }
 
         if (!found)
-            gob.transform.position = position + new Vector3(0, 10, 0);
-        master.GetComponent<Player>().lastLegitPos = position + new Vector3(0, 5, 0);
+            gob.transform.position = position;
+        master.GetComponent<Player>().lastLegitPos = position;
     }
 
     public static void END_DRAG(GameObject gob, GameObject master, Vector3 position)

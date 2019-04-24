@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Swappable
   - Maquette
+  - Rallonge
   layers:
   - Default
   - TransparentFX

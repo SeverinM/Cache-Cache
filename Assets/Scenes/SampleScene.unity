@@ -585,7 +585,7 @@ GameObject:
   - component: {fileID: 2088040801}
   - component: {fileID: 2088040802}
   m_Layer: 0
-  m_Name: network
+  m_Name: Network
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -689,6 +689,7 @@ MonoBehaviour:
   - {fileID: 7565885528833053622, guid: c242f40392f6d1a4da196dbc7b5c8db7, type: 3}
   - {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f, type: 3}
   - {fileID: 2725148996085876583, guid: 09fedd162b4f64846b4bc130b0e633f4, type: 3}
+  - {fileID: 32616110331123676, guid: cb152d1c6c94b6844b44dc2440e5bfd0, type: 3}
   prefab1: {fileID: 5192233636339398333, guid: 9e374b96b692669478f868b4bc3c9662, type: 3}
   prefab2: {fileID: 7565885528833053622, guid: c242f40392f6d1a4da196dbc7b5c8db7, type: 3}
   prefabSwappable: {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f,

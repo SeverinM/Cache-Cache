@@ -13,6 +13,9 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public GameObject maquette;
 
+    [SerializeField]
+    Vector3 deltaCam = new Vector3(100, 50, 0);
+
     [SyncVar]
     GameObject otherPlayer;
     public GameObject OtherPlayer => otherPlayer;
@@ -31,7 +34,10 @@ public class Player : NetworkBehaviour
     AnimationCurve curve;
 
     //Utilisé dans le drag and drop
+    [HideInInspector]
     public GameObject holdGameObject;
+
+    [HideInInspector]
     public Vector3 lastLegitPos;
 
     Button btnRight;
@@ -210,7 +216,7 @@ public class Player : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = vec + new Vector3(100, 50, 0);
+            transform.position = vec + deltaCam;
             transform.RotateAround(vec, Vector3.up, amount);
             transform.LookAt(vec);
         }

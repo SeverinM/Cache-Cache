@@ -167,7 +167,7 @@ public class Interactable : NetworkBehaviour
         {
             foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
             {
-                if (hit.collider.tag == "Maquette")
+                if (hit.collider.tag == "Maquette" || hit.collider.tag == "Rallonge")
                 {
                     Interaction(TypeAction.MOVE_INTERACTION, hit.point);
                     break;
