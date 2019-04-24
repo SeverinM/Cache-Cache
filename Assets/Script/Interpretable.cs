@@ -15,18 +15,8 @@ public class Interpretable : MonoBehaviour
         public Transform where;
     }
 
-
     [SerializeField]
     List<SpotDragAndDrop> allTrsf;
-
-    [SerializeField]
-    List<AllInteractions.Actions> StartInteraction;
-
-    [SerializeField]
-    List<AllInteractions.Actions> MoveInteraction;
-
-    [SerializeField]
-    List<AllInteractions.Actions> EndInteraction;
 
     [SerializeField]
     int indexEcho = -1;
@@ -52,31 +42,17 @@ public class Interpretable : MonoBehaviour
             {
                 return;
             }
+            inter.Master = master;
 
-            foreach (AllInteractions.Actions interStart in StartInteraction)
-            {
-                inter.RpcAddStart(interStart);
-            }
-
-            foreach(AllInteractions.Actions interMove in MoveInteraction)
-            {
-                inter.RpcAddMove(interMove);
-            }
-
-            foreach(AllInteractions.Actions interStop in EndInteraction)
-            {
-                inter.RpcAddEnd(interStop);
-            }
-
+            Draggable dragg = spawn.GetComponent<Draggable>();
+            if (!dragg) return;
             foreach (SpotDragAndDrop dnd in allTrsf)
             {
                 dnd.instance = Instantiate(dnd.instance);
                 dnd.instance.transform.position = dnd.where.position;
                 NetworkServer.SpawnWithClientAuthority(dnd.instance, master);
-                inter.RpcAddSpot(dnd.where.position, dnd.instance);
+                dragg.RpcAddSpot(dnd.where.position, dnd.instance);
             }
-
-            inter.Master = master;
         }
     }
 

@@ -109,9 +109,9 @@ public class Player : NetworkBehaviour
             {
                 foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
                 {
-                    if (hit.collider.GetComponent<Interactable>())
+                    if (hit.collider.GetComponent<Interactable>() && holdGameObject == null)
                     {
-                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, hit.point);
+                        hit.collider.GetComponent<Interactable>().StartInteraction();
                         break;
                     }
                 }
@@ -119,10 +119,17 @@ public class Player : NetworkBehaviour
 
             if (Input.GetMouseButtonUp(0) && holdGameObject)
             {
-                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION ,Vector3.zero);
+                holdGameObject.GetComponent<Interactable>().EndInteraction();
+                holdGameObject = null;
             }
 
-            //Clic droit 
+            if (holdGameObject)
+            {
+                holdGameObject.GetComponent<Interactable>().MoveInteraction();
+            }
+
+            #region Zoom
+            //Clic droit -> zoom
             if (Input.GetMouseButtonDown(1))
             {
                 if (speedZoom == 0)
@@ -159,6 +166,7 @@ public class Player : NetworkBehaviour
                 transform.LookAt(Vector3.Lerp(maquette.transform.position,target, ratio));
             }
             GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView + (speedZoom * Time.deltaTime),minZoom, maxZoom);
+            #endregion 
         }
     }
 
@@ -254,17 +262,5 @@ public class Player : NetworkBehaviour
     {
         name = nm;
     }
-
-    public void RelayInteraction(Interactable.TypeAction acts , Interactable inter , Vector3 position)
-    {
-        CmdInter(acts, inter.gameObject, position);
-    }
-
-    [Command]
-    public void CmdInter(Interactable.TypeAction acts, GameObject inter, Vector3 position)
-    {
-        inter.GetComponent<Interactable>().Interaction(acts, position, false);
-    }
-
     #endregion
 }

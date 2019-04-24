@@ -16,7 +16,7 @@ public class Moon : Spot
 
     public override void CursorRelease(GameObject gob)
     {
-        AllInteractions.TELEPORT(gob, gob.GetComponent<Interactable>().Master, transform.position);
+        gob.GetComponent<Interactable>().Teleport();
     }
 
     public override void SetState(bool value)

@@ -103,15 +103,15 @@ public class CustomNetworkManager : NetworkManager
             player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
 
             GameObject moon = player1.GetComponent<Player>().Moon;
-            foreach (Interactable inter in allInterpr1.Select(x => x.Spawn.GetComponent<Interactable>()))
+            foreach (Draggable inter in allInterpr1.Select(x => x.Spawn.GetComponent<Draggable>()))
             {
-                inter.RpcAddSpot(moon.transform.position, moon);
+                if (inter) inter.RpcAddSpot(moon.transform.position, moon);
             }
 
             GameObject moon2 = player2.GetComponent<Player>().Moon;
-            foreach (Interactable inter in allInterpr2.Select(x => x.Spawn.GetComponent<Interactable>()))
+            foreach (Draggable inter in allInterpr2.Select(x => x.Spawn.GetComponent<Draggable>()))
             {
-                inter.RpcAddSpot(moon2.transform.position, moon2);
+                if (inter) inter.RpcAddSpot(moon2.transform.position, moon2);
             }
         }
     }
