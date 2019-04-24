@@ -6,15 +6,20 @@ using System.Linq;
 
 public class AllInteractions
 {
+
+    public const string INTERACTION_TRIGGER = "Interaction";
+
     public enum Actions
     {
         START_DRAG = 0,
-        END_DRAG = 1,
-        MOVE_DRAG = 2,
-        SEARCH = 3,
-        TELEPORT = 4
+        END_DRAG,
+        MOVE_DRAG,
+        SEARCH,
+        TELEPORT,
+        INTERACTION
     }
 
+    //Convertit l'enum en delegate
     public static Interactable.InteractionDelegate GetDelegate(AllInteractions.Actions acts)
     {
         Interactable.InteractionDelegate output = delegate { };
@@ -35,6 +40,10 @@ public class AllInteractions
 
             case Actions.TELEPORT:
                 output += TELEPORT;
+                break;
+
+            case Actions.INTERACTION:
+                output += INTERACT;
                 break;
         }
 
@@ -119,6 +128,11 @@ public class AllInteractions
         Debug.Log(delta);
         plr.CmdMove(gob, gob.transform.position + (other.maquette.transform.position - plr.maquette.transform.position));
         plr.CmdChangeAuthority(gob, plr.gameObject, plr.OtherPlayer);
+    }
+
+    public static void INTERACT(GameObject gob, GameObject master, Vector3 position)
+    {
+        gob.GetComponent<Animator>().SetTrigger(INTERACTION_TRIGGER);
     }
 
     public static GameObject DuplicateVisual(GameObject gob)

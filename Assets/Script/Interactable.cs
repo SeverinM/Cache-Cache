@@ -16,11 +16,9 @@ public class Interactable : NetworkBehaviour
         }
     }
 
+    [HideInInspector]
     [SyncVar]
     public GameObject Master;
-
-    public Material newMaterial;
-    public AnimationCurve animation;
 
     [SyncVar]
     bool spawned = false;
@@ -50,11 +48,10 @@ public class Interactable : NetworkBehaviour
         }
     }
 
+    [HideInInspector]
     [SerializeField]
     Material otherMat;
     public Material OtherMat => otherMat;
-
-    public IEnumerator CurrentCoroutine { get; set; }
 
     public enum TypeAction
     {
@@ -67,6 +64,8 @@ public class Interactable : NetworkBehaviour
 
     bool _canInteract = true;
     public bool CanInteract => _canInteract;
+
+    [HideInInspector]
     public bool Dragg = false;
 
     public delegate void InteractionDelegate (GameObject gob, GameObject master, Vector3 optionalPosition);
@@ -158,7 +157,7 @@ public class Interactable : NetworkBehaviour
         {
             foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
             {
-                if (hit.collider.tag == "Maquette")
+                if (hit.collider.tag == "Maquette" || hit.collider.tag == "Rallonge")
                 {
                     Interaction(TypeAction.MOVE_INTERACTION, hit.point);
                     break;
@@ -196,6 +195,11 @@ public class Interactable : NetworkBehaviour
                 Debug.LogError(act + " est inconnu");
                 break;
         }
+
+        if (Echo && first)
+        {
+            CmdInteractionEcho(act, gameObject, position);
+        }
     }
 
     [ClientRpc]
@@ -225,7 +229,9 @@ public class Interactable : NetworkBehaviour
     [Command]
     public void CmdInteractionEcho(TypeAction act, GameObject gob, Vector3 position)
     {
-        TargetEcho(gob.GetComponent<NetworkIdentity>().connectionToClient, act, position);
+        Interactable ech = gob.GetComponent<Interactable>().Echo;
+        Debug.Log(ech);
+        ech.TargetEcho(ech.Master.GetComponent<NetworkIdentity>().connectionToClient, act, position);
     }
 
     [TargetRpc]
