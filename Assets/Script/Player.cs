@@ -3,19 +3,187 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
+using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 public class Player : NetworkBehaviour
 {
     public Vector3 ToOtherPlayer { get; set; }
 
     [SyncVar]
-    GameObject maquette;
+    public GameObject maquette;
+
+    public Vector3 deltaCam = new Vector3(100, 50, 0);
+
+    [SyncVar]
+    GameObject otherPlayer;
+    public GameObject OtherPlayer => otherPlayer;
 
     [SyncVar]
     GameObject man;
 
-    [SyncVar]
-    public int playerIdentity;
+    public AnimationCurve curve;
+
+    public GameObject moon;
+    public GameObject Moon => moon;
+
+    //Utilisé dans le drag and drop
+    [HideInInspector]
+    public GameObject holdGameObject;
+
+    [HideInInspector]
+    public Vector3 lastLegitPos;
+
+    Button btnRight;
+    Button btnLeft;
+
+    [SyncVar(hook = nameof(ChangeRotate))]
+    public bool CanRotate = false;
+
+    public GameObject prefabUI;
+
+    float maxZoom;
+    float minZoom = 30;
+    float delta = 0;
+    float speedZoom = 0;
+    Vector3 ForwardMaquette => (maquette.transform.position - transform.position).normalized;
+    Vector3 target;
+
+    public void ChangeRotate(bool newValue)
+    {
+        if (btnLeft && btnRight)
+        {
+            btnRight.interactable = newValue;
+            btnLeft.interactable = newValue;
+        }
+    }
+
+    [Command]
+    public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
+    {
+        gob.GetComponent<NetworkIdentity>().RemoveClientAuthority(oldPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+        gob.GetComponent<NetworkIdentity>().AssignClientAuthority(newPlayer.GetComponent<NetworkIdentity>().connectionToClient);
+        gob.GetComponent<Interactable>().Master = newPlayer;
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        GameObject gob = Instantiate(prefabUI);
+        btnRight = gob.transform.GetChild(0).GetComponent<Button>();
+        btnLeft = gob.transform.GetChild(1).GetComponent<Button>();
+        maxZoom = GetComponent<Camera>().fieldOfView;
+
+        btnLeft.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
+        {
+            if (x)
+            {
+                CmdTryRotate(gameObject, -1);
+            }
+            else
+            {
+                CmdRelease(gameObject);
+            }
+        };
+
+        btnRight.GetComponent<ButtonInteraction>().OnButtonInteracted += (x) =>
+        {
+            if (x)
+            {
+                CmdTryRotate(gameObject, 1);
+            }
+            else
+            {
+                CmdRelease(gameObject);
+            }
+        };
+    }
+
+    private void Update()
+    {
+        if (hasAuthority)
+        {
+            if (maquette == null) return;
+
+            //On proc la fin d'interaction pour l'objet tenu
+            if (Input.GetMouseButtonDown(0))
+            {
+                foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+                {
+                    if (hit.collider.GetComponent<Interactable>())
+                    {
+                        hit.collider.GetComponent<Interactable>().Interaction(Interactable.TypeAction.START_INTERACTION, hit.point);
+                        break;
+                    }
+                }
+            }
+
+            if (Input.GetMouseButtonUp(0) && holdGameObject)
+            {
+                holdGameObject.GetComponent<Interactable>().Interaction(Interactable.TypeAction.END_INTERACTION ,Vector3.zero);
+            }
+
+            //Clic droit 
+            if (Input.GetMouseButtonDown(1))
+            {
+                if (speedZoom == 0)
+                {
+                    speedZoom = 20;
+                }
+
+                //On zoom
+                if (speedZoom > 0)
+                {
+                    //On ne peut rezoomer qu'une fois etre completement dezoomé
+                    if (GetComponent<Camera>().fieldOfView >= maxZoom)
+                    {
+                        foreach (RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+                        {
+                            if (hit.collider.tag == "Maquette")
+                            {
+                                target = hit.point;
+                                speedZoom *= -1;
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    speedZoom *= -1;
+                }
+            }
+
+            if (speedZoom != 0)
+            {
+                float ratio = 1 - ((GetComponent<Camera>().fieldOfView - minZoom) / (maxZoom - minZoom));
+                transform.LookAt(Vector3.Lerp(maquette.transform.position,target, ratio));
+            }
+            GetComponent<Camera>().fieldOfView = Mathf.Clamp(GetComponent<Camera>().fieldOfView + (speedZoom * Time.deltaTime),minZoom, maxZoom);
+        }
+    }
+
+    #region RPC et command
+
+    [Command]
+    public void CmdMove(GameObject gob, Vector3 pos)
+    {
+        RpcMove(gob, pos);
+    }
+
+    [ClientRpc]
+    public void RpcMove(GameObject gob , Vector3 pos)
+    {
+        gob.transform.position = pos;
+    }
+
+    [ClientRpc]
+    void RpcRotateAll(Vector3 axis , float value)
+    {
+        if (hasAuthority)
+        {
+            transform.RotateAround(maquette.transform.position, axis, value);
+        }
+    }
 
     [ClientRpc]
     public void RpcUpdateCam()
@@ -41,72 +209,62 @@ public class Player : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            transform.position = vec + new Vector3(100, 100, 0);
+            transform.position = vec + deltaCam;
             transform.RotateAround(vec, Vector3.up, amount);
             transform.LookAt(vec);
         }
     }
 
     [Command]
-    public void CmdInit(int identity, GameObject maq, GameObject manager)
+    public void CmdInit(GameObject maq, GameObject manager, GameObject other)
     {
-        playerIdentity = identity;
         man = manager;
         maquette = maq;
+        otherPlayer = other;
+        CanRotate = true;
+
+        moon = Instantiate(moon);
+
+        float width = GetComponent<Camera>().pixelWidth;
+        float height = GetComponent<Camera>().pixelHeight;
+        moon.transform.position = maq.transform.position + new Vector3(0, 40, 0);
+
+        NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
 
-
-    private void Update()
+    [Command]
+    public void CmdTryRotate(GameObject concerned, float value)
     {
-        if (hasAuthority)
+        if (CanRotate)
         {
-            if (maquette == null) return;
-            if (Input.GetKey(KeyCode.D))
-            {
-                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
-                {
-                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? 1 : -1);
-                }
-            }
-
-            if (Input.GetKey(KeyCode.Q))
-            {
-                if (man.GetComponent<ManagerPlayers>().HasLock(playerIdentity))
-                {
-                    CmdAcquire(maquette.transform.position, Vector3.up, playerIdentity == 1 ? -1 : 1);
-                }
-            }
-
-            if (!Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.Z))
-            {
-                CmdRelease();
-            }
+            concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = false;
+            RpcRotateAll(Vector3.up, value);
+            OtherPlayer.GetComponent<Player>().RpcRotateAll(Vector3.up, value);
         }
     }
 
     [Command]
-    public void CmdAcquire(Vector3 pos, Vector3 axis, float value)
+    public void CmdRelease(GameObject concerned)
     {
-        man.GetComponent<ManagerPlayers>().AcquireLock(playerIdentity);
-        foreach(GameObject gob in GameObject.FindGameObjectsWithTag("Player"))
-        {
-            gob.GetComponent<Player>().RpcRotateAll(axis, value);
-        }
-    }
-
-    [Command]
-    public void CmdRelease()
-    {
-        man.GetComponent<ManagerPlayers>().ReleaseLock();
+        concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = true;
     }
 
     [ClientRpc]
-    void RpcRotateAll(Vector3 axis , float value)
+    public void RpcName(string nm)
     {
-        if (hasAuthority)
-        {
-            Debug.Log(gameObject);
-            transform.RotateAround(maquette.transform.position, axis, value);
-        }
+        name = nm;
     }
+
+    public void RelayInteraction(Interactable.TypeAction acts , Interactable inter , Vector3 position)
+    {
+        CmdInter(acts, inter.gameObject, position);
+    }
+
+    [Command]
+    public void CmdInter(Interactable.TypeAction acts, GameObject inter, Vector3 position)
+    {
+        inter.GetComponent<Interactable>().Interaction(acts, position, false);
+    }
+
+    #endregion
 }

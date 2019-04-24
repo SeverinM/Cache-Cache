@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using System.Linq;
+using UnityEngine.UI;
 
 public class CustomNetworkManager : NetworkManager
 {
@@ -10,7 +11,6 @@ public class CustomNetworkManager : NetworkManager
     public GameObject prefab1;
     public GameObject prefab2;
     public GameObject prefabSwappable;
-    public GameObject managerPrefab;
 
     GameObject player1;
     GameObject player2;
@@ -22,6 +22,7 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
     {
+        Debug.Log("connection");
         GameObject player = Instantiate(playerPrefab);
         NetworkServer.AddPlayerForConnection(conn, player);
         player.transform.position = (nbPlayer == 0 ? new Vector3(-1000, 0, 0) : new Vector3(1000, 0, 0));
@@ -33,43 +34,85 @@ public class CustomNetworkManager : NetworkManager
         }
 
         nbPlayer++;
+
         if (nbPlayer == 1)
         {
-            instanceMan = Instantiate(managerPrefab);
-            NetworkServer.Spawn(instanceMan);
             maq1 = Instantiate(prefab1);
             maq1.transform.position = player.transform.position;
             player.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
-            NetworkServer.SpawnWithClientAuthority(maq1, conn);
-
-            GameObject objSample = Instantiate(prefabSwappable);
-            objSample.transform.position = maq1.transform.position + new Vector3(0, 20, 0);
-            NetworkServer.SpawnWithClientAuthority(objSample, conn);
-
-            player1 = player;            
+            NetworkServer.Spawn(maq1);
+            player1 = player;
         }
 
         if (nbPlayer == 2)
         {
+            Debug.Log("???");
+
             maq2 = Instantiate(prefab2);
             maq2.transform.position = player.transform.position;
             maq2.transform.parent = player.transform;
+            player2 = player;
+
+            //Interprete tous les enfants pour spawn
+            foreach (Interpretable inter in maq2.transform.GetComponentsInChildren<Interpretable>())
+            {
+                inter.Interpret(player2);
+            }
+
+            foreach (Interpretable inter in maq1.transform.GetComponentsInChildren<Interpretable>())
+            {
+                inter.Interpret(player1);
+            }
+
+            //Binding des echos s'il y en a 
+            List<Interpretable> allInterpr1 = maq2.GetComponentsInChildren<Interpretable>().ToList();
+            List<Interpretable> allInterpr2 = maq1.GetComponentsInChildren<Interpretable>().ToList();
+            foreach (Interpretable interpr in allInterpr1)
+            {
+                int index = interpr.IndexEcho;
+                if (index >= 0)
+                {
+                    IEnumerable<Interpretable> listInterpr = allInterpr2.Where(x => index == x.Index);
+                    if (listInterpr.Count() > 0)
+                        interpr.ApplyEcho(listInterpr.ToList()[0], player1.GetComponent<Player>());
+                }
+            }
+
+            foreach (Interpretable interpr in allInterpr2)
+            {
+                int index = interpr.IndexEcho;
+                if (index >= 0)
+                {
+                    IEnumerable<Interpretable> listInterpr = allInterpr1.Where(x => index == x.Index);
+                    if (listInterpr.Count() > 0)
+                    {
+                        interpr.ApplyEcho(listInterpr.ToList()[0], player2.GetComponent<Player>());
+                    }                       
+                }
+            }
+
+
             player.GetComponent<Player>().RpcLook(maq2.transform.position, 180);
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
 
-            GameObject objSample = Instantiate(prefabSwappable);
-            objSample.transform.position = maq2.transform.position + new Vector3(0, 20, 0);
-            NetworkServer.SpawnWithClientAuthority(objSample, conn);
-
-            player2 = player;
-
             //Initialize var
-            Vector3 toTwo = player2.transform.position - player1.transform.position;
-            player1.GetComponent<Player>().ToOtherPlayer = toTwo;
-            player2.GetComponent<Player>().ToOtherPlayer = -toTwo;
+            player1.GetComponent<Player>().RpcName("Joueur numero 1");
+            player2.GetComponent<Player>().RpcName("Joueur numero 2");
 
-            player1.GetComponent<Player>().CmdInit(1, maq1, instanceMan);
-            player2.GetComponent<Player>().CmdInit(2, maq2, instanceMan);
+            player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
+            player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
+
+            GameObject moon = player1.GetComponent<Player>().Moon;
+            foreach (Interactable inter in allInterpr1.Select(x => x.Spawn.GetComponent<Interactable>()))
+            {
+                inter.RpcAddSpot(moon.transform.position, moon);
+            }
+
+            GameObject moon2 = player2.GetComponent<Player>().Moon;
+            foreach (Interactable inter in allInterpr2.Select(x => x.Spawn.GetComponent<Interactable>()))
+            {
+                inter.RpcAddSpot(moon2.transform.position, moon2);
+            }
         }
     }
 }
