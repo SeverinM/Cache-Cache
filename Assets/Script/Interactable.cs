@@ -5,11 +5,9 @@ using Mirror;
 
 public class Interactable : NetworkBehaviour
 {
+    [HideInInspector]
     [SyncVar]
     public GameObject Master;
-
-    public Material newMaterial;
-    public AnimationCurve animation;
 
     [SyncVar]
     bool spawned = false;
@@ -55,11 +53,10 @@ public class Interactable : NetworkBehaviour
         }
     }
 
+    [HideInInspector]
     [SerializeField]
     Material otherMat;
     public Material OtherMat => otherMat;
-
-    public IEnumerator CurrentCoroutine { get; set; }
 
     public enum TypeAction
     {
@@ -72,6 +69,8 @@ public class Interactable : NetworkBehaviour
 
     bool _canInteract = true;
     public bool CanInteract => _canInteract;
+
+    [HideInInspector]
     public bool Dragg = false;
 
     public delegate void InteractionDelegate (GameObject gob, GameObject master, Vector3 optionalPosition);
@@ -209,18 +208,7 @@ public class Interactable : NetworkBehaviour
 
         if (Echo && first)
         {
-            //CmdInteractionEcho(act, master, position);
-        }
-    }
-
-    public IEnumerator Move(float timeEnd, Vector3 positionBegin , Vector3 positionEnd)
-    {
-        float time = 0;
-        while (time < timeEnd)
-        {
-            time += Time.deltaTime;
-            transform.position = Vector3.Lerp(positionBegin, positionEnd, animation.Evaluate(time / timeEnd));
-            yield return null;
+            CmdInteractionEcho(act, gameObject, position);
         }
     }
 
@@ -251,7 +239,9 @@ public class Interactable : NetworkBehaviour
     [Command]
     public void CmdInteractionEcho(TypeAction act, GameObject gob, Vector3 position)
     {
-        TargetEcho(gob.GetComponent<NetworkIdentity>().connectionToClient, act, position);
+        Interactable ech = gob.GetComponent<Interactable>().Echo;
+        Debug.Log(ech);
+        ech.TargetEcho(ech.Master.GetComponent<NetworkIdentity>().connectionToClient, act, position);
     }
 
     [TargetRpc]

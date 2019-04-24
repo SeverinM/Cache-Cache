@@ -37,11 +37,13 @@ public class Interpretable : MonoBehaviour
         {
             spawn = Instantiate(prefab);
             Interactable inter = spawn.GetComponent<Interactable>();
+            spawn.transform.position = transform.position;
             NetworkServer.SpawnWithClientAuthority(spawn, master);
 
-            if (spawn == null) return;
-
-            spawn.GetComponent<Interactable>().RpcTeleport(transform.position);
+            if (spawn == null || inter == null)
+            {
+                return;
+            }
 
             foreach (AllInteractions.Actions interStart in StartInteraction)
             {

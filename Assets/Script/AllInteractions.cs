@@ -6,15 +6,20 @@ using System.Linq;
 
 public class AllInteractions
 {
+
+    public const string INTERACTION_TRIGGER = "Interaction";
+
     public enum Actions
     {
         START_DRAG = 0,
-        END_DRAG = 1,
-        MOVE_DRAG = 2,
-        SEARCH = 3,
-        TELEPORT = 4
+        END_DRAG,
+        MOVE_DRAG,
+        SEARCH,
+        TELEPORT,
+        INTERACTION
     }
 
+    //Convertit l'enum en delegate
     public static Interactable.InteractionDelegate GetDelegate(AllInteractions.Actions acts)
     {
         Interactable.InteractionDelegate output = delegate { };
@@ -36,6 +41,10 @@ public class AllInteractions
             case Actions.TELEPORT:
                 output += TELEPORT;
                 break;
+
+            case Actions.INTERACTION:
+                output += INTERACT;
+                break;
         }
 
         return output;
@@ -50,9 +59,6 @@ public class AllInteractions
             gob.GetComponent<Interactable>().Dragg = true;          
             plr.holdGameObject = inter.gameObject;
             gob.transform.parent = master.transform;
-            IEnumerator routine = inter.Move(0.25f, gob.transform.position, gob.transform.position + new Vector3(0,10,0));
-            inter.StartCoroutine(routine);
-            inter.CurrentCoroutine = routine;
             plr.lastLegitPos = position;
             inter.SetAllSpots(true);
         }
@@ -81,15 +87,11 @@ public class AllInteractions
     public static void END_DRAG(GameObject gob, GameObject master, Vector3 position)
     {
         Interactable inter = gob.GetComponent<Interactable>();
-        if (inter.CurrentCoroutine != null)
-        {
-            inter.StopCoroutine(inter.CurrentCoroutine);
-        }
+
         inter.Dragg = false;
         inter.SetAllSpots(false);
 
         Player pl = master.GetComponent<Player>();
-        inter.StartCoroutine(inter.Move(0.1f, gob.transform.position, pl.lastLegitPos));
         master.GetComponent<Player>().holdGameObject = null;
         gob.transform.parent = master.GetComponent<Player>().maquette.transform;
     }
@@ -102,6 +104,11 @@ public class AllInteractions
         Debug.Log(delta);
         plr.CmdMove(gob, gob.transform.position + (other.maquette.transform.position - plr.maquette.transform.position));
         plr.CmdChangeAuthority(gob, plr.gameObject, plr.OtherPlayer);
+    }
+
+    public static void INTERACT(GameObject gob, GameObject master, Vector3 position)
+    {
+        gob.GetComponent<Animator>().SetTrigger(INTERACTION_TRIGGER);
     }
 
     public static GameObject DuplicateVisual(GameObject gob)

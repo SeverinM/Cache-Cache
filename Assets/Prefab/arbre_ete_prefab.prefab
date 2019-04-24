@@ -241,8 +241,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2725148996085586759}
   - component: {fileID: 2725148996076532903}
+  - component: {fileID: 3245753889082107057}
+  - component: {fileID: 945360328438199557}
+  - component: {fileID: 3711597476173329670}
   m_Layer: 0
-  m_Name: arbre_ete
+  m_Name: arbre_ete_prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 2725148996085876583}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 944.51135, y: 348.74435, z: -646.54205}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 2725148996085586757}
   - {fileID: 2725148996085586755}
@@ -284,3 +287,48 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &3245753889082107057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725148996085876583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 1
+  m_AssetId: 09fedd162b4f64846b4bc130b0e633f4
+  m_SceneId: 0
+--- !u!114 &945360328438199557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725148996085876583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42562816bb854404db8d9163a655dac6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  Master: {fileID: 0}
+  otherMat: {fileID: 0}
+  Dragg: 0
+--- !u!65 &3711597476173329670
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725148996085876583}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.08784485, y: 0.114725605, z: 0.09082336}
+  m_Center: {x: -0.000103454586, y: 0.060009286, z: -0.0018673706}
