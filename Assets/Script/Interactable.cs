@@ -49,7 +49,6 @@ public class Interactable : NetworkBehaviour
     }
 
     [HideInInspector]
-    [SerializeField]
     Material otherMat;
     public Material OtherMat => otherMat;
 

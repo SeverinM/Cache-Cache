@@ -13,8 +13,7 @@ public class Player : NetworkBehaviour
     [SyncVar]
     public GameObject maquette;
 
-    [SerializeField]
-    Vector3 deltaCam = new Vector3(100, 50, 0);
+    public Vector3 deltaCam = new Vector3(100, 50, 0);
 
     [SyncVar]
     GameObject otherPlayer;
@@ -23,11 +22,9 @@ public class Player : NetworkBehaviour
     [SyncVar]
     GameObject man;
 
-    [SerializeField]
-    AnimationCurve curve;
+    public AnimationCurve curve;
 
-    [SerializeField]
-    GameObject moon;
+    public GameObject moon;
     public GameObject Moon => moon;
 
     //Utilisé dans le drag and drop
