@@ -295,15 +295,15 @@ public class Player : NetworkBehaviour
         switch (act)
         {
             case TypeAction.START_INTERACTION:
-                inter.StartInteraction();
+                inter.StartInteraction(true);
                 break;
 
             case TypeAction.MOVE_INTERACTION:
-                inter.MoveInteraction();
+                inter.MoveInteraction(true);
                 break;
 
             case TypeAction.END_INTERACTION:
-                inter.EndInteraction();
+                inter.EndInteraction(true);
                 break;
         }
     }

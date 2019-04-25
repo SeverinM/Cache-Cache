@@ -37,7 +37,7 @@ public class Draggable : Interactable
     bool _canInteract = true;
     public bool CanInteract => _canInteract;
 
-    public override void StartInteraction()
+    public override void StartInteraction(bool asEcho)
     {
         Player plr = Master.GetComponent<Player>();
         //Cant hold 2 gameobject at the same time
@@ -53,7 +53,7 @@ public class Draggable : Interactable
         }
     }
 
-    public override void MoveInteraction()
+    public override void MoveInteraction(bool asEcho)
     {
         bool found = false;
         Spot before = currentSpot;
@@ -87,7 +87,7 @@ public class Draggable : Interactable
         transform.position = position;
     }
 
-    public override void EndInteraction()
+    public override void EndInteraction(bool asEcho)
     {
         if (currentSpot)
         {

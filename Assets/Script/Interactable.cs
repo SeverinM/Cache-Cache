@@ -9,9 +9,9 @@ public abstract class Interactable : NetworkBehaviour
     [SyncVar]
     public GameObject Master;
 
-    public abstract void StartInteraction();
-    public abstract void MoveInteraction();
-    public abstract void EndInteraction();
+    public abstract void StartInteraction(bool asEcho = false);
+    public abstract void MoveInteraction(bool asEcho = false);
+    public abstract void EndInteraction(bool asEcho = false);
 
     protected Interactable echo;
     public Interactable Echo => echo;
