@@ -14,6 +14,7 @@ public class Player : NetworkBehaviour
     public GameObject maquette;
 
     public Vector3 deltaCam = new Vector3(100, 50, 0);
+    public Vector3 deltaMoon = new Vector3(0, 40, 0);
 
     [SyncVar]
     GameObject otherPlayer;
@@ -48,6 +49,13 @@ public class Player : NetworkBehaviour
     float speedZoom = 0;
     Vector3 ForwardMaquette => (maquette.transform.position - transform.position).normalized;
     Vector3 target;
+
+    public enum TypeAction
+    {
+        START_INTERACTION,
+        MOVE_INTERACTION,
+        END_INTERACTION
+    }
 
     public void ChangeRotate(bool newValue)
     {
@@ -109,9 +117,14 @@ public class Player : NetworkBehaviour
             {
                 foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
                 {
-                    if (hit.collider.GetComponent<Interactable>() && holdGameObject == null)
+                    Interactable inter = hit.collider.GetComponent<Interactable>();
+                    if (inter && holdGameObject == null)
                     {
-                        hit.collider.GetComponent<Interactable>().StartInteraction();
+                        inter.StartInteraction();
+                        if (inter.Echo)
+                        {
+                            CmdRelayInteraction(TypeAction.START_INTERACTION, inter.Echo.gameObject);
+                        }
                         break;
                     }
                 }
@@ -120,12 +133,20 @@ public class Player : NetworkBehaviour
             if (Input.GetMouseButtonUp(0) && holdGameObject)
             {
                 holdGameObject.GetComponent<Interactable>().EndInteraction();
+                if (holdGameObject.GetComponent<Interactable>().Echo)
+                {
+                    CmdRelayInteraction(TypeAction.END_INTERACTION, holdGameObject.GetComponent<Interactable>().Echo.gameObject);
+                }
                 holdGameObject = null;
             }
 
             if (holdGameObject)
             {
                 holdGameObject.GetComponent<Interactable>().MoveInteraction();
+                if (holdGameObject.GetComponent<Interactable>().Echo)
+                {
+                    CmdRelayInteraction(TypeAction.MOVE_INTERACTION, holdGameObject.GetComponent<Interactable>().Echo.gameObject);
+                }
             }
 
             #region Zoom
@@ -230,12 +251,9 @@ public class Player : NetworkBehaviour
         maquette = maq;
         otherPlayer = other;
         CanRotate = true;
-
         moon = Instantiate(moon);
 
-        float width = GetComponent<Camera>().pixelWidth;
-        float height = GetComponent<Camera>().pixelHeight;
-        moon.transform.position = maq.transform.position + new Vector3(0, 40, 0);
+        moon.transform.position = maq.transform.position + deltaMoon;
 
         NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
@@ -262,5 +280,33 @@ public class Player : NetworkBehaviour
     {
         name = nm;
     }
+
+    [Command]
+    void CmdRelayInteraction(TypeAction act, GameObject gob)
+    {
+        Player player = gob.GetComponent<Interactable>().Master.GetComponent<Player>();
+        player.TargetRelay(player.GetComponent<NetworkIdentity>().connectionToClient, act, gob);
+    }
+
+    [TargetRpc]
+    public void TargetRelay(NetworkConnection conn, TypeAction act, GameObject gob)
+    {
+        Interactable inter = gob.GetComponent<Interactable>();
+        switch (act)
+        {
+            case TypeAction.START_INTERACTION:
+                inter.StartInteraction();
+                break;
+
+            case TypeAction.MOVE_INTERACTION:
+                inter.MoveInteraction();
+                break;
+
+            case TypeAction.END_INTERACTION:
+                inter.EndInteraction();
+                break;
+        }
+    }
+
     #endregion
 }

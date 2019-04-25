@@ -16,8 +16,8 @@ public class Draggable : Interactable
         }
     }
 
-    public Spot currentSpot;
-    public Vector3 startPosition;
+    Spot currentSpot;
+    Vector3 startPosition;
 
     List<SpotDragAndDropInter> allSpots = new List<SpotDragAndDropInter>();
     List<SpotDragAndDropInter> AllSpots => allSpots;

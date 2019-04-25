@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4601720500503151197}
   - component: {fileID: 4601720500503151193}
   - component: {fileID: 1134579988113221831}
-  - component: {fileID: 5500343536052111315}
+  - component: {fileID: 1369092242118799561}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Swappable
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5500343536052111315
+--- !u!114 &1369092242118799561
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,35 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4601720500503151168}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42562816bb854404db8d9163a655dac6, type: 3}
+  m_Script: {fileID: 11500000, guid: c212ce4e9f8fbc64db44c4c37c319f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0
+  syncInterval: 0.1
   Master: {fileID: 0}
-  newMaterial: {fileID: 2100000, guid: ada837659a9c0de4abc2fe6af10f60ba, type: 2}
-  animation:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  otherMat: {fileID: 2100000, guid: d19d2f56fd22e624f83318aeaf3b054d, type: 2}
-  Dragg: 0
+  currentSpot: {fileID: 0}
+  startPosition: {x: 0, y: 0, z: 0}

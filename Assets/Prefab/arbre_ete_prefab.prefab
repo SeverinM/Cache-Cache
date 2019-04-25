@@ -242,8 +242,8 @@ GameObject:
   - component: {fileID: 2725148996085586759}
   - component: {fileID: 2725148996076532903}
   - component: {fileID: 3245753889082107057}
-  - component: {fileID: 945360328438199557}
   - component: {fileID: 3711597476173329670}
+  - component: {fileID: 1783232117582001226}
   m_Layer: 0
   m_Name: arbre_ete_prefab
   m_TagString: Untagged
@@ -303,22 +303,6 @@ MonoBehaviour:
   m_LocalPlayerAuthority: 1
   m_AssetId: 09fedd162b4f64846b4bc130b0e633f4
   m_SceneId: 0
---- !u!114 &945360328438199557
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2725148996085876583}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42562816bb854404db8d9163a655dac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  Master: {fileID: 0}
-  otherMat: {fileID: 0}
-  Dragg: 0
 --- !u!65 &3711597476173329670
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -332,3 +316,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.08784485, y: 0.114725605, z: 0.09082336}
   m_Center: {x: -0.000103454586, y: 0.060009286, z: -0.0018673706}
+--- !u!114 &1783232117582001226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2725148996085876583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ef2fea616d80f41ad528b6fbc5283b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  Master: {fileID: 0}
