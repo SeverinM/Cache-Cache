@@ -28,6 +28,9 @@ public class MoonPrefab : Interactable
     public GameObject LowerPart;
     public GameObject HigherPart;
 
+    float deltaY;
+    public float DeltaY => deltaY;
+
     Spring spr; 
 
     Vector3 previousMousePosition;
@@ -55,10 +58,25 @@ public class MoonPrefab : Interactable
 
     public override void MoveInteraction(bool asEcho = false)
     {
-        float deltaY = Input.mousePosition.y - previousMousePosition.y;
+        if (!asEcho)
+        {
+            deltaY = Input.mousePosition.y - previousMousePosition.y;
+        }
+
         previousMousePosition = Input.mousePosition;
-        float distance = Vector3.Distance(originPosition, GetPart().transform.position);
-        float ratio = distance / spr.MaxDistance;
+        float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
+        Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
+
+        //Evite qu'une partie passe au desssus de l'autre
+        if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > originPosition.y)
+        {
+            GetPart().transform.position = originPosition;
+        }
+
+        if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < originPosition.y)
+        {
+            GetPart().transform.position = originPosition;
+        }
     }
 
     GameObject GetPart()
