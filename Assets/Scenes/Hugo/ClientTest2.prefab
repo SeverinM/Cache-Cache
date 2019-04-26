@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4624009433299326252
+--- !u!1001 &5774251300121257484
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5192233636339398333, guid: fb63007c0ddefcf42bbc9a6c86f63460,
         type: 3}
       propertyPath: m_Name
-      value: ClientTest2
+      value: ServeurTest2
       objectReference: {fileID: 0}
     - target: {fileID: 5192233636339398329, guid: fb63007c0ddefcf42bbc9a6c86f63460,
         type: 3}
@@ -66,36 +66,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1756315516020886327, guid: fb63007c0ddefcf42bbc9a6c86f63460,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1756315516020886327, guid: fb63007c0ddefcf42bbc9a6c86f63460,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 238374137692542035, guid: fb63007c0ddefcf42bbc9a6c86f63460,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 238374137692542035, guid: fb63007c0ddefcf42bbc9a6c86f63460,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 5604898874873794296, guid: fb63007c0ddefcf42bbc9a6c86f63460,
-        type: 3}
-      propertyPath: m_SceneId
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5604898874873794296, guid: fb63007c0ddefcf42bbc9a6c86f63460,
-        type: 3}
-      propertyPath: m_AssetId
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb63007c0ddefcf42bbc9a6c86f63460, type: 3}

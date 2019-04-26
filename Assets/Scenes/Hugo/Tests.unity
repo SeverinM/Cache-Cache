@@ -703,9 +703,9 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 340279817362388925, guid: a07c381038f874d4e822576038ee53f4, type: 3}
   - {fileID: 5192233636339398333, guid: fb63007c0ddefcf42bbc9a6c86f63460, type: 3}
-  - {fileID: 586959916108129169, guid: 33585fade8d4b604abd96695e5cd13ab, type: 3}
+  - {fileID: 1741984916621004977, guid: 33585fade8d4b604abd96695e5cd13ab, type: 3}
   - {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f, type: 3}
   - {fileID: 2335862969281860444, guid: c80eb32ea9cb9a14aa461b1ca24cd77b, type: 3}
   - {fileID: 8487126441108789050, guid: 8f361c6677f991b4480f5868446b245b, type: 3}
   prefab1: {fileID: 5192233636339398333, guid: fb63007c0ddefcf42bbc9a6c86f63460, type: 3}
-  prefab2: {fileID: 586959916108129169, guid: 33585fade8d4b604abd96695e5cd13ab, type: 3}
+  prefab2: {fileID: 1741984916621004977, guid: 33585fade8d4b604abd96695e5cd13ab, type: 3}
