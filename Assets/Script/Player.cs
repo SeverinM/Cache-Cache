@@ -14,7 +14,6 @@ public class Player : NetworkBehaviour
     public GameObject maquette;
 
     public Vector3 deltaCam = new Vector3(100, 50, 0);
-    public Vector3 deltaMoon = new Vector3(0, 40, 0);
 
     [SyncVar]
     GameObject otherPlayer;
@@ -252,11 +251,6 @@ public class Player : NetworkBehaviour
         maquette = maq;
         otherPlayer = other;
         CanRotate = true;
-        moon = Instantiate(moon);
-
-        moon.transform.position = maq.transform.position + deltaMoon;
-
-        NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
 
     [Command]
