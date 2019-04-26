@@ -35,6 +35,7 @@ public class MoonPrefab : Interactable
 
     Vector3 previousMousePosition;
     Vector3 originPosition;
+    Vector3 resetPosition;
 
     void Start()
     {
@@ -49,6 +50,7 @@ public class MoonPrefab : Interactable
         {
             actualPart = PartMoon.HIGH_PART;
         }
+        resetPosition = GetPart().transform.position;
     }
 
     public override void StartInteraction(bool asEcho = false)
@@ -88,6 +90,6 @@ public class MoonPrefab : Interactable
 
     public override void EndInteraction(bool asEcho = false)
     {
-        GetPart().transform.position = Vector3.zero;
+        GetPart().transform.position = resetPosition;
     }
 }
