@@ -121,6 +121,7 @@ public class Player : NetworkBehaviour
                     if (inter && holdGameObject == null)
                     {
                         inter.StartInteraction();
+                        holdGameObject = inter.gameObject;
                         if (inter.Echo)
                         {
                             CmdRelayInteraction(TypeAction.START_INTERACTION, inter.Echo.gameObject);
