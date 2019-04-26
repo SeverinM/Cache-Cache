@@ -10,7 +10,6 @@ public class CustomNetworkManager : NetworkManager
     int nbPlayer = 0;
     public GameObject prefab1;
     public GameObject prefab2;
-    public GameObject prefabSwappable;
 
     GameObject player1;
     GameObject player2;

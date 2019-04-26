@@ -121,7 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c212ce4e9f8fbc64db44c4c37c319f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncInterval: 0.1
+  syncInterval: 0
   Master: {fileID: 0}
-  currentSpot: {fileID: 0}
-  startPosition: {x: 0, y: 0, z: 0}

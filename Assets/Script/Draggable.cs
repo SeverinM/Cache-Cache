@@ -39,6 +39,7 @@ public class Draggable : Interactable
 
     public override void StartInteraction(bool asEcho)
     {
+        Debug.Log("start interaction");
         Player plr = Master.GetComponent<Player>();
         //Cant hold 2 gameobject at the same time
         if (plr.holdGameObject == null)
