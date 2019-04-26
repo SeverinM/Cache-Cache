@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 5192233636339398333, guid: fb63007c0ddefcf42bbc9a6c86f63460,
         type: 3}
       propertyPath: m_Name
-      value: Client 1
+      value: ClientTest
       objectReference: {fileID: 0}
     - target: {fileID: 5192233636339398329, guid: fb63007c0ddefcf42bbc9a6c86f63460,
         type: 3}
@@ -73,6 +73,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1756315516020886327, guid: fb63007c0ddefcf42bbc9a6c86f63460,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 238374137692542035, guid: fb63007c0ddefcf42bbc9a6c86f63460,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 238374137692542035, guid: fb63007c0ddefcf42bbc9a6c86f63460,
         type: 3}
       propertyPath: m_AssetId
       value: 
