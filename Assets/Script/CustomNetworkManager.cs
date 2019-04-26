@@ -21,7 +21,6 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
     {
-        Debug.Log("connection");
         GameObject player = Instantiate(playerPrefab);
         NetworkServer.AddPlayerForConnection(conn, player);
         player.transform.position = (nbPlayer == 0 ? new Vector3(-1000, 0, 0) : new Vector3(1000, 0, 0));
@@ -101,16 +100,14 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
 
-            GameObject moon = player1.GetComponent<Player>().Moon;
-            foreach (Draggable inter in allInterpr1.Select(x => x.Spawn.GetComponent<Draggable>()))
+            foreach (Interpretable interpr in allInterpr1)
             {
-                if (inter) inter.RpcAddSpot(moon.transform.position, moon);
+                Destroy(interpr.gameObject);
             }
 
-            GameObject moon2 = player2.GetComponent<Player>().Moon;
-            foreach (Draggable inter in allInterpr2.Select(x => x.Spawn.GetComponent<Draggable>()))
+            foreach (Interpretable interpr in allInterpr2)
             {
-                if (inter) inter.RpcAddSpot(moon2.transform.position, moon2);
+                Destroy(interpr.gameObject);
             }
         }
     }

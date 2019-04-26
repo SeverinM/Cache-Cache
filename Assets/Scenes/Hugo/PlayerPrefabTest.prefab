@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4151347094640016926}
   - component: {fileID: 4115783573507442148}
   m_Layer: 0
-  m_Name: PlayerPrefab
+  m_Name: PlayerPrefabTest
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
-  m_AssetId: a2bef9686f6292844be177872feb663d
+  m_AssetId: a07c381038f874d4e822576038ee53f4
   m_SceneId: 0
 --- !u!114 &4151347094640016926
 MonoBehaviour:
@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0
   maquette: {fileID: 0}
-  deltaCam: {x: 100, y: 50, z: 0}
+  deltaCam: {x: 100, y: 25, z: 0}
   deltaMoon: {x: 0, y: 40, z: 0}
   curve:
     serializedVersion: 2
