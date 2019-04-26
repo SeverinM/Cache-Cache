@@ -70,13 +70,15 @@ public class MoonPrefab : Interactable
         //Evite qu'une partie passe au desssus de l'autre
         if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > originPosition.y)
         {
-            GetPart().transform.position = originPosition;
+            temporaryPosition = originPosition;
         }
 
         if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < originPosition.y)
         {
-            GetPart().transform.position = originPosition;
+            temporaryPosition = originPosition;
         }
+
+        GetPart().transform.position = temporaryPosition;
     }
 
     GameObject GetPart()
