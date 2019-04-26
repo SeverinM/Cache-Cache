@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 7174665489876995230}
   - component: {fileID: 6331498682377175489}
   - component: {fileID: 6248593443464975557}
+  - component: {fileID: 2539735029678443622}
   m_Layer: 0
   m_Name: LunePrefab
   m_TagString: Maquette
@@ -245,3 +246,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0
   compressRotation: 1
+--- !u!114 &2539735029678443622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6773315637210192406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e8f763702b10946b44bd3af6a708ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0
+  Master: {fileID: 0}
+  LowerPart: {fileID: 6773315637210192404}
+  HigherPart: {fileID: 6773315637210192402}

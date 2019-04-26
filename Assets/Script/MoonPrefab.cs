@@ -59,8 +59,6 @@ public class MoonPrefab : Interactable
         previousMousePosition = Input.mousePosition;
         float distance = Vector3.Distance(originPosition, GetPart().transform.position);
         float ratio = distance / spr.MaxDistance;
-
-        GetPart().
     }
 
     GameObject GetPart()
