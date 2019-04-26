@@ -24,9 +24,6 @@ public class Player : NetworkBehaviour
 
     public AnimationCurve curve;
 
-    public GameObject moon;
-    public GameObject Moon => moon;
-
     //Utilisé dans le drag and drop
     [HideInInspector]
     public GameObject holdGameObject;

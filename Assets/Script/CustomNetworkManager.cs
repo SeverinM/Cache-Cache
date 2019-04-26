@@ -100,18 +100,6 @@ public class CustomNetworkManager : NetworkManager
             player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
 
-            GameObject moon = player1.GetComponent<Player>().Moon;
-            foreach (Draggable inter in allInterpr1.Select(x => x.Spawn.GetComponent<Draggable>()))
-            {
-                if (inter) inter.RpcAddSpot(moon.transform.position, moon);
-            }
-
-            GameObject moon2 = player2.GetComponent<Player>().Moon;
-            foreach (Draggable inter in allInterpr2.Select(x => x.Spawn.GetComponent<Draggable>()))
-            {
-                if (inter) inter.RpcAddSpot(moon2.transform.position, moon2);
-            }
-
             foreach (Interpretable interpr in allInterpr1)
             {
                 Destroy(interpr.gameObject);
