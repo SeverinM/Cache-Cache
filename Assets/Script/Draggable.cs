@@ -48,6 +48,7 @@ public class Draggable : Interactable
             startPosition = position;
             transform.parent = Master.transform;
             plr.lastLegitPos = position;
+            plr.holdGameObject = gameObject;
 
             //Enable all spots
             SetAllSpots(true);
