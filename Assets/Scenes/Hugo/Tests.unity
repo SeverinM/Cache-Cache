@@ -370,6 +370,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5017828225107670152, guid: fad7a03673bdf174e964f0b17de54f5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.0000076293945
+      objectReference: {fileID: 0}
     - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -393,12 +398,17 @@ PrefabInstance:
     - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: StartAsClient
+      value: StartResearch
       objectReference: {fileID: 0}
     - target: {fileID: 5017828225107670153, guid: fad7a03673bdf174e964f0b17de54f5e,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 5017828223469723144, guid: fad7a03673bdf174e964f0b17de54f5e,
+        type: 3}
+      propertyPath: m_FontData.m_BestFit
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fad7a03673bdf174e964f0b17de54f5e, type: 3}
@@ -564,7 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   referenceCanvas: {fileID: 831535047}
   prefabIP: {fileID: 167489997720141888, guid: d37879bf45bdfc94c834554193ace018, type: 3}
-  port: 0
+  port: 4000
   manager: {fileID: 2088040802}
 --- !u!4 &1997298376
 Transform:
@@ -696,5 +706,6 @@ MonoBehaviour:
   - {fileID: 586959916108129169, guid: 33585fade8d4b604abd96695e5cd13ab, type: 3}
   - {fileID: 4601720500503151168, guid: 167adfdb861e3464790af45e305ea85f, type: 3}
   - {fileID: 2335862969281860444, guid: c80eb32ea9cb9a14aa461b1ca24cd77b, type: 3}
+  - {fileID: 8487126441108789050, guid: 8f361c6677f991b4480f5868446b245b, type: 3}
   prefab1: {fileID: 5192233636339398333, guid: 72d672477fcef6e4381fca73ec92d9c3, type: 3}
   prefab2: {fileID: 8826380129394318526, guid: 0e0aebda070e1fa4d8c47a1414c62ac5, type: 3}

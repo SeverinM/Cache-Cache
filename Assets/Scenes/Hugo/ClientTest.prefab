@@ -87,5 +87,15 @@ PrefabInstance:
       propertyPath: m_AssetId
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5604898874873794296, guid: fb63007c0ddefcf42bbc9a6c86f63460,
+        type: 3}
+      propertyPath: m_SceneId
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5604898874873794296, guid: fb63007c0ddefcf42bbc9a6c86f63460,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb63007c0ddefcf42bbc9a6c86f63460, type: 3}
