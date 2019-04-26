@@ -39,7 +39,6 @@ public class Draggable : Interactable
 
     public override void StartInteraction(bool asEcho)
     {
-        Debug.Log("start interaction");
         Player plr = Master.GetComponent<Player>();
         //Cant hold 2 gameobject at the same time
         if (plr.holdGameObject == null)
@@ -65,6 +64,7 @@ public class Draggable : Interactable
         {
             position = hit.point;
             Spot sp = hit.collider.GetComponent<Spot>();
+            if (hit.collider.tag == "Maquette") break;
             if (sp != null)
             {
                 found = true;
