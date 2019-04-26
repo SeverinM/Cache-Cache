@@ -183,7 +183,7 @@ GameObject:
   - component: {fileID: 5983892617063216763}
   - component: {fileID: 5368122176959591161}
   m_Layer: 0
-  m_Name: ServeurTest
+  m_Name: ServeurTest2
   m_TagString: Maquette
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
