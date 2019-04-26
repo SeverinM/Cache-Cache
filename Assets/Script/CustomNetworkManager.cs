@@ -112,6 +112,16 @@ public class CustomNetworkManager : NetworkManager
             {
                 if (inter) inter.RpcAddSpot(moon2.transform.position, moon2);
             }
+
+            foreach (Interpretable interpr in allInterpr1)
+            {
+                Destroy(interpr.gameObject);
+            }
+
+            foreach (Interpretable interpr in allInterpr2)
+            {
+                Destroy(interpr.gameObject);
+            }
         }
     }
 }
