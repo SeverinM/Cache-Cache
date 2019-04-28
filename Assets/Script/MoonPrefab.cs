@@ -71,12 +71,23 @@ public class MoonPrefab : Interactable
 
         previousMousePosition = Input.mousePosition;
         float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
+
+        //Evite de bloquer la lune aux extremites
+        if (ratio == 1)
+        {
+            if (deltaY < 0 && actualPart == PartMoon.HIGH_PART) ratio -= 0.001f;
+            if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio += 0.001f;
+        }
         Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
 
 
         if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
         {
-            Debug.Log("reset");
+            temporaryPosition = resetPosition;
+        }
+
+        if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y)
+        {
             temporaryPosition = resetPosition;
         }
 
