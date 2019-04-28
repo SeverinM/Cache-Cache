@@ -76,10 +76,9 @@ public class MoonPrefab : Interactable
         if (ratio == 1)
         {
             if (deltaY < 0 && actualPart == PartMoon.HIGH_PART) ratio -= 0.001f;
-            if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio += 0.001f;
+            if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio -= 0.001f;
         }
         Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
-
 
         if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
         {
