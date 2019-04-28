@@ -64,19 +64,19 @@ public class MoonPrefab : Interactable
         {
             deltaY = Input.mousePosition.y - previousMousePosition.y;
         }
+        else
+        {
+            deltaY = Echo.GetComponent<MoonPrefab>().DeltaY;
+        }
 
         previousMousePosition = Input.mousePosition;
         float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
         Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
 
-        //Evite qu'une partie passe au desssus de l'autre
-        if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > originPosition.y)
-        {
-            temporaryPosition = resetPosition;
-        }
 
-        if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < originPosition.y)
+        if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
         {
+            Debug.Log("reset");
             temporaryPosition = resetPosition;
         }
 
