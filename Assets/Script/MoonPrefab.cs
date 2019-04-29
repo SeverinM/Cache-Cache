@@ -51,15 +51,17 @@ public class MoonPrefab : Interactable
 
         foreach(RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
         {
-            if (hit.collider == HigherPart)
+            if (hit.collider.gameObject == HigherPart)
             {
                 actualPart = PartMoon.HIGH_PART;
+                resetPosition = HigherPart.transform.position;
                 break;
             }
 
-            if (hit.collider == LowerPart)
+            if (hit.collider.gameObject == LowerPart)
             {
                 actualPart = PartMoon.LOW_PART;
+                resetPosition = LowerPart.transform.position;
                 break;
             }
         }
