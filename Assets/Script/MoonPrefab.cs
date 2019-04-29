@@ -97,7 +97,8 @@ public class MoonPrefab : Interactable
             }
 
             GetPart().transform.position = temporaryPosition;
-            CmdUpdatePosition(actualPart, temporaryPosition);
+            Debug.Log("autre : " + Master.GetComponent<Player>().OtherPlayer.GetComponent<NetworkIdentity>().connectionToServer);
+            TargetUpdatePosition(Master.GetComponent<Player>().OtherPlayer.GetComponent<NetworkIdentity>().connectionToServer, actualPart, temporaryPosition);
         }
 
         else
@@ -121,8 +122,11 @@ public class MoonPrefab : Interactable
     {
         if (!asEcho)
         {
-            CmdUpdatePosition(actualPart, resetPosition);
-            CmdUpdatePosition(PartMoon.NONE, Vector3.zero);
+            GetPart().transform.position = resetPosition;
+            TargetUpdatePosition(Master.GetComponent<NetworkIdentity>().connectionToClient, actualPart, resetPosition);
+
+            actualPart = PartMoon.NONE;
+            TargetUpdatePosition(Master.GetComponent<NetworkIdentity>().connectionToClient, PartMoon.NONE, resetPosition);
         }
             
         else
@@ -135,21 +139,15 @@ public class MoonPrefab : Interactable
         }
     }
 
-    [Command]
-    public void CmdUpdatePosition(PartMoon partMoon , Vector3 position)
-    {
-        RpcUpdatePosition(partMoon, position);
-    }
-
-    [ClientRpc]
-    public void RpcUpdatePosition(PartMoon part , Vector3 position)
+    [TargetRpc]
+    public void TargetUpdatePosition(NetworkConnection conn, PartMoon part , Vector3 position)
     {
         actualPart = part;
         if (actualPart == PartMoon.HIGH_PART)
         {
             HigherPart.transform.position = position;
         }
-        
+
         if (actualPart == PartMoon.LOW_PART)
         {
             LowerPart.transform.position = position;
