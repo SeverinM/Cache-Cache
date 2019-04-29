@@ -54,22 +54,25 @@ public class MoonPrefab : Interactable
         {
             Debug.Log("pas interaction");
         }
-        previousMousePosition = Input.mousePosition;
 
-        foreach(RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+        if (!asEcho)
         {
-            if (hit.collider.gameObject == HigherPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.HIGH_PART)
+            previousMousePosition = Input.mousePosition;
+            foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
             {
-                actualPart = PartMoon.HIGH_PART;
-                resetPosition = HigherPart.transform.position;
-                break;
-            }
+                if (hit.collider.gameObject == HigherPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.HIGH_PART)
+                {
+                    actualPart = PartMoon.HIGH_PART;
+                    resetPosition = HigherPart.transform.position;
+                    break;
+                }
 
-            if (hit.collider.gameObject == LowerPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.LOW_PART)
-            {
-                actualPart = PartMoon.LOW_PART;
-                resetPosition = LowerPart.transform.position;
-                break;
+                if (hit.collider.gameObject == LowerPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.LOW_PART)
+                {
+                    actualPart = PartMoon.LOW_PART;
+                    resetPosition = LowerPart.transform.position;
+                    break;
+                }
             }
         }
     }
