@@ -119,7 +119,11 @@ public class MoonPrefab : Interactable
     public override void EndInteraction(bool asEcho = false)
     {
         if (!asEcho)
+        {
             CmdUpdatePosition(actualPart, resetPosition);
+            CmdUpdatePosition(PartMoon.NONE, Vector3.zero);
+        }
+            
         else
         {
             MoonPrefab other = Echo.GetComponent<MoonPrefab>();
