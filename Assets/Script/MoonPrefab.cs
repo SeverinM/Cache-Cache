@@ -118,8 +118,16 @@ public class MoonPrefab : Interactable
 
     public override void EndInteraction(bool asEcho = false)
     {
-        CmdUpdatePosition(actualPart, resetPosition);
-        CmdUpdatePosition(PartMoon.NONE, Vector3.zero);
+        if (asEcho)
+            CmdUpdatePosition(actualPart, resetPosition);
+        else
+        {
+            MoonPrefab other = Echo.GetComponent<MoonPrefab>();
+            Vector3 toLow = other.LowerPart.transform.position - other.transform.position;
+            Vector3 toHigh = other.HigherPart.transform.position - other.transform.position;
+            LowerPart.transform.position = transform.position + toLow;
+            HigherPart.transform.position = transform.position + toHigh;
+        }
     }
 
     [Command]
@@ -131,6 +139,7 @@ public class MoonPrefab : Interactable
     [ClientRpc]
     public void RpcUpdatePosition(PartMoon part , Vector3 position)
     {
+        if (!hasAuthority) return;
         actualPart = part;
         if (actualPart == PartMoon.HIGH_PART)
         {
