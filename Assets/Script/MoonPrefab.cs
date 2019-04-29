@@ -20,7 +20,8 @@ public class MoonPrefab : Interactable
     enum PartMoon
     {
         LOW_PART,
-        HIGH_PART
+        HIGH_PART, 
+        NONE
     }
     PartMoon actualPart;
 
@@ -41,21 +42,27 @@ public class MoonPrefab : Interactable
     {
         spr = new Spring(20, 2);
         originPosition = transform.position;
-
-        if (Master.GetComponent<NetworkIdentity>().isServer)
-        {
-            actualPart = PartMoon.LOW_PART;
-        }
-        else
-        {
-            actualPart = PartMoon.HIGH_PART;
-        }
-        resetPosition = GetPart().transform.position;
+        actualPart = PartMoon.NONE;
     }
 
     public override void StartInteraction(bool asEcho = false)
     {
         previousMousePosition = Input.mousePosition;
+
+        foreach(RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+        {
+            if (hit.collider == HigherPart)
+            {
+                actualPart = PartMoon.HIGH_PART;
+                break;
+            }
+
+            if (hit.collider == LowerPart)
+            {
+                actualPart = PartMoon.LOW_PART;
+                break;
+            }
+        }
     }
 
     public override void MoveInteraction(bool asEcho = false)
@@ -70,6 +77,8 @@ public class MoonPrefab : Interactable
         }
 
         previousMousePosition = Input.mousePosition;
+
+        if (!GetPart()) return;
         float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
 
         //Evite de bloquer la lune aux extremites
@@ -95,11 +104,14 @@ public class MoonPrefab : Interactable
 
     GameObject GetPart()
     {
-        return (actualPart == PartMoon.LOW_PART ? LowerPart : HigherPart);
+        if (actualPart == PartMoon.NONE)
+            return null;
+        return  (actualPart == PartMoon.LOW_PART ? LowerPart : HigherPart);
     }
 
     public override void EndInteraction(bool asEcho = false)
     {
-        GetPart().transform.position = resetPosition;
+        if (GetPart())
+            GetPart().transform.position = resetPosition;
     }
 }
