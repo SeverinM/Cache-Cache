@@ -372,8 +372,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 6773315637210192406, guid: 1e7f4e836eb1a1f4d95a55bffe7e36e8, type: 3}
   allTrsf: []
-  indexEcho: -1
-  index: 0
+  indexEcho: 2
+  index: 2
 --- !u!1 &8826262018864304801
 GameObject:
   m_ObjectHideFlags: 0
