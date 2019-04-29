@@ -101,15 +101,11 @@ public class MoonPrefab : Interactable
 
         else
         {
-            Debug.Log("echo");
             MoonPrefab other = Echo.GetComponent<MoonPrefab>();
-            Vector3 localPositionLow = other.LowerPart.transform.parent.worldToLocalMatrix.MultiplyPoint(other.LowerPart.transform.position);
-            Vector3 localPositionHigh = other.HigherPart.transform.parent.worldToLocalMatrix.MultiplyPoint(other.HigherPart.transform.position);
-            LowerPart.transform.position = transform.position + localPositionLow;
-            HigherPart.transform.position = transform.position + localPositionHigh;
-
-            CmdUpdatePosition(PartMoon.LOW_PART, LowerPart.transform.position);
-            CmdUpdatePosition(PartMoon.HIGH_PART, HigherPart.transform.position);
+            Vector3 toLow = LowerPart.transform.position - transform.position;
+            Vector3 toHigh = HigherPart.transform.position - transform.position;
+            Debug.Log("Low : " + toLow);
+            Debug.Log("High : " + toHigh);
         }
     }
 
