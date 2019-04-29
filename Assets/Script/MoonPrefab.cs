@@ -104,8 +104,8 @@ public class MoonPrefab : Interactable
             MoonPrefab other = Echo.GetComponent<MoonPrefab>();
             Vector3 toLow = other.LowerPart.transform.position - other.transform.position;
             Vector3 toHigh = other.HigherPart.transform.position - other.transform.position;
-            Debug.Log("Low : " + toLow);
-            Debug.Log("High : " + toHigh);
+            LowerPart.transform.position = transform.position + toLow;
+            HigherPart.transform.position = transform.position + toHigh;
         }
     }
 
