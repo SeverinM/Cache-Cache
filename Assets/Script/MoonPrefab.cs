@@ -17,7 +17,7 @@ public class MoonPrefab : Interactable
         }
     }
 
-    enum PartMoon
+    public enum PartMoon
     {
         LOW_PART,
         HIGH_PART, 
@@ -101,7 +101,7 @@ public class MoonPrefab : Interactable
             temporaryPosition = resetPosition;
         }
 
-        GetPart().transform.position = temporaryPosition;
+        CmdUpdatePosition(actualPart, temporaryPosition);
     }
 
     GameObject GetPart()
@@ -113,7 +113,27 @@ public class MoonPrefab : Interactable
 
     public override void EndInteraction(bool asEcho = false)
     {
-        if (GetPart())
-            GetPart().transform.position = resetPosition;
+        CmdUpdatePosition(actualPart, resetPosition);
+    }
+
+    [Command]
+    public void CmdUpdatePosition(PartMoon partMoon , Vector3 position)
+    {
+        RpcUpdatePosition(partMoon, position);
+    }
+
+    [ClientRpc]
+    public void RpcUpdatePosition(PartMoon part , Vector3 position)
+    {
+        actualPart = part;
+        if (actualPart == PartMoon.HIGH_PART)
+        {
+            HigherPart.transform.position = position;
+        }
+        
+        if (actualPart == PartMoon.LOW_PART)
+        {
+            LowerPart.transform.position = position;
+        }
     }
 }
