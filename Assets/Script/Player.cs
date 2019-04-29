@@ -267,12 +267,6 @@ public class Player : NetworkBehaviour
         concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = true;
     }
 
-    [ClientRpc]
-    public void RpcName(string nm)
-    {
-        name = nm;
-    }
-
     [Command]
     void CmdRelayInteraction(TypeAction act, GameObject gob)
     {
