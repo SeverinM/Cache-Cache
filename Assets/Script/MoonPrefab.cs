@@ -96,6 +96,7 @@ public class MoonPrefab : Interactable
                 temporaryPosition = resetPosition;
             }
 
+            GetPart().transform.position = temporaryPosition;
             CmdUpdatePosition(actualPart, temporaryPosition);
         }
 
