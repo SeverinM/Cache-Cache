@@ -91,15 +91,13 @@ public class MoonPrefab : Interactable
             }
 
             Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
-            if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
+            if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y && deltaY > 0)
             {
-                Debug.Log("reset haut");
                 temporaryPosition = resetPosition;
             }
 
-            if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y)
+            if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y && deltaY < 0)
             {
-                Debug.Log("reset bas");
                 temporaryPosition = resetPosition;
             }
 
