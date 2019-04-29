@@ -98,12 +98,6 @@ public class MoonPrefab : Interactable
 
             CmdUpdatePosition(actualPart, temporaryPosition);
         }
-
-        else
-        {
-            LowerPart.transform.position = Echo.GetComponent<MoonPrefab>().LowerPart.transform.position;
-            HigherPart.transform.position = Echo.GetComponent<MoonPrefab>().HigherPart.transform.position;
-        }
     }
 
     GameObject GetPart()
