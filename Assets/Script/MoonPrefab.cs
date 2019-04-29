@@ -71,6 +71,8 @@ public class MoonPrefab : Interactable
     {
         if (!asEcho)
         {
+            Debug.Log(LowerPart.transform.parent.worldToLocalMatrix.MultiplyPoint(LowerPart.transform.position));
+
             deltaY = Input.mousePosition.y - previousMousePosition.y;
 
             previousMousePosition = Input.mousePosition;
@@ -98,6 +100,15 @@ public class MoonPrefab : Interactable
 
             CmdUpdatePosition(actualPart, temporaryPosition);
         }
+
+        else
+        {
+            MoonPrefab other = Echo.GetComponent<MoonPrefab>();
+            Vector3 localPositionLow = other.LowerPart.transform.parent.worldToLocalMatrix.MultiplyPoint(other.LowerPart.transform.position);
+            Vector3 localPositionHigh = other.HigherPart.transform.parent.worldToLocalMatrix.MultiplyPoint(other.HigherPart.transform.position);
+            LowerPart.transform.position = transform.position + localPositionLow;
+            HigherPart.transform.position = transform.position + localPositionHigh;
+        }
     }
 
     GameObject GetPart()
@@ -109,7 +120,7 @@ public class MoonPrefab : Interactable
 
     public override void EndInteraction(bool asEcho = false)
     {
-        //CmdUpdatePosition(actualPart, resetPosition);
+        CmdUpdatePosition(actualPart, resetPosition);
     }
 
     [Command]
