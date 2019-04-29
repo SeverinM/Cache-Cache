@@ -118,7 +118,7 @@ public class MoonPrefab : Interactable
 
     public override void EndInteraction(bool asEcho = false)
     {
-        if (asEcho)
+        if (!asEcho)
             CmdUpdatePosition(actualPart, resetPosition);
         else
         {
@@ -139,7 +139,6 @@ public class MoonPrefab : Interactable
     [ClientRpc]
     public void RpcUpdatePosition(PartMoon part , Vector3 position)
     {
-        if (!hasAuthority) return;
         actualPart = part;
         if (actualPart == PartMoon.HIGH_PART)
         {
