@@ -51,14 +51,14 @@ public class MoonPrefab : Interactable
 
         foreach(RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
         {
-            if (hit.collider.gameObject == HigherPart)
+            if (hit.collider.gameObject == HigherPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.HIGH_PART)
             {
                 actualPart = PartMoon.HIGH_PART;
                 resetPosition = HigherPart.transform.position;
                 break;
             }
 
-            if (hit.collider.gameObject == LowerPart)
+            if (hit.collider.gameObject == LowerPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.LOW_PART)
             {
                 actualPart = PartMoon.LOW_PART;
                 resetPosition = LowerPart.transform.position;
@@ -72,36 +72,38 @@ public class MoonPrefab : Interactable
         if (!asEcho)
         {
             deltaY = Input.mousePosition.y - previousMousePosition.y;
+
+            previousMousePosition = Input.mousePosition;
+
+            if (!GetPart()) return;
+            float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
+
+            //Evite de bloquer la lune aux extremites
+            if (ratio == 1)
+            {
+                if (deltaY < 0 && actualPart == PartMoon.HIGH_PART) ratio -= 0.001f;
+                if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio -= 0.001f;
+            }
+            Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
+
+            if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
+            {
+                temporaryPosition = resetPosition;
+            }
+
+            if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y)
+            {
+                temporaryPosition = resetPosition;
+            }
+
+            CmdUpdatePosition(actualPart, temporaryPosition);
         }
+
         else
         {
-            deltaY = Echo.GetComponent<MoonPrefab>().DeltaY;
+            LowerPart.transform.position = Echo.GetComponent<MoonPrefab>().LowerPart.transform.position;
+            HigherPart.transform.position = Echo.GetComponent<MoonPrefab>().HigherPart.transform.position;
         }
-
-        previousMousePosition = Input.mousePosition;
-
-        if (!GetPart()) return;
-        float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
-
-        //Evite de bloquer la lune aux extremites
-        if (ratio == 1)
-        {
-            if (deltaY < 0 && actualPart == PartMoon.HIGH_PART) ratio -= 0.001f;
-            if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio -= 0.001f;
-        }
-        Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
-
-        if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
-        {
-            temporaryPosition = resetPosition;
-        }
-
-        if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y)
-        {
-            temporaryPosition = resetPosition;
-        }
-
-        CmdUpdatePosition(actualPart, temporaryPosition);
     }
 
     GameObject GetPart()
