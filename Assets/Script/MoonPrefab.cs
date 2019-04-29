@@ -119,6 +119,7 @@ public class MoonPrefab : Interactable
     public override void EndInteraction(bool asEcho = false)
     {
         CmdUpdatePosition(actualPart, resetPosition);
+        actualPart = PartMoon.NONE;
     }
 
     [Command]
