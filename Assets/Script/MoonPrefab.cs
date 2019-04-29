@@ -50,7 +50,10 @@ public class MoonPrefab : Interactable
 
     public override void StartInteraction(bool asEcho = false)
     {
-        if (!canInteract) return;
+        if (!canInteract)
+        {
+            Debug.Log("pas interaction");
+        }
         previousMousePosition = Input.mousePosition;
 
         foreach(RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
@@ -91,17 +94,17 @@ public class MoonPrefab : Interactable
             }
 
             Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
-            if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y && deltaY > 0)
-            {
-                Debug.Log("reset haut");
-                temporaryPosition = resetPosition;
-            }
+            //if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y && deltaY > 0)
+            //{
+            //    Debug.Log("reset haut");
+            //    temporaryPosition = resetPosition;
+            //}
 
-            if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y && deltaY < 0)
-            {
-                Debug.Log("reset bas");
-                temporaryPosition = resetPosition;
-            }
+            //if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y && deltaY < 0)
+            //{
+            //    Debug.Log("reset bas");
+            //    temporaryPosition = resetPosition;
+            //}
 
             GetPart().transform.position = temporaryPosition;
             CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, temporaryPosition);
