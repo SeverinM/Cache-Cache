@@ -38,15 +38,19 @@ public class MoonPrefab : Interactable
     Vector3 originPosition;
     Vector3 resetPosition;
 
+    public float maxDistance = 20;
+    bool canInteract = true;
+
     void Start()
     {
-        spr = new Spring(20, 2);
+        spr = new Spring(maxDistance, 2);
         originPosition = transform.position;
         actualPart = PartMoon.NONE;
     }
 
     public override void StartInteraction(bool asEcho = false)
     {
+        if (!canInteract) return;
         previousMousePosition = Input.mousePosition;
 
         foreach(RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
@@ -69,6 +73,7 @@ public class MoonPrefab : Interactable
 
     public override void MoveInteraction(bool asEcho = false)
     {
+        if (!canInteract) return;
         if (!asEcho)
         {
             deltaY = Input.mousePosition.y - previousMousePosition.y;
@@ -76,7 +81,7 @@ public class MoonPrefab : Interactable
             previousMousePosition = Input.mousePosition;
 
             if (!GetPart()) return;
-            float ratio = Mathf.Clamp(Vector3.Distance(originPosition, GetPart().transform.position) / spr.MaxDistance, 0, 1);
+            float ratio = GetRatio(GetPart());
 
             //Evite de bloquer la lune aux extremites
             if (ratio == 1)
@@ -84,6 +89,7 @@ public class MoonPrefab : Interactable
                 if (deltaY < 0 && actualPart == PartMoon.HIGH_PART) ratio -= 0.001f;
                 if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio -= 0.001f;
             }
+
             Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
 
             if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y)
@@ -98,6 +104,12 @@ public class MoonPrefab : Interactable
 
             GetPart().transform.position = temporaryPosition;
             CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, temporaryPosition);
+
+            // Les deux parties one été tirés
+            if (GetRatio(LowerPart) == 1 && GetRatio(HigherPart) == 1)
+            {
+                Lock();
+            }
         }
 
         else
@@ -119,6 +131,7 @@ public class MoonPrefab : Interactable
 
     public override void EndInteraction(bool asEcho = false)
     {
+        if (!canInteract) return;
         if (!asEcho)
         {
             GetPart().transform.position = resetPosition;
@@ -157,5 +170,16 @@ public class MoonPrefab : Interactable
         {
             LowerPart.transform.position = position;
         }
+    }
+
+    float GetRatio(GameObject gob)
+    {
+        return Mathf.Clamp(Vector3.Distance(originPosition, gob.transform.position) / spr.MaxDistance, 0, 1);
+    }
+
+    void Lock()
+    {
+        Debug.Log("lock");
+        canInteract = false;
     }
 }
