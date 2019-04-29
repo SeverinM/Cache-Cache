@@ -101,11 +101,11 @@ public class MoonPrefab : Interactable
 
         else
         {
-            MoonPrefab other = Echo.GetComponent<MoonPrefab>();
-            Vector3 toLow = other.LowerPart.transform.position - other.transform.position;
-            Vector3 toHigh = other.HigherPart.transform.position - other.transform.position;
-            LowerPart.transform.position = transform.position + toLow;
-            HigherPart.transform.position = transform.position + toHigh;
+            //MoonPrefab other = Echo.GetComponent<MoonPrefab>();
+            //Vector3 toLow = other.LowerPart.transform.position - other.transform.position;
+            //Vector3 toHigh = other.HigherPart.transform.position - other.transform.position;
+            //LowerPart.transform.position = transform.position + toLow;
+            //HigherPart.transform.position = transform.position + toHigh;
         }
     }
 
@@ -126,11 +126,11 @@ public class MoonPrefab : Interactable
             
         else
         {
-            MoonPrefab other = Echo.GetComponent<MoonPrefab>();
-            Vector3 toLow = other.LowerPart.transform.position - other.transform.position;
-            Vector3 toHigh = other.HigherPart.transform.position - other.transform.position;
-            LowerPart.transform.position = transform.position + toLow;
-            HigherPart.transform.position = transform.position + toHigh;
+            //MoonPrefab other = Echo.GetComponent<MoonPrefab>();
+            //Vector3 toLow = other.LowerPart.transform.position - other.transform.position;
+            //Vector3 toHigh = other.HigherPart.transform.position - other.transform.position;
+            //LowerPart.transform.position = transform.position + toLow;
+            //HigherPart.transform.position = transform.position + toHigh;
         }
     }
 
