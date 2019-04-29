@@ -60,17 +60,23 @@ public class MoonPrefab : Interactable
             previousMousePosition = Input.mousePosition;
             foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
             {
-                if (hit.collider.gameObject == HigherPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.HIGH_PART)
+                if (hit.collider.gameObject == HigherPart)
                 {
-                    actualPart = PartMoon.HIGH_PART;
-                    resetPosition = HigherPart.transform.position;
+                    if (Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.HIGH_PART)
+                    {
+                        actualPart = PartMoon.HIGH_PART;
+                        resetPosition = HigherPart.transform.position;
+                    }
                     break;
                 }
 
-                if (hit.collider.gameObject == LowerPart && Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.LOW_PART)
+                if (hit.collider.gameObject == LowerPart)
                 {
-                    actualPart = PartMoon.LOW_PART;
-                    resetPosition = LowerPart.transform.position;
+                    if (Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.LOW_PART)
+                    {
+                        actualPart = PartMoon.LOW_PART;
+                        resetPosition = LowerPart.transform.position;
+                    }
                     break;
                 }
             }
@@ -97,17 +103,6 @@ public class MoonPrefab : Interactable
             }
 
             Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
-            //if (actualPart == PartMoon.LOW_PART && GetPart().transform.position.y > resetPosition.y && deltaY > 0)
-            //{
-            //    Debug.Log("reset haut");
-            //    temporaryPosition = resetPosition;
-            //}
-
-            //if (actualPart == PartMoon.HIGH_PART && GetPart().transform.position.y < resetPosition.y && deltaY < 0)
-            //{
-            //    Debug.Log("reset bas");
-            //    temporaryPosition = resetPosition;
-            //}
 
             GetPart().transform.position = temporaryPosition;
             CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, temporaryPosition);
