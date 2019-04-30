@@ -210,6 +210,7 @@ public class MoonPrefab : Interactable
     {
         canInteract = false;
         GameObject instance = Instantiate(PrefabSpot, transform.position, Quaternion.identity);
+        GetComponent<SphereCollider>().enabled = false;
         foreach(Draggable dragg in FindObjectsOfType<Draggable>())
         {
             dragg.AddSpot(instance.transform.position, instance);
