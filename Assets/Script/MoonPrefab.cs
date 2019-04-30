@@ -36,7 +36,6 @@ public class MoonPrefab : Interactable
 
     Vector3 previousMousePosition;
     Vector3 originPosition;
-    Vector3 resetPosition;
 
     public float maxDistance = 20;
     bool canInteract = true;
@@ -65,7 +64,6 @@ public class MoonPrefab : Interactable
                     if (Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.HIGH_PART)
                     {
                         actualPart = PartMoon.HIGH_PART;
-                        resetPosition = HigherPart.transform.position;
                     }
                     break;
                 }
@@ -75,7 +73,6 @@ public class MoonPrefab : Interactable
                     if (Echo.GetComponent<MoonPrefab>().actualPart != PartMoon.LOW_PART)
                     {
                         actualPart = PartMoon.LOW_PART;
-                        resetPosition = LowerPart.transform.position;
                     }
                     break;
                 }
@@ -102,9 +99,11 @@ public class MoonPrefab : Interactable
                 if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio -= 0.001f;
             }
 
-            Vector3 temporaryPosition = GetPart().transform.position + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
+            Vector3 temporaryPosition = GetPart().transform.localPosition + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
+            //Move on local
+            GetPart().transform.localPosition = temporaryPosition;
 
-            GetPart().transform.position = temporaryPosition;
+            //Move on remote
             CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, temporaryPosition);
 
             // Les deux parties one été tirés
@@ -134,15 +133,17 @@ public class MoonPrefab : Interactable
         if (!canInteract) return;
         if (!asEcho)
         {
-            GetPart().transform.position = resetPosition;
-            CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, resetPosition);
+            Debug.Log("Fin interaction");
+            GetPart().transform.localPosition = Vector3.zero;
+            CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, Vector3.zero);
 
             actualPart = PartMoon.NONE;
-            CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, PartMoon.NONE, resetPosition);
+            CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, PartMoon.NONE, Vector3.zero);
         }
             
         else
         {
+            Debug.Log("Fin interaction");
             MoonPrefab other = Echo.GetComponent<MoonPrefab>();
             LowerPart.transform.localPosition = other.LowerPart.transform.localPosition;
             HigherPart.transform.localPosition = other.HigherPart.transform.localPosition;
@@ -161,12 +162,12 @@ public class MoonPrefab : Interactable
         actualPart = part;
         if (actualPart == PartMoon.HIGH_PART)
         {
-            HigherPart.transform.position = position;
+            HigherPart.transform.localPosition = position;
         }
 
         if (actualPart == PartMoon.LOW_PART)
         {
-            LowerPart.transform.position = position;
+            LowerPart.transform.localPosition = position;
         }
     }
 
