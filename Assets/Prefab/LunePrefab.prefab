@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6773315637210285618}
   - component: {fileID: 6773315637213185556}
   - component: {fileID: 6773315637212185812}
+  - component: {fileID: 2046054492022801805}
   m_Layer: 0
   m_Name: lunehaut2
   m_TagString: Untagged
@@ -77,6 +78,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &2046054492022801805
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6773315637210192402}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300002, guid: 3253cd6e5b5f0af4bb2b00d7ca555509, type: 3}
 --- !u!1 &6773315637210192404
 GameObject:
   m_ObjectHideFlags: 0
@@ -88,6 +103,7 @@ GameObject:
   - component: {fileID: 6773315637210285620}
   - component: {fileID: 6773315637213185558}
   - component: {fileID: 6773315637212185814}
+  - component: {fileID: 4205789634253351335}
   m_Layer: 0
   m_Name: lunebas2
   m_TagString: Untagged
@@ -154,6 +170,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &4205789634253351335
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6773315637210192404}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300000, guid: 3253cd6e5b5f0af4bb2b00d7ca555509, type: 3}
 --- !u!1 &6773315637210192406
 GameObject:
   m_ObjectHideFlags: 0
@@ -167,6 +197,7 @@ GameObject:
   - component: {fileID: 7174665489876995230}
   - component: {fileID: 6331498682377175489}
   - component: {fileID: 6248593443464975557}
+  - component: {fileID: 2539735029678443622}
   m_Layer: 0
   m_Name: LunePrefab
   m_TagString: Maquette
@@ -245,3 +276,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncInterval: 0
   compressRotation: 1
+--- !u!114 &2539735029678443622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6773315637210192406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01e8f763702b10946b44bd3af6a708ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.097
+  Master: {fileID: 0}
+  LowerPart: {fileID: 6773315637210192404}
+  HigherPart: {fileID: 6773315637210192402}
+  PrefabSpot: {fileID: 2335862969281860444, guid: c80eb32ea9cb9a14aa461b1ca24cd77b,
+    type: 3}
+  maxDistance: 5

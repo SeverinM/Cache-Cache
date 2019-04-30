@@ -94,8 +94,6 @@ public class CustomNetworkManager : NetworkManager
             NetworkServer.SpawnWithClientAuthority(maq2, conn);
 
             //Initialize var
-            player1.GetComponent<Player>().RpcName("Joueur numero 1");
-            player2.GetComponent<Player>().RpcName("Joueur numero 2");
 
             player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
             player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);

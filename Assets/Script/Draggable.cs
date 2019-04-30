@@ -112,6 +112,12 @@ public class Draggable : Interactable
         gob.GetComponent<Spot>().SetState(false);
     }
 
+    public void AddSpot(Vector3 position, GameObject gob)
+    {
+        allSpots.Add(new SpotDragAndDropInter(position, gob));
+        gob.GetComponent<Spot>().SetState(false);
+    }
+
     public void SetAllSpots(bool value)
     {
         foreach (SpotDragAndDropInter sp in allSpots)
