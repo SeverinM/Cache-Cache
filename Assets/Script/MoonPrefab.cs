@@ -102,14 +102,14 @@ public class MoonPrefab : Interactable
             Vector3 temporaryPosition = GetPart().transform.localPosition + (transform.up * deltaY * (1 - ratio) * 0.05f);
 
             //Low part always below
-            if (actualPart == PartMoon.LOW_PART && temporaryPosition.y <= HigherPart.transform.localPosition.y)
+            if (actualPart == PartMoon.LOW_PART && temporaryPosition.y <= 0)
             {
                 GetPart().transform.localPosition = temporaryPosition;
                 //Move on remote
                 CmdUpdatePosition(Master.GetComponent<Player>().OtherPlayer, actualPart, temporaryPosition);
             }
             
-            if (actualPart == PartMoon.HIGH_PART && temporaryPosition.y >= LowerPart.transform.localPosition.y)
+            if (actualPart == PartMoon.HIGH_PART && temporaryPosition.y >= 0)
             {
                 GetPart().transform.localPosition = temporaryPosition;
                 //Move on remote
