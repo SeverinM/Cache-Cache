@@ -9,6 +9,7 @@ using System.Text;
 using System;
 using System.Net.NetworkInformation;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -183,5 +184,10 @@ public class Manager : MonoBehaviour
             broadcastAddress[i] = (byte)(ipAdressBytes[i] | (subnetMaskBytes[i] ^ 255));
         }
         return new IPAddress(broadcastAddress);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
