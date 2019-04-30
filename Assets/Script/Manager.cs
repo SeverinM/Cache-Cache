@@ -39,18 +39,6 @@ public class Manager : MonoBehaviour
 
     static Manager _instance;
 
-    private void Awake()
-    {
-        if (_instance != null)
-        {
-            Destroy(_instance.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
-
     private void Update()
     {
         if (connecting)
@@ -60,18 +48,13 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public static Manager GetInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new GameObject().AddComponent<Manager>();
-            DontDestroyOnLoad(_instance.gameObject);
-        }
-        return _instance;
-    }
-
     public void StartAsHost()
     {
+        if (manager == null)
+        {
+            manager = GameObject.FindObjectOfType<CustomNetworkManager>();
+        }
+
         Destroy(referenceCanvas);
         manager.StartHost();
 
@@ -96,6 +79,11 @@ public class Manager : MonoBehaviour
 
     public void StartResearch()
     {
+        if (manager == null)
+        {
+            manager = GameObject.FindObjectOfType<CustomNetworkManager>();
+        }
+
         if (clientUdp == null)
             StartCoroutine(Research());
     }
