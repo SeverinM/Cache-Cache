@@ -86,8 +86,8 @@ public class MoonPrefab : Interactable
         if (!asEcho)
         {
             deltaY = Input.mousePosition.y - previousMousePosition.y;
-
             previousMousePosition = Input.mousePosition;
+
 
             if (!GetPart()) return;
             float ratio = GetRatio(GetPart());
@@ -99,7 +99,7 @@ public class MoonPrefab : Interactable
                 if (deltaY > 0 && actualPart == PartMoon.LOW_PART) ratio -= 0.001f;
             }
 
-            Vector3 temporaryPosition = GetPart().transform.localPosition + (transform.up * deltaY * (1 - ratio) * spr.forceAddition);
+            Vector3 temporaryPosition = GetPart().transform.localPosition + (transform.up * deltaY * (1 - ratio) * 0.05f);
             //Move on local
             GetPart().transform.localPosition = temporaryPosition;
 
@@ -116,8 +116,12 @@ public class MoonPrefab : Interactable
         else
         {
             MoonPrefab other = Echo.GetComponent<MoonPrefab>();
-            LowerPart.transform.localPosition = other.LowerPart.transform.localPosition;
-            HigherPart.transform.localPosition = other.HigherPart.transform.localPosition;
+
+            //Mimic only if not hold
+            if (actualPart != PartMoon.LOW_PART)
+                LowerPart.transform.localPosition = other.LowerPart.transform.localPosition;
+            if (actualPart != PartMoon.HIGH_PART)
+                HigherPart.transform.localPosition = other.HigherPart.transform.localPosition;
         }
     }
 
@@ -143,10 +147,13 @@ public class MoonPrefab : Interactable
             
         else
         {
-            Debug.Log("Fin interaction");
             MoonPrefab other = Echo.GetComponent<MoonPrefab>();
-            LowerPart.transform.localPosition = other.LowerPart.transform.localPosition;
-            HigherPart.transform.localPosition = other.HigherPart.transform.localPosition;
+
+            //Mimic only if not hold
+            if (actualPart != PartMoon.LOW_PART)
+                LowerPart.transform.localPosition = other.LowerPart.transform.localPosition;
+            if (actualPart != PartMoon.HIGH_PART)
+                HigherPart.transform.localPosition = other.HigherPart.transform.localPosition;
         }
     }
 
