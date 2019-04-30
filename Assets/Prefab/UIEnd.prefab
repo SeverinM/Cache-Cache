@@ -258,7 +258,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Oh non ! La connexion a \xE9t\xE9 interrompue par un connard"
+  m_Text: "Oh non ! l'autre joueur a quitt\xE9 la partie D:"
 --- !u!1 &7026368184932479756
 GameObject:
   m_ObjectHideFlags: 0
