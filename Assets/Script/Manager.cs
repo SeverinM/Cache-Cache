@@ -8,6 +8,7 @@ using System.Net.Sockets;
 using System.Text;
 using System;
 using System.Net.NetworkInformation;
+using System.Linq;
 
 public class Manager : MonoBehaviour
 {
@@ -107,10 +108,14 @@ public class Manager : MonoBehaviour
         while (!found)
         {
             clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
-            IPAddress addr = IPAddress.Parse(GetBroadcastAdress());
-            Debug.Log("recherche : " + Time.timeSinceLevelLoad);
-            clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
-            yield return new WaitForSeconds(2f);
+            foreach(string ip in GetBroadcastAdress().Distinct())
+            {
+                IPAddress addr = IPAddress.Parse(ip);
+                clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
+                Debug.Log(ip);
+                yield return new WaitForSeconds(0.1f);
+            }            
+            yield return new WaitForSeconds(1f);
         }
     }
 
@@ -129,7 +134,6 @@ public class Manager : MonoBehaviour
             string addr = interNetwork.Address.ToString();
             if (Response == DISCOVERY_FOUND)
             {
-                Debug.Log("trouve");
                 string addrCopy = (string)addr.Clone();
                 found = true;
                 connectIp = addrCopy;
@@ -138,11 +142,11 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public static string GetBroadcastAdress()
+    public static List<string> GetBroadcastAdress()
     {
+        List<string> output = new List<string>();
         string hostName = Dns.GetHostName();
         IPAddress[] allAddr = Dns.GetHostEntry(hostName).AddressList;
-        IPAddress addr = allAddr[allAddr.Length - 1];
         IPAddress mask = null;
         bool stop = false;
 
@@ -153,23 +157,15 @@ public class Manager : MonoBehaviour
             {
                 string tempAddr = uipi.Address.ToString();
                 //Pas d'adresse IPV4
-                if (uipi.Address.ToString() == addr.ToString())
+                IPAddress addr = uipi.Address;
+                if (!addr.ToString().Contains(":") && !addr.ToString().StartsWith("0."))
                 {
                     mask = uipi.IPv4Mask;
-                    stop = true;
-                    break;
-                }
-            }        
+                    output.Add(SplitBytes(addr, mask).ToString());
+                }                   
+            }
         }
 
-
-        string output = "";
-        if (mask != null)
-        {
-            output = SplitBytes(addr, mask).ToString();
-        }
-
-        Debug.Log(output);
         return output;
     }
 
