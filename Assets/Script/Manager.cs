@@ -37,6 +37,18 @@ public class Manager : MonoBehaviour
     string connectIp = "";
     bool connecting = false;
 
+    [SerializeField]
+    GameObject panelWelcome;
+
+    [SerializeField]
+    GameObject panelWait;
+
+    [SerializeField]
+    Text txtHost;
+
+    [SerializeField]
+    Text txtSearch;
+
     static Manager _instance;
 
     private void Update()
@@ -55,7 +67,8 @@ public class Manager : MonoBehaviour
             manager = GameObject.FindObjectOfType<CustomNetworkManager>();
         }
 
-        Destroy(referenceCanvas);
+        Transition(true);
+
         manager.StartHost();
 
         //Ecoute pour discovery
@@ -79,6 +92,7 @@ public class Manager : MonoBehaviour
 
     public void StartResearch()
     {
+        Transition(false);
         if (manager == null)
         {
             manager = GameObject.FindObjectOfType<CustomNetworkManager>();
@@ -177,5 +191,12 @@ public class Manager : MonoBehaviour
     public void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Transition(bool isHost)
+    {
+        panelWelcome.SetActive(false);
+        panelWait.SetActive(true);
+        (isHost ? txtHost : txtSearch).gameObject.SetActive(true);
     }
 }
