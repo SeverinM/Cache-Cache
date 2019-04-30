@@ -10,6 +10,7 @@ public class CustomNetworkManager : NetworkManager
     int nbPlayer = 0;
     public GameObject prefab1;
     public GameObject prefab2;
+    public GameObject textEnd;
 
     GameObject player1;
     GameObject player2;
@@ -108,5 +109,17 @@ public class CustomNetworkManager : NetworkManager
                 Destroy(interpr.gameObject);
             }
         }
+    }
+
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        Debug.Log("fin");
+        base.OnClientDisconnect(conn);
+    }
+
+    public override void OnServerDisconnect(NetworkConnection conn)
+    {
+        Debug.Log("fin");
+        base.OnServerDisconnect(conn);
     }
 }

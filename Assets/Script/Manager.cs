@@ -113,9 +113,9 @@ public class Manager : MonoBehaviour
                 IPAddress addr = IPAddress.Parse(ip);
                 clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
                 Debug.Log(ip);
-                yield return new WaitForSeconds(0.1f);
+                yield return new WaitForSeconds(0.05f);
             }            
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
