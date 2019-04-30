@@ -28,6 +28,7 @@ public class MoonPrefab : Interactable
     //Les deux parties de la lune
     public GameObject LowerPart;
     public GameObject HigherPart;
+    public GameObject PrefabSpot;
 
     float deltaY;
     public float DeltaY => deltaY;
@@ -208,5 +209,10 @@ public class MoonPrefab : Interactable
     void Lock()
     {
         canInteract = false;
+        GameObject instance = Instantiate(PrefabSpot, transform.position, Quaternion.identity);
+        foreach(Draggable dragg in FindObjectsOfType<Draggable>())
+        {
+            dragg.AddSpot(instance.transform.position, instance);
+        }
     }
 }

@@ -292,3 +292,6 @@ MonoBehaviour:
   Master: {fileID: 0}
   LowerPart: {fileID: 6773315637210192404}
   HigherPart: {fileID: 6773315637210192402}
+  PrefabSpot: {fileID: 2335862969281860444, guid: c80eb32ea9cb9a14aa461b1ca24cd77b,
+    type: 3}
+  maxDistance: 5
