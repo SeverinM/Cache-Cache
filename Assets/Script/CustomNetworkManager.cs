@@ -113,13 +113,13 @@ public class CustomNetworkManager : NetworkManager
 
     public override void OnClientDisconnect(NetworkConnection conn)
     {
-        Debug.Log("fin");
+        textEnd.SetActive(true);
         base.OnClientDisconnect(conn);
     }
 
     public override void OnServerDisconnect(NetworkConnection conn)
     {
-        Debug.Log("fin");
+        textEnd.SetActive(true);
         base.OnServerDisconnect(conn);
     }
 }
