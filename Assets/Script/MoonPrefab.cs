@@ -119,7 +119,7 @@ public class MoonPrefab : Interactable
             // Les deux parties one été tirés
             if (GetRatio(LowerPart) == 1 && GetRatio(HigherPart) == 1)
             {
-                Lock();
+                CmdLock();
             }
         }
 
@@ -188,6 +188,18 @@ public class MoonPrefab : Interactable
         }
     }
 
+    [Command]
+    public void CmdLock()
+    {
+        RpcLock();
+    }
+
+    [ClientRpc]
+    public void RpcLock()
+    {
+        Lock();
+    }
+
     float GetRatio(GameObject gob)
     {
         return Mathf.Clamp(Vector3.Distance(originPosition, gob.transform.position) / spr.MaxDistance, 0, 1);
@@ -195,7 +207,6 @@ public class MoonPrefab : Interactable
 
     void Lock()
     {
-        Debug.Log("lock");
         canInteract = false;
     }
 }
