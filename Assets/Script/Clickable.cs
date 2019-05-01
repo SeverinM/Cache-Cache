@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Clickable : Interactable
 {
-    public override void StartInteraction()
+    public override void StartInteraction(bool asEcho)
     {
         GetComponent<Animator>().SetTrigger(AllInteractions.INTERACTION_TRIGGER);
     }
 
-    public override void MoveInteraction()
+    public override void MoveInteraction(bool asEcho)
     {
     }
 
-    public override void EndInteraction()
+    public override void EndInteraction(bool asEcho)
     {
     }
 }

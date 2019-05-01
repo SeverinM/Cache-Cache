@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class Player : NetworkBehaviour
 {
     public Vector3 ToOtherPlayer { get; set; }
+    public bool CanInteract = true;
 
     [SyncVar]
     public GameObject maquette;
@@ -23,9 +24,6 @@ public class Player : NetworkBehaviour
     GameObject man;
 
     public AnimationCurve curve;
-
-    public GameObject moon;
-    public GameObject Moon => moon;
 
     //Utilisé dans le drag and drop
     [HideInInspector]
@@ -48,6 +46,13 @@ public class Player : NetworkBehaviour
     float speedZoom = 0;
     Vector3 ForwardMaquette => (maquette.transform.position - transform.position).normalized;
     Vector3 target;
+
+    public enum TypeAction
+    {
+        START_INTERACTION,
+        MOVE_INTERACTION,
+        END_INTERACTION
+    }
 
     public void ChangeRotate(bool newValue)
     {
@@ -100,7 +105,13 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (hasAuthority)
+        if (!CanInteract && holdGameObject)
+        {
+            holdGameObject.GetComponent<Interactable>().EndInteraction();
+            holdGameObject = null;
+        }
+
+        if (hasAuthority && CanInteract)
         {
             if (maquette == null) return;
 
@@ -109,9 +120,15 @@ public class Player : NetworkBehaviour
             {
                 foreach(RaycastHit hit in Physics.RaycastAll(GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
                 {
-                    if (hit.collider.GetComponent<Interactable>() && holdGameObject == null)
+                    Interactable inter = hit.collider.GetComponent<Interactable>();
+                    if (inter && holdGameObject == null)
                     {
-                        hit.collider.GetComponent<Interactable>().StartInteraction();
+                        inter.StartInteraction();
+                        holdGameObject = inter.gameObject;
+                        if (inter.Echo)
+                        {
+                            CmdRelayInteraction(TypeAction.START_INTERACTION, inter.Echo.gameObject);
+                        }
                         break;
                     }
                 }
@@ -120,12 +137,20 @@ public class Player : NetworkBehaviour
             if (Input.GetMouseButtonUp(0) && holdGameObject)
             {
                 holdGameObject.GetComponent<Interactable>().EndInteraction();
+                if (holdGameObject.GetComponent<Interactable>().Echo)
+                {
+                    CmdRelayInteraction(TypeAction.END_INTERACTION, holdGameObject.GetComponent<Interactable>().Echo.gameObject);
+                }
                 holdGameObject = null;
             }
 
             if (holdGameObject)
             {
                 holdGameObject.GetComponent<Interactable>().MoveInteraction();
+                if (holdGameObject.GetComponent<Interactable>().Echo)
+                {
+                    CmdRelayInteraction(TypeAction.MOVE_INTERACTION, holdGameObject.GetComponent<Interactable>().Echo.gameObject);
+                }
             }
 
             #region Zoom
@@ -230,14 +255,6 @@ public class Player : NetworkBehaviour
         maquette = maq;
         otherPlayer = other;
         CanRotate = true;
-
-        moon = Instantiate(moon);
-
-        float width = GetComponent<Camera>().pixelWidth;
-        float height = GetComponent<Camera>().pixelHeight;
-        moon.transform.position = maq.transform.position + new Vector3(0, 40, 0);
-
-        NetworkServer.SpawnWithClientAuthority(moon, gameObject);
     }
 
     [Command]
@@ -257,10 +274,32 @@ public class Player : NetworkBehaviour
         concerned.GetComponent<Player>().OtherPlayer.GetComponent<Player>().CanRotate = true;
     }
 
-    [ClientRpc]
-    public void RpcName(string nm)
+    [Command]
+    void CmdRelayInteraction(TypeAction act, GameObject gob)
     {
-        name = nm;
+        Player player = gob.GetComponent<Interactable>().Master.GetComponent<Player>();
+        player.TargetRelay(player.GetComponent<NetworkIdentity>().connectionToClient, act, gob);
     }
+
+    [TargetRpc]
+    public void TargetRelay(NetworkConnection conn, TypeAction act, GameObject gob)
+    {
+        Interactable inter = gob.GetComponent<Interactable>();
+        switch (act)
+        {
+            case TypeAction.START_INTERACTION:
+                inter.StartInteraction(true);
+                break;
+
+            case TypeAction.MOVE_INTERACTION:
+                inter.MoveInteraction(true);
+                break;
+
+            case TypeAction.END_INTERACTION:
+                inter.EndInteraction(true);
+                break;
+        }
+    }
+
     #endregion
 }

@@ -16,8 +16,8 @@ public class Draggable : Interactable
         }
     }
 
-    public Spot currentSpot;
-    public Vector3 startPosition;
+    Spot currentSpot;
+    Vector3 startPosition;
 
     List<SpotDragAndDropInter> allSpots = new List<SpotDragAndDropInter>();
     List<SpotDragAndDropInter> AllSpots => allSpots;
@@ -37,7 +37,7 @@ public class Draggable : Interactable
     bool _canInteract = true;
     public bool CanInteract => _canInteract;
 
-    public override void StartInteraction()
+    public override void StartInteraction(bool asEcho)
     {
         Player plr = Master.GetComponent<Player>();
         //Cant hold 2 gameobject at the same time
@@ -53,7 +53,7 @@ public class Draggable : Interactable
         }
     }
 
-    public override void MoveInteraction()
+    public override void MoveInteraction(bool asEcho)
     {
         bool found = false;
         Spot before = currentSpot;
@@ -64,6 +64,7 @@ public class Draggable : Interactable
         {
             position = hit.point;
             Spot sp = hit.collider.GetComponent<Spot>();
+            if (hit.collider.tag == "Maquette") break;
             if (sp != null)
             {
                 found = true;
@@ -87,7 +88,7 @@ public class Draggable : Interactable
         transform.position = position;
     }
 
-    public override void EndInteraction()
+    public override void EndInteraction(bool asEcho)
     {
         if (currentSpot)
         {
@@ -106,6 +107,12 @@ public class Draggable : Interactable
 
     [ClientRpc]
     public void RpcAddSpot(Vector3 position, GameObject gob)
+    {
+        allSpots.Add(new SpotDragAndDropInter(position, gob));
+        gob.GetComponent<Spot>().SetState(false);
+    }
+
+    public void AddSpot(Vector3 position, GameObject gob)
     {
         allSpots.Add(new SpotDragAndDropInter(position, gob));
         gob.GetComponent<Spot>().SetState(false);

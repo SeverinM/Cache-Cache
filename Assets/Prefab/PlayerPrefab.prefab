@@ -107,6 +107,7 @@ MonoBehaviour:
   syncInterval: 0
   maquette: {fileID: 0}
   deltaCam: {x: 100, y: 50, z: 0}
+  deltaMoon: {x: 0, y: 40, z: 0}
   curve:
     serializedVersion: 2
     m_Curve:

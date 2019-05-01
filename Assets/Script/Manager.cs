@@ -8,6 +8,8 @@ using System.Net.Sockets;
 using System.Text;
 using System;
 using System.Net.NetworkInformation;
+using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -35,19 +37,19 @@ public class Manager : MonoBehaviour
     string connectIp = "";
     bool connecting = false;
 
-    static Manager _instance;
+    [SerializeField]
+    GameObject panelWelcome;
 
-    private void Awake()
-    {
-        if (_instance != null)
-        {
-            Destroy(_instance.gameObject);
-        }
-        else
-        {
-            _instance = this;
-        }
-    }
+    [SerializeField]
+    GameObject panelWait;
+
+    [SerializeField]
+    Text txtHost;
+
+    [SerializeField]
+    Text txtSearch;
+
+    static Manager _instance;
 
     private void Update()
     {
@@ -58,19 +60,15 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public static Manager GetInstance()
-    {
-        if (_instance == null)
-        {
-            _instance = new GameObject().AddComponent<Manager>();
-            DontDestroyOnLoad(_instance.gameObject);
-        }
-        return _instance;
-    }
-
     public void StartAsHost()
     {
-        Destroy(referenceCanvas);
+        if (manager == null)
+        {
+            manager = GameObject.FindObjectOfType<CustomNetworkManager>();
+        }
+
+        Transition(true);
+
         manager.StartHost();
 
         //Ecoute pour discovery
@@ -94,6 +92,12 @@ public class Manager : MonoBehaviour
 
     public void StartResearch()
     {
+        Transition(false);
+        if (manager == null)
+        {
+            manager = GameObject.FindObjectOfType<CustomNetworkManager>();
+        }
+
         if (clientUdp == null)
             StartCoroutine(Research());
     }
@@ -107,10 +111,13 @@ public class Manager : MonoBehaviour
         while (!found)
         {
             clientUdp.BeginReceive(new AsyncCallback(ClientResponse), null);
-            IPAddress addr = IPAddress.Parse(GetBroadcastAdress());
-            Debug.Log("recherche : " + Time.timeSinceLevelLoad);
-            clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
-            yield return new WaitForSeconds(2f);
+            foreach(string ip in GetBroadcastAdress().Distinct())
+            {
+                IPAddress addr = IPAddress.Parse(ip);
+                clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
+                yield return new WaitForSeconds(0.05f);
+            }            
+            yield return new WaitForSeconds(0.2f);
         }
     }
 
@@ -119,6 +126,7 @@ public class Manager : MonoBehaviour
         Destroy(referenceCanvas);
         manager.networkAddress = ip;
         manager.StartClient();
+        Transition(false);
     }
 
     void ClientResponse(IAsyncResult ar)
@@ -129,7 +137,6 @@ public class Manager : MonoBehaviour
             string addr = interNetwork.Address.ToString();
             if (Response == DISCOVERY_FOUND)
             {
-                Debug.Log("trouve");
                 string addrCopy = (string)addr.Clone();
                 found = true;
                 connectIp = addrCopy;
@@ -138,11 +145,11 @@ public class Manager : MonoBehaviour
         }
     }
 
-    public static string GetBroadcastAdress()
+    public static List<string> GetBroadcastAdress()
     {
+        List<string> output = new List<string>();
         string hostName = Dns.GetHostName();
         IPAddress[] allAddr = Dns.GetHostEntry(hostName).AddressList;
-        IPAddress addr = allAddr[allAddr.Length - 1];
         IPAddress mask = null;
         bool stop = false;
 
@@ -153,23 +160,15 @@ public class Manager : MonoBehaviour
             {
                 string tempAddr = uipi.Address.ToString();
                 //Pas d'adresse IPV4
-                if (uipi.Address.ToString() == addr.ToString())
+                IPAddress addr = uipi.Address;
+                if (!addr.ToString().Contains(":") && !addr.ToString().StartsWith("0."))
                 {
                     mask = uipi.IPv4Mask;
-                    stop = true;
-                    break;
-                }
-            }        
+                    output.Add(SplitBytes(addr, mask).ToString());
+                }                   
+            }
         }
 
-
-        string output = "";
-        if (mask != null)
-        {
-            output = SplitBytes(addr, mask).ToString();
-        }
-
-        Debug.Log(output);
         return output;
     }
 
@@ -187,5 +186,17 @@ public class Manager : MonoBehaviour
             broadcastAddress[i] = (byte)(ipAdressBytes[i] | (subnetMaskBytes[i] ^ 255));
         }
         return new IPAddress(broadcastAddress);
+    }
+
+    public void ReloadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public void Transition(bool isHost)
+    {
+        panelWelcome.SetActive(false);
+        panelWait.SetActive(true);
+        (isHost ? txtHost : txtSearch).gameObject.SetActive(true);
     }
 }

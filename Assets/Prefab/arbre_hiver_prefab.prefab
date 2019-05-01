@@ -396,8 +396,8 @@ GameObject:
   - component: {fileID: 32616110330891260}
   - component: {fileID: 32616110338384924}
   - component: {fileID: 354769851342975701}
-  - component: {fileID: 7662237188459059820}
   - component: {fileID: 5288446875115574983}
+  - component: {fileID: 5028867090969621841}
   m_Layer: 0
   m_Name: arbre_hiver_prefab
   m_TagString: Untagged
@@ -460,22 +460,6 @@ MonoBehaviour:
   m_LocalPlayerAuthority: 1
   m_AssetId: cb152d1c6c94b6844b44dc2440e5bfd0
   m_SceneId: 0
---- !u!114 &7662237188459059820
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 32616110331123676}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42562816bb854404db8d9163a655dac6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  syncInterval: 0.1
-  Master: {fileID: 0}
-  otherMat: {fileID: 0}
-  Dragg: 0
 --- !u!65 &5288446875115574983
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -489,6 +473,20 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.089105815, y: 0.10912415, z: 0.09713804}
   m_Center: {x: 0.0075002955, y: 0.057950743, z: 0.0025534153}
+--- !u!114 &5028867090969621841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32616110331123676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07ef2fea616d80f41ad528b6fbc5283b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncInterval: 0.1
+  Master: {fileID: 0}
 --- !u!1 &32616110331123678
 GameObject:
   m_ObjectHideFlags: 0
