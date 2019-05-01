@@ -1039,6 +1039,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIEnd
       objectReference: {fileID: 0}
+    - target: {fileID: 3454434601978347599, guid: da383ed0a6617534d9a5ad7984958665,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3454434601978347595, guid: da383ed0a6617534d9a5ad7984958665,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1174,5 +1179,21 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6212635330914388592, guid: da383ed0a6617534d9a5ad7984958665,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454434602344583542, guid: da383ed0a6617534d9a5ad7984958665,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454434602344583536, guid: da383ed0a6617534d9a5ad7984958665,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: a7c91fae8c2a7eb41acd0945cdc4428a,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: da383ed0a6617534d9a5ad7984958665, type: 3}

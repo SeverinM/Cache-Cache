@@ -61,15 +61,13 @@ public class CustomNetworkManager : NetworkManager
         
         //=====
         GameObject player2 = Instantiate(playerPrefab);
-        Debug.Log("connexion : " + conn2);
         NetworkServer.AddPlayerForConnection(conn2, player2);
         player2.transform.position = new Vector3(1000, 0, 0);
-        Debug.Log("joueur : " + player2 + " / " + player2.GetComponent<Player>());
         player2.GetComponent<Player>().RpcUpdateCam();
-        player2.GetComponent<Player>().RpcLook(maq2.transform.position, 0);
         maq2 = Instantiate(prefab2);
         maq2.transform.position = player2.transform.position;
         maq2.transform.parent = player2.transform;
+        player2.GetComponent<Player>().RpcLook(maq2.transform.position, 0);
         //===
 
         //Interprete tous les enfants pour spawn
