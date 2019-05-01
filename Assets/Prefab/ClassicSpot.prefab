@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2335862969281860434}
   - component: {fileID: 2335862969281860435}
   - component: {fileID: 89423447098054291}
-  - component: {fileID: 8359541680604973566}
+  - component: {fileID: 4869229931644840272}
   m_Layer: 0
   m_Name: ClassicSpot
   m_TagString: Untagged
@@ -107,9 +107,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_ServerOnly: 0
   m_LocalPlayerAuthority: 1
-  m_AssetId: 3b5261f585f5b264bba7582a4f330031
+  m_AssetId: 6c8638e774d9e3d4c8952487ead7961a
   m_SceneId: 0
---- !u!114 &8359541680604973566
+--- !u!114 &4869229931644840272
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
