@@ -68,12 +68,10 @@ public class Player : NetworkBehaviour
         if (!isLocalPlayer) return; 
         if (isServer)
         {
-            Debug.Log("Summer");
             AkSoundEngine.PostEvent("Play_Summer_Amb", gameObject);
         }
         else
         {
-            Debug.Log("Winter");
             AkSoundEngine.PostEvent("Play_Winter_Amb", gameObject);
         }
     }
