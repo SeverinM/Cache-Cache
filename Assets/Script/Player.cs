@@ -63,6 +63,18 @@ public class Player : NetworkBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (isServer)
+        {
+            AkSoundEngine.PostEvent("Play_Summer_Amb", gameObject);
+        }
+        else
+        {
+            AkSoundEngine.PostEvent("Play_Winter_Amb", gameObject);
+        }
+    }
+
     [Command]
     public void CmdChangeAuthority(GameObject gob, GameObject oldPlayer, GameObject newPlayer)
     {

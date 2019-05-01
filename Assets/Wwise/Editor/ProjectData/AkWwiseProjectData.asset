@@ -17,13 +17,13 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 3a5b3846374b864d869445774584e4ab
     GuidInternal: 
-    m_lastTime: -8586453946778750884
+    m_lastTime: -8586448875854775808
     List: []
   - PhysicalPath: Virtual Acoustics\Factory Reflect Acoustic Textures.wwu
     ParentPhysicalPath: 
     guid: 6b663d46a83ca54f8b4a5fef12b883f6
     GuidInternal: 
-    m_lastTime: -8586453946778631209
+    m_lastTime: -8586448875854775808
     List:
     - name: Acoustic_Banner
       guid: f2532d2fccda8e408b8898b1b52a26d6
@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: cd01331775b96444975f83474de3a448
     GuidInternal: 
-    m_lastTime: -8586453946776657436
+    m_lastTime: -8586448875854775808
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2b53f2358a45ce45a2dbdb0c82638d4c
     GuidInternal: 
-    m_lastTime: -8586453946776916727
+    m_lastTime: -8586448873014775808
     List:
     - name: cache_cache
       guid: e6046a74df290a47908094489dd8afeb
@@ -207,29 +207,29 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 5489af29f1f6fa4682f38fed891f20d6
     GuidInternal: 
-    m_lastTime: -8586453946778142529
+    m_lastTime: -8586448875854775808
     List:
-    - name: Play_BK021___01_Plage
-      guid: 9102d34d87275949b29945013d6c1c05
-      id: 1510231894
+    - name: Play_Summer_Amb
+      guid: ed647531cc6c6e4d895544cafa7579b0
+      id: 77724524
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_BK021___01_Plage
+      - ElementName: Play_Summer_Amb
         ObjectType: 3
-      Path: Default Work Unit\Play_BK021___01_Plage
+      Path: Default Work Unit\Play_Summer_Amb
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_nappe
-      guid: 5a5bc12bdb41904fba2f01843b6307bf
-      id: 1173646182
+    - name: Play_Winter_Amb
+      guid: 6e195c295251424ab176722d82b6d87e
+      id: 1502111004
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_nappe
+      - ElementName: Play_Winter_Amb
         ObjectType: 3
-      Path: Default Work Unit\Play_nappe
+      Path: Default Work Unit\Play_Winter_Amb
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -238,13 +238,13 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: cc9616467deb0845878a4d51eaa52da4
     GuidInternal: 
-    m_lastTime: -8586453946778242166
+    m_lastTime: -8586448875854775808
     List: []
   - PhysicalPath: Game Parameters\Factory Motion.wwu
     ParentPhysicalPath: 
     guid: 225213d7dbd1d042adc0930743567776
     GuidInternal: 
-    m_lastTime: -8586453946778292121
+    m_lastTime: -8586448875854775808
     List:
     - name: Playback_Rate
       guid: e37e38283ac11643b9c3db5c521624af
@@ -268,7 +268,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 5577163b42fb8b4598bf96f557afb3b9
     GuidInternal: 
-    m_lastTime: -8586453946777744513
+    m_lastTime: -8586448875854775808
     List:
     - name: SS_Air_Fear
       guid: 59062ef746431c4ea1b1dab46a05101e
@@ -364,7 +364,7 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 97bdcb0b5177774a85bb6ac940f8cc3f
     GuidInternal: 
-    m_lastTime: -8586453946778033724
+    m_lastTime: -8586448875854775808
     List:
     - name: Density_FA_SSGrain
       guid: 9ef2b363f3048748ba1a4d7694644b24
@@ -425,25 +425,27 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: 357ccee67964e043ab3e4c9b75071f29
     GuidInternal: 
-    m_lastTime: -8586453946778092347
+    m_lastTime: -8586448875854775808
     List: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: fcadc5c6ea3dd649a24a9a6d32b19e49
     GuidInternal: 
-    m_lastTime: -8586453946777335606
+    m_lastTime: -8586448875854775808
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 51add990fd9152488b81413906a58fbb
     GuidInternal: 
-    m_lastTime: -8586453946779081018
+    m_lastTime: -8586448875854775808
     List: []
   ExpandedItems:
   - /M1_CACHE-CACHE
   - /M1_CACHE-CACHE/Events
   - /M1_CACHE-CACHE/Events/Default Work Unit
+  - /M1_CACHE-CACHE/SoundBanks
+  - /M1_CACHE-CACHE/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 
