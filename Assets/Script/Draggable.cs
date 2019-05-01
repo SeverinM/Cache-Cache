@@ -59,12 +59,15 @@ public class Draggable : Interactable
         Spot before = currentSpot;
         Vector3 position = transform.position;
 
-        //Seach first valid collision
+        //Search first valid collision
         foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
         {
-            position = hit.point;
             Spot sp = hit.collider.GetComponent<Spot>();
-            if (hit.collider.tag == "Maquette") break;
+            if (hit.collider.tag == "Maquette")
+            {
+                position = hit.point;
+                break;
+            }
             if (sp != null)
             {
                 found = true;

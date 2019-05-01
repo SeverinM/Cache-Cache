@@ -301,5 +301,14 @@ public class Player : NetworkBehaviour
         }
     }
 
+    [ClientRpc]
+    public void RpcDestroyInterpretable()
+    {
+        foreach (Interpretable interpr in GameObject.FindObjectsOfType<Interpretable>())
+        {
+            Destroy(interpr.gameObject);
+        }
+    }
+
     #endregion
 }

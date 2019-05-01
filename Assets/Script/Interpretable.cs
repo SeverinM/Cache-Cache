@@ -48,6 +48,7 @@ public class Interpretable : MonoBehaviour
             if (!dragg) return;
             foreach (SpotDragAndDrop dnd in allTrsf)
             {
+                Debug.Log("spot");
                 dnd.instance = Instantiate(dnd.instance);
                 dnd.instance.transform.position = dnd.where.position;
                 NetworkServer.SpawnWithClientAuthority(dnd.instance, master);
