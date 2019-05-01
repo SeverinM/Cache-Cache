@@ -58,8 +58,6 @@ public class CustomNetworkManager : NetworkManager
         player1.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
         NetworkServer.Spawn(maq1);
 
-        
-        //=====
         GameObject player2 = Instantiate(playerPrefab);
         NetworkServer.AddPlayerForConnection(conn2, player2);
         player2.transform.position = new Vector3(1000, 0, 0);
@@ -68,7 +66,6 @@ public class CustomNetworkManager : NetworkManager
         maq2.transform.position = player2.transform.position;
         maq2.transform.parent = player2.transform;
         player2.GetComponent<Player>().RpcLook(maq2.transform.position, 0);
-        //===
 
         //Interprete tous les enfants pour spawn
         foreach (Interpretable inter in maq2.transform.GetComponentsInChildren<Interpretable>())
@@ -116,15 +113,7 @@ public class CustomNetworkManager : NetworkManager
         player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
         player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
 
-        foreach (Interpretable interpr in allInterpr1)
-        {
-            Destroy(interpr.gameObject);
-        }
-
-        foreach (Interpretable interpr in allInterpr2)
-        {
-            Destroy(interpr.gameObject);
-        }
+        player2.GetComponent<Player>().RpcDestroyInterpretable();
     }
 
     //Le client a quitté
