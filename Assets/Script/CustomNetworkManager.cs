@@ -127,15 +127,19 @@ public class CustomNetworkManager : NetworkManager
         }
     }
 
+    //Le client a quitté
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         textEnd.SetActive(true);
+        player1.GetComponent<Player>().CanInteract = false;
         base.OnClientDisconnect(conn);
     }
 
+    //L'hote a quitté
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         textEnd.SetActive(true);
+        player2.GetComponent<Player>().CanInteract = false;
         base.OnServerDisconnect(conn);
     }
 }

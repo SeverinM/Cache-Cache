@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class Player : NetworkBehaviour
 {
     public Vector3 ToOtherPlayer { get; set; }
+    public bool CanInteract = true;
 
     [SyncVar]
     public GameObject maquette;
@@ -104,7 +105,13 @@ public class Player : NetworkBehaviour
 
     private void Update()
     {
-        if (hasAuthority)
+        if (!CanInteract && holdGameObject)
+        {
+            holdGameObject.GetComponent<Interactable>().EndInteraction();
+            holdGameObject = null;
+        }
+
+        if (hasAuthority && CanInteract)
         {
             if (maquette == null) return;
 
