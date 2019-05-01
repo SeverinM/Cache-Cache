@@ -70,6 +70,7 @@ public class Draggable : Interactable
             }
             if (sp != null)
             {
+                position = hit.collider.transform.position;
                 found = true;
                 currentSpot = sp;
                 break;
