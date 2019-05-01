@@ -132,6 +132,7 @@ public class CustomNetworkManager : NetworkManager
     {
         textEnd.SetActive(true);
         player1.GetComponent<Player>().CanInteract = false;
+        player2.GetComponent<Player>().CanInteract = false;
         base.OnClientDisconnect(conn);
     }
 
@@ -139,6 +140,7 @@ public class CustomNetworkManager : NetworkManager
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         textEnd.SetActive(true);
+        player1.GetComponent<Player>().CanInteract = false;
         player2.GetComponent<Player>().CanInteract = false;
         base.OnServerDisconnect(conn);
     }
