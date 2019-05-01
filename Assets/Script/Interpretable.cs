@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
+using System.Linq;
 
 public class Interpretable : MonoBehaviour
 {
@@ -11,12 +12,21 @@ public class Interpretable : MonoBehaviour
     [System.Serializable]
     public class SpotDragAndDrop
     {
-        public GameObject instance;
+        public GameObject prefab;
         public Transform where;
+        public bool ApplyEcho;
+        public bool ApplyItself;
+
+        [HideInInspector]
+        public GameObject instance = null;
     }
 
     [SerializeField]
     List<SpotDragAndDrop> allTrsf;
+
+    [SerializeField]
+    [Tooltip("Si mis a vrai , les deux objets ne vont pas imiter leur comportement")]
+    bool echoOnlySpot = true;
 
     [SerializeField]
     int indexEcho = -1;
@@ -46,10 +56,14 @@ public class Interpretable : MonoBehaviour
 
             Draggable dragg = spawn.GetComponent<Draggable>();
             if (!dragg) return;
-            foreach (SpotDragAndDrop dnd in allTrsf)
+            foreach (SpotDragAndDrop dnd in allTrsf.Where( x => x.ApplyItself))
             {
-                dnd.instance = Instantiate(dnd.instance);
-                dnd.instance.transform.position = dnd.where.position;
+                if (!dnd.instance)
+                {
+                    dnd.instance = Instantiate(dnd.prefab);
+                    dnd.instance.transform.position = dnd.where.position;
+                }
+                
                 NetworkServer.SpawnWithClientAuthority(dnd.instance, master);
                 dragg.RpcAddSpot(dnd.where.position, dnd.instance);
             }
@@ -58,6 +72,20 @@ public class Interpretable : MonoBehaviour
 
     public void ApplyEcho(Interpretable interpr, Player player)
     {
-        Spawn.RpcSetEcho(interpr.Spawn.gameObject);
+        if (!echoOnlySpot)
+            Spawn.RpcSetEcho(interpr.Spawn.gameObject);
+
+        foreach (SpotDragAndDrop dnd in allTrsf.Where(x => x.ApplyEcho))
+        {
+            if (!dnd.instance)
+            {
+                dnd.instance = Instantiate(dnd.prefab);
+                dnd.instance.transform.position = dnd.where.position;
+            }
+            
+            NetworkServer.SpawnWithClientAuthority(dnd.instance, player.gameObject);
+            if (interpr.Spawn.GetComponent<Draggable>())
+                interpr.Spawn.GetComponent<Draggable>().RpcAddSpot(dnd.where.position, dnd.instance);
+        }
     }
 }
