@@ -131,17 +131,29 @@ public class CustomNetworkManager : NetworkManager
     public override void OnClientDisconnect(NetworkConnection conn)
     {
         textEnd.SetActive(true);
-        player1.GetComponent<Player>().CanInteract = false;
-        player2.GetComponent<Player>().CanInteract = false;
         base.OnClientDisconnect(conn);
+        if (player1 != null)
+        {
+            player1.GetComponent<Player>().CanInteract = false;
+        }
+        if (player2 != null)
+        {
+            player2.GetComponent<Player>().CanInteract = false;
+        }
     }
 
     //L'hote a quitté
     public override void OnServerDisconnect(NetworkConnection conn)
     {
         textEnd.SetActive(true);
-        player1.GetComponent<Player>().CanInteract = false;
-        player2.GetComponent<Player>().CanInteract = false;
         base.OnServerDisconnect(conn);
+        if (player1 != null)
+        {
+            player1.GetComponent<Player>().CanInteract = false;
+        }
+        if (player2 != null)
+        {
+            player2.GetComponent<Player>().CanInteract = false;
+        }
     }
 }
