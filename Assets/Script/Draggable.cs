@@ -66,7 +66,6 @@ public class Draggable : Interactable
             if (hit.collider.tag == "Maquette")
             {
                 position = hit.point;
-                break;
             }
             if (sp != null)
             {
@@ -75,6 +74,12 @@ public class Draggable : Interactable
                 currentSpot = sp;
                 break;
             }
+        }
+
+        Debug.Log("====");
+        foreach (RaycastHit hit in Physics.RaycastAll(Master.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition)))
+        {
+            Debug.Log(hit.collider.gameObject);
         }
 
         if (!found)
