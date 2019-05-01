@@ -23,6 +23,9 @@ public class CustomNetworkManager : NetworkManager
     NetworkConnection conn1;
     NetworkConnection conn2;
 
+    [SerializeField]
+    Canvas canvas;
+
     public override void OnServerAddPlayer(NetworkConnection conn, AddPlayerMessage extraMessage)
     {
         if (nbPlayer == 0)
@@ -45,7 +48,7 @@ public class CustomNetworkManager : NetworkManager
 
     public void TwoPlayerConnected()
     {
-        Debug.Log("1");
+        Destroy(canvas.gameObject);
         GameObject player1 = Instantiate(playerPrefab);
         NetworkServer.AddPlayerForConnection(conn1, player1);
         player1.transform.position = new Vector3(-1000, 0, 0);
@@ -55,17 +58,20 @@ public class CustomNetworkManager : NetworkManager
         player1.GetComponent<Player>().RpcLook(maq1.transform.position, 0);
         NetworkServer.Spawn(maq1);
 
-        Debug.Log("2");
+        
+        //=====
         GameObject player2 = Instantiate(playerPrefab);
+        Debug.Log("connexion : " + conn2);
         NetworkServer.AddPlayerForConnection(conn2, player2);
         player2.transform.position = new Vector3(1000, 0, 0);
+        Debug.Log("joueur : " + player2 + " / " + player2.GetComponent<Player>());
         player2.GetComponent<Player>().RpcUpdateCam();
         player2.GetComponent<Player>().RpcLook(maq2.transform.position, 0);
         maq2 = Instantiate(prefab2);
         maq2.transform.position = player2.transform.position;
         maq2.transform.parent = player2.transform;
+        //===
 
-        Debug.Log("3");
         //Interprete tous les enfants pour spawn
         foreach (Interpretable inter in maq2.transform.GetComponentsInChildren<Interpretable>())
         {
@@ -77,7 +83,6 @@ public class CustomNetworkManager : NetworkManager
             inter.Interpret(player1);
         }
 
-        Debug.Log("4");
         //Binding des echos s'il y en a 
         List<Interpretable> allInterpr1 = maq2.GetComponentsInChildren<Interpretable>().ToList();
         List<Interpretable> allInterpr2 = maq1.GetComponentsInChildren<Interpretable>().ToList();
@@ -92,7 +97,6 @@ public class CustomNetworkManager : NetworkManager
             }
         }
 
-        Debug.Log("5");
         foreach (Interpretable interpr in allInterpr2)
         {
             int index = interpr.IndexEcho;
@@ -106,7 +110,6 @@ public class CustomNetworkManager : NetworkManager
             }
         }
 
-        Debug.Log("6");
         player2.GetComponent<Player>().RpcLook(maq2.transform.position, 180);
         NetworkServer.SpawnWithClientAuthority(maq2, conn2);
 
@@ -115,7 +118,6 @@ public class CustomNetworkManager : NetworkManager
         player1.GetComponent<Player>().CmdInit(maq1, instanceMan, player2);
         player2.GetComponent<Player>().CmdInit(maq2, instanceMan, player1);
 
-        Debug.Log("7");
         foreach (Interpretable interpr in allInterpr1)
         {
             Destroy(interpr.gameObject);

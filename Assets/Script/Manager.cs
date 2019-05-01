@@ -115,7 +115,6 @@ public class Manager : MonoBehaviour
             {
                 IPAddress addr = IPAddress.Parse(ip);
                 clientUdp.Send(RequestData, RequestData.Length, new IPEndPoint(addr, port));
-                Debug.Log(ip);
                 yield return new WaitForSeconds(0.05f);
             }            
             yield return new WaitForSeconds(0.2f);
@@ -127,6 +126,7 @@ public class Manager : MonoBehaviour
         Destroy(referenceCanvas);
         manager.networkAddress = ip;
         manager.StartClient();
+        Transition(false);
     }
 
     void ClientResponse(IAsyncResult ar)

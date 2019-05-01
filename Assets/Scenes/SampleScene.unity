@@ -610,6 +610,12 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1312254837}
   m_PrefabAsset: {fileID: 0}
+--- !u!223 &1312254842 stripped
+Canvas:
+  m_CorrespondingSourceObject: {fileID: 5017828224221826263, guid: fad7a03673bdf174e964f0b17de54f5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1312254837}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1521186033
 GameObject:
   m_ObjectHideFlags: 0
@@ -1020,6 +1026,7 @@ MonoBehaviour:
   prefab1: {fileID: 5192233636339398333, guid: 9e374b96b692669478f868b4bc3c9662, type: 3}
   prefab2: {fileID: 7565885528833053622, guid: c242f40392f6d1a4da196dbc7b5c8db7, type: 3}
   textEnd: {fileID: 2001813883}
+  canvas: {fileID: 1312254842}
 --- !u!1001 &3454434601092350260
 PrefabInstance:
   m_ObjectHideFlags: 0
