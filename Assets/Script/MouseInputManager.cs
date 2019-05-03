@@ -2,12 +2,29 @@
 using System.Collections;
 using System.Runtime.InteropServices;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class MouseInputManager : MonoBehaviour
 {
+
+    enum MouseButton
+    {
+        NONE = 0,
+        LEFT_BUTTON,
+        RIGHT_BUTTON,
+        MIDDLE_BUTTON,
+    }
+
+    enum ActionType
+    {
+        RELEASED = 1,
+        PRESSED,
+        MOVEMENT
+    }
+
     public static MouseInputManager instance;
 
     [DllImport("Dll1")]
@@ -38,12 +55,22 @@ public class MouseInputManager : MonoBehaviour
     public float accelerationMultiplier = 2;
     public int screenBorderPixels = 16;
 
+    int idFirstMoving = 0;
+
     [SerializeField]
     GameObject prefabCursor;
+
+    [SerializeField]
     Canvas canvas;
 
     [SerializeField]
     Canvas canvas2;
+
+    [SerializeField]
+    Camera camera1;
+
+    [SerializeField]
+    Camera camera2;
 
     [StructLayout(LayoutKind.Sequential)]
     public struct RawInputEvent
@@ -62,6 +89,11 @@ public class MouseInputManager : MonoBehaviour
         public int deviceID;
         public int playerID;
         public float sensitivity;
+        public Vector2 delta;
+        public List<Interactable> pointing = new List<Interactable>();
+        public Camera cam;
+        public Canvas canv;
+        public List<Interactable> holding = new List<Interactable>();
     }
 
     Dictionary<int, MousePointer> pointersByDeviceId = new Dictionary<int, MousePointer>();
@@ -71,7 +103,6 @@ public class MouseInputManager : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        canvas = GetComponent<Canvas>();
         bool res = init();
         StartCoroutine(DelayedStart());
     }
@@ -87,11 +118,6 @@ public class MouseInputManager : MonoBehaviour
 
     int addCursor(int deviceId)
     {
-        if (miceCount > 1)
-        {
-            Debug.LogError("Nombre de souris max atteinte");
-            return -1;
-        }
 
         if (!isInit)
         {
@@ -110,18 +136,14 @@ public class MouseInputManager : MonoBehaviour
         Debug.Log("Adding DeviceID " + deviceId);
         mp = new MousePointer();
         mp.playerID = nextPlayerId++;
+        mp.deviceID = deviceId;
         pointersByDeviceId[deviceId] = mp;
         mp.position = new Vector3(0, 0, 0);
 
-        if (miceCount == 0)
-        {
-            mp.obj = Instantiate(prefabCursor, canvas.transform);
-        }
+        mp.obj = Instantiate(prefabCursor,miceCount == 0 ? canvas.transform : canvas2.transform);
+        mp.cam = camera1;
+        mp.canv = canvas;
 
-        if (miceCount == 1)
-        {
-            mp.obj = Instantiate(prefabCursor, canvas2.transform);
-        }
         
         ++miceCount;
         return mp.playerID;
@@ -172,6 +194,9 @@ public class MouseInputManager : MonoBehaviour
                 {
                     float dx = ev.x * defaultMiceSensitivity;
                     float dy = ev.y * defaultMiceSensitivity;
+                    pointer.delta = new Vector2(dx, dy);
+
+                    //Invisible while not moving
                     pointer.obj.GetComponent<Image>().enabled = true;
 
                     pointer.obj.transform.position += new Vector3(dx, -dy, 0);
@@ -185,28 +210,19 @@ public class MouseInputManager : MonoBehaviour
                         Mathf.Clamp(pointer.obj.transform.position.y, 0, rect.rect.height - screenBorderPixels),
                         pointer.obj.transform.position.z);
 
-                    if ((int)ev.press == 1)
+                    if ((int)ev.press != 0)
                     {
-                        Vector3 position = pointer.obj.transform.position;
-                        Ray ray = Camera.main.ScreenPointToRay(new Vector3(position.x,position.y, 0.01f));
-                        foreach (RaycastHit hit in Physics.RaycastAll(ray))
-                        {
-                            //Raycast monde
-                        }
+                        Interaction(pointer, (MouseButton) ev.press , ActionType.PRESSED);
+                    }
 
-                        PointerEventData point = new PointerEventData(GetComponent<EventSystem>());
-                        point.position = position;
+                    if ((int)ev.release != 0)
+                    {
+                        Interaction(pointer, (MouseButton)ev.release, ActionType.RELEASED);
+                    }
 
-                        List<RaycastResult> results = new List<RaycastResult>();
-
-                        GetComponent<GraphicRaycaster>().Raycast(point, results);
-
-                        foreach(RaycastResult result in results)
-                        {
-                            //Raycast UI
-                            if (result.gameObject != pointer.obj)
-                                Debug.Log(result.gameObject);
-                        }
+                    if (dx != 0 || dy != 0)
+                    {
+                        Interaction(pointer, MouseButton.NONE, ActionType.MOVEMENT);
                     }
                 }
                 else
@@ -217,6 +233,72 @@ public class MouseInputManager : MonoBehaviour
             }
         }
         Marshal.FreeCoTaskMem(data);
+    }
+
+    void Interaction(MousePointer pointer , MouseButton btn , ActionType act)
+    {
+        Vector3 position = pointer.obj.transform.position;
+        Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
+        List<Interactable> output = new List<Interactable>();
+
+        //Record every hit objects
+        output.AddRange(Physics.RaycastAll(ray).Select(x => x.collider.GetComponent<Interactable>()).
+            Where(x => x != null));
+
+
+        PointerEventData point = new PointerEventData(GetComponent<EventSystem>());
+        point.position = position;
+        //Same but for UI
+        List<RaycastResult> results = new List<RaycastResult>();
+        pointer.canv.GetComponent<GraphicRaycaster>().Raycast(point, results);
+        output.AddRange(results.Select(x => x.gameObject.GetComponent<Interactable>())
+            .Where(x => x != null));
+        Interpret(btn, act, output, pointer);
+    }
+
+    void Interpret(MouseButton mouseBtn , ActionType act , List<Interactable> allGob, MousePointer mouse)
+    {
+        if (mouseBtn.Equals(MouseButton.LEFT_BUTTON) && act.Equals(ActionType.PRESSED))
+        {
+            allGob.ForEach(x => x.MouseDown(mouse.deviceID));
+            mouse.holding = allGob;
+        }
+
+        if (mouseBtn.Equals(MouseButton.LEFT_BUTTON) && act.Equals(ActionType.RELEASED))
+        {
+            allGob.ForEach(x =>
+            {
+                if (mouse.holding.Contains(x))
+                {
+                    x.MouseUp(mouse.deviceID);
+                }
+            });
+            mouse.holding.Clear();
+        }
+
+        if (act.Equals(ActionType.MOVEMENT))
+        {
+            //Just entering
+            foreach(Interactable inter in allGob)
+            {
+                if (!mouse.pointing.Contains(inter))
+                {
+                    inter.MouseEnter(mouse.deviceID);
+                }
+            }
+
+            //Just exiting
+            foreach(Interactable inter in mouse.pointing)
+            {
+                if(!allGob.Contains(inter))
+                {
+                    inter.MouseLeave(mouse.deviceID);
+                }
+            }
+
+            mouse.pointing = allGob;
+            mouse.pointing.ForEach(x => x.MouseMove(mouse.deviceID, mouse.delta));
+        }
     }
 
     void OnApplicationQuit()
