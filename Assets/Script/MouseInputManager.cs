@@ -56,6 +56,7 @@ public class MouseInputManager : MonoBehaviour
     public int screenBorderPixels = 16;
 
     int idFirstMoving = 0;
+    int activeMice = 0;
 
     [SerializeField]
     GameObject prefabCursor;
@@ -102,7 +103,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         bool res = init();
         StartCoroutine(DelayedStart());
     }
@@ -141,8 +142,8 @@ public class MouseInputManager : MonoBehaviour
         mp.position = new Vector3(0, 0, 0);
 
         mp.obj = Instantiate(prefabCursor,miceCount == 0 ? canvas.transform : canvas2.transform);
-        mp.cam = camera1;
-        mp.canv = canvas;
+        mp.cam = (miceCount == 0 ? camera1 : camera2);
+        mp.canv = (miceCount == 0 ? canvas : canvas2);
 
         
         ++miceCount;
@@ -239,6 +240,7 @@ public class MouseInputManager : MonoBehaviour
     {
         Vector3 position = pointer.obj.transform.position;
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
+        
         List<Interactable> output = new List<Interactable>();
 
         //Record every hit objects
