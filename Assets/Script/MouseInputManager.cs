@@ -27,13 +27,13 @@ public class MouseInputManager : MonoBehaviour
 
     public static MouseInputManager instance;
 
-    [DllImport("Dll1")]
+    [DllImport("RawInput")]
     private static extern bool init();
 
-    [DllImport("Dll1")]
+    [DllImport("RawInput")]
     private static extern bool kill();
 
-    [DllImport("Dll1")]
+    [DllImport("RawInput")]
     private static extern IntPtr poll();
 
     public const byte RE_DEVICE_CONNECT = 0;
@@ -112,7 +112,9 @@ public class MouseInputManager : MonoBehaviour
     {
         yield return new WaitForEndOfFrame();
         kill();
+        yield return new WaitForEndOfFrame();
         clearCursorsAndDevices();
+        yield return new WaitForEndOfFrame();
         yield return new WaitForEndOfFrame();
         init();
     }
@@ -250,8 +252,14 @@ public class MouseInputManager : MonoBehaviour
 
         PointerEventData point = new PointerEventData(GetComponent<EventSystem>());
         point.position = position;
+        if (pointer.cam == camera2)
+        {
+            point.position += new Vector2(camera1.pixelWidth, 0);
+        }
+
         //Same but for UI
         List<RaycastResult> results = new List<RaycastResult>();
+        Debug.LogError(point.position);
         pointer.canv.GetComponent<GraphicRaycaster>().Raycast(point, results);
         output.AddRange(results.Select(x => x.gameObject.GetComponent<Interactable>())
             .Where(x => x != null));
@@ -307,4 +315,5 @@ public class MouseInputManager : MonoBehaviour
     {
         kill();
     }
+
 }
