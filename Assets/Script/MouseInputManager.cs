@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class MouseInputManager : MonoBehaviour
 {
 
-    enum MouseButton
+    public enum MouseButton
     {
         NONE = 0,
         LEFT_BUTTON,
@@ -270,19 +270,30 @@ public class MouseInputManager : MonoBehaviour
 
     void Interpret(MouseButton mouseBtn , ActionType act , List<Interactable> allGob, MousePointer mouse)
     {
-        if (mouseBtn.Equals(MouseButton.LEFT_BUTTON) && act.Equals(ActionType.PRESSED))
+        if (act.Equals(ActionType.PRESSED))
         {
-            allGob.ForEach(x => x.MouseDown(mouse.deviceID));
+            allGob.ForEach(x =>
+            {
+                x.MouseDown(mouseBtn);
+                if (x.Echo)
+                {
+                    x.Echo.MouseDown(mouseBtn, x);
+                }
+            });
             mouse.holding = allGob;
         }
 
-        if (mouseBtn.Equals(MouseButton.LEFT_BUTTON) && act.Equals(ActionType.RELEASED))
+        if (act.Equals(ActionType.RELEASED))
         {
             allGob.ForEach(x =>
             {
                 if (mouse.holding.Contains(x))
                 {
-                    x.MouseUp(mouse.deviceID);
+                    x.MouseUp(mouseBtn);
+                    if (x.Echo)
+                    {
+                        x.Echo.MouseUp(mouseBtn, x);
+                    }
                 }
             });
             mouse.holding.Clear();
@@ -295,7 +306,11 @@ public class MouseInputManager : MonoBehaviour
             {
                 if (!mouse.pointing.Contains(inter))
                 {
-                    inter.MouseEnter(mouse.deviceID);
+                    inter.MouseEnter(MouseButton.NONE);
+                    if (inter.Echo)
+                    {
+                        inter.Echo.MouseEnter(MouseButton.NONE, inter);
+                    }
                 }
             }
 
@@ -304,12 +319,25 @@ public class MouseInputManager : MonoBehaviour
             {
                 if(!allGob.Contains(inter))
                 {
-                    inter.MouseLeave(mouse.deviceID);
+                    inter.MouseLeave(MouseButton.NONE);
+                    inter.MouseUp(MouseButton.NONE);
+                    if (inter.Echo)
+                    {
+                        inter.MouseUp(MouseButton.NONE);
+                        inter.Echo.MouseLeave(MouseButton.NONE, inter);
+                    }
                 }
             }
 
             mouse.pointing = allGob;
-            mouse.pointing.ForEach(x => x.MouseMove(mouse.deviceID, mouse.delta));
+            mouse.pointing.ForEach(x =>
+            {
+                x.MouseMove(mouseBtn, mouse.delta);
+                if (x.Echo)
+                {
+                    x.MouseMove(mouseBtn, mouse.delta, x);
+                }
+            });
         }
     }
 

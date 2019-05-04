@@ -10,11 +10,17 @@ public class Manager : MonoBehaviour
     [SerializeField]
     Camera cam2;
 
+    [SerializeField]
+    GameObject plateau2;
+
+    public const string TRIGGER_INTERACTION = "Interaction";
+
     private void Awake()
     {
         if (Display.displays.Length > 1)
+        {
             Display.displays[1].Activate();
-        if (Display.displays.Length > 2)
-            Display.displays[2].Activate();
+            cam2.transform.RotateAround(plateau2.transform.position, Vector3.up, 180);
+        }       
     }
 }

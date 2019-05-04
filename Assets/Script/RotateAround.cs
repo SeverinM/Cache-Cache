@@ -12,37 +12,50 @@ public class RotateAround : Interactable
     Transform target;
 
     [SerializeField]
+    Button otherButton;
+
+    [SerializeField]
     float speed;
-    float currendSpeed = 0;
+    float currentSpeed = 0;
+
+    public override void MouseDown(MouseInputManager.MouseButton btn, Interactable echo = null)
+    {
+        currentSpeed += speed;
+
+        if (echo)
+        {
+            GetComponent<Button>().interactable = false;
+            otherButton.interactable = false;
+        }
+    }
+
+    public override void MouseEnter(MouseInputManager.MouseButton btn, Interactable echo = null)
+    {
+    }
+
+    public override void MouseLeave(MouseInputManager.MouseButton btn, Interactable echo = null)
+    {
+    }
+
+    public override void MouseMove(MouseInputManager.MouseButton btn, Vector2 delta, Interactable echo = null)
+    {
+    }
+
+    public override void MouseUp(MouseInputManager.MouseButton btn, Interactable echo = null)
+    {
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        {
+            currentSpeed -= speed;
+            if (echo)
+            {
+                GetComponent<Button>().interactable = true;
+                otherButton.interactable = true;
+            }
+        }
+    }
 
     private void Update()
     {
-        source.RotateAround(target.transform.position, Vector3.up, currendSpeed * Time.deltaTime);
-    }
-
-    public override void MouseDown(int id)
-    {
-        currendSpeed += speed;
-        GetComponent<Image>().color = Color.clear;
-    }
-
-    public override void MouseEnter(int id)
-    {
-        Debug.Log("enter");
-    }
-
-    public override void MouseLeave(int id)
-    {
-        Debug.Log("exit");
-    }
-
-    public override void MouseMove(int id, Vector2 delta)
-    {
-    }
-
-    public override void MouseUp(int id)
-    {
-        currendSpeed -= speed;
-        GetComponent<Image>().color = Color.black;
+        source.RotateAround(target.transform.position, Vector3.up, currentSpeed * Time.deltaTime);
     }
 }
