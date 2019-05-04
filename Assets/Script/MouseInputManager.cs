@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Runtime.InteropServices;
 using System;
@@ -252,14 +252,16 @@ public class MouseInputManager : MonoBehaviour
 
         PointerEventData point = new PointerEventData(GetComponent<EventSystem>());
         point.position = position;
+
+#if !UNITY_EDITOR
         if (pointer.cam == camera2)
         {
             point.position += new Vector2(camera1.pixelWidth, 0);
         }
+#endif
 
         //Same but for UI
         List<RaycastResult> results = new List<RaycastResult>();
-        Debug.LogError(point.position);
         pointer.canv.GetComponent<GraphicRaycaster>().Raycast(point, results);
         output.AddRange(results.Select(x => x.gameObject.GetComponent<Interactable>())
             .Where(x => x != null));
