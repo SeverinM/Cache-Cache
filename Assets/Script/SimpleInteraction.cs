@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SimpleInteraction : Interactable
 {
-    public override void MouseDown(MouseInputManager.MouseButton btn, Interactable echo = null)
+    public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
@@ -12,19 +12,19 @@ public class SimpleInteraction : Interactable
         }
     }
 
-    public override void MouseEnter(MouseInputManager.MouseButton btn, Interactable echo = null)
+    public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
 
-    public override void MouseLeave(MouseInputManager.MouseButton btn, Interactable echo = null)
+    public override void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
 
-    public override void MouseMove(MouseInputManager.MouseButton btn, Vector2 delta, Interactable echo = null)
+    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
 
-    public override void MouseUp(MouseInputManager.MouseButton btn, Interactable echo = null)
+    public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
 }

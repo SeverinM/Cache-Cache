@@ -253,6 +253,7 @@ public class MouseInputManager : MonoBehaviour
         PointerEventData point = new PointerEventData(GetComponent<EventSystem>());
         point.position = position;
 
+        //IMPORTANT
 #if !UNITY_EDITOR
         if (pointer.cam == camera2)
         {
@@ -274,11 +275,14 @@ public class MouseInputManager : MonoBehaviour
         {
             allGob.ForEach(x =>
             {
-                x.MouseDown(mouseBtn);
-                if (x.Echo)
+                if (x.CanInteract)
                 {
-                    x.Echo.MouseDown(mouseBtn, x);
-                }
+                    x.MouseDown(mouseBtn, mouse);
+                    if (x.Echo)
+                    {
+                        x.Echo.MouseDown(mouseBtn, mouse, x);
+                    }
+                }               
             });
             mouse.holding = allGob;
         }
@@ -287,12 +291,15 @@ public class MouseInputManager : MonoBehaviour
         {
             allGob.ForEach(x =>
             {
-                if (mouse.holding.Contains(x))
+                if (x.CanInteract)
                 {
-                    x.MouseUp(mouseBtn);
-                    if (x.Echo)
+                    if (mouse.holding.Contains(x))
                     {
-                        x.Echo.MouseUp(mouseBtn, x);
+                        x.MouseUp(mouseBtn, mouse);
+                        if (x.Echo)
+                        {
+                            x.Echo.MouseUp(mouseBtn, mouse, x);
+                        }
                     }
                 }
             });
@@ -306,11 +313,14 @@ public class MouseInputManager : MonoBehaviour
             {
                 if (!mouse.pointing.Contains(inter))
                 {
-                    inter.MouseEnter(MouseButton.NONE);
-                    if (inter.Echo)
+                    if (inter.CanInteract)
                     {
-                        inter.Echo.MouseEnter(MouseButton.NONE, inter);
-                    }
+                        inter.MouseEnter(MouseButton.NONE, mouse);
+                        if (inter.Echo)
+                        {
+                            inter.Echo.MouseEnter(MouseButton.NONE, mouse, inter);
+                        }
+                    }                    
                 }
             }
 
@@ -319,24 +329,30 @@ public class MouseInputManager : MonoBehaviour
             {
                 if(!allGob.Contains(inter))
                 {
-                    inter.MouseLeave(MouseButton.NONE);
-                    inter.MouseUp(MouseButton.NONE);
-                    if (inter.Echo)
+                    if (inter.CanInteract)
                     {
-                        inter.MouseUp(MouseButton.NONE);
-                        inter.Echo.MouseLeave(MouseButton.NONE, inter);
-                    }
+                        inter.MouseLeave(MouseButton.NONE, mouse);
+                        inter.MouseUp(MouseButton.NONE, mouse);
+                        if (inter.Echo)
+                        {
+                            inter.MouseUp(MouseButton.NONE, mouse);
+                            inter.Echo.MouseLeave(MouseButton.NONE, mouse, inter);
+                        }
+                    }      
                 }
             }
 
             mouse.pointing = allGob;
             mouse.pointing.ForEach(x =>
             {
-                x.MouseMove(mouseBtn, mouse.delta);
-                if (x.Echo)
+                if (x.CanInteract)
                 {
-                    x.MouseMove(mouseBtn, mouse.delta, x);
-                }
+                    x.MouseMove(mouseBtn, mouse);
+                    if (x.Echo)
+                    {
+                        x.Echo.MouseMove(mouseBtn, mouse, x);
+                    }
+                }               
             });
         }
     }
