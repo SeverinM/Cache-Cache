@@ -1,0 +1,93 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.Linq;
+
+public class Draggable : Interactable
+{
+    [SerializeField]
+    List<Spot> allSpot;
+
+    bool dragging = false;
+    GameObject lastTouchedGameObject;
+    Vector3 origin;
+
+    private void Awake()
+    {
+        foreach(Spot sp in allSpot)
+        {
+            sp.SetValue(false);
+        }
+    }
+
+    public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        {
+            origin = transform.position;
+            dragging = true;
+            foreach (Spot sp in allSpot)
+            {
+                sp.SetValue(true);
+            }
+        }
+    }
+
+    public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+    }
+
+    public override void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+    }
+
+    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+        if (dragging)
+        {
+            Vector3 position = mouse.obj.transform.position;
+            Ray ray = mouse.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
+
+            foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(ray.origin, x.point)))
+            {
+                if (hit.collider.tag == Manager.MAQUETTE_TAG || hit.collider.GetComponent<Spot>())
+                {
+                    transform.position = hit.point;
+                    lastTouchedGameObject = hit.collider.gameObject;
+                    break;
+                }
+            }
+        }
+    }
+
+    public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        {
+            dragging = false;
+            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+            {
+                lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
+            }
+            else
+            {
+                transform.position = origin;
+            }
+
+            foreach(Spot sp in allSpot)
+            {
+                sp.SetValue(false);
+            }
+        }
+    }
+
+    public void AddSpot(Spot sp)
+    {
+        allSpot.Add(sp);
+    }
+
+    public void RemoveSpot(Spot sp)
+    {
+        allSpot.Remove(sp);
+    }
+}

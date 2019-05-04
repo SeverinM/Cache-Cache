@@ -14,6 +14,7 @@ public class Manager : MonoBehaviour
     GameObject plateau2;
 
     public const string TRIGGER_INTERACTION = "Interaction";
+    public const string MAQUETTE_TAG = "Maquette";
 
     private void Awake()
     {
