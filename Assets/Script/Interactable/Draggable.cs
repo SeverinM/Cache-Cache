@@ -9,6 +9,8 @@ public class Draggable : Interactable
     List<Spot> allSpot;
 
     bool dragging = false;
+    public bool Dragging => dragging;
+
     GameObject lastTouchedGameObject;
     Vector3 origin;
 

@@ -18,4 +18,9 @@ public static class AllEnigme
     {
         return false;
     }
+
+    public static bool IS_SQUIRREL_FOUND(params Interactable[] allInter)
+    {
+        return (allInter[0] is Squirrel && allInter[0].Progress == 1);       
+    }
 }
