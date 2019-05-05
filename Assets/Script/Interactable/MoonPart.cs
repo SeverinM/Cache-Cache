@@ -11,6 +11,7 @@ public class MoonPart : Interactable
         NONE
     }
 
+    static bool unlocked = false;
     static List<Part> takenParts = new List<Part>();
     [SerializeField]
     Part part;
@@ -94,6 +95,22 @@ public class MoonPart : Interactable
                 }
 
                 canMove = false;
+            }
+        }
+    }
+
+    public override void OnNewValue()
+    {
+        if (!unlocked)
+        {
+            unlocked = true;
+            foreach(TeleportSpot tp in GameObject.FindObjectsOfType<TeleportSpot>())
+            {
+                Debug.LogError(tp);
+                foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
+                {
+                    dragg.AddSpot(tp);
+                }
             }
         }
     }
