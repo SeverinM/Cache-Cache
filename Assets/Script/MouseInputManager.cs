@@ -141,6 +141,7 @@ public class MouseInputManager : MonoBehaviour
         mp.deviceID = deviceId;
         pointersByDeviceId[deviceId] = mp;
         mp.position = new Vector3(0, 0, 0);
+        mp.sensitivity = defaultMiceSensitivity;
 
         mp.obj = Instantiate(prefabCursor,miceCount == 0 ? canvas.transform : canvas2.transform);
         mp.cam = (miceCount == 0 ? camera1 : camera2);
@@ -193,8 +194,8 @@ public class MouseInputManager : MonoBehaviour
                 MousePointer pointer = null;
                 if (pointersByDeviceId.TryGetValue(ev.devHandle, out pointer))
                 {
-                    float dx = ev.x * defaultMiceSensitivity;
-                    float dy = ev.y * defaultMiceSensitivity;
+                    float dx = ev.x * pointer.sensitivity;
+                    float dy = ev.y * pointer.sensitivity;
                     pointer.delta = new Vector2(dx, dy);
 
                     //Invisible while not moving

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MoonPart : Interactable
 {
+    public float draggingSensitivity = 0.2f;
+    float baseSensitivity;
+
     enum Part
     {
         HIGH,
@@ -36,6 +39,8 @@ public class MoonPart : Interactable
                 {
                     canMove = true;
                     takenParts.Add(part);
+                    baseSensitivity = mouse.sensitivity;
+                    mouse.sensitivity = draggingSensitivity;
                 }
             }
         }
@@ -69,7 +74,6 @@ public class MoonPart : Interactable
                     temporaryPosition = Vector3.zero;
                 }
 
-                Debug.Log(temporaryPosition.magnitude + " / " + maxDistance);
                 if (temporaryPosition.magnitude / maxDistance <= 1)
                     transform.localPosition = temporaryPosition;
             }
@@ -97,6 +101,7 @@ public class MoonPart : Interactable
                 canMove = false;
             }
         }
+        mouse.sensitivity = baseSensitivity;
     }
 
     public override void OnNewValue()
