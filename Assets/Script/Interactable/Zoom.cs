@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[ExecuteInEditMode]
 public class Zoom : Interactable
 {
     [SerializeField]
@@ -12,6 +13,9 @@ public class Zoom : Interactable
 
     [SerializeField]
     Camera cam;
+
+    [SerializeField]
+    GameObject focusPoint;
 
     enum StateZoom
     {
@@ -25,13 +29,30 @@ public class Zoom : Interactable
     float minFOV;
     float maxFOV;
     float actualFOV => cam.fieldOfView;
-    Vector3 originForward;
-    Vector3 destinationForward;
+    Vector3 originLook;
+    Vector3 destinationLook;
 
     // Start is called before the first frame update
     void Start()
     {
         maxFOV = actualFOV;
+        if (focusPoint) cam.transform.LookAt(focusPoint.transform);
+    }
+
+    private void Update()
+    {
+        //Silent bugged error
+        try
+        {
+            if (!Application.isPlaying && focusPoint)
+                cam.transform.LookAt(focusPoint.transform);
+        }
+        catch (System.Exception exception){}
+        
+        if (Application.isPlaying && actualFOV < maxFOV)
+        {
+            cam.transform.LookAt(destinationLook);
+        }
     }
 
     IEnumerator setFOWAndForward(StateZoom state)
@@ -42,7 +63,7 @@ public class Zoom : Interactable
         {
             yield return null;
             normalizedTime += Time.deltaTime / timeZoom;
-            cam.transform.forward = Vector3.Lerp(originForward, destinationForward, curve.Evaluate(normalizedTime));
+            cam.transform.LookAt(Vector3.Lerp(originLook, destinationLook, normalizedTime));
             cam.fieldOfView = Mathf.Lerp(minFOV, maxFOV, curve.Evaluate(state == StateZoom.Dezooming ? normalizedTime : 1 - normalizedTime));
         }
         actualState = StateZoom.Waiting;
@@ -56,15 +77,15 @@ public class Zoom : Interactable
             {
                 if (maxFOV == actualFOV)
                 {
-                    originForward = cam.transform.forward;
-                    destinationForward = cam.transform.worldToLocalMatrix.MultiplyPoint(mouse.lastCollisionPoint);
+                    originLook = cam.transform.forward + cam.transform.position;
+                    destinationLook =  mouse.lastCollisionPoint;
                     StartCoroutine(setFOWAndForward(StateZoom.Zooming));
                 }
 
                 if (minFOV == actualFOV)
                 {
-                    destinationForward = originForward;
-                    originForward = cam.transform.forward;
+                    destinationLook = focusPoint.transform.position;
+                    originLook = cam.transform.forward + cam.transform.position; 
                     StartCoroutine(setFOWAndForward(StateZoom.Dezooming));
                 }
             }
