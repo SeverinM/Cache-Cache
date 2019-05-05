@@ -16,7 +16,7 @@ public class Draggable : Interactable
     {
         foreach(Spot sp in allSpot)
         {
-            sp.SetValue(false);
+            sp.SetValue(this, false);
         }
     }
 
@@ -28,7 +28,7 @@ public class Draggable : Interactable
             dragging = true;
             foreach (Spot sp in allSpot)
             {
-                sp.SetValue(true);
+                sp.SetValue(this, true);
             }
         }
     }
@@ -76,7 +76,7 @@ public class Draggable : Interactable
 
             foreach(Spot sp in allSpot)
             {
-                sp.SetValue(false);
+                sp.SetValue(this, false);
             }
         }
     }

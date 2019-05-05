@@ -18,11 +18,16 @@ public class MoonPart : Interactable
     [SerializeField]
     int coeffDrag = 200;
 
+    [SerializeField]
+    float maxDistance = 0.5f;
+
+    public float Ratio => transform.localPosition.magnitude / maxDistance;
+
     bool canMove = false;
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress == 0)
         {
             if (!echo)
             {
@@ -51,7 +56,7 @@ public class MoonPart : Interactable
         }
         else
         {
-            if (canMove)
+            if (canMove && Progress == 0)
             {
                 Vector3 temporaryPosition = transform.localPosition + new Vector3(0, -mouse.delta.y / coeffDrag, 0);
                 if (part.Equals(Part.HIGH) && temporaryPosition.y < 0)
@@ -62,7 +67,10 @@ public class MoonPart : Interactable
                 {
                     temporaryPosition = Vector3.zero;
                 }
-                transform.localPosition = temporaryPosition;
+
+                Debug.Log(temporaryPosition.magnitude + " / " + maxDistance);
+                if (temporaryPosition.magnitude / maxDistance <= 1)
+                    transform.localPosition = temporaryPosition;
             }
         }
     }
@@ -71,7 +79,7 @@ public class MoonPart : Interactable
     {
         if ((btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) || btn.Equals(MouseInputManager.MouseButton.NONE)) && !echo)
         {
-            if (takenParts.Contains(part))
+            if (takenParts.Contains(part) && Progress == 0)
             {
                 takenParts.Remove(part);
 
