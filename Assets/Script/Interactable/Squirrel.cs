@@ -21,6 +21,7 @@ public class Squirrel : Interactable
     Transform currentTree;
     Transform previousTree;
 
+
     private void Awake()
     {
         currentTree = potentialTrees[0];
@@ -86,7 +87,7 @@ public class Squirrel : Interactable
 
         previousTree.parent.GetComponent<Tree>().squirrel = null;
 
-        previousTree.parent.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+        previousTree.parent.GetComponent<Tree>().FouilleTree();
         float normalizeTime = 0;
         while (normalizeTime < 1)
         {
@@ -100,7 +101,7 @@ public class Squirrel : Interactable
             if (normalizeTime > openAt && !openEnd)
             {
                 openEnd = true;
-                currentTree.parent.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+                currentTree.parent.GetComponent<Tree>().FouilleTree();
             }
             yield return null;
         }

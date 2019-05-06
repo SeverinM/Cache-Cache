@@ -55,7 +55,7 @@ public class Tree : Draggable
         }
         else if (!dragged)
         {
-            this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+            FouilleTree();
         }
 
         base.MouseUp(btn, mouse, echo);
@@ -66,4 +66,14 @@ public class Tree : Draggable
     {
         base.OnNewValue();
     }
+
+    public void FouilleTree()
+    {
+        if(this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme"))
+        {
+            this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+        }
+    }
 }
+
+
