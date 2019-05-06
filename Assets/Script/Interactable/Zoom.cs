@@ -84,7 +84,7 @@ public class Zoom : Interactable
 
                     foreach(RaycastHit hit in Physics.RaycastAll(ray))
                     {
-                        if (hit.collider.tag == Manager.MAQUETTE_TAG)
+                        if (hit.collider.CompareTag(Manager.MAQUETTE_TAG))
                         {
                             StartCoroutine(setFOWAndForward(StateZoom.Zooming));
                             destinationLook = hit.point;

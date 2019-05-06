@@ -54,7 +54,7 @@ public class Draggable : Interactable
 
             foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(ray.origin, x.point)))
             {
-                if (hit.collider.tag == Manager.MAQUETTE_TAG || hit.collider.GetComponent<Spot>())
+                if (hit.collider.CompareTag(Manager.MAQUETTE_TAG) || hit.collider.GetComponent<Spot>())
                 {
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;

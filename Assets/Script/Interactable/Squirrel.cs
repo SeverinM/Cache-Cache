@@ -104,6 +104,6 @@ public class Squirrel : Interactable
             yield return null;
         }
         currentTree.parent.GetComponent<Interactable>().Related.Add(this);
-        canInteract = (currentTree.parent.tag == "Hiver");
+        canInteract = (currentTree.CompareTag("Hiver"));
     }
 }
