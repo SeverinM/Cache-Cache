@@ -8,7 +8,7 @@ public class Draggable : Interactable
     [SerializeField]
     List<Spot> allSpot;
 
-    bool dragging = false;
+    protected bool dragging = false;
     public bool Dragging => dragging;
 
     GameObject lastTouchedGameObject;
