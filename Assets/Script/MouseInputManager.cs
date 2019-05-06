@@ -242,6 +242,7 @@ public class MouseInputManager : MonoBehaviour
         Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
 
         Vector3 position = pointer.obj.transform.position;
+        position += new Vector3(-pointer.obj.GetComponent<RectTransform>().rect.width * 0.166f, pointer.obj.GetComponent<RectTransform>().rect.width * 0.5f, 0);
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
 
         foreach(RaycastHit hit in Physics.RaycastAll(ray))
@@ -302,11 +303,10 @@ public class MouseInputManager : MonoBehaviour
 
         if (act.Equals(ActionType.RELEASED))
         {
-            allGob.Keys.ToList().ForEach(x =>
+            mouse.holding.ForEach(x =>
             {
                 if (x.CanInteract)
                 {
-                    mouse.lastCollisionPoint = allGob[x];
                     if (mouse.holding.Contains(x))
                     {
                         x.MouseUp(mouseBtn, mouse);
@@ -354,7 +354,6 @@ public class MouseInputManager : MonoBehaviour
                 }
             }
 
-            mouse.pointing = allGob.Keys.ToList();
             mouse.holding.ForEach(x =>
             {
                 if (x.CanInteract)

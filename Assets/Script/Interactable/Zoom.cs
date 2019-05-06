@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -31,6 +31,7 @@ public class Zoom : Interactable
     float actualFOV => cam.fieldOfView;
     Vector3 originLook;
     Vector3 destinationLook;
+    Vector3 destinationWorldLook;
 
     // Start is called before the first frame update
     void Start()
@@ -48,8 +49,8 @@ public class Zoom : Interactable
                 cam.transform.LookAt(focusPoint.transform);
         }
         catch (System.Exception exception){}
-        
-        if (Application.isPlaying && actualFOV < maxFOV)
+
+        if (Application.isPlaying && actualFOV == minFOV && actualState.Equals(StateZoom.Waiting))
         {
             cam.transform.LookAt(destinationLook);
         }
@@ -79,13 +80,23 @@ public class Zoom : Interactable
                 {
                     originLook = cam.transform.forward + cam.transform.position;
                     destinationLook =  mouse.lastCollisionPoint;
-                    StartCoroutine(setFOWAndForward(StateZoom.Zooming));
+                    Ray ray = new Ray(mouse.cam.transform.position, mouse.lastCollisionPoint - mouse.cam.transform.position);
+
+                    foreach(RaycastHit hit in Physics.RaycastAll(ray))
+                    {
+                        if (hit.collider.tag == Manager.MAQUETTE_TAG)
+                        {
+                            StartCoroutine(setFOWAndForward(StateZoom.Zooming));
+                            destinationLook = hit.point;
+                            break;
+                        }
+                    }
                 }
 
                 if (minFOV == actualFOV)
                 {
+                    originLook = destinationLook;
                     destinationLook = focusPoint.transform.position;
-                    originLook = cam.transform.forward + cam.transform.position; 
                     StartCoroutine(setFOWAndForward(StateZoom.Dezooming));
                 }
             }

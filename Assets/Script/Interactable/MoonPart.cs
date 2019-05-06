@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MoonPart : Interactable
 {
-    public float draggingSensitivity = 0.2f;
+    [SerializeField]
+    float draggingSensitivity = 0.2f;
     float baseSensitivity;
 
     enum Part
@@ -40,7 +41,8 @@ public class MoonPart : Interactable
                     canMove = true;
                     takenParts.Add(part);
                     baseSensitivity = mouse.sensitivity;
-                    //mouse.sensitivity = draggingSensitivity;
+                    mouse.sensitivity = draggingSensitivity;
+                    Debug.Log(gameObject);
                 }
             }
         }
@@ -100,8 +102,9 @@ public class MoonPart : Interactable
 
                 canMove = false;
             }
-        }
-        //mouse.sensitivity = baseSensitivity;
+
+            mouse.sensitivity = baseSensitivity;
+        }       
     }
 
     public override void OnNewValue()
