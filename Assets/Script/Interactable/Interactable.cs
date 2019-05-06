@@ -12,9 +12,6 @@ public abstract class Interactable : MonoBehaviour
     protected Interactable echo;
     public Interactable Echo => echo;
 
-    protected List<Interactable> related = new List<Interactable>();
-    public List<Interactable> Related => related;
-
     [SerializeField]
     protected bool block;
     public bool Block => block;

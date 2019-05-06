@@ -25,7 +25,7 @@ public class Squirrel : Interactable
     {
         currentTree = potentialTrees[0];
         transform.position = currentTree.transform.position;
-        currentTree.parent.GetComponent<Interactable>().Related.Add(this);
+        currentTree.parent.GetComponent<Tree>().squirrel = this;
         canInteract = false;
     }
 
@@ -83,7 +83,7 @@ public class Squirrel : Interactable
         previousTree = currentTree;
         currentTree = nextTree;
 
-        previousTree.parent.GetComponent<Interactable>().Related.Remove(this);
+        previousTree.parent.GetComponent<Tree>().squirrel = null;
 
         previousTree.parent.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
         float normalizeTime = 0;
@@ -103,7 +103,7 @@ public class Squirrel : Interactable
             }
             yield return null;
         }
-        currentTree.parent.GetComponent<Interactable>().Related.Add(this);
+        currentTree.parent.GetComponent<Tree>().squirrel = this;
         canInteract = (currentTree.CompareTag("Hiver"));
     }
 }
