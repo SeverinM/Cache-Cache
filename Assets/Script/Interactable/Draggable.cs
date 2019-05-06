@@ -32,6 +32,8 @@ public class Draggable : Interactable
             {
                 sp.SetValue(this, true);
             }
+
+            related.Where(x => x is Squirrel).ToList().ForEach(x => (x as Squirrel).NextJump());
         }
     }
 

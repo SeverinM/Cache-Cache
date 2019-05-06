@@ -17,9 +17,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0, y: 0, z: 0.9992424, w: 0.03891756}
+        value: {x: 0, y: 0, z: 0.9992424, w: 0.0389178}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
-        outSlope: {x: 0, y: 0, z: -0.038892027, w: 1.0023917}
+        outSlope: {x: 0, y: 0, z: -0.03933906, w: 1.0023917}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
@@ -35,9 +35,9 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 0.16666667
-        value: {x: 0, y: 0, z: 0.94447356, w: 0.32858744}
+        value: {x: 0, y: 0, z: 0.94447356, w: 0.32858732}
         inSlope: {x: 0, y: 0, z: -0.8600951, w: 2.4721029}
-        outSlope: {x: 0, y: 0, z: -0.8600951, w: 2.4694207}
+        outSlope: {x: 0, y: 0, z: -0.85830694, w: 2.4694207}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
@@ -71,9 +71,9 @@ AnimationClip:
         outWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
       - serializedVersion: 3
         time: 0.3
-        value: {x: 0, y: 0, z: 0.46920955, w: 0.88308686}
-        inSlope: {x: 0, y: 0, z: -6.666184, w: 3.5423043}
-        outSlope: {x: 0, y: 0, z: -6.6724424, w: 3.5440924}
+        value: {x: 0, y: 0, z: 0.46920964, w: 0.8830868}
+        inSlope: {x: 0, y: 0, z: -6.66529, w: 3.5423043}
+        outSlope: {x: 0, y: 0, z: -6.6733365, w: 3.5458806}
         tangentMode: 0
         weightedMode: 0
         inWeight: {x: 0.33333334, y: 0.33333334, z: 0.33333334, w: 0.33333334}
@@ -81,7 +81,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.33333334
         value: {x: 0, y: 0, z: 0.23995647, w: 0.97078365}
-        inSlope: {x: 0, y: 0, z: -6.120354, w: 1.512766}
+        inSlope: {x: 0, y: 0, z: -6.1181192, w: 1.512766}
         outSlope: {x: 0, y: 0, z: -6.1123075, w: 1.5109779}
         tangentMode: 0
         weightedMode: 0
@@ -135,7 +135,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves: []
@@ -150,7 +150,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 238685826
+      path: 1211120803
       attribute: 2
       script: {fileID: 0}
       typeID: 4
@@ -302,7 +302,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.x
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -429,7 +429,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.y
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -439,7 +439,7 @@ AnimationClip:
         time: 0
         value: 0.9992424
         inSlope: 0
-        outSlope: -0.038892027
+        outSlope: -0.03933906
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -457,7 +457,7 @@ AnimationClip:
         time: 0.16666667
         value: 0.94447356
         inSlope: -0.8600951
-        outSlope: -0.8600951
+        outSlope: -0.85830694
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -491,9 +491,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.3
-        value: 0.46920955
-        inSlope: -6.666184
-        outSlope: -6.6724424
+        value: 0.46920964
+        inSlope: -6.66529
+        outSlope: -6.6733365
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -501,7 +501,7 @@ AnimationClip:
       - serializedVersion: 3
         time: 0.33333334
         value: 0.23995647
-        inSlope: -6.120354
+        inSlope: -6.1181192
         outSlope: -6.1123075
         tangentMode: 0
         weightedMode: 0
@@ -556,7 +556,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.z
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -564,7 +564,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.03891756
+        value: 0.0389178
         inSlope: 0
         outSlope: 1.0023917
         tangentMode: 0
@@ -582,7 +582,7 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.16666667
-        value: 0.32858744
+        value: 0.32858732
         inSlope: 2.4721029
         outSlope: 2.4694207
         tangentMode: 0
@@ -618,9 +618,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.3
-        value: 0.88308686
+        value: 0.8830868
         inSlope: 3.5423043
-        outSlope: 3.5440924
+        outSlope: 3.5458806
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -683,7 +683,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -811,7 +811,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAngles.x
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -938,7 +938,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAngles.y
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -946,9 +946,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 175.53923
-        inSlope: -114.83136
-        outSlope: -114.83136
+        value: 175.5392
+        inSlope: -114.83067
+        outSlope: -114.83067
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -964,9 +964,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.16666667
-        value: 141.63387
-        inSlope: -299.98883
-        outSlope: -299.98883
+        value: 141.63388
+        inSlope: -299.9902
+        outSlope: -299.9902
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -1000,9 +1000,9 @@ AnimationClip:
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 0.3
-        value: 55.965996
-        inSlope: -865.34924
-        outSlope: -865.34924
+        value: 55.966003
+        inSlope: -865.3486
+        outSlope: -865.3486
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -1065,7 +1065,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAngles.z
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

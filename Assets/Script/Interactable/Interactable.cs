@@ -5,12 +5,15 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
 
-    bool canInteract = true;
+    protected bool canInteract = true;
     public bool CanInteract => canInteract;
 
     [SerializeField]
     protected Interactable echo;
     public Interactable Echo => echo;
+
+    protected List<Interactable> related = new List<Interactable>();
+    public List<Interactable> Related => related;
 
     [SerializeField]
     protected bool block;

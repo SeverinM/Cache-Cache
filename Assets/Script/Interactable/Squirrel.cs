@@ -11,6 +11,10 @@ public class Squirrel : Interactable
     [SerializeField]
     float duration;
 
+    [Range(0,1)]
+    [SerializeField]
+    float openAt;
+
     [SerializeField]
     AnimationCurve curveY;
 
@@ -21,13 +25,15 @@ public class Squirrel : Interactable
     {
         currentTree = potentialTrees[0];
         transform.position = currentTree.transform.position;
-        StartCoroutine(JumpTree());
+        currentTree.parent.GetComponent<Interactable>().Related.Add(this);
+        canInteract = false;
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
+            Debug.Log("NO");
             Progress++;
         }
     }
@@ -52,14 +58,9 @@ public class Squirrel : Interactable
 
     }
 
-    IEnumerator JumpTree()
+    public void NextJump()
     {
-        //As long as the squirrel is not caught
-        while (Progress == 0)
-        {
-            yield return new WaitForSeconds(2f);
-            StartCoroutine(AnimationJump());
-        }
+        StartCoroutine(AnimationJump());
     }
 
     public override void OnNewValue()
@@ -76,8 +77,13 @@ public class Squirrel : Interactable
         Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree && !x.parent.GetComponent<Draggable>().Dragging).
             OrderBy(x => Vector3.Distance(x.position, transform.position) * Random.Range(0.5f, 2)).ToList()[0];
 
+        //Allow to make make first look correct
+        Vector3 lastPosition = (nextTree.position - currentTree.position) * -0.0001f;
+
         previousTree = currentTree;
         currentTree = nextTree;
+
+        previousTree.parent.GetComponent<Interactable>().Related.Remove(this);
 
         previousTree.parent.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
         float normalizeTime = 0;
@@ -86,14 +92,18 @@ public class Squirrel : Interactable
             normalizeTime += Time.deltaTime / duration;
             Vector3 temporaryPosition = Vector3.Lerp(previousTree.position, currentTree.position, normalizeTime);
             temporaryPosition += new Vector3(0, curveY.Evaluate(normalizeTime), 0);
+            lastPosition = transform.position;
             transform.position = temporaryPosition;
-            if (normalizeTime > 0.7f && !openEnd)
+            transform.forward = (transform.position - lastPosition);
+
+            if (normalizeTime > openAt && !openEnd)
             {
                 openEnd = true;
                 currentTree.parent.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
             }
-
             yield return null;
         }
+        currentTree.parent.GetComponent<Interactable>().Related.Add(this);
+        canInteract = (currentTree.parent.tag == "Hiver");
     }
 }

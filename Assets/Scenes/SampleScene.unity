@@ -1772,7 +1772,8 @@ MonoBehaviour:
   - {fileID: 1095123425}
   - {fileID: 306906384}
   - {fileID: 487417853}
-  duration: 0.5
+  duration: 0.75
+  openAt: 0.701
   curveY:
     serializedVersion: 2
     m_Curve:
@@ -2635,6 +2636,41 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 7079588785684484272, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.286
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079588785684484272, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.389
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079588785684484272, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7079588785684974736, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ete
+      objectReference: {fileID: 0}
+    - target: {fileID: 3602094676718170754, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ete
+      objectReference: {fileID: 0}
+    - target: {fileID: 1499370428406773059, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ete
+      objectReference: {fileID: 0}
+    - target: {fileID: 7863195276092166482, guid: 12de1cff7e4091f4281550629ccaa697,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ete
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1157061280663608952, guid: 12de1cff7e4091f4281550629ccaa697, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 12de1cff7e4091f4281550629ccaa697, type: 3}
@@ -2730,6 +2766,11 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2640031284248463837, guid: b76040b4310c02044b534c751ef8137e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hiver
+      objectReference: {fileID: 0}
     - target: {fileID: 4358649152771988396, guid: b76040b4310c02044b534c751ef8137e,
         type: 3}
       propertyPath: allSpot.Array.size
@@ -2740,6 +2781,11 @@ PrefabInstance:
       propertyPath: allSpot.Array.data[0]
       value: 
       objectReference: {fileID: 1532151412}
+    - target: {fileID: 7093221095387765952, guid: b76040b4310c02044b534c751ef8137e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hiver
+      objectReference: {fileID: 0}
     - target: {fileID: 6264190267268007007, guid: b76040b4310c02044b534c751ef8137e,
         type: 3}
       propertyPath: allSpot.Array.size
@@ -2750,6 +2796,11 @@ PrefabInstance:
       propertyPath: allSpot.Array.data[0]
       value: 
       objectReference: {fileID: 1532151412}
+    - target: {fileID: 2001942430924284253, guid: b76040b4310c02044b534c751ef8137e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hiver
+      objectReference: {fileID: 0}
     - target: {fileID: 4894055061805346378, guid: b76040b4310c02044b534c751ef8137e,
         type: 3}
       propertyPath: allSpot.Array.size
@@ -2760,6 +2811,11 @@ PrefabInstance:
       propertyPath: allSpot.Array.data[0]
       value: 
       objectReference: {fileID: 1532151412}
+    - target: {fileID: 373935928047228416, guid: b76040b4310c02044b534c751ef8137e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hiver
+      objectReference: {fileID: 0}
     - target: {fileID: 8415744402755165752, guid: b76040b4310c02044b534c751ef8137e,
         type: 3}
       propertyPath: allSpot.Array.size
@@ -2770,6 +2826,11 @@ PrefabInstance:
       propertyPath: allSpot.Array.data[0]
       value: 
       objectReference: {fileID: 1532151412}
+    - target: {fileID: 9083362011902353928, guid: b76040b4310c02044b534c751ef8137e,
+        type: 3}
+      propertyPath: m_TagString
+      value: Hiver
+      objectReference: {fileID: 0}
     - target: {fileID: 6009995510343162384, guid: b76040b4310c02044b534c751ef8137e,
         type: 3}
       propertyPath: allSpot.Array.size
