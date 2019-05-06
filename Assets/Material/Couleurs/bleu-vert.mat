@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bleu
+  m_Name: bleu-vert
   m_Shader: {fileID: 4800000, guid: ee5a54bdf0907e34a821baa94abcea98, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -80,9 +80,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorNShadow: {r: 0.3811718, g: 0.1786668, b: 0.6886792, a: 1}
-    - _ColorNight: {r: 0.35457456, g: 0.78002167, b: 0.9056604, a: 1}
-    - _ColorRShadow: {r: 0.14117645, g: 0.6458833, b: 0.7254902, a: 1}
-    - _ColorReveal: {r: 0.59607846, g: 0.9529412, b: 0.9356575, a: 1}
+    - _ColorNShadow: {r: 0.083659664, g: 0.32982546, b: 0.3773585, a: 1}
+    - _ColorNight: {r: 0.23082057, g: 0.5377358, b: 0.4819331, a: 1}
+    - _ColorRShadow: {r: 0.1004361, g: 0.55450934, b: 0.5754717, a: 1}
+    - _ColorReveal: {r: 0.24586153, g: 0.8018868, b: 0.6449108, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}

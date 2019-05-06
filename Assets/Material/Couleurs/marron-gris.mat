@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: bleu
+  m_Name: marron-gris
   m_Shader: {fileID: 4800000, guid: ee5a54bdf0907e34a821baa94abcea98, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -73,16 +73,16 @@ Material:
     - _ShadowEdge: 1
     - _SmoothnessTextureChannel: 0
     - _SpecEdgeEffect: 1
-    - _SpecIntensity: 0.2
+    - _SpecIntensity: 0.1
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorNShadow: {r: 0.3811718, g: 0.1786668, b: 0.6886792, a: 1}
-    - _ColorNight: {r: 0.35457456, g: 0.78002167, b: 0.9056604, a: 1}
-    - _ColorRShadow: {r: 0.14117645, g: 0.6458833, b: 0.7254902, a: 1}
-    - _ColorReveal: {r: 0.59607846, g: 0.9529412, b: 0.9356575, a: 1}
+    - _ColorNShadow: {r: 0.2264151, g: 0.0993236, b: 0.16886076, a: 1}
+    - _ColorNight: {r: 0.33962262, g: 0.16820931, b: 0.16820931, a: 1}
+    - _ColorRShadow: {r: 0.3301887, g: 0.14173195, b: 0.22465292, a: 1}
+    - _ColorReveal: {r: 0.5188679, g: 0.38915092, b: 0.38915092, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
