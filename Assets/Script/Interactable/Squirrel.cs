@@ -24,6 +24,7 @@ public class Squirrel : Interactable
     private void Awake()
     {
         currentTree = potentialTrees[0];
+        this.transform.SetParent(currentTree);
         transform.position = currentTree.transform.position;
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         canInteract = false;
@@ -104,6 +105,7 @@ public class Squirrel : Interactable
             yield return null;
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
+        this.transform.SetParent(currentTree);
         canInteract = (currentTree.CompareTag("Hiver"));
     }
 }

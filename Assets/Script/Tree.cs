@@ -8,7 +8,7 @@ public class Tree : Draggable
     public Squirrel squirrel;
 
     [SerializeField]
-    float DelayDragging = 0.5f;
+    float DelayDragging = 0.1f;
 
     float TimerDragging;
     bool dragged = false;
@@ -53,7 +53,7 @@ public class Tree : Draggable
         {
             squirrel.NextJump();
         }
-        else
+        else if (!dragged)
         {
             this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
         }
