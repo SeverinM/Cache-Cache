@@ -39,7 +39,6 @@ public class Tree : Draggable
         TimerDragging -= Time.deltaTime;
         if (TimerDragging <= 0)
         {
-            Debug.Log("je passe là");
             dragged = true;
             base.MouseMove(btn, mouse, echo);
         }
