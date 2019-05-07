@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 252132568761967636}
   m_Layer: 0
   m_Name: arbre_hiver
-  m_TagString: Untagged
+  m_TagString: Hiver
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -459,6 +459,7 @@ MonoBehaviour:
   block: 0
   allSpot: []
   squirrel: {fileID: 0}
+  DelayDragging: 0.1
 --- !u!1 &3664683564104224895
 GameObject:
   m_ObjectHideFlags: 0

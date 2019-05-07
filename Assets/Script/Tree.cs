@@ -39,6 +39,7 @@ public class Tree : Draggable
         TimerDragging -= Time.deltaTime;
         if (TimerDragging <= 0)
         {
+            Debug.Log("je passe là");
             dragged = true;
             base.MouseMove(btn, mouse, echo);
         }
@@ -47,19 +48,20 @@ public class Tree : Draggable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        
-
-        if (squirrel && !dragged)
+        if(btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            squirrel.NextJump();
-        }
-        else if (!dragged)
-        {
-            FouilleTree();
-        }
+            if (squirrel && !dragged)
+            {
+                squirrel.NextJump();
+            }
+            else if (!dragged)
+            {
+                FouilleTree();
+            }
 
-        base.MouseUp(btn, mouse, echo);
-        dragged = false;
+            base.MouseUp(btn, mouse, echo);
+            dragged = false;
+        }
     }
 
     public override void OnNewValue()
