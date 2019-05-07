@@ -33,7 +33,6 @@ public class Squirrel : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            Debug.Log("NO");
             Progress++;
         }
     }

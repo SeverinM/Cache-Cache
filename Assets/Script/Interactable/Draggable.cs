@@ -24,7 +24,7 @@ public class Draggable : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress >= 0)
         {
             origin = transform.position;
             dragging = true;
@@ -64,7 +64,7 @@ public class Draggable : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress >= 0)
         {
             dragging = false;
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())

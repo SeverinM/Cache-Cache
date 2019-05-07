@@ -17,7 +17,7 @@ public abstract class Interactable : MonoBehaviour
     public bool Block => block;
 
     //Incrementé quand une enigme est resolu
-    protected int progress = 0;
+    protected int progress = -1;
     public int Progress
     {
         get

@@ -114,7 +114,6 @@ public class MoonPart : Interactable
             unlocked = true;
             foreach(TeleportSpot tp in GameObject.FindObjectsOfType<TeleportSpot>())
             {
-                Debug.LogError(tp);
                 foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
                 {
                     dragg.AddSpot(tp);
