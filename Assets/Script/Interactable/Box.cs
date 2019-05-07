@@ -18,6 +18,11 @@ public class Box : Interactable
     [SerializeField]
     float draggSpeed;
 
+    [SerializeField]
+    float maxDistance;
+
+    public float Ratio => Vector3.Distance(originPositionLocal, transform.localPosition) / maxDistance;
+
     private void Awake()
     {
         Progress++;
@@ -68,11 +73,11 @@ public class Box : Interactable
         Vector3 output = input;
         if (part == BoxPart.LOW)
         {
-            return new Vector3(input.x, Mathf.Min(input.y, originPositionLocal.y), input.z);
+            return new Vector3(input.x, Mathf.Clamp(input.y , originPositionLocal.y - maxDistance, originPositionLocal.y) , input.z);
         }
         if (part == BoxPart.HIGH)
         {
-            return new Vector3(input.x, Mathf.Max(input.y, originPositionLocal.y), input.z);
+            return new Vector3(input.x, Mathf.Clamp(input.y, originPositionLocal.y, originPositionLocal.y + maxDistance), input.z);
         }
         return output;
     }
