@@ -16,7 +16,12 @@ public static class AllEnigme
 
     public static bool IS_BOX_OPEN(params Interactable[] allInter)
     {
-        return false;
+        Box box1 = (Box)allInter[0];
+        Box box2 = (Box)allInter[1];
+        if (!box1 || !box2)
+            return false;
+
+        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && box1.Ratio >= 0.999f && box2.Ratio >= 0.9999f);
     }
 
     public static bool IS_SQUIRREL_FOUND(params Interactable[] allInter)

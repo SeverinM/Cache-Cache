@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-    protected bool canInteract = true;
+    protected bool canInteract = false;
     public bool CanInteract => canInteract;
 
     [SerializeField]
@@ -16,9 +16,7 @@ public abstract class Interactable : MonoBehaviour
     public bool Block => block;
 
     //Incrementé quand une enigme est resolu
-    //-2 : Not started
-    //-1 : Box closed
-    protected int progress = -2;
+    protected int progress = -1;
     public int Progress
     {
         get
@@ -37,5 +35,11 @@ public abstract class Interactable : MonoBehaviour
     public abstract void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse ,Interactable echo = null);
     public abstract void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
     public abstract void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
-    public virtual void OnNewValue() { }
+    public virtual void OnNewValue()
+    {
+        if (Progress >= 0)
+        {
+            canInteract = true;
+        }
+    }
 }

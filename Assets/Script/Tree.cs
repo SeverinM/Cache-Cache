@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tree : Draggable
 {
-    [HideInInspector]
     public Squirrel squirrel;
 
     [SerializeField]
@@ -49,13 +48,14 @@ public class Tree : Draggable
     {
         if(btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            if (squirrel && !dragged)
+            if (!dragged)
             {
-                squirrel.NextJump();
-            }
-            else if (!dragged)
-            {
-                FouilleTree();
+                Debug.LogError(squirrel);
+                if (!squirrel)
+                    FouilleTree();
+
+                else
+                    squirrel.NextJump();
             }
 
             base.MouseUp(btn, mouse, echo);

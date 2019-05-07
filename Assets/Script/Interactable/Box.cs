@@ -10,6 +10,8 @@ public class Box : Interactable
         HIGH
     }
 
+    static bool done = false;
+
     [SerializeField]
     BoxPart part;
     Vector3 originPositionLocal;
@@ -25,7 +27,6 @@ public class Box : Interactable
 
     private void Awake()
     {
-        Progress++;
         originPositionLocal = transform.localPosition;
     }
 
@@ -64,10 +65,6 @@ public class Box : Interactable
         transform.localPosition = originPositionLocal;
     }
 
-    public override void OnNewValue()
-    {
-    }
-
     public Vector3 GetClampedPosition(Vector3 input)
     {
         Vector3 output = input;
@@ -80,5 +77,26 @@ public class Box : Interactable
             return new Vector3(input.x, Mathf.Clamp(input.y, originPositionLocal.y, originPositionLocal.y + maxDistance), input.z);
         }
         return output;
+    }
+
+    public override void OnNewValue()
+    {
+        base.OnNewValue();
+
+        //Done only once
+        if (Progress == 1)
+        {
+            if (!done)
+            {
+                done = true;
+                foreach (Interactable inter in GameObject.FindObjectsOfType<Interactable>())
+                {
+                    if (!(inter is Box))
+                        inter.Progress++;
+                }
+            }
+            GetComponent<BoxCollider>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
+        }       
     }
 }

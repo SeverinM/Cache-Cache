@@ -103,7 +103,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
+        //Cursor.visible = false;
         bool res = init();
         StartCoroutine(DelayedStart());
     }
