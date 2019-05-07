@@ -4,7 +4,6 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-
     protected bool canInteract = true;
     public bool CanInteract => canInteract;
 
@@ -17,7 +16,9 @@ public abstract class Interactable : MonoBehaviour
     public bool Block => block;
 
     //Incrementé quand une enigme est resolu
-    protected int progress = -1;
+    //-2 : Not started
+    //-1 : Box closed
+    protected int progress = -2;
     public int Progress
     {
         get
@@ -30,7 +31,6 @@ public abstract class Interactable : MonoBehaviour
             OnNewValue();
         }
     }
-
 
     public abstract void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
     public abstract void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);

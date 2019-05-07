@@ -136,7 +136,6 @@ public class MouseInputManager : MonoBehaviour
             return;
         }
 
-        Debug.Log("Adding DeviceID " + deviceId);
         mp = new MousePointer();
         mp.deviceID = deviceId;
         pointersByDeviceId[deviceId] = mp;

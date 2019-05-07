@@ -28,7 +28,7 @@ public class MoonPart : Interactable
 
     public float Ratio => transform.localPosition.magnitude / maxDistance;
 
-    bool canMove = false;
+    protected bool canMove = false;
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {
@@ -42,7 +42,6 @@ public class MoonPart : Interactable
                     takenParts.Add(part);
                     baseSensitivity = mouse.sensitivity;
                     mouse.sensitivity = draggingSensitivity;
-                    Debug.Log(gameObject);
                 }
             }
         }
