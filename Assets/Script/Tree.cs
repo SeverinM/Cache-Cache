@@ -7,6 +7,12 @@ public class Tree : Draggable
     [HideInInspector]
     public Squirrel squirrel;
 
+    [SerializeField]
+    float DelayDragging = 0.1f;
+
+    float TimerDragging;
+    bool dragged = false;
+
     private void Awake()
     {
         squirrel = null;
@@ -14,14 +20,8 @@ public class Tree : Draggable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (squirrel)
-        {
-            squirrel.NextJump();
-        }
-        else
-        {
-            base.MouseDown(btn, mouse, echo);
-        }
+        TimerDragging = DelayDragging;
+        base.MouseDown(btn, mouse, echo);
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -36,16 +36,46 @@ public class Tree : Draggable
 
     public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        base.MouseMove(btn, mouse, echo);
+        TimerDragging -= Time.deltaTime;
+        if (TimerDragging <= 0)
+        {
+            Debug.Log("je passe là");
+            dragged = true;
+            base.MouseMove(btn, mouse, echo);
+        }
+        
     }
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        base.MouseUp(btn, mouse, echo);
+        if(btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        {
+            if (squirrel && !dragged)
+            {
+                squirrel.NextJump();
+            }
+            else if (!dragged)
+            {
+                FouilleTree();
+            }
+
+            base.MouseUp(btn, mouse, echo);
+            dragged = false;
+        }
     }
 
     public override void OnNewValue()
     {
         base.OnNewValue();
     }
+
+    public void FouilleTree()
+    {
+        if(this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme"))
+        {
+            this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+        }
+    }
 }
+
+
