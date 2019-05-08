@@ -21,11 +21,9 @@ public class Squirrel : Interactable
     Transform currentTree;
     Transform previousTree;
 
-    private void Awake()
+    private void Start()
     {
-        Debug.Log(potentialTrees[0].transform.parent);
         currentTree = potentialTrees[0];
-        this.transform.SetParent(currentTree);
         transform.position = currentTree.transform.position;
         currentTree.parent.GetComponent<Tree>().squirrel = this;
     }

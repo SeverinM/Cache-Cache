@@ -50,7 +50,6 @@ public class Tree : Draggable
         {
             if (!dragged)
             {
-                Debug.LogError(squirrel);
                 if (!squirrel)
                     FouilleTree();
 
@@ -70,10 +69,7 @@ public class Tree : Draggable
 
     public void FouilleTree()
     {
-        if(this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme"))
-        {
-            this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
-        }
+        this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
     }
 }
 
