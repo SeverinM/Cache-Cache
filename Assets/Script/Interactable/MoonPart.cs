@@ -32,8 +32,10 @@ public class MoonPart : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {
+        Debug.LogError("down 1");
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress == 0)
         {
+            Debug.LogError("down 2");
             if (!echo)
             {
                 if (!takenParts.Contains(part))
@@ -75,6 +77,7 @@ public class MoonPart : Interactable
                     temporaryPosition = Vector3.zero;
                 }
 
+                Debug.LogError("move");
                 if (temporaryPosition.magnitude / maxDistance <= 1)
                     transform.localPosition = temporaryPosition;
             }
@@ -83,7 +86,7 @@ public class MoonPart : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if ((btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) || btn.Equals(MouseInputManager.MouseButton.NONE)) && !echo)
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)  && !echo)
         {
             if (takenParts.Contains(part) && Progress == 0)
             {
@@ -108,6 +111,7 @@ public class MoonPart : Interactable
 
     public override void OnNewValue()
     {
+        base.OnNewValue();
         if (!unlocked)
         {
             unlocked = true;

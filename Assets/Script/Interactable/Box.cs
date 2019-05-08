@@ -14,6 +14,10 @@ public class Box : Interactable
 
     [SerializeField]
     BoxPart part;
+
+    [SerializeField]
+    CameraWaypoints waypoints;
+
     Vector3 originPositionLocal;
     bool dragg = false;
 
@@ -86,17 +90,22 @@ public class Box : Interactable
         //Done only once
         if (Progress == 1)
         {
-            if (!done)
-            {
-                done = true;
-                foreach (Interactable inter in GameObject.FindObjectsOfType<Interactable>())
-                {
-                    if (!(inter is Box))
-                        inter.Progress++;
-                }
-            }
+            waypoints.StartNextWaypoint(NextStep);
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
         }       
+    }
+
+    void NextStep()
+    {
+        if (!done)
+        {
+            done = true;
+            foreach (Interactable inter in GameObject.FindObjectsOfType<Interactable>())
+            {
+                if (!(inter is Box))
+                    inter.Progress++;
+            }
+        }
     }
 }
