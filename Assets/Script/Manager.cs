@@ -21,7 +21,6 @@ public class Manager : MonoBehaviour
         if (Display.displays.Length > 1)
         {
             Display.displays[1].Activate();
-            cam2.transform.RotateAround(plateau2.transform.position, Vector3.up, 180);
         }       
     }
 }

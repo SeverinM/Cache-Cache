@@ -91,7 +91,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7400f816599f55349bfa0e42de978e75, type: 3}
+  - {fileID: 2100000, guid: 9d955a6978e6128459d2206aa0a02f53, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -138,11 +138,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
   block: 0
-  draggingSensitivity: 0.2
   part: 1
-  coeffDrag: 200
+  waypoints: {fileID: 0}
+  draggSpeed: 0
   maxDistance: 0.5
-  plateau: {fileID: 0}
+  img: {fileID: 0}
 --- !u!1 &5331884545091390039
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +202,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 7400f816599f55349bfa0e42de978e75, type: 3}
+  - {fileID: 2100000, guid: 6645c0d3818219c44a91dbff0d8acdfe, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -249,8 +249,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
   block: 0
-  draggingSensitivity: 0.2
   part: 0
-  coeffDrag: 200
+  waypoints: {fileID: 0}
+  draggSpeed: 0
   maxDistance: 0.5
-  plateau: {fileID: 0}
+  img: {fileID: 0}
