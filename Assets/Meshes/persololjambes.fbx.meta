@@ -1,45 +1,57 @@
 fileFormatVersion: 2
-guid: 8207ed7e0c1294a09bf27c1d248898a7
+guid: 13dc0ac7d8f7f12418475e91d245930c
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
     100000: corps
-    100002: //RootNode
-    100004: queue
-    100006: tete
-    100008: visage
+    100002: cuissedroite
+    100004: cuissegauche
+    100006: jambedroite
+    100008: jambegauche
     100010: oeildroit
     100012: oeilgauche
+    100014: //RootNode
+    100016: tete
     400000: corps
-    400002: //RootNode
-    400004: queue
-    400006: tete
-    400008: visage
+    400002: cuissedroite
+    400004: cuissegauche
+    400006: jambedroite
+    400008: jambegauche
     400010: oeildroit
     400012: oeilgauche
+    400014: //RootNode
+    400016: tete
     2100000: lambert1
+    2100002: lambert8
     2300000: corps
-    2300002: queue
-    2300004: tete
-    2300006: visage
-    2300008: oeildroit
-    2300010: oeilgauche
+    2300002: cuissedroite
+    2300004: cuissegauche
+    2300006: jambedroite
+    2300008: jambegauche
+    2300010: oeildroit
+    2300012: oeilgauche
+    2300014: tete
     3300000: corps
-    3300002: queue
-    3300004: tete
-    3300006: visage
-    3300008: oeildroit
-    3300010: oeilgauche
-    4300000: corps
-    4300002: tete
-    4300004: queue
-    4300006: visage
-    4300008: oeildroit
-    4300010: oeilgauche
-    2186277476908879412: ImportLogs
+    3300002: cuissedroite
+    3300004: cuissegauche
+    3300006: jambedroite
+    3300008: jambegauche
+    3300010: oeildroit
+    3300012: oeilgauche
+    3300014: tete
+    4300000: tete
+    4300002: oeildroit
+    4300004: oeilgauche
+    4300006: corps
+    4300008: cuissegauche
+    4300010: jambegauche
+    4300012: cuissedroite
+    4300014: jambedroite
+    7400000: Take 001
+    9500000: //RootNode
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -74,8 +86,8 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
@@ -89,8 +101,8 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-    previousCalculatedGlobalScale: 1
-    hasPreviousCalculatedGlobalScale: 0
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -117,7 +129,7 @@ ModelImporter:
     hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
-  animationType: 0
+  animationType: 2
   humanoidOversampling: 1
   additionalBone: 0
   userData: 
