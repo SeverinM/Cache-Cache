@@ -13,6 +13,7 @@ public class ClassicSpot : Spot
 
     public override void ExitSpot(Draggable dragg)
     {
+
     }
 
     public override void ReleaseSpot(Draggable dragg)
