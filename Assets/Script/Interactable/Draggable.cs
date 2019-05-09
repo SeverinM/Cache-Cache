@@ -11,8 +11,8 @@ public class Draggable : Interactable
     protected bool dragging = false;
     public bool Dragging => dragging;
 
-    GameObject lastTouchedGameObject;
-    Vector3 origin;
+    protected GameObject lastTouchedGameObject;
+    protected Vector3 origin;
 
     private void Awake()
     {

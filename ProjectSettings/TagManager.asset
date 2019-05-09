@@ -8,6 +8,7 @@ TagManager:
   - Spot
   - Ete
   - Hiver
+  - TreeSpot
   layers:
   - Default
   - TransparentFX

@@ -13,9 +13,12 @@ public class Tree : Draggable
     float TimerDragging;
     bool dragged = false;
 
+    public Transform ActualSpot;
+
     private void Awake()
     {
         squirrel = null;
+        ActualSpot.GetComponentInChildren<Collider>().enabled = false;
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -40,6 +43,7 @@ public class Tree : Draggable
         if (TimerDragging <= 0)
         {
             dragged = true;
+            ActualSpot.SetParent(null);
             base.MouseMove(btn, mouse, echo);
         }
         
@@ -58,7 +62,19 @@ public class Tree : Draggable
                 FouilleTree();
             }
 
-            base.MouseUp(btn, mouse, echo);
+            if(lastTouchedGameObject && lastTouchedGameObject.tag == "TreeSpot")
+            {
+                ActualSpot.GetComponentInChildren<Collider>().enabled = true;
+                
+                base.MouseUp(btn, mouse, echo);
+                ActualSpot = lastTouchedGameObject.transform;
+                ActualSpot.GetComponentInChildren<Collider>().enabled = false;
+            }
+            else
+            {
+                transform.position = origin;
+            }
+
             dragged = false;
         }
     }
