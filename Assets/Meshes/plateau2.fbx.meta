@@ -1,25 +1,20 @@
 fileFormatVersion: 2
-guid: 6f7fb743379aafc47b1b3902755ffefe
+guid: 126bec99a7c276d4caa0067d8b3cdeba
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: eau
-    100002: //RootNode
-    100004: plateau_lac2
-    400000: eau
-    400002: //RootNode
-    400004: plateau_lac2
-    2100000: lambert8
-    2100002: lambert1
-    2300000: eau
-    2300002: plateau_lac2
-    3300000: eau
-    3300002: plateau_lac2
-    4300000: eau
-    4300002: plateau_lac2
+    100000: //RootNode
+    100002: plateau_lac2
+    400000: //RootNode
+    400002: plateau_lac2
+    2100000: lambert1
+    2100002: lambert8
+    2300000: plateau_lac2
+    3300000: plateau_lac2
+    4300000: plateau_lac2
   externalObjects: {}
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
     materialLocation: 1
