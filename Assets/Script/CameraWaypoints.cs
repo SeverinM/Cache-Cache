@@ -10,6 +10,7 @@ public class CameraWaypoints : MonoBehaviour
         public Transform relativeDestination;
         public float duration;
         public AnimationCurve curve;
+        public Transform lookAt;
     }
 
     [SerializeField]
@@ -35,7 +36,7 @@ public class CameraWaypoints : MonoBehaviour
         Vector3 forwardOrigin = transform.forward;
         Vector3 originPosition = transform.position;
         Vector3 destinationPosition = currentWaypoint.relativeDestination.position;
-        Vector3 destinationForward = currentWaypoint.relativeDestination.forward;
+        Vector3 destinationForward = (currentWaypoint.lookAt ? currentWaypoint.lookAt.transform.position - transform.position : currentWaypoint.relativeDestination.forward);
 
         while (normalizedTime < 1)
         {

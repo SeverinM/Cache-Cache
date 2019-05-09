@@ -21,7 +21,7 @@ public static class AllEnigme
         if (!box1 || !box2)
             return false;
 
-        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && box1.Ratio >= 0.999f && box2.Ratio >= 0.9999f);
+        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && box1.Ratio >= 0.9f && box2.Ratio >= 0.9f);
     }
 
     public static bool IS_SQUIRREL_FOUND(params Interactable[] allInter)
