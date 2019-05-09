@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MoonPart : Interactable
 {
@@ -16,7 +17,12 @@ public class MoonPart : Interactable
     }
 
     static bool unlocked = false;
+    static List<TeleportSpot> tpSpots = new List<TeleportSpot>();
     static List<Part> takenParts = new List<Part>();
+
+    [SerializeField]
+    TeleportSpot tpSpot;
+
     [SerializeField]
     Part part;
 
@@ -30,12 +36,15 @@ public class MoonPart : Interactable
 
     protected bool canMove = false;
 
+    private void Awake()
+    {
+        if (tpSpot) tpSpots.Add(tpSpot);
+    }
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {
-        Debug.LogError("down 1");
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress == 0)
         {
-            Debug.LogError("down 2");
             if (!echo)
             {
                 if (!takenParts.Contains(part))
@@ -77,7 +86,6 @@ public class MoonPart : Interactable
                     temporaryPosition = Vector3.zero;
                 }
 
-                Debug.LogError("move");
                 if (temporaryPosition.magnitude / maxDistance <= 1)
                     transform.localPosition = temporaryPosition;
             }
@@ -112,10 +120,11 @@ public class MoonPart : Interactable
     public override void OnNewValue()
     {
         base.OnNewValue();
-        if (!unlocked)
+        if (!unlocked && Progress == 1)
         {
             unlocked = true;
-            foreach(TeleportSpot tp in GameObject.FindObjectsOfType<TeleportSpot>())
+            Debug.LogError("kop");
+            foreach(TeleportSpot tp in tpSpots.Distinct())
             {
                 foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
                 {

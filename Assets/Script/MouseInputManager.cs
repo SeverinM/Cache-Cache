@@ -103,7 +103,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Start()
     {
-        //Cursor.visible = false;
+        Cursor.visible = false;
         bool res = init();
         StartCoroutine(DelayedStart());
     }
@@ -198,7 +198,6 @@ public class MouseInputManager : MonoBehaviour
                     pointer.delta = new Vector2(dx, dy);
 
                     //Invisible while not moving
-                    pointer.obj.GetComponent<Image>().enabled = true;
 
                     pointer.obj.transform.position += new Vector3(dx, -dy, 0);
 
@@ -238,6 +237,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Interaction(MousePointer pointer , MouseButton btn , ActionType act)
     {
+        pointer.obj.GetComponent<Image>().enabled = true;
         Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
 
         Vector3 position = pointer.obj.transform.position;
