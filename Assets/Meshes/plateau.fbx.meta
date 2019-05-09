@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 726dcfb8cccf047c7a2201b55e1e8ea8
+guid: 6f7fb743379aafc47b1b3902755ffefe
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
@@ -9,7 +9,7 @@ ModelImporter:
     400000: eau
     400002: //RootNode
     400004: plateau_lac2
-    2100000: plateau01_blinn1
+    2100000: lambert8
     2100002: lambert1
     2300000: eau
     2300002: plateau_lac2
@@ -19,7 +19,7 @@ ModelImporter:
     4300002: plateau_lac2
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -54,8 +54,8 @@ ModelImporter:
     useSRGBMaterialColor: 1
     importVisibility: 1
     importBlendShapes: 1
-    importCameras: 0
-    importLights: 0
+    importCameras: 1
+    importLights: 1
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
