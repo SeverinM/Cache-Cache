@@ -38,8 +38,9 @@ public class Box : Interactable
 
     public float Ratio => Vector3.Distance(originPositionLocal, transform.localPosition) / maxDistance;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         originPositionLocal = transform.localPosition;
         minNoStretch = img.GetComponent<RectTransform>().anchorMin;
         maxNoStretch = img.GetComponent<RectTransform>().anchorMax;
@@ -57,8 +58,11 @@ public class Box : Interactable
 
     private void Update()
     {
-        img.GetComponent<RectTransform>().anchorMin = Vector2.Lerp(minNoStretch, minStretch, Ratio);
-        img.GetComponent<RectTransform>().anchorMax = Vector2.Lerp(maxNoStretch, maxStretch, Ratio);
+        if (img)
+        {
+            img.GetComponent<RectTransform>().anchorMin = Vector2.Lerp(minNoStretch, minStretch, Ratio);
+            img.GetComponent<RectTransform>().anchorMax = Vector2.Lerp(maxNoStretch, maxStretch, Ratio);
+        }
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -112,9 +116,12 @@ public class Box : Interactable
 
     public override void OnNewValue()
     {
-        img.gameObject.SetActive(true);
         base.OnNewValue();
 
+        if (Progress == 0)
+        {
+            img.gameObject.SetActive(true);
+        }
         //Done only once
         if (Progress == 1)
         {

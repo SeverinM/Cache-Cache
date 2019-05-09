@@ -36,8 +36,9 @@ public class MoonPart : Interactable
 
     protected bool canMove = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (tpSpot) tpSpots.Add(tpSpot);
     }
 

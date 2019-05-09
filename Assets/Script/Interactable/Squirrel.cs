@@ -73,7 +73,7 @@ public class Squirrel : Interactable
     IEnumerator AnimationJump()
     {
         bool openEnd = false;
-        Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree && !x.parent.GetComponent<Draggable>().Dragging).
+        Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree).
             OrderBy(x => Vector3.Distance(x.position, transform.position) * Random.Range(0.5f, 2)).ToList()[0];
 
         //Allow to make make first look correct

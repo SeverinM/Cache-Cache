@@ -14,8 +14,9 @@ public class Tree : Draggable
 
     public Transform ActualSpot;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         squirrel = null;
         ActualSpot.GetComponentInChildren<Collider>().enabled = false;
     }

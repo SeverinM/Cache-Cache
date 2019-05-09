@@ -11,7 +11,7 @@ public static class AllEnigme
         if (!moon1 || !moon2)
             return false;
 
-        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && moon1.Ratio >= 0.999f && moon2.Ratio >= 0.999f);
+        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && moon1.Ratio >= 0.9f && moon2.Ratio >= 0.9f);
     }
 
     public static bool IS_BOX_OPEN(params Interactable[] allInter)
@@ -21,7 +21,7 @@ public static class AllEnigme
         if (!box1 || !box2)
             return false;
 
-        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && box1.Ratio >= 0.9f && box2.Ratio >= 0.9f);
+        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && box1.Ratio >= 0.95f && box2.Ratio >= 0.95f);
     }
 
     public static bool IS_SQUIRREL_FOUND(params Interactable[] allInter)

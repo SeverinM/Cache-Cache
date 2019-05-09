@@ -16,6 +16,8 @@ public abstract class Interactable : MonoBehaviour
     public bool Block => block;
 
     //Incrementé quand une enigme est resolu
+
+    [SerializeField]
     protected int progress = -1;
     public int Progress
     {
@@ -41,5 +43,10 @@ public abstract class Interactable : MonoBehaviour
         {
             canInteract = true;
         }
+    }
+
+    protected virtual void Awake()
+    {
+        OnNewValue();
     }
 }
