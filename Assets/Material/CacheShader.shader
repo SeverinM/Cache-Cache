@@ -17,7 +17,7 @@ Shader "CustomMy/CacheShader"
 		_SpecularColor("SpecColor", Color) = (1,1,1,1)
 		_SpecEdgeEffect("Spec Edge Effect", Range(0.001,1)) = 0.2
 
-		_ShadowEdge("Spotlight edge", Range(1,10)) = 1
+		_ShadowEdge("Spotlight edge", Range(0,10)) = 1
 
 		_Debug("Debug", float) = 1
 	}
@@ -99,7 +99,9 @@ Shader "CustomMy/CacheShader"
 				float lightIntensity = smoothstep(0, _EdgeEffect, NdotL * shadow);
 
 				half lightEffect = _LightEffect * NdotL;
-				float4 light = lerp(float4(1, 1, 1, 1), _LightColor0, lightEffect);
+				float4 light0 = lerp(float4(1, 1, 1, 1), _LightColor0, lightEffect);
+				//LIGHT OF DIRECTIONAL 2 //float4 light1 = lerp(float4(1, 1, 1, 1), unity_LightColor[0], lightEffect);
+				//LIGHT OF DIRECTIONAL 3 //float4 light2 = lerp(float4(1, 1, 1, 1), unity_LightColor[1], lightEffect);
 
 				half day = 0;
 				float dayLightIntensity = 1;
@@ -111,7 +113,7 @@ Shader "CustomMy/CacheShader"
 						unity_4LightPosY0[lightIndex],
 						unity_4LightPosZ0[lightIndex]);
 
-					half active = (lightPosition.xyz == (0, 0, 0) ? 0 : 1);
+					half active = (lightPosition.xyz == float3(0, 0, 0) ? 0 : 1);
 					float distanceEffect = (1 / unity_4LightAtten0[lightIndex]) * active * 4;
 					float3 dist = i.worldPos.xyz - lightPosition.xyz;
 					//current NdotL // NdotL = dot(_WorldSpaceLightPos0, normal);
@@ -121,7 +123,7 @@ Shader "CustomMy/CacheShader"
 
 					//shadow in reveal 
 					NdotL = dot(normal, lightPosition);
-					float intensHere = smoothstep(0, _EdgeEffect, NdotL * shadow) * active;
+					float intensHere = smoothstep(0, _EdgeEffect, NdotL *  shadow) * active;
 					dayLightIntensity -= intensHere;
 					//endreveal
 				}
@@ -129,7 +131,7 @@ Shader "CustomMy/CacheShader"
 				dayLightIntensity = clamp(dayLightIntensity, 0, 1);
 
 				fixed4 colDay = (dayLightIntensity * _ColorRShadow) + (1 - dayLightIntensity) * _ColorReveal;
-				fixed4 colNight = (lightIntensity * _ColorNShadow) + (1 - lightIntensity) * _ColorNight;
+				fixed4 colNight = (lightIntensity * _ColorNight) + (1 - lightIntensity) * _ColorNShadow;
 				half4 col = colDay * day + colNight * (1 - day);
 
 				//specular 
@@ -143,10 +145,11 @@ Shader "CustomMy/CacheShader"
 				float4 specular = specularIntensity * _SpecularColor * _SpecIntensity;
 				//end spec
 
-				return col * (light + specular); //RIM// +rim;
+				return col * ((light0)+specular); //RIM// +rim;
 			}
 			ENDCG
 		}
-		UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
+		//UsePass "Legacy Shaders/VertexLit/SHADOWCASTER"
 	}
+		Fallback "Diffuse"
 }
