@@ -121,7 +121,8 @@ public class Box : Interactable
             waypoints.StartNextWaypoint(NextStep);
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
-        }       
+            img.gameObject.SetActive(false);
+        }   
     }
 
     void NextStep()

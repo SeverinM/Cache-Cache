@@ -401,6 +401,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 973268388}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &179808790 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8063950457003842972, guid: 09b6a85169e698d41a0284aca3e17ffd,
+    type: 3}
+  m_PrefabInstance: {fileID: 1894037693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c049aad5c57cc6458a913d6fbf511b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &181489396 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9222166924711571407, guid: 1a684c8e42e054b50afb32ea9eabcfd5,
@@ -1094,6 +1106,16 @@ PrefabInstance:
       propertyPath: tpSpot
       value: 
       objectReference: {fileID: 463317581}
+    - target: {fileID: 497243585119894520, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: draggingSensitivity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 497243585119894520, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: coeffDrag
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5542086926533730581, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1179,6 +1201,11 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 1253874039}
+    - target: {fileID: 2399209166046150554, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: coeffDrag
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6128535570768172388, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_RootOrder
@@ -1862,7 +1889,7 @@ PrefabInstance:
         type: 3}
       propertyPath: waypoints
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 179808790}
     - target: {fileID: 6199053336157885438, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: img
@@ -1902,7 +1929,7 @@ PrefabInstance:
         type: 3}
       propertyPath: waypoints
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 179808790}
     - target: {fileID: 6283014374477743172, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: img
@@ -2283,6 +2310,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bab8172cf6065a49b7b71b6bf415603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1268417583 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8063950457003842972, guid: 09b6a85169e698d41a0284aca3e17ffd,
+    type: 3}
+  m_PrefabInstance: {fileID: 631968519}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c049aad5c57cc6458a913d6fbf511b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1296686088
@@ -2781,6 +2820,11 @@ PrefabInstance:
       propertyPath: tpSpot
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 497243585119894520, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: coeffDrag
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 5542086926533730581, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2856,6 +2900,11 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 1935484840}
+    - target: {fileID: 2399209166046150554, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: coeffDrag
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6128535570768172388, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_RootOrder
@@ -3418,18 +3467,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1070406028}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2313362275221562373 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2694997016817140699, guid: b5761bc8efee2432cb7a9fb4eca9acea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1760768888}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bad4533de4c08ec42a39d8b8f2ee98f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &5331884546325935724
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3531,7 +3568,7 @@ PrefabInstance:
         type: 3}
       propertyPath: waypoints
       value: 
-      objectReference: {fileID: 2313362275221562373}
+      objectReference: {fileID: 1268417583}
     - target: {fileID: 6199053336157885438, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: img
@@ -3571,7 +3608,7 @@ PrefabInstance:
         type: 3}
       propertyPath: waypoints
       value: 
-      objectReference: {fileID: 2313362275221562373}
+      objectReference: {fileID: 1268417583}
     - target: {fileID: 6283014374477743172, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: img

@@ -25,6 +25,7 @@ public class Squirrel : Interactable
     {
         currentTree = potentialTrees[0];
         transform.position = currentTree.transform.position;
+        transform.SetParent(currentTree);
         currentTree.parent.GetComponent<Tree>().squirrel = this;
     }
 
