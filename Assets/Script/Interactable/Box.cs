@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Box : Interactable
 {
@@ -27,11 +28,37 @@ public class Box : Interactable
     [SerializeField]
     float maxDistance;
 
+    Vector2 minNoStretch;
+    Vector2 maxNoStretch;
+    Vector2 minStretch;
+    Vector2 maxStretch;
+
+    [SerializeField]
+    Image img;
+
     public float Ratio => Vector3.Distance(originPositionLocal, transform.localPosition) / maxDistance;
 
     private void Awake()
     {
         originPositionLocal = transform.localPosition;
+        minNoStretch = img.GetComponent<RectTransform>().anchorMin;
+        maxNoStretch = img.GetComponent<RectTransform>().anchorMax;
+        if (part == BoxPart.HIGH)
+        {
+            minStretch = new Vector2(minNoStretch.x + 0.05f, minNoStretch.y);
+            maxStretch = new Vector2(maxNoStretch.x - 0.05f, 1);
+        }
+        else
+        {
+            maxStretch = new Vector2(maxNoStretch.x - 0.05f, maxNoStretch.y);
+            minStretch = new Vector2(minNoStretch.x + 0.05f, 0);
+        }
+    }
+
+    private void Update()
+    {
+        img.GetComponent<RectTransform>().anchorMin = Vector2.Lerp(minNoStretch, minStretch, Ratio);
+        img.GetComponent<RectTransform>().anchorMax = Vector2.Lerp(maxNoStretch, maxStretch, Ratio);
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -85,6 +112,7 @@ public class Box : Interactable
 
     public override void OnNewValue()
     {
+        img.gameObject.SetActive(true);
         base.OnNewValue();
 
         //Done only once
