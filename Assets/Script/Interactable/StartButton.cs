@@ -10,6 +10,17 @@ public class StartButton : Interactable
     [SerializeField]
     GameObject panelGame;
 
+    [SerializeField]
+    Interactable boxUp;
+
+    [SerializeField]
+    Interactable boxDown;
+
+    private void Awake()
+    {
+        canInteract = true;
+    }
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
@@ -32,13 +43,8 @@ public class StartButton : Interactable
         {
             panelStart.SetActive(false);
             panelGame.SetActive(true);
-            if (!echo)
-            {
-                foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
-                {
-                    inter.Progress++;
-                }
-            }
+            boxDown.Progress++;
+            boxUp.Progress++;
         }
     }
 }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Tree : Draggable
 {
-    [HideInInspector]
     public Squirrel squirrel;
 
     [SerializeField]
@@ -53,13 +52,13 @@ public class Tree : Draggable
     {
         if(btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            if (squirrel && !dragged)
+            if (!dragged)
             {
-                squirrel.NextJump();
-            }
-            else if (!dragged)
-            {
-                FouilleTree();
+                if (!squirrel)
+                    FouilleTree();
+
+                else
+                    squirrel.NextJump();
             }
 
             if(lastTouchedGameObject && lastTouchedGameObject.tag == "TreeSpot")
@@ -86,10 +85,7 @@ public class Tree : Draggable
 
     public void FouilleTree()
     {
-        if(this.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme"))
-        {
-            this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
-        }
+        this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
     }
 }
 

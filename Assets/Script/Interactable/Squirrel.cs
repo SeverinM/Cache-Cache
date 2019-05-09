@@ -21,14 +21,12 @@ public class Squirrel : Interactable
     Transform currentTree;
     Transform previousTree;
 
-
-    private void Awake()
+    private void Start()
     {
         currentTree = potentialTrees[0];
-        this.transform.SetParent(currentTree);
         transform.position = currentTree.transform.position;
+        transform.SetParent(currentTree);
         currentTree.parent.GetComponent<Tree>().squirrel = this;
-        canInteract = false;
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)

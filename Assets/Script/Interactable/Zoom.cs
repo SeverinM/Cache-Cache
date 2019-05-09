@@ -72,7 +72,7 @@ public class Zoom : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.RIGHT_BUTTON) && progress >= 0)
+        if (btn.Equals(MouseInputManager.MouseButton.RIGHT_BUTTON))
         {
             if (actualState.Equals(StateZoom.Waiting))
             {

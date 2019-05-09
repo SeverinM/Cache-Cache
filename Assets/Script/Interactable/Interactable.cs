@@ -4,8 +4,7 @@ using UnityEngine;
 
 public abstract class Interactable : MonoBehaviour
 {
-
-    protected bool canInteract = true;
+    protected bool canInteract = false;
     public bool CanInteract => canInteract;
 
     [SerializeField]
@@ -31,11 +30,16 @@ public abstract class Interactable : MonoBehaviour
         }
     }
 
-
     public abstract void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
     public abstract void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
     public abstract void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse ,Interactable echo = null);
     public abstract void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
     public abstract void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
-    public virtual void OnNewValue() { }
+    public virtual void OnNewValue()
+    {
+        if (Progress >= 0)
+        {
+            canInteract = true;
+        }
+    }
 }

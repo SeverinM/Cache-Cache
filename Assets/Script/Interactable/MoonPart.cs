@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class MoonPart : Interactable
 {
@@ -16,7 +17,12 @@ public class MoonPart : Interactable
     }
 
     static bool unlocked = false;
+    static List<TeleportSpot> tpSpots = new List<TeleportSpot>();
     static List<Part> takenParts = new List<Part>();
+
+    [SerializeField]
+    TeleportSpot tpSpot;
+
     [SerializeField]
     Part part;
 
@@ -28,7 +34,12 @@ public class MoonPart : Interactable
 
     public float Ratio => transform.localPosition.magnitude / maxDistance;
 
-    bool canMove = false;
+    protected bool canMove = false;
+
+    private void Awake()
+    {
+        if (tpSpot) tpSpots.Add(tpSpot);
+    }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {
@@ -42,7 +53,6 @@ public class MoonPart : Interactable
                     takenParts.Add(part);
                     baseSensitivity = mouse.sensitivity;
                     mouse.sensitivity = draggingSensitivity;
-                    Debug.Log(gameObject);
                 }
             }
         }
@@ -84,7 +94,7 @@ public class MoonPart : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if ((btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) || btn.Equals(MouseInputManager.MouseButton.NONE)) && !echo)
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)  && !echo)
         {
             if (takenParts.Contains(part) && Progress == 0)
             {
@@ -109,10 +119,12 @@ public class MoonPart : Interactable
 
     public override void OnNewValue()
     {
-        if (!unlocked)
+        base.OnNewValue();
+        if (!unlocked && Progress == 1)
         {
             unlocked = true;
-            foreach(TeleportSpot tp in GameObject.FindObjectsOfType<TeleportSpot>())
+            Debug.LogError("kop");
+            foreach(TeleportSpot tp in tpSpots.Distinct())
             {
                 foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
                 {
