@@ -4,14 +4,24 @@ using UnityEngine;
 
 public class TreeSpot : ClassicSpot
 {
-    bool occupied = false;
     public override void ReleaseSpot(Draggable dragg)
     {
-        //Filtre que les arbres + SI ILS NE SONT PAS DEJA OCCUPE PAR UN ARBRE
-        if (dragg is Tree &&! occupied)
+        Tree tree = (Tree)dragg;
+
+        //it's a tree and no tree is already on the spot
+        if (tree && !transform.parent.GetComponent<Tree>())
         {
-            dragg.transform.position = transform.position;
-            occupied = true; // JE SAIS PAS QUEL EVENT APPELER POUR METTRE OCCUPIED EN FALSE
+            tree.transform.position = transform.position;
+            tree.SetTreeSpot(this);
         }
+        else
+        {
+            tree.ResetPosition();
+        }
+    }
+
+    public override void SetValue(Draggable dragg, bool value)
+    {
+        //Do nothing
     }
 }

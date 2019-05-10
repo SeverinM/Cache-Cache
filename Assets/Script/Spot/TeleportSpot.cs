@@ -20,6 +20,7 @@ public class TeleportSpot : Spot
 
     public override void ReleaseSpot(Draggable dragg)
     {
+        SetValue(dragg, false);
         dragg.transform.position = (this != spot1 ? spot1 : spot2).transform.position;
     }
 
@@ -28,7 +29,7 @@ public class TeleportSpot : Spot
         if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance)
         {
             gameObject.GetComponent<MeshRenderer>().enabled = value;
-            gameObject.GetComponent<SphereCollider>().enabled = value;
+            gameObject.GetComponent<Collider>().enabled = value;
         }
             
     }

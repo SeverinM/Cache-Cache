@@ -14,8 +14,9 @@ public class Draggable : Interactable
     protected GameObject lastTouchedGameObject;
     protected Vector3 origin;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         foreach(Spot sp in allSpot)
         {
             sp.SetValue(this, false);
@@ -54,7 +55,6 @@ public class Draggable : Interactable
             {
                 if (hit.collider.CompareTag(Manager.MAQUETTE_TAG) || hit.collider.GetComponent<Spot>())
                 {
-                    Debug.LogError(hit.collider.gameObject);
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
                     break;
@@ -92,5 +92,10 @@ public class Draggable : Interactable
     public void RemoveSpot(Spot sp)
     {
         allSpot.Remove(sp);
+    }
+
+    public virtual void ResetPosition()
+    {
+        transform.position = origin;
     }
 }
