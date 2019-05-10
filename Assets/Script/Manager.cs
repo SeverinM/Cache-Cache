@@ -21,6 +21,8 @@ public class Manager : MonoBehaviour
         if (Display.displays.Length > 1)
         {
             Display.displays[1].Activate();
-        }       
+        }
+
+        SoundManager.getInstance().AddSoundOutput("Audio");
     }
 }
