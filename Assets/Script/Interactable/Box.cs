@@ -19,6 +19,9 @@ public class Box : Interactable
     [SerializeField]
     CameraWaypoints waypoints;
 
+    [SerializeField]
+    GameObject panelGame;
+
     Vector3 originPositionLocal;
     bool dragg = false;
 
@@ -129,6 +132,7 @@ public class Box : Interactable
             GetComponent<BoxCollider>().enabled = false;
             GetComponent<MeshRenderer>().enabled = false;
             img.gameObject.SetActive(false);
+            panelGame.SetActive(true);
         }   
     }
 
