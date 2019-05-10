@@ -97,7 +97,8 @@ public class Tree : Draggable
 
     public void FouilleTree()
     {
-        this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+        if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme"))
+            GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
     }
 
     public void SetTreeSpot(TreeSpot spot)

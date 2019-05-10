@@ -39,7 +39,7 @@ public class StartButton : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress == -1)
         {
             panelStart.SetActive(false);
             panelGame.SetActive(true);

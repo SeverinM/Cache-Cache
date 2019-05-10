@@ -101,6 +101,5 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
-        Debug.LogError(currentTree);
     }
 }
