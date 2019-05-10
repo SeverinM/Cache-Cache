@@ -14,8 +14,9 @@ public class Draggable : Interactable
     protected GameObject lastTouchedGameObject;
     protected Vector3 origin;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         foreach(Spot sp in allSpot)
         {
             sp.SetValue(this, false);
@@ -91,5 +92,10 @@ public class Draggable : Interactable
     public void RemoveSpot(Spot sp)
     {
         allSpot.Remove(sp);
+    }
+
+    public virtual void ResetPosition()
+    {
+        transform.position = origin;
     }
 }

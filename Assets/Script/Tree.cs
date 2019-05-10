@@ -10,21 +10,28 @@ public class Tree : Draggable
     float DelayDragging = 0.1f;
 
     float TimerDragging;
-    bool dragged = false;
 
-    public Transform ActualSpot;
+    TreeSpot actualSpot;
+    TreeSpot temporaryTreeSpot;
+    public TreeSpot TemporaryTreeSpot => temporaryTreeSpot;
+    bool downDone = false;
+    bool isDown = false;
+
+    MouseInputManager.MousePointer currMouse;
 
     protected override void Awake()
     {
         base.Awake();
-        squirrel = null;
-        ActualSpot.GetComponentInChildren<Collider>().enabled = false;
+        actualSpot = GetComponentInChildren<TreeSpot>();
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         TimerDragging = DelayDragging;
-        base.MouseDown(btn, mouse, echo);
+        SetTreeSpot(null);
+
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+            isDown = true;
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -37,45 +44,49 @@ public class Tree : Draggable
         base.MouseLeave(btn, mouse, echo);
     }
 
-    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    private void Update()
     {
-        TimerDragging -= Time.deltaTime;
-        if (TimerDragging <= 0)
+        if (TimerDragging > 0 && isDown)
         {
-            dragged = true;
-            ActualSpot.SetParent(null);
-            base.MouseMove(btn, mouse, echo);
+            TimerDragging -= Time.deltaTime;
+            if (TimerDragging <= 0)
+            {
+                if (!downDone)
+                {
+                    downDone = true;
+                    base.MouseDown(MouseInputManager.MouseButton.LEFT_BUTTON, currMouse, Echo);
+                }
+            }
         }
-        
     }
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if(btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            if (!dragged)
+            isDown = false;
+            if (downDone)
             {
-                if (!squirrel)
-                    FouilleTree();
-
-                else
-                    squirrel.NextJump();
-            }
-
-            if(lastTouchedGameObject && lastTouchedGameObject.tag == "TreeSpot")
-            {
-                ActualSpot.GetComponentInChildren<Collider>().enabled = true;
-                
                 base.MouseUp(btn, mouse, echo);
-                ActualSpot = lastTouchedGameObject.transform;
-                ActualSpot.GetComponentInChildren<Collider>().enabled = false;
+                downDone = false;
             }
             else
             {
-                transform.position = origin;
-            }
-
-            dragged = false;
+                if (!squirrel)
+                    FouilleTree();
+                else
+                {
+                    if (gameObject.tag == "Hiver")
+                    {
+                        squirrel.Progress++;
+                    }
+                    else
+                    {
+                        squirrel.NextJump();
+                    }
+                }
+                    
+            }            
         }
     }
 
@@ -87,6 +98,32 @@ public class Tree : Draggable
     public void FouilleTree()
     {
         this.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+    }
+
+    public void SetTreeSpot(TreeSpot spot)
+    {
+        if (actualSpot)
+            actualSpot.transform.SetParent(null);
+
+        actualSpot = spot;
+
+        //actualSpot can be null
+        if (actualSpot)
+        {
+            actualSpot.transform.SetParent(transform);
+            transform.position = actualSpot.transform.position;
+        }          
+    }
+
+    public override void ResetPosition()
+    {
+        if (!TemporaryTreeSpot)
+            base.ResetPosition();
+        else
+        {
+            SetTreeSpot(TemporaryTreeSpot);
+            temporaryTreeSpot = null;
+        }           
     }
 }
 

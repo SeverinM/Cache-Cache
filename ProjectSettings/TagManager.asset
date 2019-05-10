@@ -9,6 +9,7 @@ TagManager:
   - Ete
   - Hiver
   - TreeSpot
+  - TPSpot
   layers:
   - Default
   - TransparentFX

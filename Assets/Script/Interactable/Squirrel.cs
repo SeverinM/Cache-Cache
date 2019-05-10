@@ -31,10 +31,6 @@ public class Squirrel : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
-        {
-            Progress++;
-        }
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -66,6 +62,7 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
+            Debug.LogError("destruction");
             Destroy(gameObject);
         }
     }
@@ -104,6 +101,6 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
-        canInteract = (currentTree.CompareTag("Hiver"));
+        Debug.LogError(currentTree);
     }
 }
