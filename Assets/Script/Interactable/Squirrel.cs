@@ -62,6 +62,7 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
+            Debug.LogError("destruction");
             Destroy(gameObject);
         }
     }
@@ -100,5 +101,6 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
+        Debug.LogError(currentTree);
     }
 }

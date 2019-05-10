@@ -76,7 +76,7 @@ public class Tree : Draggable
                     FouilleTree();
                 else
                 {
-                    if (CompareTag("Hiver"))
+                    if (gameObject.tag == "Hiver")
                     {
                         squirrel.Progress++;
                     }

@@ -9,7 +9,7 @@ public class TreeSpot : ClassicSpot
         Tree tree = (Tree)dragg;
 
         //it's a tree and no tree is already on the spot
-        if (tree && !transform.parent.GetComponent<Tree>())
+        if (tree && (transform.parent == null || !transform.parent.GetComponent<Tree>()))
         {
             tree.transform.position = transform.position;
             tree.SetTreeSpot(this);

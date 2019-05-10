@@ -461,8 +461,7 @@ MonoBehaviour:
   progress: -1
   allSpot: []
   squirrel: {fileID: 0}
-  DelayDragging: 0.1
-  ActualSpot: {fileID: 7691248252001969745}
+  DelayDragging: 0.3
 --- !u!1 &3664683564104224895
 GameObject:
   m_ObjectHideFlags: 0
