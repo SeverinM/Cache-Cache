@@ -53,7 +53,7 @@ public class MoonPart : Interactable
                     canMove = true;
                     takenParts.Add(part);
                     baseSensitivity = mouse.sensitivity;
-                    mouse.sensitivity = draggingSensitivity;
+                    //mouse.sensitivity = draggingSensitivity;
                 }
             }
         }

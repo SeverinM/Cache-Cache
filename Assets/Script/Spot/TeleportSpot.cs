@@ -15,6 +15,13 @@ public class TeleportSpot : Spot
     [SerializeField]
     MoonPart PartieBasse;
 
+    Vector3 OuvertHaut;
+    Vector3 OuvertBas;
+    Vector3 OuvertHautEcho;
+    Vector3 OuvertBasEcho;
+
+    bool busy = false;
+
     public override void EnterSpot(Draggable dragg)
     {
     }
@@ -25,8 +32,23 @@ public class TeleportSpot : Spot
 
     public override void ReleaseSpot(Draggable dragg)
     {
-        SetValue(dragg, false);
-        dragg.transform.position = (this != spot1 ? spot1 : spot2).transform.position;
+        if(!busy)
+        {
+            SetValue(dragg, false);
+            dragg.transform.position = (this != spot1 ? spot1 : spot2).transform.position;
+
+            OuvertHaut = PartieHaute.transform.localPosition;
+            PartieHaute.transform.localPosition = Vector3.zero;
+            OuvertBas = PartieBasse.transform.localPosition;
+            PartieBasse.transform.localPosition = Vector3.zero;
+
+            OuvertHautEcho = PartieHaute.Echo.transform.localPosition;
+            PartieHaute.Echo.transform.localPosition = Vector3.zero;
+            OuvertBasEcho = PartieBasse.Echo.transform.localPosition;
+            PartieBasse.Echo.transform.localPosition = Vector3.zero;
+
+            busy = true;
+        }
     }
 
     public override void SetValue(Draggable dragg, bool value)
