@@ -524,12 +524,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7342b118008af5540857035d915a8d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
   echo: {fileID: 0}
   block: 0
-  progress: 0
-  begin: {fileID: 1233401572}
-  end: {fileID: 464570002}
+  progress: -1
+  begin: {fileID: 0}
+  end: {fileID: 0}
 --- !u!1 &684529342
 GameObject:
   m_ObjectHideFlags: 0
@@ -634,7 +633,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7342b118008af5540857035d915a8d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
   echo: {fileID: 0}
   block: 0
   progress: 0
@@ -953,12 +951,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7342b118008af5540857035d915a8d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
   echo: {fileID: 0}
   block: 0
-  progress: 0
-  begin: {fileID: 464570002}
-  end: {fileID: 1233401572}
+  progress: -1
+  begin: {fileID: 0}
+  end: {fileID: 0}
 --- !u!1 &1489313116
 GameObject:
   m_ObjectHideFlags: 0
@@ -1502,11 +1499,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7342b118008af5540857035d915a8d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canInteract: 0
   echo: {fileID: 0}
   block: 0
   progress: 0
-  begin: {fileID: 1874147131}
+  begin: {fileID: 1958383543}
   end: {fileID: 125202170}
 --- !u!114 &1958383546
 MonoBehaviour:
