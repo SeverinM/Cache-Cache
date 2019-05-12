@@ -18,7 +18,7 @@ public class MoonPart : Interactable
 
     static bool unlocked = false;
     static List<TeleportSpot> tpSpots = new List<TeleportSpot>();
-    static List<Part> takenParts = new List<Part>();
+    static Dictionary<Part, GameObject> authorityTable;
 
     [SerializeField]
     TeleportSpot tpSpot;
@@ -48,10 +48,10 @@ public class MoonPart : Interactable
         {
             if (!echo)
             {
-                if (!takenParts.Contains(part))
+                if (hasControl(part))
                 {
                     canMove = true;
-                    takenParts.Add(part);
+                    authorityTable[part] = gameObject;
                     baseSensitivity = mouse.sensitivity;
                     mouse.sensitivity = draggingSensitivity;
                 }
@@ -97,9 +97,9 @@ public class MoonPart : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)  && !echo)
         {
-            if (takenParts.Contains(part) && Progress == 0)
+            if (hasControl(part) && Progress == 0)
             {
-                takenParts.Remove(part);
+                authorityTable.Remove(part);
 
                 //Moon not locked yet
                 if (progress == 0)
@@ -133,5 +133,10 @@ public class MoonPart : Interactable
                 }
             }
         }
+    }
+
+    bool hasControl(Part which)
+    {
+        return (!authorityTable.ContainsKey(which) || authorityTable[which] == gameObject);
     }
 }
