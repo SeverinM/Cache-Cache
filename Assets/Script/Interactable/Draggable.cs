@@ -71,6 +71,12 @@ public class Draggable : Interactable
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
             {
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
+
+                //permet de checker lorsque un draggable n'est plus dans la lune
+                if(!lastTouchedGameObject.GetComponent<TeleportSpot>())
+                {
+                    this.transform.SetParent(null);
+                }
             }
             else
             {
