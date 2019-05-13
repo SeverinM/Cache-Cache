@@ -18,7 +18,7 @@ public class MoonPart : Interactable
 
     static bool unlocked = false;
     static List<TeleportSpot> tpSpots = new List<TeleportSpot>();
-    static Dictionary<Part, GameObject> authorityTable;
+    static Dictionary<Part, GameObject> authorityTable = new Dictionary<Part, GameObject>();
 
     [SerializeField]
     TeleportSpot tpSpot;
@@ -111,10 +111,10 @@ public class MoonPart : Interactable
                     }
                 }
 
+                mouse.sensitivity = baseSensitivity;
                 canMove = false;
             }
 
-            mouse.sensitivity = baseSensitivity;
         }       
     }
 
