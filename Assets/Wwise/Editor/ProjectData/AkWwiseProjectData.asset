@@ -443,9 +443,5 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /M1_CACHE-CACHE
-  - /M1_CACHE-CACHE/Events
-  - /M1_CACHE-CACHE/Events/Default Work Unit
-  - /M1_CACHE-CACHE/SoundBanks
-  - /M1_CACHE-CACHE/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

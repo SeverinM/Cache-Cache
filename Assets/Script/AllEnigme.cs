@@ -28,4 +28,9 @@ public static class AllEnigme
     {
         return (allInter[0] is Squirrel && allInter[0].Progress == 1);       
     }
+
+    public static bool IS_CHAR_PULLED(params Interactable[] allInter)
+    {
+        return (allInter[0] is PersoEnfoui && ((PersoEnfoui)allInter[0]).Ratio > 0.9f);
+    }
 }

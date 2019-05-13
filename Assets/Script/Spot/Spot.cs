@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class Spot : MonoBehaviour
 {
+    protected Draggable currentHold;
+    public Draggable CurrentHold { get; set; }
+
     public abstract void EnterSpot(Draggable dragg);
     public abstract void ExitSpot(Draggable dragg);
     public abstract void ReleaseSpot(Draggable dragg);

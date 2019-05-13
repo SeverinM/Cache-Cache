@@ -10,6 +10,11 @@ public class TeleportSpot : Spot
     [SerializeField]
     float maxDistance = 500;
 
+    [SerializeField]
+    MoonPart PartieHaute;
+    [SerializeField]
+    MoonPart PartieBasse;
+
     public override void EnterSpot(Draggable dragg)
     {
     }
