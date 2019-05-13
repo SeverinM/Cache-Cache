@@ -11,6 +11,7 @@ public class FeuArtifice : MonoBehaviour
         public Gradient colorGradient;
         public SpriteRenderer sP;
         public AnimationCurve scaleCurve;
+        public AnimationCurve speedCurve;
 
         public float randomGravity = 1;
         public float randomSpeed = 1;
@@ -37,6 +38,7 @@ public class FeuArtifice : MonoBehaviour
     public GameObject prefabSousArtifice;
     public Vector2 minMaxBranches = new Vector2(4, 8);
     public AnimationCurve sousArtificeScaleCurve;
+    public AnimationCurve sousArtificeSpeedCurve;
 
     [Header("Branches")]
     public float brancheDuration;
@@ -102,6 +104,7 @@ public class FeuArtifice : MonoBehaviour
             sA.trail = g0.GetComponent<TrailRenderer>();
             sA.colorGradient = colorGradient[indexGradient];
             sA.scaleCurve = sousArtificeScaleCurve;
+            sA.speedCurve = sousArtificeSpeedCurve;
             branches.Add(sA);
 
             sA.tr.Rotate(0, 0, i * (float)360 / (float)nmbrBranch);
@@ -121,7 +124,7 @@ public class FeuArtifice : MonoBehaviour
         {
             foreach (SousArtifice sA in branches)
             {
-                sA.tr.Translate(directionBase * sA.scaleCurve.Evaluate(lerpVal) * sA.randomSpeed, Space.Self);
+                sA.tr.Translate(directionBase * sA.speedCurve.Evaluate(lerpVal) * sA.randomSpeed, Space.Self);
                 sA.tr.position += Vector3.down * gravitationCurve.Evaluate(lerpVal) * sA.randomGravity;
                 sA.tr.localScale = Vector3.one * sA.scaleCurve.Evaluate(Mathf.Clamp01(lerpVal * sA.randomSpeed));
                 sA.trail.startWidth = sA.tr.localScale.y * 0.7f;
