@@ -32,6 +32,7 @@ public class MenuScript : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
+        Debug.Log("down");
         if (btn == MouseInputManager.MouseButton.LEFT_BUTTON)
         {
             end.SetActive(true);
