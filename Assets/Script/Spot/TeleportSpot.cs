@@ -18,19 +18,21 @@ public class TeleportSpot : Spot
     Transform AutreTPSpot;
 
     [SerializeField]
-    float animationSpeed = 2f;
+    static float animationSpeed = 2f;
 
-    Vector3 OuvertHaut;
-    Vector3 OuvertBas;
-    Vector3 OuvertHautEcho;
-    Vector3 OuvertBasEcho;
+    static Vector3 OuvertHaut1;
+    static Vector3 OuvertBas1;
+    static Vector3 OuvertHaut2;
+    static Vector3 OuvertBas2;
 
     static bool busy = false;
+    static bool hiverToEte;
+    static bool eteToHiver;
     
     private void Update()
     {
         //vérifie si la lune contient un objet transféré
-        if(busy && this.transform.childCount == 0 /*&& this.spot2.transform.childCount == 0*/) //comment on vérifie que le spot echo n'a pas d'enfant non plus ?
+        if(busy && spot1.transform.childCount == 0 && spot2.transform.childCount == 0)
         {
             StartCoroutine(AnimationReset());
             busy = false;
@@ -53,11 +55,30 @@ public class TeleportSpot : Spot
 
             SetValue(dragg, false);
 
+            Debug.LogError("initialisation " + gameObject);
             //sauvegarde les positions des parties des lunes
-            OuvertHaut = PartieHaute.transform.localPosition;
-            OuvertBas = PartieBasse.transform.localPosition;
-            OuvertHautEcho = PartieHaute.Echo.transform.localPosition;
-            OuvertBasEcho = PartieBasse.Echo.transform.localPosition;
+
+            if(this == spot1)
+            {
+                OuvertHaut1 = PartieHaute.transform.localPosition;
+                OuvertBas1 = PartieBasse.transform.localPosition;
+                OuvertHaut2 = PartieHaute.Echo.transform.localPosition;
+                OuvertBas2 = PartieBasse.Echo.transform.localPosition;
+
+                eteToHiver = true;
+                hiverToEte = false;
+            }
+            if(this == spot2)
+            {
+                OuvertHaut2 = PartieHaute.transform.localPosition;
+                OuvertBas2 = PartieBasse.transform.localPosition;
+                OuvertHaut1 = PartieHaute.Echo.transform.localPosition;
+                OuvertBas1 = PartieBasse.Echo.transform.localPosition;
+
+                eteToHiver = false;
+                hiverToEte = true;
+            }
+            
 
             StartCoroutine(AnimationTransfert());
 
@@ -95,30 +116,48 @@ public class TeleportSpot : Spot
     {
         float normalizeTime = 0;
 
+
         //ferme les deux lunes
         while (normalizeTime < 1)
         {
             normalizeTime += Time.deltaTime * animationSpeed;
 
-            PartieHaute.transform.localPosition = Vector3.Lerp(OuvertHaut, Vector3.zero, normalizeTime);
-            PartieBasse.transform.localPosition = Vector3.Lerp(OuvertBas, Vector3.zero, normalizeTime);
+            PartieHaute.transform.localPosition = Vector3.Lerp(OuvertHaut1, Vector3.zero, normalizeTime);
+            PartieBasse.transform.localPosition = Vector3.Lerp(OuvertBas1, Vector3.zero, normalizeTime);
 
-            PartieHaute.Echo.transform.localPosition = Vector3.Lerp(OuvertHautEcho, Vector3.zero, normalizeTime);
-            PartieBasse.Echo.transform.localPosition = Vector3.Lerp(OuvertBasEcho, Vector3.zero, normalizeTime);
+            PartieHaute.Echo.transform.localPosition = Vector3.Lerp(OuvertHaut2, Vector3.zero, normalizeTime);
+            PartieBasse.Echo.transform.localPosition = Vector3.Lerp(OuvertBas2, Vector3.zero, normalizeTime);
 
             yield return new WaitForSeconds(0.01f);
         }
 
         //ouvre la lune de destination
-        while (normalizeTime < 2)
+        if(eteToHiver)
         {
-            normalizeTime += Time.deltaTime * animationSpeed;
+            while (normalizeTime < 2)
+            {
+                normalizeTime += Time.deltaTime * animationSpeed;
 
-            PartieHaute.Echo.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertHautEcho, normalizeTime-1);
-            PartieBasse.Echo.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertBasEcho, normalizeTime-1);
+                PartieHaute.Echo.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertHaut2, normalizeTime - 1);
+                PartieBasse.Echo.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertBas2, normalizeTime - 1);
 
-            yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSeconds(0.01f);
+            }
         }
+
+        if (hiverToEte)
+        {
+            while (normalizeTime < 2)
+            {
+                normalizeTime += Time.deltaTime * animationSpeed;
+
+                PartieHaute.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertHaut1, normalizeTime - 1);
+                PartieBasse.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertBas1, normalizeTime - 1);
+
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
     }
 
     IEnumerator AnimationReset()
@@ -126,14 +165,31 @@ public class TeleportSpot : Spot
         float normalizeTime = 0;
 
         //ouvre la lune de départ
-        while (normalizeTime < 1)
+        if(eteToHiver)
         {
-            normalizeTime += Time.deltaTime * animationSpeed;
+            while (normalizeTime < 1)
+            {
+                normalizeTime += Time.deltaTime * animationSpeed;
 
-            PartieHaute.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertHautEcho, normalizeTime);
-            PartieBasse.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertBasEcho, normalizeTime);
+                PartieHaute.Echo.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertHaut1, normalizeTime);
+                PartieBasse.Echo.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertBas1, normalizeTime);
 
-            yield return new WaitForSeconds(0.01f);
+                yield return new WaitForSeconds(0.01f);
+            }
         }
+
+        if (hiverToEte)
+        {
+            while (normalizeTime < 1)
+            {
+                normalizeTime += Time.deltaTime * animationSpeed;
+
+                PartieHaute.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertHaut2, normalizeTime);
+                PartieBasse.transform.localPosition = Vector3.Lerp(Vector3.zero, OuvertBas2, normalizeTime);
+
+                yield return new WaitForSeconds(0.01f);
+            }
+        }
+
     }
 }
