@@ -17,7 +17,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: {x: 0, y: 0, z: 0.9992424, w: 0.03891756}
+        value: {x: 0, y: 0, z: -0.99969184, w: 0.024822861}
         inSlope: {x: 0, y: 0, z: 0, w: 0}
         outSlope: {x: 0, y: 0, z: 0, w: 0}
         tangentMode: 0
@@ -27,7 +27,7 @@ AnimationClip:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
   m_CompressedRotationCurves: []
   m_EulerCurves: []
   m_PositionCurves: []
@@ -42,7 +42,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 238685826
+      path: 1211120803
       attribute: 2
       script: {fileID: 0}
       typeID: 4
@@ -86,7 +86,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.x
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -105,7 +105,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.y
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -113,7 +113,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.9992424
+        value: -0.99969184
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -124,7 +124,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.z
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -132,7 +132,7 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 0.03891756
+        value: 0.024822861
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -143,7 +143,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: m_LocalRotation.w
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   m_EulerEditorCurves:
@@ -163,7 +163,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAngles.x
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -182,7 +182,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAngles.y
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   - curve:
@@ -190,9 +190,9 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 175.53923
-        inSlope: -114.83136
-        outSlope: -114.83136
+        value: -177.1552
+        inSlope: -23.212074
+        outSlope: -23.212074
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
@@ -201,7 +201,7 @@ AnimationClip:
       m_PostInfinity: 2
       m_RotationOrder: 4
     attribute: localEulerAngles.z
-    path: feuillagecylindrehaut
+    path: arbre_ete_feuillagehaut
     classID: 4
     script: {fileID: 0}
   m_HasGenericRootTransform: 0

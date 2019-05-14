@@ -184,31 +184,112 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: cd01331775b96444975f83474de3a448
     GuidInternal: 
-    m_lastTime: -8586448875854775808
+    m_lastTime: -8586438602831466441
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2b53f2358a45ce45a2dbdb0c82638d4c
     GuidInternal: 
-    m_lastTime: -8586448873014775808
+    m_lastTime: -8586437597074775808
     List:
-    - name: cache_cache
+    - name: cache_cache_music
       guid: e6046a74df290a47908094489dd8afeb
-      id: 2996359658
+      id: 1489344442
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: cache_cache
+      - ElementName: cache_cache_music
         ObjectType: 7
-      Path: Default Work Unit\cache_cache
+      Path: Default Work Unit\cache_cache_music
+    - name: cache_cache_SFX
+      guid: f18c66edcf91c24eb5612eb729785ea6
+      id: 1727427018
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: cache_cache_SFX
+        ObjectType: 7
+      Path: Default Work Unit\cache_cache_SFX
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 5489af29f1f6fa4682f38fed891f20d6
     GuidInternal: 
-    m_lastTime: -8586448875854775808
+    m_lastTime: -8586437590254775808
     List:
+    - name: Play_Amb_Playtest
+      guid: c86ee23deb59a04fb24f9fe5cbc5c8b3
+      id: 2840810331
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_Amb_Playtest
+        ObjectType: 3
+      Path: Default Work Unit\Play_Amb_Playtest
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_dead_tree
+      guid: 9a01367fd186714ea412a5caac812cac
+      id: 425965107
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_dead_tree
+        ObjectType: 3
+      Path: Default Work Unit\Play_dead_tree
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_fireworks_explode
+      guid: 3cea49e1d96acb41bf7f320dfddedbcc
+      id: 1304580758
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_fireworks_explode
+        ObjectType: 3
+      Path: Default Work Unit\Play_fireworks_explode
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_fireworks_launch
+      guid: bf85401fbc510a469b60a3eda59ac1cc
+      id: 2042322590
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_fireworks_launch
+        ObjectType: 3
+      Path: Default Work Unit\Play_fireworks_launch
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_moon_open
+      guid: 818cb802955efa49a9fc1e3062b39b65
+      id: 2679573404
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_moon_open
+        ObjectType: 3
+      Path: Default Work Unit\Play_moon_open
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_moon_open_failed
+      guid: 98995dbaf50102499112fe1167583af3
+      id: 2007658800
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_moon_open_failed
+        ObjectType: 3
+      Path: Default Work Unit\Play_moon_open_failed
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
     - name: Play_Summer_Amb
       guid: ed647531cc6c6e4d895544cafa7579b0
       id: 77724524
@@ -218,6 +299,78 @@ MonoBehaviour:
       - ElementName: Play_Summer_Amb
         ObjectType: 3
       Path: Default Work Unit\Play_Summer_Amb
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_summer_tree
+      guid: 5f92c9dea3c4ee4eb5de9d925d20458b
+      id: 1647357108
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_summer_tree
+        ObjectType: 3
+      Path: Default Work Unit\Play_summer_tree
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_transfert_in
+      guid: 5f7f3546e7a2454c976b979aa5093c43
+      id: 2280300737
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_transfert_in
+        ObjectType: 3
+      Path: Default Work Unit\Play_transfert_in
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_transfert_out
+      guid: a4152005924e364c9b1b9c8261a9b1d4
+      id: 3428234176
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_transfert_out
+        ObjectType: 3
+      Path: Default Work Unit\Play_transfert_out
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_tree_move
+      guid: 0d72cfe2da7a3a4ca93d0b6aa8291dc2
+      id: 4059058674
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_tree_move
+        ObjectType: 3
+      Path: Default Work Unit\Play_tree_move
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_voix01
+      guid: 436ae5f3da96c546bae2aaaefcfffa80
+      id: 1560906949
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_voix01
+        ObjectType: 3
+      Path: Default Work Unit\Play_voix01
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_voix02
+      guid: ef0537ffa1b5f14c916c938311705783
+      id: 1560906950
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Play_voix02
+        ObjectType: 3
+      Path: Default Work Unit\Play_voix02
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -443,9 +596,5 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /M1_CACHE-CACHE
-  - /M1_CACHE-CACHE/Events
-  - /M1_CACHE-CACHE/Events/Default Work Unit
-  - /M1_CACHE-CACHE/SoundBanks
-  - /M1_CACHE-CACHE/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

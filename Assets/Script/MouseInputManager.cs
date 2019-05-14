@@ -10,7 +10,7 @@ using UnityEngine.EventSystems;
 public class MouseInputManager : MonoBehaviour
 {
 
-    enum MouseButton
+    public enum MouseButton
     {
         NONE = 0,
         LEFT_BUTTON,
@@ -88,13 +88,13 @@ public class MouseInputManager : MonoBehaviour
         public GameObject obj;
         public Vector2 position;
         public int deviceID;
-        public int playerID;
         public float sensitivity;
         public Vector2 delta;
         public List<Interactable> pointing = new List<Interactable>();
         public Camera cam;
         public Canvas canv;
         public List<Interactable> holding = new List<Interactable>();
+        public Vector3 lastCollisionPoint;
     }
 
     Dictionary<int, MousePointer> pointersByDeviceId = new Dictionary<int, MousePointer>();
@@ -103,7 +103,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Start()
     {
-        //Cursor.visible = false;
+        Cursor.visible = Debug.isDebugBuild;
         bool res = init();
         StartCoroutine(DelayedStart());
     }
@@ -119,13 +119,13 @@ public class MouseInputManager : MonoBehaviour
         init();
     }
 
-    int addCursor(int deviceId)
+    void addCursor(int deviceId)
     {
 
         if (!isInit)
         {
             Debug.LogError("Not initialized");
-            return -1;
+            return;
         }
 
         MousePointer mp = null;
@@ -133,15 +133,14 @@ public class MouseInputManager : MonoBehaviour
         if (mp != null)
         {
             Debug.LogError("This device already has a cursor");
-            return -1;
+            return;
         }
 
-        Debug.Log("Adding DeviceID " + deviceId);
         mp = new MousePointer();
-        mp.playerID = nextPlayerId++;
         mp.deviceID = deviceId;
         pointersByDeviceId[deviceId] = mp;
         mp.position = new Vector3(0, 0, 0);
+        mp.sensitivity = defaultMiceSensitivity;
 
         mp.obj = Instantiate(prefabCursor,miceCount == 0 ? canvas.transform : canvas2.transform);
         mp.cam = (miceCount == 0 ? camera1 : camera2);
@@ -149,7 +148,6 @@ public class MouseInputManager : MonoBehaviour
 
         
         ++miceCount;
-        return mp.playerID;
     }
 
     void deleteCursor(int deviceId)
@@ -195,12 +193,11 @@ public class MouseInputManager : MonoBehaviour
                 MousePointer pointer = null;
                 if (pointersByDeviceId.TryGetValue(ev.devHandle, out pointer))
                 {
-                    float dx = ev.x * defaultMiceSensitivity;
-                    float dy = ev.y * defaultMiceSensitivity;
+                    float dx = ev.x * pointer.sensitivity;
+                    float dy = ev.y * pointer.sensitivity;
                     pointer.delta = new Vector2(dx, dy);
 
                     //Invisible while not moving
-                    pointer.obj.GetComponent<Image>().enabled = true;
 
                     pointer.obj.transform.position += new Vector3(dx, -dy, 0);
 
@@ -239,20 +236,31 @@ public class MouseInputManager : MonoBehaviour
     }
 
     void Interaction(MousePointer pointer , MouseButton btn , ActionType act)
-    {
+    {        
+        if (act.Equals(ActionType.PRESSED))
+        {
+            pointer.obj.GetComponent<Image>().enabled = true;
+        }
+
+        Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
         Vector3 position = pointer.obj.transform.position;
+        position += new Vector3(-pointer.obj.GetComponent<RectTransform>().rect.width * 0.166f, pointer.obj.GetComponent<RectTransform>().rect.width * 0.5f, 0);
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
-        
-        List<Interactable> output = new List<Interactable>();
 
-        //Record every hit objects
-        output.AddRange(Physics.RaycastAll(ray).Select(x => x.collider.GetComponent<Interactable>()).
-            Where(x => x != null));
-
+        foreach(RaycastHit hit in Physics.RaycastAll(ray))
+        {
+            Interactable inter = hit.collider.GetComponent<Interactable>();
+            if (inter)
+            {
+                output[inter] = hit.point;
+                if (inter.Block) break;
+            }
+        }
 
         PointerEventData point = new PointerEventData(GetComponent<EventSystem>());
         point.position = position;
 
+        //IMPORTANT
 #if !UNITY_EDITOR
         if (pointer.cam == camera2)
         {
@@ -263,26 +271,52 @@ public class MouseInputManager : MonoBehaviour
         //Same but for UI
         List<RaycastResult> results = new List<RaycastResult>();
         pointer.canv.GetComponent<GraphicRaycaster>().Raycast(point, results);
-        output.AddRange(results.Select(x => x.gameObject.GetComponent<Interactable>())
-            .Where(x => x != null));
+
+        foreach(RaycastResult result in results)
+        {
+            if (result.gameObject.GetComponent<Interactable>())
+            {
+                output[result.gameObject.GetComponent<Interactable>()] = Vector3.zero;
+            }
+        }
+
+
         Interpret(btn, act, output, pointer);
     }
 
-    void Interpret(MouseButton mouseBtn , ActionType act , List<Interactable> allGob, MousePointer mouse)
+    void Interpret(MouseButton mouseBtn , ActionType act , Dictionary<Interactable, Vector3> allGob, MousePointer mouse)
     {
-        if (mouseBtn.Equals(MouseButton.LEFT_BUTTON) && act.Equals(ActionType.PRESSED))
+        if (act.Equals(ActionType.PRESSED))
         {
-            allGob.ForEach(x => x.MouseDown(mouse.deviceID));
-            mouse.holding = allGob;
+            allGob.Keys.ToList().ForEach(x =>
+            {
+                if (x.CanInteract)
+                {
+                    mouse.lastCollisionPoint = allGob[x];
+                    x.MouseDown(mouseBtn, mouse);
+                    if (x.Echo)
+                    {
+                        x.Echo.MouseDown(mouseBtn, mouse, x);
+                    }
+                }               
+            });
+            mouse.holding = allGob.Keys.ToList();
         }
 
-        if (mouseBtn.Equals(MouseButton.LEFT_BUTTON) && act.Equals(ActionType.RELEASED))
+        if (act.Equals(ActionType.RELEASED))
         {
-            allGob.ForEach(x =>
+            mouse.holding.ForEach(x =>
             {
-                if (mouse.holding.Contains(x))
+                if (x.CanInteract)
                 {
-                    x.MouseUp(mouse.deviceID);
+                    if (mouse.holding.Contains(x))
+                    {
+                        x.MouseUp(mouseBtn, mouse);
+                        if (x.Echo)
+                        {
+                            x.Echo.MouseUp(mouseBtn, mouse, x);
+                        }
+                    }
                 }
             });
             mouse.holding.Clear();
@@ -291,25 +325,48 @@ public class MouseInputManager : MonoBehaviour
         if (act.Equals(ActionType.MOVEMENT))
         {
             //Just entering
-            foreach(Interactable inter in allGob)
+            foreach(Interactable inter in allGob.Keys)
             {
                 if (!mouse.pointing.Contains(inter))
                 {
-                    inter.MouseEnter(mouse.deviceID);
+                    if (inter.CanInteract)
+                    {
+                        inter.MouseEnter(MouseButton.NONE, mouse);
+                        if (inter.Echo)
+                        {
+                            inter.Echo.MouseEnter(MouseButton.NONE, mouse, inter);
+                        }
+                    }                    
                 }
             }
 
             //Just exiting
             foreach(Interactable inter in mouse.pointing)
             {
-                if(!allGob.Contains(inter))
+                if(!allGob.Keys.ToList().Contains(inter))
                 {
-                    inter.MouseLeave(mouse.deviceID);
+                    if (inter.CanInteract)
+                    {
+                        inter.MouseLeave(MouseButton.NONE, mouse);
+                        if (inter.Echo)
+                        {
+                            inter.Echo.MouseLeave(MouseButton.NONE, mouse, inter);
+                        }
+                    }      
                 }
             }
 
-            mouse.pointing = allGob;
-            mouse.pointing.ForEach(x => x.MouseMove(mouse.deviceID, mouse.delta));
+            mouse.holding.ForEach(x =>
+            {
+                if (x.CanInteract)
+                {
+                    x.MouseMove(mouseBtn, mouse);
+                    if (x.Echo)
+                    {
+                        x.Echo.MouseMove(mouseBtn, mouse, x);
+                    }
+                }               
+            });
         }
     }
 

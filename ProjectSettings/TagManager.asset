@@ -4,9 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Swappable
   - Maquette
-  - Rallonge
+  - Spot
+  - Ete
+  - Hiver
+  - TreeSpot
+  - TPSpot
   layers:
   - Default
   - TransparentFX
