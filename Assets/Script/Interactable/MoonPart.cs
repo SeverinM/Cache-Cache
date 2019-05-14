@@ -69,7 +69,7 @@ public class MoonPart : Interactable
 
     public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {       
-        if (echo)
+        if (echo && Progress == 0)
         {
             transform.localPosition = Echo.transform.localPosition;
         }
@@ -124,9 +124,9 @@ public class MoonPart : Interactable
         if (!unlocked && Progress == 1)
         {
             unlocked = true;
-            Debug.LogError("kop");
             foreach(TeleportSpot tp in tpSpots.Distinct())
             {
+                tp.Init();
                 foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
                 {
                     dragg.AddSpot(tp);

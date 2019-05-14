@@ -19,7 +19,6 @@ public class Draggable : Interactable
         set
         {
             currentSpot = value;
-            Debug.LogError(value);
         }
     }
     
