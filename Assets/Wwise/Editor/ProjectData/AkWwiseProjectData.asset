@@ -450,9 +450,6 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8586448875854775808
     List: []
-  ExpandedItems:
-  - /M1_CACHE-CACHE
-  - /M1_CACHE-CACHE/Events
-  - /M1_CACHE-CACHE/Events/Default Work Unit
+  ExpandedItems: []
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

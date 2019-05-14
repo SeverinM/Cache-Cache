@@ -12,7 +12,8 @@ public class TreeSpot : ClassicSpot
         if (tree && (transform.parent == null || !transform.parent.GetComponent<Tree>()))
         {
             tree.transform.position = transform.position;
-            tree.SetTreeSpot(this);
+            currentHold = dragg;
+            dragg.CurrentSpot = this;
         }
         else
         {

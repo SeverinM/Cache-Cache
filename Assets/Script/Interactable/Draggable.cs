@@ -8,6 +8,21 @@ public class Draggable : Interactable
     [SerializeField]
     List<Spot> allSpot;
 
+    [SerializeField]
+    protected Spot currentSpot;
+    public Spot CurrentSpot
+    {
+        get
+        {
+            return currentSpot;
+        }
+        set
+        {
+            currentSpot = value;
+        }
+    }
+    
+
     protected bool dragging = false;
     public bool Dragging => dragging;
 
@@ -27,6 +42,11 @@ public class Draggable : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
+            if (currentSpot)
+            {
+                currentSpot.PressSpot(this);
+            }
+
             origin = transform.position;
             dragging = true;
             foreach (Spot sp in allSpot)
@@ -71,10 +91,16 @@ public class Draggable : Interactable
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
             {
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
+                currentSpot = lastTouchedGameObject.GetComponent<Spot>();
             }
             else
             {
-                transform.position = origin;
+                if (currentSpot)
+                {
+                    currentSpot.ResetSpot(this);
+                }
+                else
+                    transform.position = origin;
             }
 
             foreach(Spot sp in allSpot)
