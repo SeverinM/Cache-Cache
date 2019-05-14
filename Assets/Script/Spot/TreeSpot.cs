@@ -14,11 +14,24 @@ public class TreeSpot : ClassicSpot
             tree.transform.position = transform.position;
             currentHold = dragg;
             dragg.CurrentSpot = this;
+            transform.SetParent(dragg.transform);
         }
         else
         {
             tree.ResetPosition();
         }
+    }
+
+    public override void PressSpot(Draggable dragg)
+    {
+        base.PressSpot(dragg);
+        transform.parent = null;
+    }
+
+    public override void ResetSpot(Draggable dragg)
+    {
+        base.ResetSpot(dragg);
+        transform.SetParent(dragg.transform);
     }
 
     public override void SetValue(Draggable dragg, bool value)

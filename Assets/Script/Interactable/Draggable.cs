@@ -19,6 +19,7 @@ public class Draggable : Interactable
         set
         {
             currentSpot = value;
+            Debug.LogError(value);
         }
     }
     
@@ -90,8 +91,8 @@ public class Draggable : Interactable
             dragging = false;
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
             {
+                CurrentSpot = lastTouchedGameObject.GetComponent<Spot>();
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
-                currentSpot = lastTouchedGameObject.GetComponent<Spot>();
             }
             else
             {

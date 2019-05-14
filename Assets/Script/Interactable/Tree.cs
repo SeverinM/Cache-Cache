@@ -53,7 +53,6 @@ public class Tree : Draggable
                 {
                     downDone = true;
                     base.MouseDown(MouseInputManager.MouseButton.LEFT_BUTTON, currMouse, Echo);
-                    spot.transform.SetParent(null);
                 }
             }
         }

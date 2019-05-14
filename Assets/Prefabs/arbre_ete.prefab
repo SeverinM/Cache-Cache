@@ -347,7 +347,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   allSpot: []
-  currentSpot: {fileID: 0}
+  currentSpot: {fileID: 5840190595214554925}
   squirrel: {fileID: 0}
   DelayDragging: 0.3
   spot: {fileID: 5840190595214554925}

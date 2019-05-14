@@ -34,7 +34,6 @@ public class TeleportSpot : Spot
         dragg.transform.position = (this != spot1 ? spot1 : spot2).transform.position;
         (this != spot1 ? spot1 : spot2).CurrentHold = dragg;
         dragg.CurrentSpot = (this != spot1 ? spot1 : spot2);
-        Debug.LogError(dragg.CurrentSpot);
         currentHold = null;
     }
 
