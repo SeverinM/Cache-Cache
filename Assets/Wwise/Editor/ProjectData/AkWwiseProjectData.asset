@@ -184,14 +184,14 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: cd01331775b96444975f83474de3a448
     GuidInternal: 
-    m_lastTime: -8586448875854775808
+    m_lastTime: -8586438602831466441
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2b53f2358a45ce45a2dbdb0c82638d4c
     GuidInternal: 
-    m_lastTime: -8586448873014775808
+    m_lastTime: -8586438562584923991
     List:
     - name: cache_cache
       guid: e6046a74df290a47908094489dd8afeb
@@ -202,12 +202,21 @@ MonoBehaviour:
       - ElementName: cache_cache
         ObjectType: 7
       Path: Default Work Unit\cache_cache
+    - name: test_cache_cache
+      guid: d3a1391aa194ab43b5f59588c8a6fbf9
+      id: 2451301445
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: test_cache_cache
+        ObjectType: 7
+      Path: Default Work Unit\test_cache_cache
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 5489af29f1f6fa4682f38fed891f20d6
     GuidInternal: 
-    m_lastTime: -8586448875854775808
+    m_lastTime: -8586438669994775808
     List:
     - name: Play_Summer_Amb
       guid: ed647531cc6c6e4d895544cafa7579b0
@@ -443,5 +452,7 @@ MonoBehaviour:
     List: []
   ExpandedItems:
   - /M1_CACHE-CACHE
+  - /M1_CACHE-CACHE/Events
+  - /M1_CACHE-CACHE/Events/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

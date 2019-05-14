@@ -13,8 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
-        static const AkUniqueID PLAY_BK021___01_PLAGE = 1510231894U;
-        static const AkUniqueID PLAY_NAPPE = 1173646182U;
+        static const AkUniqueID PLAY_SUMMER_AMB = 77724524U;
+        static const AkUniqueID PLAY_WINTER_AMB = 1502111004U;
     } // namespace EVENTS
 
     namespace GAME_PARAMETERS
@@ -43,12 +43,15 @@ namespace AK
     {
         static const AkUniqueID INIT = 1355168291U;
         static const AkUniqueID CACHE_CACHE = 2996359658U;
+        static const AkUniqueID TEST_CACHE_CACHE = 2451301445U;
     } // namespace BANKS
 
     namespace BUSSES
     {
         static const AkUniqueID MASTER_AUDIO_BUS = 3803692087U;
         static const AkUniqueID MOTION_FACTORY_BUS = 985987111U;
+        static const AkUniqueID SYSTEM_J1 = 2014652650U;
+        static const AkUniqueID SYSTEM_J2 = 2014652649U;
     } // namespace BUSSES
 
     namespace AUDIO_DEVICES
@@ -56,6 +59,8 @@ namespace AK
         static const AkUniqueID DEFAULT_MOTION_DEVICE = 4230635974U;
         static const AkUniqueID NO_OUTPUT = 2317455096U;
         static const AkUniqueID SYSTEM = 3859886410U;
+        static const AkUniqueID SYSTEM_J1 = 2014652650U;
+        static const AkUniqueID SYSTEM_J2 = 2014652649U;
     } // namespace AUDIO_DEVICES
 
 }// namespace AK

@@ -270,7 +270,7 @@ public class AkWwiseProjectData : UnityEngine.ScriptableObject
 		[UnityEngine.HideInInspector]
 		[UnityEngine.SerializeField]
 		[UnityEngine.Serialization.FormerlySerializedAs("Guid")]
-		private string GuidInternal;
+		private string GuidInternal = string.Empty;
 
 		public System.Guid Guid
 		{
