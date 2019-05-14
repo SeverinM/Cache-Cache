@@ -104,6 +104,7 @@ public class MoonPart : Interactable
                 //Moon not locked yet
                 if (progress == 0)
                 {
+                    AkSoundEngine.PostEvent("Play_moon_failed", gameObject);
                     transform.localPosition = Vector3.zero;
                     if (Echo)
                     {
@@ -123,6 +124,7 @@ public class MoonPart : Interactable
         base.OnNewValue();
         if (!unlocked && Progress == 1)
         {
+            AkSoundEngine.PostEvent("Play_moon_open", gameObject);
             unlocked = true;
             foreach(TeleportSpot tp in tpSpots.Distinct())
             {

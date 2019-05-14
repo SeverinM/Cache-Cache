@@ -55,6 +55,7 @@ public class Squirrel : Interactable
 
     public void NextJump()
     {
+        GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
         StartCoroutine(AnimationJump());
     }
 
@@ -62,7 +63,7 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
-            Debug.LogError("destruction");
+            AkSoundEngine.PostEvent("Play_voix01", gameObject);
             Destroy(gameObject);
         }
     }

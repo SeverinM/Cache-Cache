@@ -12,7 +12,7 @@ public abstract class Spot : MonoBehaviour
             return currentHold;
         }
         set
-        {
+        {            
             currentHold = value;
         }
     }
@@ -23,4 +23,8 @@ public abstract class Spot : MonoBehaviour
     public abstract void SetValue(Draggable dragg, bool value);
     public abstract void ResetSpot(Draggable dragg);
     public abstract void PressSpot(Draggable dragg);
+    public virtual void HoldObjectLeft(Draggable dragg)
+    {
+        currentHold = null;
+    }
 }

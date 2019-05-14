@@ -8,10 +8,6 @@ public class Tree : Draggable
 
     [SerializeField]
     float DelayDragging = 0.1f;
-
-    [SerializeField]
-    TreeSpot spot;
-
     float TimerDragging;
 
     bool downDone = false;
@@ -65,6 +61,7 @@ public class Tree : Draggable
             isDown = false;
             if (downDone)
             {
+                AkSoundEngine.PostEvent("Play_tree_move", gameObject);
                 base.MouseUp(btn, mouse, echo);
                 downDone = false;
             }
@@ -95,6 +92,16 @@ public class Tree : Draggable
 
     public void FouilleTree()
     {
+        if (tag == "Hiver")
+        {
+            AkSoundEngine.PostEvent("Play_dead_tree", gameObject);
+        }
+
+        if (tag == "Ete")
+        {
+            AkSoundEngine.PostEvent("Play_summer_tree", gameObject);
+        }
+
         if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme") || GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_hiver_repos"))
             GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
     }

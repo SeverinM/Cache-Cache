@@ -88,8 +88,14 @@ public class Draggable : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
             dragging = false;
-            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && !lastTouchedGameObject.GetComponent<Spot>().CurrentHold)
             {
+                //Change spot
+                if (CurrentSpot != null)
+                {
+                    CurrentSpot.HoldObjectLeft(this);
+                }
+
                 CurrentSpot = lastTouchedGameObject.GetComponent<Spot>();
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
             }

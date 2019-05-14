@@ -56,6 +56,7 @@ public class TeleportSpot : Spot
 
     public override void ReleaseSpot(Draggable dragg)
     {
+        AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
         SetValue(dragg, false);
         currentHold = dragg;
         CanOpen = false;
@@ -102,6 +103,7 @@ public class TeleportSpot : Spot
     IEnumerator StartDelayed(float duration)
     {
         yield return new WaitForSeconds(duration);
+        AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
         CanOpen = true;
     }
 
@@ -144,5 +146,11 @@ public class TeleportSpot : Spot
         }
 
         busy = false;
+    }
+
+    public override void HoldObjectLeft(Draggable dragg)
+    {
+        base.HoldObjectLeft(dragg);
+        GetOtherPart().CanOpen = true;
     }
 }

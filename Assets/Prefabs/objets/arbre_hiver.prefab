@@ -461,8 +461,10 @@ MonoBehaviour:
   block: 1
   progress: -1
   allSpot: []
+  currentSpot: {fileID: 5792202898761760988}
   squirrel: {fileID: 0}
   DelayDragging: 0.3
+  spot: {fileID: 0}
 --- !u!65 &9002540417478016258
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -658,3 +660,15 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6443394534355062104}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5792202898761760988 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 651193362170482052, guid: 02bdc03cc17bed24ebc771d15636745b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6443394534355062104}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f55f3368d77e35847b559496ba916d08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
