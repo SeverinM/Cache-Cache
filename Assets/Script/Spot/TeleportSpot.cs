@@ -19,6 +19,7 @@ public class TeleportSpot : Spot
     float duration;
     public float Duration => duration;
 
+    Vector3 objectScale;
     float distance;
     bool canOpen = true;
     bool busy = false;
@@ -43,10 +44,12 @@ public class TeleportSpot : Spot
 
     public override void EnterSpot(Draggable dragg)
     {
+        //dragg.transform.localScale = dragg.transform.localScale / 2;
     }
 
     public override void ExitSpot(Draggable dragg)
     {
+        //dragg.transform.localScale = dragg.transform.localScale * 2;
     }
 
     public override void PressSpot(Draggable dragg)
@@ -59,6 +62,7 @@ public class TeleportSpot : Spot
         AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
         SetValue(dragg, false);
         currentHold = dragg;
+        objectScale = currentHold.transform.localScale;
         CanOpen = false;
         GetOtherPart().CanOpen = false;
         GetOtherPart().StartCoroutine(GetOtherPart().StartDelayed(duration));
@@ -131,7 +135,7 @@ public class TeleportSpot : Spot
             PartieBasse.transform.localPosition = new Vector3(0, -yValue, 0);
             if (currentHold)
             {
-                currentHold.transform.localScale = new Vector3(1, 1, 1) * (reversed ? 1 - normalizedTime : normalizedTime);
+                currentHold.transform.localScale = new Vector3(1,1,1) * (reversed ? 1 - normalizedTime : normalizedTime);
             }
             yield return null;
         }
