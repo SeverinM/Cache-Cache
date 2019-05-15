@@ -52,8 +52,6 @@ public class MoonPart : Interactable
                 {
                     canMove = true;
                     authorityTable[part] = gameObject;
-                    baseSensitivity = mouse.sensitivity;
-                    mouse.sensitivity = draggingSensitivity;
                 }
             }
         }
@@ -112,7 +110,6 @@ public class MoonPart : Interactable
                     }
                 }
 
-                mouse.sensitivity = baseSensitivity;
                 canMove = false;
             }
 

@@ -21,6 +21,9 @@ public class Squirrel : Interactable
     Transform currentTree;
     Transform previousTree;
 
+    [SerializeField]
+    List<Transform> potentialMoonLandings;
+
     private void Start()
     {
         currentTree = potentialTrees[0];
@@ -64,7 +67,8 @@ public class Squirrel : Interactable
         if (Progress == 2)
         {
             AkSoundEngine.PostEvent("Play_voix01", gameObject);
-            Destroy(gameObject);
+            currentTree.parent.GetComponent<Tree>().squirrel = null;
+            StartCoroutine(AnimationMoon(potentialMoonLandings.OrderBy(x => Vector3.Distance(x.position, transform.position)).ToList()[0]));
         }
     }
 
@@ -102,5 +106,24 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
+    }
+
+    IEnumerator AnimationMoon(Transform trsf)
+    {
+        transform.SetParent(trsf);
+
+        Vector3 positionDestination = trsf.position;
+        Vector3 positionOrigin = transform.position;
+        Vector3 forwardOrigin = transform.forward;
+        Vector3 forwardDestination = -trsf.up;
+
+        float normalizeTime = 0;
+        while (normalizeTime < 1)
+        {
+            normalizeTime += Time.deltaTime / duration;
+            transform.position = Vector3.Lerp(positionOrigin, positionDestination, normalizeTime);
+            yield return null;
+        }
+
     }
 }
