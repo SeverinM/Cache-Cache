@@ -75,6 +75,20 @@ public class Draggable : Interactable
             {
                 if (hit.collider.CompareTag(Manager.MAQUETTE_TAG) || hit.collider.GetComponent<Spot>())
                 {
+                    if (lastTouchedGameObject != hit.collider.gameObject)
+                    {
+                        if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+                        {
+                            lastTouchedGameObject.GetComponent<Spot>().ExitSpot(this);
+                        }
+
+                        if (hit.collider.GetComponent<Spot>())
+                        {
+                            hit.collider.GetComponent<Spot>().EnterSpot(this);
+                        }
+                        
+                    }
+
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
                     break;

@@ -115,7 +115,7 @@ public class Squirrel : Interactable
         Vector3 positionDestination = trsf.position;
         Vector3 positionOrigin = transform.position;
         Vector3 forwardOrigin = transform.forward;
-        Vector3 forwardDestination = -trsf.up;
+        Vector3 forwardDestination = trsf.forward;
 
         float normalizeTime = 0;
         while (normalizeTime < 1)
