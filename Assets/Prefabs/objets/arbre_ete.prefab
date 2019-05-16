@@ -350,7 +350,6 @@ MonoBehaviour:
   currentSpot: {fileID: 5840190595214554925}
   squirrel: {fileID: 0}
   DelayDragging: 0.3
-  spot: {fileID: 5840190595214554925}
 --- !u!1001 &6342482861204224681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -418,6 +417,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 651193362170482052, guid: 02bdc03cc17bed24ebc771d15636745b,
+        type: 3}
+      propertyPath: currentHold
+      value: 
+      objectReference: {fileID: 4211746748300229667}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02bdc03cc17bed24ebc771d15636745b, type: 3}
 --- !u!4 &7769345112434413984 stripped

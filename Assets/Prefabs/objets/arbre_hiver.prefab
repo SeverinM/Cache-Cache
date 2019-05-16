@@ -464,7 +464,6 @@ MonoBehaviour:
   currentSpot: {fileID: 5792202898761760988}
   squirrel: {fileID: 0}
   DelayDragging: 0.3
-  spot: {fileID: 0}
 --- !u!65 &9002540417478016258
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -652,6 +651,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 651193362170482052, guid: 02bdc03cc17bed24ebc771d15636745b,
+        type: 3}
+      propertyPath: currentHold
+      value: 
+      objectReference: {fileID: 252132568761967636}
     - target: {fileID: 2711707134196250937, guid: 02bdc03cc17bed24ebc771d15636745b,
         type: 3}
       propertyPath: m_Materials.Array.data[0]

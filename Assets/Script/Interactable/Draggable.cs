@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -73,12 +73,14 @@ public class Draggable : Interactable
 
             foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(ray.origin, x.point)))
             {
+                //Evite les raycast avec lui meme
+                if (hit.collider.gameObject == gameObject) continue;
                 if (hit.collider.CompareTag(Manager.MAQUETTE_TAG) || hit.collider.GetComponent<Spot>())
                 {
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
-                    break;
                 }
+                break;
             }
         }
     }
@@ -88,10 +90,10 @@ public class Draggable : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
             dragging = false;
-            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && !lastTouchedGameObject.GetComponent<Spot>().CurrentHold)
+            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && lastTouchedGameObject.GetComponent<Spot>().CurrentHold == null)
             {
-                //Change spot
-                if (CurrentSpot != null)
+                //Appellé uniquement quand le spot est different
+                if (CurrentSpot != null && CurrentSpot != lastTouchedGameObject.GetComponent<Spot>())
                 {
                     CurrentSpot.HoldObjectLeft(this);
                 }

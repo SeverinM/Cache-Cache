@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Spot : MonoBehaviour
 {
+    [SerializeField]
     protected Draggable currentHold = null;
     public Draggable CurrentHold
     {

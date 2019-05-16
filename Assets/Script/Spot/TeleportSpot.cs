@@ -60,6 +60,7 @@ public class TeleportSpot : Spot
         SetValue(dragg, false);
         currentHold = dragg;
         CanOpen = false;
+        Debug.Log(GetOtherPart().CanOpen);
         GetOtherPart().CanOpen = false;
         GetOtherPart().StartCoroutine(GetOtherPart().StartDelayed(duration));
     }

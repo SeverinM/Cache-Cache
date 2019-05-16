@@ -1,5 +1,74 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &295867257
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295867258}
+  - component: {fileID: 295867259}
+  m_Layer: 0
+  m_Name: Point Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &295867258
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295867257}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.066666655, y: -0.666666, z: -0.23333332}
+  m_LocalScale: {x: 3.333333, y: 3.333333, z: 3.333333}
+  m_Children: []
+  m_Father: {fileID: 5542086926533730581}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &295867259
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295867257}
+  m_Enabled: 1
+  serializedVersion: 8
+  m_Type: 2
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 1
+  m_Range: 2.5
+  m_SpotAngle: 30
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 0
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 0.2
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 1
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
 --- !u!1 &2293834837444281151
 GameObject:
   m_ObjectHideFlags: 0
@@ -14,8 +83,8 @@ GameObject:
   - component: {fileID: 3118840000361954117}
   - component: {fileID: 2694997016817140699}
   m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
+  m_Name: TPCollider 1
+  m_TagString: TPSpot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -49,7 +118,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2293834837444281151}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -88,9 +157,9 @@ SphereCollider:
   m_GameObject: {fileID: 2293834837444281151}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
-  m_Radius: 0.49999994
+  m_Radius: 0.7
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2694997016817140699
 MonoBehaviour:
@@ -105,9 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 500
-  PartieHaute: {fileID: 0}
-  PartieBasse: {fileID: 0}
-  duration: 0
+  PartieHaute: {fileID: 2399209166046150554}
+  PartieBasse: {fileID: 497243585119894520}
+  duration: 1
 --- !u!1 &5284386869069745774
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,7 +222,7 @@ GameObject:
   - component: {fileID: 1351133017}
   m_Layer: 0
   m_Name: lune_haut 1
-  m_TagString: Untagged
+  m_TagString: Maquette
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -188,7 +257,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5542086926534098225}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -232,12 +301,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   draggingSensitivity: 0.2
   tpSpot: {fileID: 0}
   part: 0
-  coeffDrag: 400
+  coeffDrag: 200
   maxDistance: 1.5
 --- !u!64 &1351133017
 MeshCollider:
@@ -283,6 +352,7 @@ Transform:
   - {fileID: 5542086926533730583}
   - {fileID: 5542086926533730577}
   - {fileID: 5681065532539742506}
+  - {fileID: 295867258}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -301,7 +371,7 @@ GameObject:
   - component: {fileID: 591750993}
   m_Layer: 0
   m_Name: lune_bas 1
-  m_TagString: Untagged
+  m_TagString: Maquette
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -337,7 +407,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5542086926534098231}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -380,12 +450,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
-  draggingSensitivity: 0.2
-  tpSpot: {fileID: 0}
+  draggingSensitivity: 1
+  tpSpot: {fileID: 2694997016817140699}
   part: 1
-  coeffDrag: 400
+  coeffDrag: 200
   maxDistance: 1.5
 --- !u!64 &591750993
 MeshCollider:
