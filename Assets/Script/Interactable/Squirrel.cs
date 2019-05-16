@@ -66,9 +66,13 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
+            //Permet d'eviter d'etre joué par les copies
+            if (!currentTree) return;
+            Debug.Log("tp");
             AkSoundEngine.PostEvent("Play_voix01", gameObject);
             currentTree.parent.GetComponent<Tree>().squirrel = null;
-            StartCoroutine(AnimationMoon(potentialMoonLandings.OrderBy(x => Vector3.Distance(x.position, transform.position)).ToList()[0]));
+            currentTree = null;
+            StartCoroutine(AnimationMoon());
         }
     }
 
@@ -108,22 +112,41 @@ public class Squirrel : Interactable
         this.transform.SetParent(currentTree);
     }
 
-    IEnumerator AnimationMoon(Transform trsf)
+    //A personnaliser
+    IEnumerator AnimationMoon()
     {
-        transform.SetParent(trsf);
+        float normalizedTime = 0;
+        Vector3 originScale = transform.localScale;
 
-        Vector3 positionDestination = trsf.position;
-        Vector3 positionOrigin = transform.position;
-        Vector3 forwardOrigin = transform.forward;
-        Vector3 forwardDestination = -trsf.up;
-
-        float normalizeTime = 0;
-        while (normalizeTime < 1)
+        //Le perso disaparait...
+        while (normalizedTime < 1)
         {
-            normalizeTime += Time.deltaTime / duration;
-            transform.position = Vector3.Lerp(positionOrigin, positionDestination, normalizeTime);
+            normalizedTime += Time.deltaTime / duration;
+            transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
             yield return null;
         }
 
+        //... puis reapparait sur la lune...
+        List<GameObject> allGob = new List<GameObject>();
+        foreach (Transform landings in potentialMoonLandings)
+        {
+            GameObject copy = Instantiate(gameObject);
+            Destroy(copy.GetComponent<Squirrel>());
+            copy.transform.parent = landings;
+            copy.transform.localPosition = Vector3.zero;
+            allGob.Add(copy);
+        }
+
+        //progressivement
+        while (normalizedTime > 0)
+        {
+            normalizedTime -= Time.deltaTime / duration;
+            yield return null;   
+            foreach(GameObject gob in allGob)
+            {
+                gob.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
+            }
+        }
+        Destroy(gameObject);
     }
 }
