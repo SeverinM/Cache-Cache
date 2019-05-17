@@ -34,6 +34,8 @@ public class Squirrel : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
+        if (currentTree)
+            currentTree.parent.GetComponent<Interactable>().MouseDown(btn, mouse);
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
