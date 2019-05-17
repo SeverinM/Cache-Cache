@@ -33,10 +33,10 @@ ModelImporter:
     3300010: visage
     4300000: corps
     4300002: tete
-    4300004: queue
-    4300006: visage
-    4300008: oeildroit
-    4300010: oeilgauche
+    4300004: visage
+    4300006: oeildroit
+    4300008: oeilgauche
+    4300010: queue
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
