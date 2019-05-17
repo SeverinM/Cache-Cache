@@ -7,15 +7,6 @@ public class ClassicSpot : Spot
     [SerializeField]
     float maxDistance = 500;
 
-    public override void EnterSpot(Draggable dragg)
-    {
-    }
-
-    public override void ExitSpot(Draggable dragg)
-    {
-
-    }
-
     public override void PressSpot(Draggable dragg)
     {
         currentHold = null;

@@ -9,6 +9,9 @@ public class Draggable : Interactable
     List<Spot> allSpot;
 
     [SerializeField]
+    Vector3 relativeOffsetMoon;
+
+    [SerializeField]
     protected Spot currentSpot;
     public Spot CurrentSpot
     {
@@ -75,12 +78,32 @@ public class Draggable : Interactable
             {
                 //Evite les raycast avec lui meme
                 if (hit.collider.gameObject == gameObject) continue;
-                if (hit.collider.CompareTag(Manager.MAQUETTE_TAG) || hit.collider.GetComponent<Spot>())
+
+                //Ce qu'on survole est valide ?
+                if (hit.collider.GetComponent<Spot>())
+                {
+                    if (lastTouchedGameObject != hit.collider.gameObject)
+                    {
+                        //On ne survole plus le meme spot
+                        if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+                        {
+                            lastTouchedGameObject.GetComponent<Spot>().ExitSpot(this);
+                        }
+                        if (hit.collider.GetComponent<Spot>() && !hit.collider.GetComponent<Spot>().CurrentHold)
+                        {
+                            hit.collider.GetComponent<Spot>().EnterSpot(this);
+                        }
+                    }
+                    lastTouchedGameObject = hit.collider.gameObject;
+                    break;
+                }
+                else
                 {
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
+                    return;
                 }
-                break;
+                
             }
         }
     }
