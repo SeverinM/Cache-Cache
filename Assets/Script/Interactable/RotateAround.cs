@@ -20,7 +20,7 @@ public class RotateAround : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
+        if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) || (!GetComponent<Button>().interactable && !echo)) return;
         currentSpeed += speed;
 
         if (echo)
@@ -44,7 +44,7 @@ public class RotateAround : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
+        if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) || (!GetComponent<Button>().interactable && !echo)) return;
         currentSpeed -= speed;
         if (echo)
         {
