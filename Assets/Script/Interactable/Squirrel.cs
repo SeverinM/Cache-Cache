@@ -21,6 +21,9 @@ public class Squirrel : Interactable
     Transform currentTree;
     Transform previousTree;
 
+    [SerializeField]
+    List<Transform> potentialMoonLandings;
+
     private void Start()
     {
         currentTree = potentialTrees[0];
@@ -55,6 +58,7 @@ public class Squirrel : Interactable
 
     public void NextJump()
     {
+        GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
         StartCoroutine(AnimationJump());
     }
 
@@ -62,8 +66,12 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
-            Debug.LogError("destruction");
-            Destroy(gameObject);
+            //Permet d'eviter d'etre joué par les copies
+            if (!currentTree) return;
+            AkSoundEngine.PostEvent("Play_voix01", gameObject);
+            currentTree.parent.GetComponent<Tree>().squirrel = null;
+            currentTree = null;
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, gameObject.transform, duration);
         }
     }
 

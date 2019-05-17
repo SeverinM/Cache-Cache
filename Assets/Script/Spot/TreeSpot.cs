@@ -12,12 +12,26 @@ public class TreeSpot : ClassicSpot
         if (tree && (transform.parent == null || !transform.parent.GetComponent<Tree>()))
         {
             tree.transform.position = transform.position;
-            tree.SetTreeSpot(this);
+            currentHold = dragg;
+            dragg.CurrentSpot = this;
+            transform.SetParent(dragg.transform);
         }
         else
         {
             tree.ResetPosition();
         }
+    }
+
+    public override void PressSpot(Draggable dragg)
+    {
+        base.PressSpot(dragg);
+        transform.parent = null;
+    }
+
+    public override void ResetSpot(Draggable dragg)
+    {
+        base.ResetSpot(dragg);
+        transform.SetParent(dragg.transform);
     }
 
     public override void SetValue(Draggable dragg, bool value)

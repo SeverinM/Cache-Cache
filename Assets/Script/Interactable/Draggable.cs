@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -7,6 +7,21 @@ public class Draggable : Interactable
 {
     [SerializeField]
     List<Spot> allSpot;
+
+    [SerializeField]
+    protected Spot currentSpot;
+    public Spot CurrentSpot
+    {
+        get
+        {
+            return currentSpot;
+        }
+        set
+        {
+            currentSpot = value;
+        }
+    }
+    
 
     protected bool dragging = false;
     public bool Dragging => dragging;
@@ -27,6 +42,11 @@ public class Draggable : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
+            if (currentSpot)
+            {
+                currentSpot.PressSpot(this);
+            }
+
             origin = transform.position;
             dragging = true;
             foreach (Spot sp in allSpot)
@@ -53,12 +73,14 @@ public class Draggable : Interactable
 
             foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(ray.origin, x.point)))
             {
+                //Evite les raycast avec lui meme
+                if (hit.collider.gameObject == gameObject) continue;
                 if (hit.collider.CompareTag(Manager.MAQUETTE_TAG) || hit.collider.GetComponent<Spot>())
                 {
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
-                    break;
                 }
+                break;
             }
         }
     }
@@ -68,13 +90,25 @@ public class Draggable : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
             dragging = false;
-            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+            if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && lastTouchedGameObject.GetComponent<Spot>().CurrentHold == null)
             {
+                //Appellé uniquement quand le spot est different
+                if (CurrentSpot != null && CurrentSpot != lastTouchedGameObject.GetComponent<Spot>())
+                {
+                    CurrentSpot.HoldObjectLeft(this);
+                }
+
+                CurrentSpot = lastTouchedGameObject.GetComponent<Spot>();
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
             }
             else
             {
-                transform.position = origin;
+                if (currentSpot)
+                {
+                    currentSpot.ResetSpot(this);
+                }
+                else
+                    transform.position = origin;
             }
 
             foreach(Spot sp in allSpot)

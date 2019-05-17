@@ -11,7 +11,7 @@ Material:
   m_Shader: {fileID: 4800000, guid: ee5a54bdf0907e34a821baa94abcea98, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
@@ -58,13 +58,14 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
+    - _Debug: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _EdgeEffect: 0.2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Glowsiness: 0.4
+    - _Glowsiness: 2
     - _LightEffect: 1
     - _Metallic: 0
     - _Mode: 0
@@ -73,7 +74,7 @@ Material:
     - _ShadowEdge: 1
     - _SmoothnessTextureChannel: 0
     - _SpecEdgeEffect: 1
-    - _SpecIntensity: 0.2
+    - _SpecIntensity: 0.3
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0

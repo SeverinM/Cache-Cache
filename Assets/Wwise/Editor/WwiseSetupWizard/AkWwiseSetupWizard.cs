@@ -95,7 +95,6 @@ public class WwiseSetupWizard
 		try
 		{
 			UnityEngine.Debug.Log("WwiseUnity: Running migration setup...");
-
 			UnityEngine.Debug.Log("WwiseUnity: Reading parameters...");
 
 			var arguments = System.Environment.GetCommandLineArgs();
@@ -281,6 +280,32 @@ public class WwiseSetupWizard
 
 	private static string[] ScriptableObjectGuids = null;
 
+	private static bool ShouldProcessScriptableObject(UnityEngine.Object obj)
+	{
+		if (obj == null)
+			return true;
+
+		if (!(obj is UnityEngine.ScriptableObject))
+			return false;
+
+		if (obj is UnityEngine.GUISkin)
+			return false;
+
+		if (obj is AkWwiseProjectData)
+			return false;
+
+		if (obj is AkWwiseInitializationSettings)
+			return false;
+
+		if (obj is AkCommonPlatformSettings)
+			return false;
+
+		if (obj is WwiseObjectReference)
+			return false;
+
+		return true;
+	}
+
 	private static void MigrateScriptableObjects()
 	{
 		var guids = ScriptableObjectGuids;
@@ -304,8 +329,12 @@ public class WwiseSetupWizard
 
 			var objects = UnityEditor.AssetDatabase.LoadAllAssetsAtPath(path);
 			foreach (var obj in objects)
-				if (obj == null || obj is UnityEngine.ScriptableObject)
+			{
+				if (ShouldProcessScriptableObject(obj))
+				{
 					MigrateObject(obj);
+				}
+			}
 		}
 	}
 

@@ -5,7 +5,17 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     protected bool canInteract = false;
-    public bool CanInteract => canInteract;
+    public bool CanInteract
+    {
+        get
+        {
+            return canInteract;
+        }
+        set
+        {
+            canInteract = value;
+        }
+    }
 
     [SerializeField]
     protected Interactable echo;

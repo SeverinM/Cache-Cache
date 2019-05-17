@@ -8,12 +8,8 @@ public class Tree : Draggable
 
     [SerializeField]
     float DelayDragging = 0.1f;
-
     float TimerDragging;
 
-    TreeSpot actualSpot;
-    TreeSpot temporaryTreeSpot;
-    public TreeSpot TemporaryTreeSpot => temporaryTreeSpot;
     bool downDone = false;
     bool isDown = false;
 
@@ -22,13 +18,11 @@ public class Tree : Draggable
     protected override void Awake()
     {
         base.Awake();
-        actualSpot = GetComponentInChildren<TreeSpot>();
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         TimerDragging = DelayDragging;
-        SetTreeSpot(null);
 
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
             isDown = true;
@@ -67,6 +61,7 @@ public class Tree : Draggable
             isDown = false;
             if (downDone)
             {
+                AkSoundEngine.PostEvent("Play_tree_move", gameObject);
                 base.MouseUp(btn, mouse, echo);
                 downDone = false;
             }
@@ -97,34 +92,18 @@ public class Tree : Draggable
 
     public void FouilleTree()
     {
+        if (tag == "Hiver")
+        {
+            AkSoundEngine.PostEvent("Play_dead_tree", gameObject);
+        }
+
+        if (tag == "Ete")
+        {
+            AkSoundEngine.PostEvent("Play_summer_tree", gameObject);
+        }
+
         if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme") || GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_hiver_repos"))
             GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
-    }
-
-    public void SetTreeSpot(TreeSpot spot)
-    {
-        if (actualSpot)
-            actualSpot.transform.SetParent(null);
-
-        actualSpot = spot;
-
-        //actualSpot can be null
-        if (actualSpot)
-        {
-            actualSpot.transform.SetParent(transform);
-            transform.position = actualSpot.transform.position;
-        }          
-    }
-
-    public override void ResetPosition()
-    {
-        if (!TemporaryTreeSpot)
-            base.ResetPosition();
-        else
-        {
-            SetTreeSpot(TemporaryTreeSpot);
-            temporaryTreeSpot = null;
-        }           
     }
 }
 

@@ -28,28 +28,26 @@ public class SoundManager : MonoBehaviour
 
     public void AddSoundOutput(string withName)
     {
-        uint id = AkSoundEngine.GetDeviceIDFromName(withName);
-        AkOutputSettings outputSettings = new AkOutputSettings("Output" + allSoundOutput.Count, id);
-        uint nb;
+        GameObject gob = new GameObject();
+        uint uDeviceIDSpeakers = AkSoundEngine.GetDeviceIDFromName(withName);
 
         ulong[] listeners = new ulong[1];
-        GameObject gob = new GameObject();
         listeners[0] = AkSoundEngine.GetAkGameObjectID(gob);
         ulong NULL = 0;
 
+        string busStr = "System_J" + (allSoundOutput.Count + 1);
+        Debug.Log(busStr);
+        AkOutputSettings outputSettings = new AkOutputSettings(busStr, uDeviceIDSpeakers);
         AkSoundEngine.AddOutput(outputSettings, out NULL, listeners, 1);
-
-        GameObject audioSource = new GameObject();
-        AkSoundEngine.RegisterGameObj(audioSource);
+        AkSoundEngine.RegisterGameObj(gob);
         AkSoundEngine.SetListeners(gob, listeners, 1);
-        allSoundOutput.Add(audioSource);
+
+
+        allSoundOutput.Add(gameObject);
     }
 
     public void PlaySound(int index , string nameEvent)
     {
-        if (index < allSoundOutput.Count)
-        {
-            AkSoundEngine.PostEvent(nameEvent, allSoundOutput[index]);
-        }
+        AkSoundEngine.PostEvent(nameEvent, allSoundOutput[index]);
     }
 }
