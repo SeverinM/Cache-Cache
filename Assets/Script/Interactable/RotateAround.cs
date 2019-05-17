@@ -20,9 +20,6 @@ public class RotateAround : Interactable
     float currentSpeed = 0;
     public float CurrentSpeed => currentSpeed;
 
-    static float GlobalSpeed => GameObject.FindObjectsOfType<RotateAround>().Sum(x => x.CurrentSpeed);
-    bool isDown = false;
-
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
@@ -34,11 +31,8 @@ public class RotateAround : Interactable
         }
         else
         {
-            if (GlobalSpeed == 0)
-            {
-                currentSpeed += speed;
-                isDown = true;
-            }           
+            if (GetComponent<Button>().interactable)
+                currentSpeed += speed;        
         }
     }
 
@@ -65,11 +59,8 @@ public class RotateAround : Interactable
         }
         else
         {
-            if (CurrentSpeed != 0 && isDown)
-            {
+            if (GetComponent<Button>().interactable)
                 currentSpeed = 0;
-                isDown = false;
-            }
         }
     }
 
