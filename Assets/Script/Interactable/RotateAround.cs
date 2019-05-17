@@ -18,22 +18,38 @@ public class RotateAround : Interactable
     [SerializeField]
     float speed;
     float currentSpeed = 0;
-    public float CurrentSpeed => currentSpeed;
+
+    public float CurrentSpeed
+    {
+        get
+        {
+            return currentSpeed;
+        }
+
+        set
+        {
+            currentSpeed = value;
+        }
+    }
+    static RotateAround holdBy = null;
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
-       
-        if (echo)
+
+        if(!echo && !holdBy)
+        {
+            holdBy = this;
+            currentSpeed += speed;
+        }
+
+        if (echo && holdBy)
         {
             GetComponent<Button>().interactable = false;
             otherButton.interactable = false;
+            currentSpeed += speed;
         }
-        else
-        {
-            if (GetComponent<Button>().interactable)
-                currentSpeed += speed;        
-        }
+            
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -51,16 +67,18 @@ public class RotateAround : Interactable
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
-        
-        if (echo)
+
+        if (!echo && holdBy == this)
         {
+            holdBy = null;
+            currentSpeed = 0;
+        }
+        
+        if (echo && !holdBy)
+        {
+            currentSpeed = 0;
             GetComponent<Button>().interactable = true;
             otherButton.interactable = true;
-        }
-        else
-        {
-            if (GetComponent<Button>().interactable)
-                currentSpeed = 0;
         }
     }
 
