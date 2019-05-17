@@ -1186,11 +1186,22 @@ PrefabInstance:
       propertyPath: tpSpot
       value: 
       objectReference: {fileID: 2010603454}
+    - target: {fileID: 4380693338249041459, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: m_Name
+      value: MoonReceptor lolJambe
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5761bc8efee2432cb7a9fb4eca9acea, type: 3}
 --- !u!4 &631955032 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4098522530863166304, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+    type: 3}
+  m_PrefabInstance: {fileID: 631955031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &631955033 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8418914538736753883, guid: b5761bc8efee2432cb7a9fb4eca9acea,
     type: 3}
   m_PrefabInstance: {fileID: 631955031}
   m_PrefabAsset: {fileID: 0}
@@ -3347,6 +3358,31 @@ PrefabInstance:
       propertyPath: m_Name
       value: persololjambes
       objectReference: {fileID: 0}
+    - target: {fileID: 8627999250139920928, guid: 544b33bd83eef5d44a962e258b809934,
+        type: 3}
+      propertyPath: potentialMoonLandings.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8627999250139920928, guid: 544b33bd83eef5d44a962e258b809934,
+        type: 3}
+      propertyPath: sensi
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 8627999250139920928, guid: 544b33bd83eef5d44a962e258b809934,
+        type: 3}
+      propertyPath: potentialMoonLandings.Array.data[0]
+      value: 
+      objectReference: {fileID: 631955033}
+    - target: {fileID: 8627999250139920928, guid: 544b33bd83eef5d44a962e258b809934,
+        type: 3}
+      propertyPath: potentialMoonLandings.Array.data[1]
+      value: 
+      objectReference: {fileID: 1760768890}
+    - target: {fileID: 8627999250139920928, guid: 544b33bd83eef5d44a962e258b809934,
+        type: 3}
+      propertyPath: duration
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7570907174418333915, guid: 544b33bd83eef5d44a962e258b809934,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3401,11 +3437,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8627999250139920928, guid: 544b33bd83eef5d44a962e258b809934,
-        type: 3}
-      propertyPath: sensi
-      value: 0.01
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 544b33bd83eef5d44a962e258b809934, type: 3}
@@ -3607,11 +3638,22 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 1935484840}
+    - target: {fileID: 4380693338249041459, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: m_Name
+      value: MoonReceptor lolJambe
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5761bc8efee2432cb7a9fb4eca9acea, type: 3}
 --- !u!4 &1760768889 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4098522530863166304, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1760768888}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1760768890 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8418914538736753883, guid: b5761bc8efee2432cb7a9fb4eca9acea,
     type: 3}
   m_PrefabInstance: {fileID: 1760768888}
   m_PrefabAsset: {fileID: 0}

@@ -68,11 +68,10 @@ public class Squirrel : Interactable
         {
             //Permet d'eviter d'etre joué par les copies
             if (!currentTree) return;
-            Debug.Log("tp");
             AkSoundEngine.PostEvent("Play_voix01", gameObject);
             currentTree.parent.GetComponent<Tree>().squirrel = null;
             currentTree = null;
-            StartCoroutine(AnimationMoon());
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, gameObject.transform, duration);
         }
     }
 
@@ -110,43 +109,5 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
-    }
-
-    //A personnaliser
-    IEnumerator AnimationMoon()
-    {
-        float normalizedTime = 0;
-        Vector3 originScale = transform.localScale;
-
-        //Le perso disaparait...
-        while (normalizedTime < 1)
-        {
-            normalizedTime += Time.deltaTime / duration;
-            transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
-            yield return null;
-        }
-
-        //... puis reapparait sur la lune...
-        List<GameObject> allGob = new List<GameObject>();
-        foreach (Transform landings in potentialMoonLandings)
-        {
-            GameObject copy = Instantiate(gameObject);
-            Destroy(copy.GetComponent<Squirrel>());
-            copy.transform.parent = landings;
-            copy.transform.localPosition = Vector3.zero;
-            allGob.Add(copy);
-        }
-
-        //progressivement
-        while (normalizedTime > 0)
-        {
-            normalizedTime -= Time.deltaTime / duration;
-            yield return null;   
-            foreach(GameObject gob in allGob)
-            {
-                gob.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
-            }
-        }
-        Destroy(gameObject);
     }
 }
