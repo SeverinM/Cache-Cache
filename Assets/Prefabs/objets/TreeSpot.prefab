@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2723357769692699557}
   - component: {fileID: 2711707134196250937}
   - component: {fileID: 5577844112154866419}
-  - component: {fileID: 5983681319075956493}
+  - component: {fileID: 651193362170482052}
   m_Layer: 0
   m_Name: TreeSpot
   m_TagString: TreeSpot
@@ -92,7 +92,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5983681319075956493
+--- !u!114 &651193362170482052
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7005284751325453364}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c743b68401345dd48bc2f13e18244917, type: 3}
+  m_Script: {fileID: 11500000, guid: f55f3368d77e35847b559496ba916d08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxDistance: 500

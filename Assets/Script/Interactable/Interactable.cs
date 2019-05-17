@@ -5,7 +5,17 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     protected bool canInteract = false;
-    public bool CanInteract => canInteract;
+    public bool CanInteract
+    {
+        get
+        {
+            return canInteract;
+        }
+        set
+        {
+            canInteract = value;
+        }
+    }
 
     [SerializeField]
     protected Interactable echo;
@@ -16,6 +26,8 @@ public abstract class Interactable : MonoBehaviour
     public bool Block => block;
 
     //Incrementé quand une enigme est resolu
+
+    [SerializeField]
     protected int progress = -1;
     public int Progress
     {
@@ -41,5 +53,10 @@ public abstract class Interactable : MonoBehaviour
         {
             canInteract = true;
         }
+    }
+
+    protected virtual void Awake()
+    {
+        OnNewValue();
     }
 }

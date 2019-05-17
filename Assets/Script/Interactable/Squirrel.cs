@@ -21,6 +21,9 @@ public class Squirrel : Interactable
     Transform currentTree;
     Transform previousTree;
 
+    [SerializeField]
+    List<Transform> potentialMoonLandings;
+
     private void Start()
     {
         currentTree = potentialTrees[0];
@@ -31,10 +34,6 @@ public class Squirrel : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
-        {
-            Progress++;
-        }
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -59,6 +58,7 @@ public class Squirrel : Interactable
 
     public void NextJump()
     {
+        GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
         StartCoroutine(AnimationJump());
     }
 
@@ -66,14 +66,20 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
-            Destroy(gameObject);
+            //Permet d'eviter d'etre joué par les copies
+            if (!currentTree) return;
+            Debug.Log("tp");
+            AkSoundEngine.PostEvent("Play_voix01", gameObject);
+            currentTree.parent.GetComponent<Tree>().squirrel = null;
+            currentTree = null;
+            StartCoroutine(AnimationMoon());
         }
     }
 
     IEnumerator AnimationJump()
     {
         bool openEnd = false;
-        Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree && !x.parent.GetComponent<Draggable>().Dragging).
+        Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree).
             OrderBy(x => Vector3.Distance(x.position, transform.position) * Random.Range(0.5f, 2)).ToList()[0];
 
         //Allow to make make first look correct
@@ -104,6 +110,43 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
-        canInteract = (currentTree.CompareTag("Hiver"));
+    }
+
+    //A personnaliser
+    IEnumerator AnimationMoon()
+    {
+        float normalizedTime = 0;
+        Vector3 originScale = transform.localScale;
+
+        //Le perso disaparait...
+        while (normalizedTime < 1)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
+            yield return null;
+        }
+
+        //... puis reapparait sur la lune...
+        List<GameObject> allGob = new List<GameObject>();
+        foreach (Transform landings in potentialMoonLandings)
+        {
+            GameObject copy = Instantiate(gameObject);
+            Destroy(copy.GetComponent<Squirrel>());
+            copy.transform.parent = landings;
+            copy.transform.localPosition = Vector3.zero;
+            allGob.Add(copy);
+        }
+
+        //progressivement
+        while (normalizedTime > 0)
+        {
+            normalizedTime -= Time.deltaTime / duration;
+            yield return null;   
+            foreach(GameObject gob in allGob)
+            {
+                gob.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
+            }
+        }
+        Destroy(gameObject);
     }
 }

@@ -103,7 +103,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Start()
     {
-        Cursor.visible = false;
+        Cursor.visible = Debug.isDebugBuild;
         bool res = init();
         StartCoroutine(DelayedStart());
     }
@@ -236,10 +236,13 @@ public class MouseInputManager : MonoBehaviour
     }
 
     void Interaction(MousePointer pointer , MouseButton btn , ActionType act)
-    {
-        pointer.obj.GetComponent<Image>().enabled = true;
-        Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
+    {        
+        if (act.Equals(ActionType.PRESSED))
+        {
+            pointer.obj.GetComponent<Image>().enabled = true;
+        }
 
+        Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
         Vector3 position = pointer.obj.transform.position;
         position += new Vector3(-pointer.obj.GetComponent<RectTransform>().rect.width * 0.166f, pointer.obj.GetComponent<RectTransform>().rect.width * 0.5f, 0);
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));

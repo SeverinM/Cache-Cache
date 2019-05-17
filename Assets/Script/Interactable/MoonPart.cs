@@ -18,7 +18,7 @@ public class MoonPart : Interactable
 
     static bool unlocked = false;
     static List<TeleportSpot> tpSpots = new List<TeleportSpot>();
-    static List<Part> takenParts = new List<Part>();
+    static Dictionary<Part, GameObject> authorityTable = new Dictionary<Part, GameObject>();
 
     [SerializeField]
     TeleportSpot tpSpot;
@@ -36,8 +36,9 @@ public class MoonPart : Interactable
 
     protected bool canMove = false;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (tpSpot) tpSpots.Add(tpSpot);
     }
 
@@ -47,12 +48,10 @@ public class MoonPart : Interactable
         {
             if (!echo)
             {
-                if (!takenParts.Contains(part))
+                if (hasControl(part))
                 {
                     canMove = true;
-                    takenParts.Add(part);
-                    baseSensitivity = mouse.sensitivity;
-                    mouse.sensitivity = draggingSensitivity;
+                    authorityTable[part] = gameObject;
                 }
             }
         }
@@ -68,7 +67,7 @@ public class MoonPart : Interactable
 
     public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse,  Interactable echo = null)
     {       
-        if (echo)
+        if (echo && Progress == 0)
         {
             transform.localPosition = Echo.transform.localPosition;
         }
@@ -96,13 +95,14 @@ public class MoonPart : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)  && !echo)
         {
-            if (takenParts.Contains(part) && Progress == 0)
+            if (hasControl(part) && Progress == 0)
             {
-                takenParts.Remove(part);
+                authorityTable.Remove(part);
 
                 //Moon not locked yet
                 if (progress == 0)
                 {
+                    AkSoundEngine.PostEvent("Play_moon_failed", gameObject);
                     transform.localPosition = Vector3.zero;
                     if (Echo)
                     {
@@ -113,7 +113,6 @@ public class MoonPart : Interactable
                 canMove = false;
             }
 
-            mouse.sensitivity = baseSensitivity;
         }       
     }
 
@@ -122,15 +121,21 @@ public class MoonPart : Interactable
         base.OnNewValue();
         if (!unlocked && Progress == 1)
         {
+            AkSoundEngine.PostEvent("Play_moon_open", gameObject);
             unlocked = true;
-            Debug.LogError("kop");
             foreach(TeleportSpot tp in tpSpots.Distinct())
             {
+                tp.Init();
                 foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
                 {
                     dragg.AddSpot(tp);
                 }
             }
         }
+    }
+
+    bool hasControl(Part which)
+    {
+        return (!authorityTable.ContainsKey(which) || authorityTable[which] == gameObject);
     }
 }

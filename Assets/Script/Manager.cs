@@ -21,7 +21,13 @@ public class Manager : MonoBehaviour
         if (Display.displays.Length > 1)
         {
             Display.displays[1].Activate();
-            cam2.transform.RotateAround(plateau2.transform.position, Vector3.up, 180);
-        }       
+        }
+
+        //SoundManager.getInstance().AddSoundOutput("Realtek");
+        //SoundManager.getInstance().AddSoundOutput("NVIDIA");
+
+        //SoundManager.getInstance().PlaySound(0, "Play_Summer_Amb");
+        //SoundManager.getInstance().PlaySound(0, "Play_Winter_Amb");
+        AkSoundEngine.PostEvent("Play_Amb_Playtest", gameObject);
     }
 }

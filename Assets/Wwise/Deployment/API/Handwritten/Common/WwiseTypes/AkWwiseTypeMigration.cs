@@ -107,67 +107,60 @@ namespace AK.Wwise
 			return true;
 		}
 
-		public static bool SearchAndProcessWwiseTypes(UnityEditor.SerializedProperty property, UnityEditor.SerializedProperty endProperty = null)
+		public static bool SearchAndProcessWwiseTypes(UnityEditor.SerializedProperty property)
 		{
-			var returnValue = false;
-			if (property == null)
-				return returnValue;
-
+			var anyChange = false;
 			var recurse = false;
-			if (property.isArray)
+			for (var loop = property != null; loop; loop = property.Next(recurse))
 			{
-				if (property.arraySize > 0)
-				{
-					var copyProperty = property.Copy();
-					copyProperty.Next(false);
-					returnValue = SearchAndProcessWwiseTypes(property.GetArrayElementAtIndex(0), copyProperty);
-				}
-			}
-			else if (property.propertyType == UnityEditor.SerializedPropertyType.Generic)
-			{
-				recurse = true;
+				recurse = false;
 
-				var wwiseObjectType = GetWwiseObjectType(property);
-				if (wwiseObjectType != WwiseObjectType.None)
+				if (property.isArray)
 				{
+					if (property.arraySize == 0)
+						continue;
+
+					recurse = property.GetArrayElementAtIndex(0).propertyType == UnityEditor.SerializedPropertyType.Generic;
+				}
+				else if (property.propertyType == UnityEditor.SerializedPropertyType.Generic)
+				{
+					recurse = true;
+
+					var wwiseObjectType = GetWwiseObjectType(property);
+					if (wwiseObjectType == WwiseObjectType.None)
+						continue;
+
 					// At this point, we know that the property's type's name is the same as one of our WwiseTypes.
 					var valueGuidProperty = property.FindPropertyRelative("valueGuidInternal");
 					var wwiseObjectReferenceProperty = property.FindPropertyRelative("WwiseObjectReference");
-					if (valueGuidProperty != null && wwiseObjectReferenceProperty != null)
-					{
-						// At this point, we can be **pretty** sure that we are dealing with a WwiseType.
-						// The uncertainty lies with the fact that the property.type is the non-qualified name of the property's type.
-						recurse = false;
+					if (valueGuidProperty == null || wwiseObjectReferenceProperty == null)
+						continue;
 
-						var idProperty = property.FindPropertyRelative("idInternal");
-						if (wwiseObjectType == WwiseObjectType.State || wwiseObjectType == WwiseObjectType.Switch)
-						{
-							var groupGuidProperty = property.FindPropertyRelative("groupGuidInternal");
-							if (groupGuidProperty != null)
-							{
-								var groupIdProperty = property.FindPropertyRelative("groupIdInternal");
-								returnValue = ProcessDoubleGuidType(wwiseObjectReferenceProperty, wwiseObjectType, valueGuidProperty, idProperty, groupGuidProperty, groupIdProperty);
-							}
-						}
-						else
-						{
-							returnValue = ProcessSingleGuidType(wwiseObjectReferenceProperty, wwiseObjectType, valueGuidProperty, idProperty);
-						}
+					// At this point, we can be **pretty** sure that we are dealing with a WwiseType.
+					// The uncertainty lies with the fact that the property.type is the non-qualified name of the property's type.
+					recurse = false;
+
+					var idProperty = property.FindPropertyRelative("idInternal");
+					var hasChanged = false;
+					if (wwiseObjectType == WwiseObjectType.State || wwiseObjectType == WwiseObjectType.Switch)
+					{
+						var groupGuidProperty = property.FindPropertyRelative("groupGuidInternal");
+						if (groupGuidProperty == null)
+							continue;
+
+						var groupIdProperty = property.FindPropertyRelative("groupIdInternal");
+						hasChanged = ProcessDoubleGuidType(wwiseObjectReferenceProperty, wwiseObjectType, valueGuidProperty, idProperty, groupGuidProperty, groupIdProperty);
 					}
+					else
+					{
+						hasChanged = ProcessSingleGuidType(wwiseObjectReferenceProperty, wwiseObjectType, valueGuidProperty, idProperty);
+					}
+
+					anyChange = anyChange || hasChanged;
 				}
 			}
 
-			if (endProperty != null && UnityEditor.SerializedProperty.EqualContents(property, endProperty))
-				return returnValue;
-
-			if (!property.Next(recurse))
-				return returnValue;
-
-			// property is modified above, so this check needs to be performed again.
-			if (endProperty != null && UnityEditor.SerializedProperty.EqualContents(property, endProperty))
-				return returnValue;
-
-			return SearchAndProcessWwiseTypes(property, endProperty) || returnValue;
+			return anyChange;
 		}
 
 		public static bool ProcessSingleGuidType(UnityEditor.SerializedProperty wwiseObjectReferenceProperty, WwiseObjectType wwiseObjectType, 
