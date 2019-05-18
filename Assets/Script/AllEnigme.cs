@@ -4,6 +4,7 @@ using UnityEngine;
 
 public static class AllEnigme 
 {
+    //Dés qu'une de ces conditions est rempli , tous les participants voient leur indice de progression incrementé
     public static bool IS_MOON_OPEN(params Interactable[] allInter)
     {
         MoonPart moon1 = (MoonPart)allInter[0];
@@ -14,6 +15,7 @@ public static class AllEnigme
         return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && moon1.Ratio >= 0.9f && moon2.Ratio >= 0.9f);
     }
 
+    //La boite est consideré ouverte si les deux parties sont ouvertes a 95% en meme temps
     public static bool IS_BOX_OPEN(params Interactable[] allInter)
     {
         Box box1 = (Box)allInter[0];
@@ -29,8 +31,15 @@ public static class AllEnigme
         return (allInter[0] is Squirrel && allInter[0].Progress == 1);       
     }
 
+    //LolJambe
     public static bool IS_CHAR_PULLED(params Interactable[] allInter)
     {
         return (allInter[0] is PersoEnfoui && ((PersoEnfoui)allInter[0]).Ratio > 0.9f);
+    }
+
+    //Enigme de la vis
+    public static bool IS_NESSIE_BODY_PULLED(params Interactable[] allInter)
+    {
+        return (allInter[0] is Nessie && (allInter[0] as Nessie).Ratio > 0.9f);
     }
 }

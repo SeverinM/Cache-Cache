@@ -11,7 +11,7 @@ public class Nessie : Interactable
     float speedScrewing;
 
     [SerializeField]
-    float baseDrag;
+    float maxDragDist;
 
     [SerializeField]
     Camera cam;
@@ -21,6 +21,8 @@ public class Nessie : Interactable
     Vector3 directionCam;
     bool isDown;
 
+    public float Ratio => (originPos == Vector3.zero ? 0 : Vector3.Distance(originPos, transform.localPosition) / maxDist);
+
     protected override void Awake()
     {
         directionCam = (cam.transform.position - transform.position).normalized;
@@ -28,6 +30,9 @@ public class Nessie : Interactable
 
     public void Update()
     {
+        //Attention temporaire , passera a 1 plus tard
+        if (Progress != 0) return;
+
         Vector3 tempDir = (cam.transform.position - transform.position).normalized;
         angleCamera = Vector3.Angle(tempDir, directionCam);
 
@@ -62,11 +67,21 @@ public class Nessie : Interactable
 
     public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
+        //N'agit que lorsque l'on a pas assez tourné la maquette
+        if (isDown && transform.localPosition.y <= originPos.y + maxDragDist && Progress == 0)
+        {
+            Vector3 temporaryPosition = transform.localPosition + new Vector3(0, -mouse.delta.y * speedScrewing, 0);
+            temporaryPosition = new Vector3(temporaryPosition.x, Mathf.Clamp(temporaryPosition.y, originPos.y, (originPos.y + maxDragDist) - 0.001f), temporaryPosition.z);
+            transform.localPosition = temporaryPosition;
+        }
     }
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        transform.localPosition = originPos;
-        isDown = false;
+        if (Progress == 0)
+        {
+            transform.localPosition = originPos;
+            isDown = false;
+        }
     }
 }
