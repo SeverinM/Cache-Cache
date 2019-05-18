@@ -1,42 +1,49 @@
 fileFormatVersion: 2
-guid: 8207ed7e0c1294a09bf27c1d248898a7
+guid: 610d12e4771f1c4498a48101ae9e9a16
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: corps
-    100002: //RootNode
-    100004: oeildroit
-    100006: oeilgauche
-    100008: queue
-    100010: tete
-    100012: visage
-    400000: corps
-    400002: //RootNode
-    400004: oeildroit
-    400006: oeilgauche
-    400008: queue
-    400010: tete
-    400012: visage
-    2100000: lambert8
-    2100002: lambert1
-    2300000: corps
-    2300002: oeildroit
-    2300004: oeilgauche
-    2300006: queue
-    2300008: tete
-    2300010: visage
-    3300000: corps
-    3300002: oeildroit
-    3300004: oeilgauche
-    3300006: queue
-    3300008: tete
-    3300010: visage
-    4300000: corps
-    4300002: tete
-    4300004: visage
-    4300006: oeildroit
-    4300008: oeilgauche
-    4300010: queue
+    100000: buches
+    100002: cheminee
+    100004: exterieurmaison1
+    100006: exterieurmaison2
+    100008: feu
+    100010: flammecentre
+    100012: flammedroite
+    100014: flammegauche
+    100016: //RootNode
+    400000: buches
+    400002: cheminee
+    400004: exterieurmaison1
+    400006: exterieurmaison2
+    400008: feu
+    400010: flammecentre
+    400012: flammedroite
+    400014: flammegauche
+    400016: //RootNode
+    2100000: lambert1
+    2100002: lambert8
+    2300000: buches
+    2300002: cheminee
+    2300004: exterieurmaison1
+    2300006: exterieurmaison2
+    2300008: flammecentre
+    2300010: flammedroite
+    2300012: flammegauche
+    3300000: buches
+    3300002: cheminee
+    3300004: exterieurmaison1
+    3300006: exterieurmaison2
+    3300008: flammecentre
+    3300010: flammedroite
+    3300012: flammegauche
+    4300000: exterieurmaison1
+    4300002: cheminee
+    4300004: flammegauche
+    4300006: flammecentre
+    4300008: flammedroite
+    4300010: buches
+    4300012: exterieurmaison2
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}
