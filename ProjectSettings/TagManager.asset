@@ -10,6 +10,7 @@ TagManager:
   - Hiver
   - TreeSpot
   - TPSpot
+  - Center
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,9 @@ public class Squirrel : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
+        //Cliquer sur le perso revient a cliquer sur son arbre
+        if (currentTree)
+            currentTree.parent.GetComponent<Interactable>().MouseDown(btn, mouse);
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -66,9 +69,12 @@ public class Squirrel : Interactable
     {
         if (Progress == 2)
         {
+            //Permet d'eviter d'etre joué par les copies
+            if (!currentTree) return;
             AkSoundEngine.PostEvent("Play_voix01", gameObject);
             currentTree.parent.GetComponent<Tree>().squirrel = null;
-            StartCoroutine(AnimationMoon(potentialMoonLandings.OrderBy(x => Vector3.Distance(x.position, transform.position)).ToList()[0]));
+            currentTree = null;
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, gameObject.transform, duration);
         }
     }
 
@@ -78,24 +84,22 @@ public class Squirrel : Interactable
         Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree).
             OrderBy(x => Vector3.Distance(x.position, transform.position) * Random.Range(0.5f, 2)).ToList()[0];
 
-        //Allow to make make first look correct
-        Vector3 lastPosition = (nextTree.position - currentTree.position) * -0.0001f;
-
         previousTree = currentTree;
         currentTree = nextTree;
-
         previousTree.parent.GetComponent<Tree>().squirrel = null;
-
         previousTree.parent.GetComponent<Tree>().FouilleTree();
+
+        transform.forward = currentTree.position - previousTree.position;
+        Debug.Break();
+
         float normalizeTime = 0;
         while (normalizeTime < 1)
         {
             normalizeTime += Time.deltaTime / duration;
             Vector3 temporaryPosition = Vector3.Lerp(previousTree.position, currentTree.position, normalizeTime);
             temporaryPosition += new Vector3(0, curveY.Evaluate(normalizeTime), 0);
-            lastPosition = transform.position;
             transform.position = temporaryPosition;
-            transform.forward = (transform.position - lastPosition);
+            transform.localEulerAngles = new Vector3(Mathf.Lerp(-90, 90, normalizeTime), transform.localEulerAngles.y, transform.localEulerAngles.z);
 
             if (normalizeTime > openAt && !openEnd)
             {
@@ -106,24 +110,5 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         this.transform.SetParent(currentTree);
-    }
-
-    IEnumerator AnimationMoon(Transform trsf)
-    {
-        transform.SetParent(trsf);
-
-        Vector3 positionDestination = trsf.position;
-        Vector3 positionOrigin = transform.position;
-        Vector3 forwardOrigin = transform.forward;
-        Vector3 forwardDestination = trsf.forward;
-
-        float normalizeTime = 0;
-        while (normalizeTime < 1)
-        {
-            normalizeTime += Time.deltaTime / duration;
-            transform.position = Vector3.Lerp(positionOrigin, positionDestination, normalizeTime);
-            yield return null;
-        }
-
     }
 }

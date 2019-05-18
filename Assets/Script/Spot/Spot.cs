@@ -4,6 +4,7 @@ using UnityEngine;
 
 public abstract class Spot : MonoBehaviour
 {
+    [SerializeField]
     protected Draggable currentHold = null;
     public Draggable CurrentHold
     {
@@ -17,8 +18,16 @@ public abstract class Spot : MonoBehaviour
         }
     }
 
-    public abstract void EnterSpot(Draggable dragg);
-    public abstract void ExitSpot(Draggable dragg);
+    public virtual void EnterSpot(Draggable dragg)
+    {
+        dragg.transform.position = transform.position;
+    }
+
+    public virtual void ExitSpot(Draggable dragg)
+    {
+
+    }
+
     public abstract void ReleaseSpot(Draggable dragg);
     public abstract void SetValue(Draggable dragg, bool value);
     public abstract void ResetSpot(Draggable dragg);
