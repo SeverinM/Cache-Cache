@@ -455,6 +455,8 @@ GameObject:
   - component: {fileID: 508904703393881567}
   - component: {fileID: 508904703395175935}
   - component: {fileID: 508904703396175679}
+  - component: {fileID: 7601308208970904699}
+  - component: {fileID: 2036197058051461001}
   m_Layer: 0
   m_Name: corps
   m_TagString: Untagged
@@ -470,7 +472,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508904703394234879}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -1.2671633, z: 0}
+  m_LocalPosition: {x: -0, y: -1.22, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 508904703393881565}
@@ -522,3 +524,35 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &7601308208970904699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508904703394234879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbf4e6142981a5d4d98c49b6b2f42cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 0
+  progress: -1
+  maxDist: 0
+  speedScrewing: 0
+  baseDrag: 0
+  cam: {fileID: 0}
+--- !u!65 &2036197058051461001
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508904703394234879}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.5342576, y: 2.1870544, z: 1.8170128}
+  m_Center: {x: 0, y: 0.021380424, z: 0.00000011920929}
