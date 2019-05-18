@@ -14,7 +14,7 @@ public class EnigmeManager : MonoBehaviour
     float coeffSize = 5;
     public float CoeffSize => coeffSize;
 
-    static EnigmeManager _instance;
+    static EnigmeManager _instance = null;
 
     private void Awake()
     {
@@ -95,7 +95,8 @@ public class EnigmeManager : MonoBehaviour
 
     public void Update()
     {
-        allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
+        if (allConditions.Count > 0)
+            allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
     }
 
     public void DiscoveredCharacter(List<Transform> newParents, Transform target, float duration)
@@ -126,7 +127,7 @@ public class EnigmeManager : MonoBehaviour
             Destroy(copy.GetComponent<MonoBehaviour>());
             copy.transform.SetParent(landings);
             copy.transform.localPosition = Vector3.zero;
-            copy.transform.forward = landings.up;
+            copy.transform.localEulerAngles = Vector3.zero;
             allGob.Add(copy);
         }
 

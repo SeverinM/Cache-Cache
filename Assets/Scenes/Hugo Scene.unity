@@ -1181,15 +1181,15 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 844308843}
-    - target: {fileID: 2399209166046150554, guid: b5761bc8efee2432cb7a9fb4eca9acea,
-        type: 3}
-      propertyPath: tpSpot
-      value: 
-      objectReference: {fileID: 2010603454}
     - target: {fileID: 4380693338249041459, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_Name
       value: MoonReceptor lolJambe
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380693338249041459, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5761bc8efee2432cb7a9fb4eca9acea, type: 3}
@@ -1492,6 +1492,7 @@ MonoBehaviour:
   - allParameters:
     - {fileID: 179335652}
     cond: 3
+  coeffSize: 5
 --- !u!1 &684529342
 GameObject:
   m_ObjectHideFlags: 0
@@ -4343,18 +4344,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2010603454 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2694997016817140699, guid: b5761bc8efee2432cb7a9fb4eca9acea,
-    type: 3}
-  m_PrefabInstance: {fileID: 1760768888}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bad4533de4c08ec42a39d8b8f2ee98f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &2038375411 stripped
