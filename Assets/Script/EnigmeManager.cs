@@ -109,6 +109,11 @@ public class EnigmeManager : MonoBehaviour
         float normalizedTime = 0;;
         Vector3 originScale = target.lossyScale;
 
+        if (target.GetComponent<Animator>())
+        {
+            target.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_FOUND);
+        }
+
         //Le perso disaparait...
         while (normalizedTime < 1)
         {

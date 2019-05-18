@@ -15,6 +15,7 @@ public class Manager : MonoBehaviour
 
     public const string TRIGGER_INTERACTION = "Interaction";
     public const string MAQUETTE_TAG = "Maquette";
+    public const string TRIGGER_FOUND = "Found";
 
     private void Awake()
     {
