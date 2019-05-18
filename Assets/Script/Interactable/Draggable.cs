@@ -82,6 +82,12 @@ public class Draggable : Interactable
                 //Ce qu'on survole est valide ?
                 if (hit.collider.GetComponent<Spot>())
                 {
+                    if (hit.collider.GetComponent<Spot>().CurrentHold)
+                    {
+                        transform.position = hit.point;
+                        break;
+                    }
+
                     if (lastTouchedGameObject != hit.collider.gameObject)
                     {
                         //On ne survole plus le meme spot
@@ -97,6 +103,7 @@ public class Draggable : Interactable
                     lastTouchedGameObject = hit.collider.gameObject;
                     break;
                 }
+                
                 else
                 {
                     transform.position = hit.point;

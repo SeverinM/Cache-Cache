@@ -1654,68 +1654,52 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[0]
+      value: 
+      objectReference: {fileID: 333573155}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[1]
+      value: 
+      objectReference: {fileID: 1780854687}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[2]
+      value: 
+      objectReference: {fileID: 2038375411}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[3]
+      value: 
+      objectReference: {fileID: 1223494302}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[4]
+      value: 
+      objectReference: {fileID: 1326834126}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[5]
+      value: 
+      objectReference: {fileID: 922428789}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[6]
+      value: 
+      objectReference: {fileID: 562580592}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[7]
+      value: 
+      objectReference: {fileID: 164619170}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[8]
+      value: 
+      objectReference: {fileID: 1647634399}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialMoonLandings.Array.data[0]
+      value: 
+      objectReference: {fileID: 631955032}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialMoonLandings.Array.data[1]
+      value: 
+      objectReference: {fileID: 1760768889}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
---- !u!1 &801406156 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8348803628185519720, guid: 0d494f1e2e5807d4e81498a0538125bb,
-    type: 3}
-  m_PrefabInstance: {fileID: 801406155}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &801406157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 801406156}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68e911c9399e8784ab308ea9755f3c81, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  echo: {fileID: 0}
-  block: 0
-  progress: -1
-  potentialTrees:
-  - {fileID: 333573155}
-  - {fileID: 1780854687}
-  - {fileID: 2038375411}
-  - {fileID: 1223494302}
-  - {fileID: 1326834126}
-  - {fileID: 922428789}
-  - {fileID: 562580592}
-  - {fileID: 164619170}
-  - {fileID: 1647634399}
-  duration: 1
-  openAt: 0.645
-  curveY:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -0.09434128
-      value: 0.023590088
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1.1020813
-      value: 0.02594757
-      inSlope: -2.4815047
-      outSlope: -2.4815047
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.05263905
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  potentialMoonLandings:
-  - {fileID: 631955032}
-  - {fileID: 1760768889}
 --- !u!1001 &826729250
 PrefabInstance:
   m_ObjectHideFlags: 0
