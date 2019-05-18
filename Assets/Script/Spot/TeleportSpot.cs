@@ -43,7 +43,6 @@ public class TeleportSpot : Spot
 
     public override void EnterSpot(Draggable dragg)
     {
-        Debug.Log("entree tp");
         bool found = false;
         foreach (Transform trsf in dragg.transform)
         {
@@ -99,10 +98,17 @@ public class TeleportSpot : Spot
 
     public override void SetValue(Draggable dragg, bool value)
     {
-        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && (currentHold == null || !value) && !busy)
+        if (!dragg || (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && (currentHold == null || !value) && !busy))
         {
-            gameObject.GetComponent<MeshRenderer>().enabled = value;
-            gameObject.GetComponent<Collider>().enabled = value;
+            GetComponent<Collider>().enabled = value;
+            if (!value)
+            {
+                GetComponent<ParticleSystem>().Stop();
+            }
+            else
+            {
+                GetComponent<ParticleSystem>().Play();
+            }
         }
             
     }
@@ -114,11 +120,13 @@ public class TeleportSpot : Spot
         {
             spot1 = this;
             chosen = true;
+            SetValue(null, false);
         }
 
         if (!spot2 && !chosen)
         {
             spot2 = this;
+            SetValue(null, false);
         }
     }
 
@@ -167,6 +175,7 @@ public class TeleportSpot : Spot
             float yValue = Mathf.Lerp(0, distance, reversed ? 1 - normalizedTime : normalizedTime);
             PartieHaute.transform.localPosition = new Vector3(0, yValue, 0);
             PartieBasse.transform.localPosition = new Vector3(0, -yValue, 0);
+            Debug.LogError(transform.lossyScale);
             if (currentHold)
             {
                 currentHold.transform.localScale = new Vector3(1, 1, 1) * (reversed ? 1 - normalizedTime : normalizedTime);
