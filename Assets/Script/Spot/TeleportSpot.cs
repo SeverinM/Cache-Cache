@@ -175,11 +175,6 @@ public class TeleportSpot : Spot
             float yValue = Mathf.Lerp(0, distance, reversed ? 1 - normalizedTime : normalizedTime);
             PartieHaute.transform.localPosition = new Vector3(0, yValue, 0);
             PartieBasse.transform.localPosition = new Vector3(0, -yValue, 0);
-            Debug.LogError(transform.lossyScale);
-            if (currentHold)
-            {
-                currentHold.transform.localScale = new Vector3(1, 1, 1) * (reversed ? 1 - normalizedTime : normalizedTime);
-            }
 
             if (!reversed && currentHold)
             {
