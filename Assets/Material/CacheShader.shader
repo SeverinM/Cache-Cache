@@ -1,6 +1,6 @@
 ﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
-Shader "CustomMy/CacheShader"
+Shader "Custom/CacheShader"
 {
 	Properties
 	{
@@ -35,7 +35,7 @@ Shader "CustomMy/CacheShader"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment frag
-			#pragma multi_compile_fwdbase
+			#pragma multi_compile_fwdbase fullforwardshadows
 
 			#include "Lighting.cginc"
 			#include "UnityCG.cginc"
