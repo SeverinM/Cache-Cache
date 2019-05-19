@@ -121,6 +121,7 @@ public class MouseInputManager : MonoBehaviour
 
     void addCursor(int deviceId)
     {
+        if (pointersByDeviceId.ContainsKey(deviceId)) return;
 
         if (!isInit)
         {
