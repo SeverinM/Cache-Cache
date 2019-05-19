@@ -10,6 +10,28 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     List<ConditionStruct> allConditions;
 
+    [SerializeField]
+    float coeffSize = 5;
+    public float CoeffSize => coeffSize;
+
+    static EnigmeManager _instance = null;
+
+    private void Awake()
+    {
+        if (!_instance)
+            _instance = this;
+        else
+            Destroy(gameObject);
+    }
+
+    public static EnigmeManager getInstance()
+    {
+        if (!_instance)
+            _instance = new GameObject().AddComponent<EnigmeManager>();
+
+        return _instance;
+    }
+
     [System.Serializable]
     class ConditionStruct
     {
@@ -73,6 +95,57 @@ public class EnigmeManager : MonoBehaviour
 
     public void Update()
     {
-        allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
+        if (allConditions.Count > 0)
+            allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
+    }
+
+    public void DiscoveredCharacter(List<Transform> newParents, Transform target, float duration)
+    {
+        StartCoroutine(DiscoverAnimation(newParents, target, duration));
+    }
+
+    IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , float duration)
+    {
+        float normalizedTime = 0;;
+        Vector3 originScale = target.lossyScale;
+
+        if (target.GetComponent<Animator>())
+        {
+            target.GetComponent<Animator>().SetTrigger(Manager.TRIGGER_FOUND);
+        }
+
+        //Le perso disaparait...
+        while (normalizedTime < 1)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            target.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime);
+            yield return null;
+        }
+
+        //... puis reapparait sur la lune...
+        List<GameObject> allGob = new List<GameObject>();
+        foreach (Transform landings in newParents)
+        {
+            GameObject copy = Instantiate(target.gameObject);
+
+            //Detruit les scripts
+            Destroy(copy.GetComponent<MonoBehaviour>());
+            copy.transform.SetParent(landings);
+            copy.transform.localPosition = Vector3.zero;
+            copy.transform.localEulerAngles = Vector3.zero;
+            allGob.Add(copy);
+        }
+
+        //progressivement
+        while (normalizedTime > 0)
+        {
+            normalizedTime -= Time.deltaTime / duration;
+            yield return null;
+            foreach (GameObject gob in allGob)
+            {
+                gob.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime) * getInstance().CoeffSize;
+            }
+        }
+        Destroy(target.gameObject);
     }
 }

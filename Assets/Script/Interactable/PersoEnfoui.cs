@@ -10,6 +10,12 @@ public class PersoEnfoui : Interactable
     [SerializeField]
     float sensi;
 
+    [SerializeField]
+    List<Transform> potentialMoonLandings;
+
+    [SerializeField]
+    float duration;
+
     Vector3 origin;
 
     public float Ratio => Vector3.Distance(transform.position, origin) / maxDistance;
@@ -42,14 +48,16 @@ public class PersoEnfoui : Interactable
             Vector3 temporaryPosition = transform.position + new Vector3(0, -mouse.delta.y * sensi, 0);
             temporaryPosition = new Vector3(temporaryPosition.x, Mathf.Clamp(temporaryPosition.y, origin.y, origin.y + maxDistance), temporaryPosition.z);
             transform.position = temporaryPosition;
-            Debug.LogError(Ratio);
         }
     }
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        dragging = false;
-        transform.position = origin;
+        if (Progress == 0)
+        {
+            dragging = false;
+            transform.position = origin;
+        }
     }
 
     public override void OnNewValue()
@@ -57,7 +65,7 @@ public class PersoEnfoui : Interactable
         base.OnNewValue();
         if (Progress == 1)
         {
-            Destroy(gameObject);
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, transform, duration);
         }
     }
 }
