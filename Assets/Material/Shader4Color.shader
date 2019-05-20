@@ -19,8 +19,10 @@ Shader "Custom/Shader4Color"
 		_ShadowEdge1("Spotlight smooth 1", Range(0,10)) = 1
 		_ShadowEdge2("Spotlight smooth 2", Range(0,10)) = 1
 
-		_SpecSize("Specular Size", float) = 48.0
-		_SpecularColor("Specular Color", Color) = (0.3, 0.3, 0.3, 0)
+		_SpecIntensity("Spec Intensity", Range(0,1)) = 1
+		_Glowsiness("Spec size",float) = 32
+		_SpecularColor("SpecColor", Color) = (1,1,1,1)
+		_SpecEdgeEffect("Spec Edge Effect", Range(0.001,1)) = 0.2
 
 		_Debug("Debug", float) = 1//specular
 	}
@@ -45,8 +47,10 @@ Shader "Custom/Shader4Color"
 			float _ShadowEdge1;
 			float _ShadowEdge2;
 
-			float _SpecSize;
-			half4 _SpecularColor;
+			half _SpecIntensity;
+			float _Glowsiness;
+			float4 _SpecularColor;
+			half _SpecEdgeEffect;
 
 			float _Debug;
 
@@ -70,17 +74,33 @@ Shader "Custom/Shader4Color"
 
 				half pointLightIntensity = _LightColor0.r;
 
+
+
+
+				float shadow = atten;
+				float lightIntensity = smoothstep(0, 0.1, NdotL * shadow);
+
 				//Final choice 
 				half4 col;
 				col.rgb = lerp(nitColor, pointLightColor * _LightEffect, pointLightIntensity);
 				col.a = s.Alpha;
 
-				//Spec
-				half3 h = normalize(lightDir + viewDir);
-				float nh = max(0, dot(s.Normal, h));
-				float spec = pow(nh, _SpecSize) * atten;
+				//Specular
+				viewDir = normalize(viewDir);
 
-				return col + _SpecularColor * spec;
+				float3 halfVector = normalize(_WorldSpaceLightPos0 + viewDir);
+				float NdotH = dot(s.Normal, halfVector);
+
+				float specularIntensity = pow(NdotH * lightIntensity, _Glowsiness * _Glowsiness);
+				specularIntensity = smoothstep(0, _SpecEdgeEffect, specularIntensity);
+				float4 specular = specularIntensity * _SpecularColor * _SpecIntensity;
+				//End specular
+
+
+				//float specIntensity = pow(NdotL, _SpecSize);
+
+
+				return col + specular;
 			}
 
 			//init input
