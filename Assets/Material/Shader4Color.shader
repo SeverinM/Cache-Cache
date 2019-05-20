@@ -1,4 +1,4 @@
-﻿// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
+// Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
 
 // Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 // Upgrade NOTE: replaced 'mul(UNITY_MATRIX_MVP,*)' with 'UnityObjectToClipPos(*)'
@@ -18,6 +18,9 @@ Shader "Custom/Shader4Color"
 
 		_ShadowEdge1("Spotlight smooth 1", Range(0,10)) = 1
 		_ShadowEdge2("Spotlight smooth 2", Range(0,10)) = 1
+
+		_SpecSize("Specular Size", float) = 48.0
+		_SpecularColor("Specular Color", Color) = (0.3, 0.3, 0.3, 0)
 
 		_Debug("Debug", float) = 1//specular
 	}
@@ -42,10 +45,13 @@ Shader "Custom/Shader4Color"
 			float _ShadowEdge1;
 			float _ShadowEdge2;
 
+			float _SpecSize;
+			half4 _SpecularColor;
+
 			float _Debug;
 
 			//custom lighting
-			half4 LightingSimpleLambert(SurfaceOutput s, half3 lightDir, half atten) {
+			half4 LightingSimpleLambert(SurfaceOutput s, half3 lightDir, half3 viewDir, half atten) {
 				//TO DO :	NdotL 
 				//			smoothStep to have nicer shadow 
 				//			add more extreme
@@ -69,7 +75,12 @@ Shader "Custom/Shader4Color"
 				col.rgb = lerp(nitColor, pointLightColor * _LightEffect, pointLightIntensity);
 				col.a = s.Alpha;
 
-				return col;
+				//Spec
+				half3 h = normalize(lightDir + viewDir);
+				float nh = max(0, dot(s.Normal, h));
+				float spec = pow(nh, _SpecSize) * atten;
+
+				return col + _SpecularColor * spec;
 			}
 
 			//init input
@@ -81,7 +92,7 @@ Shader "Custom/Shader4Color"
 			void surf(Input IN, inout SurfaceOutput o) {
 				o.Albedo = _ColorNShadow;
 				o.Emission = 0;
-				o.Specular = 0;
+				o.Specular = _Debug;
 				o.Gloss = 0;
 				o.Alpha = 0;
 			}
