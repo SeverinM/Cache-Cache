@@ -5726,7 +5726,7 @@ PrefabInstance:
     - target: {fileID: 6253488926843928951, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: Trouvez tous les personnages !
+      value: Cliquez pour commencer
       objectReference: {fileID: 0}
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
@@ -5742,6 +5742,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.b
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_Text
+      value: Trouvez tous les personnages !
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7085c345a63b07a4ab3956a5413fed84, type: 3}
