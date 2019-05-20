@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Saute : MonoBehaviour
+public class Saute : Interactable
 {
     public AnimationCurve hauteurSautFonctionDuTemps = AnimationCurve.Constant(0, 1, 0);
     public float dureeDuSaut = 1;
@@ -30,8 +30,21 @@ public class Saute : MonoBehaviour
     }
 
     [ContextMenu("Touche me")]
-    public void OnMouseDown()
+    public void Touch()
     {
         LerpValue = 0;
+    }
+
+    public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null) { }
+    public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null) { }
+    public override void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null) { }
+    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null) { }
+
+    public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+        //
+        Debug.Log("not me");
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+            Touch();
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Wobble : MonoBehaviour
+public class Wobble : Interactable
 {
     public AnimationCurve sizeFluctuationWhenTouch = AnimationCurve.Constant(0, 1, 1);
     public float wobblingDuration = 1;
@@ -32,9 +32,23 @@ public class Wobble : MonoBehaviour
     }
 
     [ContextMenu("Touch Me")]
-    private void OnMouseDown()
+    private void Touch()
     {
         LerpValue = 0;
+    }
+
+
+    public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null){}
+    public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null){}
+    public override void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null){}
+    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null){}
+
+    public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+        //
+        Debug.Log("not me");
+        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
+            Touch();
     }
 
 }
