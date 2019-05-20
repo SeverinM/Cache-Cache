@@ -122,7 +122,7 @@ public class Draggable : Interactable
             dragging = false;
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && lastTouchedGameObject.GetComponent<Spot>().CurrentHold == null)
             {
-                //Appellé uniquement quand le spot est different
+                //Appellï¿½ uniquement quand le spot est different
                 if (CurrentSpot != null && CurrentSpot != lastTouchedGameObject.GetComponent<Spot>())
                 {
                     CurrentSpot.HoldObjectLeft(this);

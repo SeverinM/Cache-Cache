@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,6 +19,7 @@ public class TeleportSpot : Spot
     float duration;
     public float Duration => duration;
 
+    Vector3 objectScale;
     float distance;
     bool canOpen = true;
     bool busy = false;
@@ -68,6 +69,7 @@ public class TeleportSpot : Spot
         dragg.transform.SetParent(transform);
         SetValue(dragg, false);
         currentHold = dragg;
+        objectScale = currentHold.transform.localScale;
         CanOpen = false;
         GetOtherPart().CanOpen = false;
         GetOtherPart().StartCoroutine(GetOtherPart().StartDelayed(duration));

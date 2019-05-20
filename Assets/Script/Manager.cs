@@ -13,12 +13,20 @@ public class Manager : MonoBehaviour
     [SerializeField]
     GameObject plateau2;
 
+    static Manager _instance;
+
     public const string TRIGGER_INTERACTION = "Interaction";
     public const string MAQUETTE_TAG = "Maquette";
     public const string TRIGGER_FOUND = "Found";
 
     private void Awake()
     {
+        if (!_instance)
+            _instance = this;
+        else
+            Destroy(gameObject);
+
+
         if (Display.displays.Length > 1)
         {
             Display.displays[1].Activate();
@@ -30,5 +38,13 @@ public class Manager : MonoBehaviour
         //SoundManager.getInstance().PlaySound(0, "Play_Summer_Amb");
         //SoundManager.getInstance().PlaySound(0, "Play_Winter_Amb");
         AkSoundEngine.PostEvent("Play_Amb_Playtest", gameObject);
+    }
+
+    public static Manager GetInstance()
+    {
+        if (!_instance)
+            _instance = new GameObject().AddComponent<Manager>();
+
+        return _instance;
     }
 }
