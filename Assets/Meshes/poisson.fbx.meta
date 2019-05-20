@@ -1,42 +1,19 @@
 fileFormatVersion: 2
-guid: 8207ed7e0c1294a09bf27c1d248898a7
+guid: 141204cb2ec58264e9bd7de0d5e36ef6
 ModelImporter:
   serializedVersion: 23
   fileIDToRecycleName:
-    100000: corps
+    100000: pDisc2
     100002: //RootNode
-    100004: oeildroit
-    100006: oeilgauche
-    100008: queue
-    100010: tete
-    100012: visage
-    400000: corps
+    400000: pDisc2
     400002: //RootNode
-    400004: oeildroit
-    400006: oeilgauche
-    400008: queue
-    400010: tete
-    400012: visage
-    2100000: lambert8
-    2100002: lambert1
-    2300000: corps
-    2300002: oeildroit
-    2300004: oeilgauche
-    2300006: queue
-    2300008: tete
-    2300010: visage
-    3300000: corps
-    3300002: oeildroit
-    3300004: oeilgauche
-    3300006: queue
-    3300008: tete
-    3300010: visage
-    4300000: corps
-    4300002: tete
-    4300004: visage
-    4300006: oeildroit
-    4300008: oeilgauche
-    4300010: queue
+    2100000: lambert1
+    2300000: pDisc2
+    2300002: //RootNode
+    3300000: pDisc2
+    3300002: //RootNode
+    4300000: poisson
+    4300002: pDisc2
     7400000: Take 001
     9500000: //RootNode
   externalObjects: {}

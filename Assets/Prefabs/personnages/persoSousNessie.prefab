@@ -631,8 +631,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6911334919503247709}
+  - component: {fileID: 1572492601389546733}
+  - component: {fileID: 3041720332074832663}
   m_Layer: 0
-  m_Name: perso2pilules
+  m_Name: persoSousNessie
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -656,6 +658,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1572492601389546733
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911334919502947709}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.17421608, y: 0.25454548, z: 0.10031297}
+  m_Center: {x: -0.004819829, y: 0.102821365, z: 0.00000015662356}
+--- !u!114 &3041720332074832663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6911334919502947709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d55e90ce8c821042b79ff2c86cccc47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 0
+  progress: -1
+  nessieBody: {fileID: 0}
+  potentialMoonsLandings: []
 --- !u!1 &6911334919502947711
 GameObject:
   m_ObjectHideFlags: 0

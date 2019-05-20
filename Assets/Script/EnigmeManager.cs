@@ -12,7 +12,7 @@ public class EnigmeManager : MonoBehaviour
 
     [SerializeField]
     float coeffSize = 5;
-    public float CoeffSize => coeffSize;
+    public float CoeffSizeMoon => coeffSize;
 
     static EnigmeManager _instance = null;
 
@@ -79,6 +79,8 @@ public class EnigmeManager : MonoBehaviour
                     return AllEnigme.IS_SQUIRREL_FOUND;
                 case Condition.LOLJAMBE_PULLED:
                     return AllEnigme.IS_CHAR_PULLED;
+                case Condition.NESSIE_BODY_PULLED:
+                    return AllEnigme.IS_NESSIE_BODY_PULLED;
                 default:
                     return AllEnigme.IS_BOX_OPEN;
             }
@@ -90,7 +92,8 @@ public class EnigmeManager : MonoBehaviour
         MOON_OPEN,
         BOX_OPEN,
         SQUIRREL_FOUND,
-        LOLJAMBE_PULLED
+        LOLJAMBE_PULLED,
+        NESSIE_BODY_PULLED
     }
 
     public void Update()
@@ -129,7 +132,7 @@ public class EnigmeManager : MonoBehaviour
             GameObject copy = Instantiate(target.gameObject);
 
             //Detruit les scripts
-            Destroy(copy.GetComponent<MonoBehaviour>());
+            Destroy(copy.GetComponent<Interactable>());
             copy.transform.SetParent(landings);
             copy.transform.localPosition = Vector3.zero;
             copy.transform.localEulerAngles = Vector3.zero;
@@ -143,7 +146,7 @@ public class EnigmeManager : MonoBehaviour
             yield return null;
             foreach (GameObject gob in allGob)
             {
-                gob.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime) * getInstance().CoeffSize;
+                gob.transform.localScale = Vector3.Lerp(originScale, Vector3.zero, normalizedTime) * getInstance().CoeffSizeMoon;
             }
         }
         Destroy(target.gameObject);
