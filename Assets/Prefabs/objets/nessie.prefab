@@ -541,8 +541,11 @@ MonoBehaviour:
   progress: -1
   maxDist: 0
   speedScrewing: 0
-  baseDrag: 0
+  maxDragDist: 0
   cam: {fileID: 0}
+  fishs: []
+  depthFish: 0
+  speedFish: 0
 --- !u!65 &2036197058051461001
 BoxCollider:
   m_ObjectHideFlags: 0
