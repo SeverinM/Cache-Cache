@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Firework : Draggable
 {
+    [SerializeField]
+    float duration;
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (Progress == 0)
@@ -15,5 +18,15 @@ public class Firework : Draggable
         base.OnNewValue();
         if (Progress == 1)
             Debug.Log("I call this an absolute win");
+    }
+
+    IEnumerator LaunchFirework()
+    {
+        float normalizedTime = 0;
+        while (normalizedTime <= 1)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            yield return null;
+        }
     }
 }
