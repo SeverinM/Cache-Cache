@@ -16,6 +16,10 @@ public class DisableAnimator : StateMachineBehaviour
 
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        foreach(Interactable inter in animator.gameObject.GetComponentsInChildren<Interactable>())
+        {
+            inter.Progress++;
+        }
         animator.enabled = false;
     }
 
