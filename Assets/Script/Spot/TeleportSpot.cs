@@ -190,14 +190,13 @@ public class TeleportSpot : Spot
         }
 
         //La copie est lié a l'autre lune
-        Vector3 scale = CurrentHold.transform.localScale;
         GameObject copy = Instantiate(CurrentHold.gameObject);
         copy.transform.SetParent(GetOtherPart().transform);
         copy.transform.localPosition = Vector3.zero;
         GetOtherPart().CurrentHold = copy.GetComponent<Draggable>();
-        copy.transform.localScale = scale;
-        copy.transform.localEulerAngles = Vector3.zero;
+        copy.transform.rotation = CurrentHold.transform.rotation;
         copy.GetComponent<Draggable>().CurrentSpot = GetOtherPart();
+        copy.transform.localScale = CurrentHold.transform.localScale;
 
         while (normalizedTime >= 0)
         {
