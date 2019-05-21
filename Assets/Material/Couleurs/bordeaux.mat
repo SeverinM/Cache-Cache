@@ -75,7 +75,7 @@ Material:
     - _Parallax: 0.02
     - _ShadowEdge: 1
     - _ShadowEdge1: 0
-    - _ShadowEdge2: 0.1
+    - _ShadowEdge2: 0.2
     - _SmoothnessTextureChannel: 0
     - _SpecEdgeEffect: 1
     - _SpecIntensity: 0.2

@@ -67,7 +67,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Glowsiness: 8
+    - _Glowsiness: 4
     - _LightEffect: 0.3
     - _Metallic: 0
     - _Mode: 0
@@ -75,7 +75,7 @@ Material:
     - _Parallax: 0.02
     - _ShadowEdge: 1
     - _ShadowEdge1: 0
-    - _ShadowEdge2: 0.1
+    - _ShadowEdge2: 0.66
     - _SmoothnessTextureChannel: 0
     - _SpecEdgeEffect: 1
     - _SpecIntensity: 0.2
