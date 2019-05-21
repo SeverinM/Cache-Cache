@@ -90,7 +90,6 @@ public class Squirrel : Interactable
         previousTree.parent.GetComponent<Tree>().FouilleTree();
 
         transform.forward = currentTree.position - previousTree.position;
-        Debug.Break();
 
         float normalizeTime = 0;
         while (normalizeTime < 1)

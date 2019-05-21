@@ -140,7 +140,7 @@ PrefabInstance:
     - target: {fileID: 1835944565427472916, guid: 2cdd4cd5aa7d2a14c81806adbacff322,
         type: 3}
       propertyPath: m_Name
-      value: CercleNeige
+      value: Spot J1
       objectReference: {fileID: 0}
     - target: {fileID: 1835944565427472916, guid: 2cdd4cd5aa7d2a14c81806adbacff322,
         type: 3}
@@ -4981,36 +4981,6 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 716e74388d338f94faf20e51d3143b00, type: 2}
-    - target: {fileID: 3664683564104224881, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664683564104224885, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664683564104224887, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664683564104224889, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664683564104224891, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3664683564104224895, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3664683564102291127, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
         type: 3}
       propertyPath: m_CastShadows
@@ -5039,6 +5009,36 @@ PrefabInstance:
     - target: {fileID: 3664683564102291133, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
         type: 3}
       propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664683564104224881, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664683564104224885, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664683564104224887, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664683564104224889, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664683564104224891, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3664683564104224895, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7569,7 +7569,7 @@ PrefabInstance:
     - target: {fileID: 3962306912994915321, guid: a65cddf86b6486c478ff152a96f37354,
         type: 3}
       propertyPath: m_Name
-      value: CercleLuciole
+      value: Spot J2
       objectReference: {fileID: 0}
     - target: {fileID: 3962306912994915321, guid: a65cddf86b6486c478ff152a96f37354,
         type: 3}

@@ -92,6 +92,7 @@ public class Tree : Draggable
 
     public void FouilleTree()
     {
+        if (CurrentSpot is TeleportSpot) return;
         if (tag == "Hiver")
         {
             AkSoundEngine.PostEvent("Play_dead_tree", gameObject);
