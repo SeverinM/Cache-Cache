@@ -42,4 +42,13 @@ public static class AllEnigme
     {
         return (allInter[0] is Nessie && (allInter[0] as Nessie).Ratio > 0.9f);
     }
+
+    //Enigme du nessie
+    public static bool IS_FIREWORK_BURNING(params Interactable[] allInter)
+    {
+        if (!(allInter[0] is Draggable)) return false;
+        Draggable dragg = allInter[0] as Draggable;
+        return (dragg.CurrentSpot != null && dragg.CurrentSpot.tag == "FireWork" &&
+            dragg.CurrentSpot.transform.parent.parent.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName(Manager.HOUSE_CLOSED));
+    }
 }
