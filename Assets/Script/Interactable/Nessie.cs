@@ -126,4 +126,9 @@ public class Nessie : Interactable
             isDown = false;
         }
     }
+
+    public override bool IsHandCursor()
+    {
+        return (Progress == 0);
+    }
 }

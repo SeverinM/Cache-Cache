@@ -73,6 +73,12 @@ public class MouseInputManager : MonoBehaviour
     [SerializeField]
     Camera camera2;
 
+    [SerializeField]
+    Sprite defaultSprite;
+
+    [SerializeField]
+    Sprite holdSprite;
+
     [StructLayout(LayoutKind.Sequential)]
     public struct RawInputEvent
     {
@@ -287,6 +293,11 @@ public class MouseInputManager : MonoBehaviour
 
     void Interpret(MouseButton mouseBtn , ActionType act , Dictionary<Interactable, Vector3> allGob, MousePointer mouse)
     {
+        if (allGob.Keys.Where(x => x.IsHandCursor()).Count() > 0)
+            mouse.obj.GetComponent<Image>().sprite = holdSprite;
+        else
+            mouse.obj.GetComponent<Image>().sprite = defaultSprite;
+
         if (act.Equals(ActionType.PRESSED))
         {
             allGob.Keys.ToList().ForEach(x =>
@@ -299,7 +310,7 @@ public class MouseInputManager : MonoBehaviour
                     {
                         x.Echo.MouseDown(mouseBtn, mouse, x);
                     }
-                }               
+                }
             });
             mouse.holding = allGob.Keys.ToList();
         }
@@ -375,5 +386,4 @@ public class MouseInputManager : MonoBehaviour
     {
         kill();
     }
-
 }

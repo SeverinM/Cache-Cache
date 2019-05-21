@@ -2556,6 +2556,8 @@ MonoBehaviour:
   canvas2: {fileID: 2007993828}
   camera1: {fileID: 631968521}
   camera2: {fileID: 1894037695}
+  defaultSprite: {fileID: 21300000, guid: 8ee3d71798915a34cade3e18854d545d, type: 3}
+  holdSprite: {fileID: 21300000, guid: 330f725c126316a47b0ee5850eff1b8d, type: 3}
 --- !u!4 &684529344
 Transform:
   m_ObjectHideFlags: 0
@@ -3794,7 +3796,7 @@ PrefabInstance:
     - target: {fileID: 5331884545091390033, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6283014374477743172, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
@@ -4558,7 +4560,7 @@ PrefabInstance:
     - target: {fileID: 5331884545091390033, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6283014374477743172, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
@@ -8099,55 +8101,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: nessie
       objectReference: {fileID: 0}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+    - target: {fileID: 508904703401636415, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
-      propertyPath: fishs.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: cam
-      value: 
-      objectReference: {fileID: 631968521}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: body
-      value: 
-      objectReference: {fileID: 5639561187792115841}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: speedScrewing
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: maxDist
-      value: 1.22
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: maxDragDist
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: fishs.Array.data[0]
-      value: 
-      objectReference: {fileID: 1367239041}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: fishs.Array.data[1]
-      value: 
-      objectReference: {fileID: 376024933}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: depthFish
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: speedFish
-      value: 20
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 508904703393881565, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
@@ -8204,10 +8161,55 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 508904703401636415, guid: df3f54ed7be9957408bad364b3afc83b,
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
-      propertyPath: m_Enabled
-      value: 0
+      propertyPath: fishs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 631968521}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: body
+      value: 
+      objectReference: {fileID: 5639561187792115841}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: speedScrewing
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: maxDist
+      value: 1.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: maxDragDist
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: fishs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1367239041}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: fishs.Array.data[1]
+      value: 
+      objectReference: {fileID: 376024933}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: depthFish
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: speedFish
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 508904703393881567, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}

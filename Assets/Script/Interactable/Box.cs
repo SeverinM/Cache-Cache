@@ -148,4 +148,9 @@ public class Box : Interactable
             }
         }
     }
+
+    public override bool IsHandCursor()
+    {
+        return true;
+    }
 }
