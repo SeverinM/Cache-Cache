@@ -5657,6 +5657,125 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1563041183}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &365750133
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5639561187792115839}
+    m_Modifications:
+    - target: {fileID: 167241153901442281, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_Name
+      value: persoDansBoucheNessie
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.12778781
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.74300003
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.51253533
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.5495585
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.053666443
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.035576493
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.83297044
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -66.831
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 7.346
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0.041
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 167241153901013193, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889464365839117533, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2889464365839117533, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.31
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ec3f861ba3055f74294fdfc8f4e5e7d2, type: 3}
+--- !u!1 &365750134 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 167241153901442281, guid: ec3f861ba3055f74294fdfc8f4e5e7d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 365750133}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &365750135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 365750134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d55e90ce8c821042b79ff2c86cccc47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 0
+  progress: -1
+  nessieBody: {fileID: 0}
+  potentialMoonsLandings:
+  - {fileID: 631955036}
+  - {fileID: 1760768893}
 --- !u!4 &376024933 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 749066910399022483, guid: c52d0ebb21334a2478d40a63116f6e03,
@@ -7080,6 +7199,12 @@ Transform:
 --- !u!4 &631955035 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5538348342966958610, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+    type: 3}
+  m_PrefabInstance: {fileID: 631955031}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &631955036 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3205428062262685325, guid: b5761bc8efee2432cb7a9fb4eca9acea,
     type: 3}
   m_PrefabInstance: {fileID: 631955031}
   m_PrefabAsset: {fileID: 0}
@@ -11688,6 +11813,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1760768888}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1760768893 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3205428062262685325, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+    type: 3}
+  m_PrefabInstance: {fileID: 1760768888}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1765358745
 GameObject:
   m_ObjectHideFlags: 0
@@ -13511,6 +13642,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
+--- !u!4 &5639561187792115839 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 508904703393881557, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5639561187792115838}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5639561187792115841 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 508904703393881567, guid: df3f54ed7be9957408bad364b3afc83b,

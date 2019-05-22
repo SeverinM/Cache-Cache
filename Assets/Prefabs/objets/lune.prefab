@@ -159,6 +159,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8418914538736753883}
+  - {fileID: 3205428062262685325}
   m_Father: {fileID: 5542086926533730581}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -352,3 +353,33 @@ Transform:
   m_Father: {fileID: 5542086926533730583}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 48.237003, y: -80.174, z: -238.492}
+--- !u!1 &8537706764069538868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3205428062262685325}
+  m_Layer: 0
+  m_Name: MoonReceptor NessieM
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3205428062262685325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8537706764069538868}
+  m_LocalRotation: {x: 0.33514932, y: 0.5813758, z: 0.40143722, w: -0.6233181}
+  m_LocalPosition: {x: 2.155, y: 1.661, z: 0.493}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5542086926533730577}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: -62.2, y: 282.3, z: -13.737}
