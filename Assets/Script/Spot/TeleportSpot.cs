@@ -4,58 +4,70 @@ using UnityEngine;
 
 public class TeleportSpot : Spot
 {
-    static TeleportSpot spot1;
-    static TeleportSpot spot2;
+    static Spot spot1;
+    static Spot spot2;
 
     [SerializeField]
-    float maxDistance = 500;
+    public Transform partieHaute;
 
     [SerializeField]
-    MoonPart PartieHaute;
+    public Transform partieBasse;
+
     [SerializeField]
-    MoonPart PartieBasse;
+    float distY;
+
+    [SerializeField]
+    AnimationCurve curve;
 
     [SerializeField]
     float duration;
-    public float Duration => duration;
 
-    Vector3 objectScale;
-    float distance;
-    bool canOpen = true;
+    [SerializeField]
+    float maxDistance;
     bool busy = false;
+
+    float normalizedTime = 0;
+
+    bool canOpen = false;
     public bool CanOpen
     {
         get
         {
             return canOpen;
         }
+
         set
         {
-            if(canOpen != value) StartCoroutine(AnimationMoon(canOpen));
             canOpen = value;
+            SetMoonAnimation(canOpen);
         }
     }
 
-    public void Init()
+    private void Awake()
     {
-        distance = PartieHaute.transform.localPosition.y;
-        currentHold = null;
-    }
-
-    public override void EnterSpot(Draggable dragg)
-    {
-        bool found = false;
-        foreach (Transform trsf in dragg.transform)
+        if (!spot1)
         {
-            if (trsf.gameObject.tag == "Center")
+            spot1 = this;
+            foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
             {
-                CenterSpotSetup(trsf, transform);
-                found = true;
-                break;
+                dragg.AddSpot(this);
             }
+            return;
         }
-        if (!found)
-            base.EnterSpot(dragg);
+        
+        if (!spot2)
+        {
+            foreach (Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
+            {
+                dragg.AddSpot(this);
+            }
+            spot2 = this;
+        }
+    }
+
+    Spot GetOtherPart()
+    {
+        return (this == spot1 ? spot2 : spot1);
     }
 
     public override void PressSpot(Draggable dragg)
@@ -65,20 +77,20 @@ public class TeleportSpot : Spot
 
     public override void ReleaseSpot(Draggable dragg)
     {
-        AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
-        dragg.transform.SetParent(transform);
-        SetValue(dragg, false);
-        currentHold = dragg;
-        objectScale = currentHold.transform.localScale;
-        CanOpen = false;
-        GetOtherPart().CanOpen = false;
-        GetOtherPart().StartCoroutine(GetOtherPart().StartDelayed(duration));
+        dragg.transform.position = transform.position;
+        Center();
+        StartCoroutine(Transfert());
+    }
 
-        foreach(Transform trsf in dragg.transform)
+    public override void EnterSpot(Draggable dragg)
+    {
+        base.EnterSpot(dragg);
+        foreach (Transform trsf in dragg.transform)
         {
-            if (trsf.gameObject.tag == "Center")
+            if (trsf.tag == "Center")
             {
-                CenterSpotSetup(trsf, transform);
+                Vector3 delta = transform.position - trsf.position;
+                dragg.transform.position += delta;
                 break;
             }
         }
@@ -86,134 +98,82 @@ public class TeleportSpot : Spot
 
     public override void ResetSpot(Draggable dragg)
     {
+        CurrentHold = dragg;
         dragg.transform.position = transform.position;
-        currentHold = dragg;
-        foreach (Transform trsf in CurrentHold.transform)
-        {
-            if (trsf.gameObject.tag == "Center")
-            {
-                CenterSpotSetup(trsf, transform);
-                break;
-            }
-        }
+        Center();
     }
 
     public override void SetValue(Draggable dragg, bool value)
     {
-        if (!dragg || (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && (currentHold == null || !value) && !busy))
+        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && CurrentHold != dragg)
         {
-            GetComponent<Collider>().enabled = value;
-            if (!value)
+            CanOpen = value;
+        }
+    }
+
+    void SetMoonAnimation(bool reversed)
+    {
+        StopAllCoroutines();
+        StartCoroutine(MoonAnimation(reversed));
+    }
+
+    IEnumerator MoonAnimation(bool reversed)
+    {
+        //true = de fermé à ouvert
+        if (reversed)
+        {
+            while (normalizedTime <= 1)
             {
-                GetComponent<ParticleSystem>().Stop();
+                normalizedTime += Time.deltaTime / duration;
+                partieHaute.localPosition = new Vector3(0, Mathf.Lerp(0, distY, curve.Evaluate(normalizedTime)), 0);
+                partieBasse.localPosition = new Vector3(0, Mathf.Lerp(0, -distY, curve.Evaluate(normalizedTime)), 0);
+                yield return null;
             }
-            else
+        }
+        else
+        {
+            while (normalizedTime >= 0)
             {
-                GetComponent<ParticleSystem>().Play();
-            }
-        }
-            
-    }
-
-    private void Awake()
-    {
-        bool chosen = false;
-        if (!spot1)
-        {
-            spot1 = this;
-            chosen = true;
-            SetValue(null, false);
-        }
-
-        if (!spot2 && !chosen)
-        {
-            spot2 = this;
-            SetValue(null, false);
-        }
-    }
-
-    TeleportSpot GetOtherPart()
-    {
-        return (this != spot1 ? spot1 : spot2);
-    }
-
-    IEnumerator StartDelayed(float duration)
-    {
-        yield return new WaitForSeconds(duration);
-        AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
-        CanOpen = true;
-    }
-
-    void Transfert()
-    {
-        currentHold.transform.SetParent(GetOtherPart().transform);
-        currentHold.transform.localPosition = Vector3.zero;
-        GetOtherPart().CurrentHold = currentHold;
-        currentHold.CurrentSpot = GetOtherPart();
-        currentHold = null;
-
-        foreach (Transform trsf in GetOtherPart().CurrentHold.transform)
-        {
-            if (trsf.gameObject.tag == "Center")
-            {
-                CenterSpotSetup(trsf, GetOtherPart().transform);
-                break;
+                normalizedTime -= Time.deltaTime / duration;
+                partieHaute.localPosition = new Vector3(0, Mathf.Lerp(0, distY, curve.Evaluate(normalizedTime)), 0);
+                partieBasse.localPosition = new Vector3(0, Mathf.Lerp(0, -distY, curve.Evaluate(normalizedTime)), 0);
+                yield return null;
             }
         }
     }
 
-    IEnumerator AnimationMoon(bool reversed)
+    IEnumerator Transfert()
     {
-        if (currentHold)
-            currentHold.CanInteract = false;
-
-        busy = true;
-        float normalizedTime = 0;
-
-        while (normalizedTime <= 1)
+        //On ferme la lune...
+        while (normalizedTime >= 0)
         {
-            normalizedTime += Time.deltaTime / duration;
-            //Reversed : ouvert a fermé
-            float yValue = Mathf.Lerp(0, distance, reversed ? 1 - normalizedTime : normalizedTime);
-            PartieHaute.transform.localPosition = new Vector3(0, yValue, 0);
-            PartieBasse.transform.localPosition = new Vector3(0, -yValue, 0);
-
-            if (!reversed && currentHold)
-            {
-                foreach (Transform trsf in CurrentHold.transform)
-                {
-                    if (trsf.gameObject.tag == "Center")
-                    {
-                        CenterSpotSetup(trsf, transform);
-                        break;
-                    }
-                }
-            }           
+            normalizedTime -= Time.deltaTime / duration;
+            partieHaute.localPosition = new Vector3(0, Mathf.Lerp(0, distY, curve.Evaluate(normalizedTime)), 0);
+            partieBasse.localPosition = new Vector3(0, Mathf.Lerp(0, -distY, curve.Evaluate(normalizedTime)), 0);
             yield return null;
         }
 
-        if (currentHold)
-            currentHold.CanInteract = true;
+        //...puis on transfert
+        currentHold.transform.SetParent(GetOtherPart().transform);
+        currentHold.transform.localPosition = Vector3.zero;
+        currentHold.CurrentSpot = GetOtherPart();
+        GetOtherPart().CurrentHold = currentHold;
+        currentHold = null;
+        (GetOtherPart() as TeleportSpot).Center();
 
-        if (reversed && (currentHold != null))
+        (GetOtherPart() as TeleportSpot).CanOpen = true;
+    }
+
+    public void Center()
+    {
+        foreach(Transform trsf in CurrentHold.transform)
         {
-            yield return new WaitForEndOfFrame();
-            Transfert();
+            if (trsf.tag == "Center")
+            {
+                Vector3 delta = transform.position - trsf.position;
+                CurrentHold.transform.position += delta;
+                break;
+            }
         }
-
-        busy = false;
-    }
-
-    public override void HoldObjectLeft(Draggable dragg)
-    {
-        base.HoldObjectLeft(dragg);
-        dragg.transform.SetParent(null);
-        GetOtherPart().CanOpen = true;
-    }
-
-    void CenterSpotSetup(Transform center , Transform positionToGo)
-    {
-        Vector3 delta = positionToGo.position - center.position;
-        center.parent.transform.position += delta;
     }
 }

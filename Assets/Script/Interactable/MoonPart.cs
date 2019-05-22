@@ -125,7 +125,6 @@ public class MoonPart : Interactable
             unlocked = true;
             foreach(TeleportSpot tp in tpSpots.Distinct())
             {
-                tp.Init();
                 foreach(Draggable dragg in GameObject.FindObjectsOfType<Draggable>())
                 {
                     dragg.AddSpot(tp);

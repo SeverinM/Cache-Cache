@@ -30,6 +30,11 @@ public class Firework : Draggable
             StartCoroutine(LaunchFirework());
     }
 
+    public override bool IsHandCursor()
+    {
+        return true;
+    }
+
     IEnumerator LaunchFirework()
     {
         GetComponent<ParticleSystem>().Play();

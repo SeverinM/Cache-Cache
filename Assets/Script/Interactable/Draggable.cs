@@ -90,11 +90,6 @@ public class Draggable : Interactable
 
                     if (lastTouchedGameObject != hit.collider.gameObject)
                     {
-                        //On ne survole plus le meme spot
-                        if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
-                        {
-                            lastTouchedGameObject.GetComponent<Spot>().ExitSpot(this);
-                        }
                         if (hit.collider.GetComponent<Spot>() && !hit.collider.GetComponent<Spot>().CurrentHold)
                         {
                             hit.collider.GetComponent<Spot>().EnterSpot(this);
@@ -106,6 +101,10 @@ public class Draggable : Interactable
                 
                 else
                 {
+                    if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+                    {
+                        lastTouchedGameObject.GetComponent<Spot>().ExitSpot(this);
+                    }
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
                     return;
@@ -120,6 +119,8 @@ public class Draggable : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
             dragging = false;
+
+            //Nouveau spot trouvé
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && lastTouchedGameObject.GetComponent<Spot>().CurrentHold == null)
             {
                 //Appell� uniquement quand le spot est different
@@ -129,6 +130,7 @@ public class Draggable : Interactable
                 }
 
                 CurrentSpot = lastTouchedGameObject.GetComponent<Spot>();
+                CurrentSpot.CurrentHold = this;
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
             }
             else

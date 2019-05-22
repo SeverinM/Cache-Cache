@@ -140,8 +140,6 @@ GameObject:
   - component: {fileID: 5542086926533730577}
   - component: {fileID: 5542086926532960567}
   - component: {fileID: 5542086926531830775}
-  - component: {fileID: 2399209166046150554}
-  - component: {fileID: 1351133017}
   m_Layer: 0
   m_Name: lune_haut 1
   m_TagString: Maquette
@@ -211,40 +209,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &2399209166046150554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5542086926534098225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bab8172cf6065a49b7b71b6bf415603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  echo: {fileID: 0}
-  block: 1
-  progress: -1
-  draggingSensitivity: 0.2
-  tpSpot: {fileID: 0}
-  part: 0
-  coeffDrag: 200
-  maxDistance: 1.5
---- !u!64 &1351133017
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5542086926534098225}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300002, guid: f6c57a6f86045434da5ff1cf043796d3, type: 3}
 --- !u!1 &5542086926534098229
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,8 +253,6 @@ GameObject:
   - component: {fileID: 5542086926533730583}
   - component: {fileID: 5542086926532960565}
   - component: {fileID: 5542086926531830773}
-  - component: {fileID: 497243585119894520}
-  - component: {fileID: 591750993}
   m_Layer: 0
   m_Name: lune_bas 1
   m_TagString: Maquette
@@ -360,40 +322,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &497243585119894520
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5542086926534098231}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8bab8172cf6065a49b7b71b6bf415603, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  echo: {fileID: 0}
-  block: 1
-  progress: -1
-  draggingSensitivity: 1
-  tpSpot: {fileID: 0}
-  part: 1
-  coeffDrag: 200
-  maxDistance: 1.5
---- !u!64 &591750993
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5542086926534098231}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Convex: 1
-  m_CookingOptions: 14
-  m_Mesh: {fileID: 4300000, guid: f6c57a6f86045434da5ff1cf043796d3, type: 3}
 --- !u!1 &6877653887319199206
 GameObject:
   m_ObjectHideFlags: 0
