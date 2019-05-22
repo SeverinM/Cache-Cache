@@ -112,6 +112,7 @@ public class EnigmeManager : MonoBehaviour
 
     IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , float duration)
     {
+        AkSoundEngine.PostEvent("Play_voix01", gameObject);
         float normalizedTime = 0;;
         Vector3 originScale = target.lossyScale;
 

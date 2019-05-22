@@ -71,7 +71,6 @@ public class Squirrel : Interactable
         {
             //Permet d'eviter d'etre joué par les copies
             if (!currentTree) return;
-            AkSoundEngine.PostEvent("Play_voix01", gameObject);
             currentTree.parent.GetComponent<Tree>().squirrel = null;
             currentTree = null;
             EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, gameObject.transform, duration);
