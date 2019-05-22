@@ -44,7 +44,7 @@ public class NessieHead : Interactable
         while (normalizedTime <= 1)
         {
             normalizedTime += Time.deltaTime / duration;
-            float value = Mathf.Lerp(0, -90 ,curve.Evaluate(reversed ? 1 - normalizedTime : normalizedTime));
+            float value = Mathf.Lerp(0, -80 ,curve.Evaluate(reversed ? 1 - normalizedTime : normalizedTime));
             head.transform.localEulerAngles = new Vector3(value, 0, 0);
             yield return null;
         }

@@ -129,6 +129,6 @@ public class Nessie : Interactable
 
     public override bool IsHandCursor()
     {
-        return (Progress == 0);
+        return (Progress == 1);
     }
 }

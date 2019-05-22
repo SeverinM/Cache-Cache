@@ -151,6 +151,6 @@ public class Box : Interactable
 
     public override bool IsHandCursor()
     {
-        return true;
+        return (Progress == 0);
     }
 }
