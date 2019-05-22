@@ -47,6 +47,10 @@ public abstract class Interactable : MonoBehaviour
     public abstract void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse ,Interactable echo = null);
     public abstract void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
     public abstract void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null);
+    public virtual bool IsHandCursor()
+    {
+        return false;
+    }
     public virtual void OnNewValue()
     {
         if (Progress >= 0)

@@ -162,4 +162,9 @@ public class Draggable : Interactable
     {
         transform.position = origin;
     }
+
+    public override bool IsHandCursor()
+    {
+        return true;
+    }
 }

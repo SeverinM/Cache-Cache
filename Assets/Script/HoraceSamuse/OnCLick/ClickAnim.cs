@@ -25,5 +25,4 @@ public class ClickAnim : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
             Touch();
     }
-
 }

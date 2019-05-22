@@ -68,4 +68,9 @@ public class PersoEnfoui : Interactable
             EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, transform, duration);
         }
     }
+
+    public override bool IsHandCursor()
+    {
+        return true;
+    }
 }

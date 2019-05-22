@@ -7470,6 +7470,8 @@ MonoBehaviour:
   canvas2: {fileID: 2007993828}
   camera1: {fileID: 631968521}
   camera2: {fileID: 1894037695}
+  defaultSprite: {fileID: 21300000, guid: 8ee3d71798915a34cade3e18854d545d, type: 3}
+  holdSprite: {fileID: 21300000, guid: 330f725c126316a47b0ee5850eff1b8d, type: 3}
 --- !u!4 &684529344
 Transform:
   m_ObjectHideFlags: 0

@@ -134,6 +134,11 @@ public class MoonPart : Interactable
         }
     }
 
+    public override bool IsHandCursor()
+    {
+        return (Progress == 0);
+    }
+
     bool hasControl(Part which)
     {
         return (!authorityTable.ContainsKey(which) || authorityTable[which] == gameObject);
