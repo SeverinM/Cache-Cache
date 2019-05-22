@@ -5682,7 +5682,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   hauteurSautFonctionDuTemps:
     serializedVersion: 2
@@ -6570,7 +6570,27 @@ PrefabInstance:
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: Trouvez tous les personnages !
+      value: Trouvez tous les personnages ensemble !
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7085c345a63b07a4ab3956a5413fed84, type: 3}
@@ -6783,7 +6803,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   sizeFluctuationWhenTouch:
     serializedVersion: 2
@@ -7366,7 +7386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   sizeFluctuationWhenTouch:
     serializedVersion: 2
@@ -8294,7 +8314,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   sizeFluctuationWhenTouch:
     serializedVersion: 2
@@ -8393,7 +8413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   sizeFluctuationWhenTouch:
     serializedVersion: 2
@@ -9259,7 +9279,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   hauteurSautFonctionDuTemps:
     serializedVersion: 2
@@ -10247,7 +10267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   sizeFluctuationWhenTouch:
     serializedVersion: 2
@@ -10624,7 +10644,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   sizeFluctuationWhenTouch:
     serializedVersion: 2
@@ -11820,7 +11840,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 1894037695}
+    m_RemovedComponents:
+    - {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
 --- !u!4 &1822457693 stripped
 Transform:
@@ -12516,7 +12542,7 @@ PrefabInstance:
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.0790797
+      value: 0.16276935
       objectReference: {fileID: 0}
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
@@ -12526,12 +12552,12 @@ PrefabInstance:
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
       propertyPath: m_Center.y
-      value: 0.009864865
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
       propertyPath: m_Size.z
-      value: 0.08092919
+      value: 0.11439131
       objectReference: {fileID: 0}
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
@@ -12541,7 +12567,7 @@ PrefabInstance:
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.104698695
+      value: 0.10469868
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592179a8639347d46ae855b780bb37ca, type: 3}
@@ -12871,7 +12897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   hauteurSautFonctionDuTemps:
     serializedVersion: 2
@@ -13218,7 +13244,27 @@ PrefabInstance:
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: Trouvez tous les personnages !
+      value: Trouvez tous les personnages ensemble !
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.000030517578
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0.9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7085c345a63b07a4ab3956a5413fed84, type: 3}

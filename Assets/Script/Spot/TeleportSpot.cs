@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TeleportSpot : Spot
 {
-    static Spot spot1;
-    static Spot spot2;
+    static TeleportSpot spot1;
+    static TeleportSpot spot2;
 
     [SerializeField]
     public Transform partieHaute;
@@ -27,6 +27,20 @@ public class TeleportSpot : Spot
     bool busy = false;
 
     float normalizedTime = 0;
+    bool isAvailable = true;
+    public bool IsAvailable
+    {
+        get
+        {
+            return isAvailable;
+        }
+
+        set
+        {
+            isAvailable = value;
+            GetComponent<Collider>().enabled = value;
+        }
+    }
 
     bool canOpen = false;
     public bool CanOpen
@@ -65,7 +79,7 @@ public class TeleportSpot : Spot
         }
     }
 
-    Spot GetOtherPart()
+    TeleportSpot GetOtherPart()
     {
         return (this == spot1 ? spot2 : spot1);
     }
@@ -79,6 +93,7 @@ public class TeleportSpot : Spot
     {
         dragg.transform.position = transform.position;
         Center();
+        StopAllCoroutines();
         StartCoroutine(Transfert());
     }
 
@@ -103,9 +118,14 @@ public class TeleportSpot : Spot
         Center();
     }
 
+    private void Update()
+    {
+        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold);
+    }
+
     public override void SetValue(Draggable dragg, bool value)
     {
-        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && CurrentHold != dragg)
+        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && CurrentHold != dragg && IsAvailable)
         {
             CanOpen = value;
         }
@@ -159,9 +179,9 @@ public class TeleportSpot : Spot
         currentHold.CurrentSpot = GetOtherPart();
         GetOtherPart().CurrentHold = currentHold;
         currentHold = null;
-        (GetOtherPart() as TeleportSpot).Center();
+        GetOtherPart().Center();
 
-        (GetOtherPart() as TeleportSpot).CanOpen = true;
+        GetOtherPart().CanOpen = true;
     }
 
     public void Center()
