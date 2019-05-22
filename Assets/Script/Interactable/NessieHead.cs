@@ -13,6 +13,8 @@ public class NessieHead : Interactable
     [SerializeField]
     float duration;
 
+    bool reversed = false;
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (Progress == 1)
@@ -37,14 +39,17 @@ public class NessieHead : Interactable
 
     IEnumerator HeadUp()
     {
+        CanInteract = false;
         float normalizedTime = 0;
         while (normalizedTime <= 1)
         {
             normalizedTime += Time.deltaTime / duration;
-            float value = Mathf.Lerp(0, -90 ,curve.Evaluate(normalizedTime));
+            float value = Mathf.Lerp(0, -90 ,curve.Evaluate(reversed ? 1 - normalizedTime : normalizedTime));
             head.transform.localEulerAngles = new Vector3(value, 0, 0);
             yield return null;
         }
+        reversed = !reversed;
+        CanInteract = true;
     }
 
 }
