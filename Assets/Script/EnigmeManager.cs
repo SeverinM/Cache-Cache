@@ -81,6 +81,8 @@ public class EnigmeManager : MonoBehaviour
                     return AllEnigme.IS_CHAR_PULLED;
                 case Condition.NESSIE_BODY_PULLED:
                     return AllEnigme.IS_NESSIE_BODY_PULLED;
+                case Condition.FIREWORK_BURNED:
+                    return AllEnigme.IS_FIREWORK_BURNING;
                 default:
                     return AllEnigme.IS_BOX_OPEN;
             }
@@ -93,7 +95,8 @@ public class EnigmeManager : MonoBehaviour
         BOX_OPEN,
         SQUIRREL_FOUND,
         LOLJAMBE_PULLED,
-        NESSIE_BODY_PULLED
+        NESSIE_BODY_PULLED,
+        FIREWORK_BURNED
     }
 
     public void Update()

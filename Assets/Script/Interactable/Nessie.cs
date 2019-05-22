@@ -92,7 +92,7 @@ public class Nessie : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (Progress == 0)
+        if (Progress == 1)
         {
             originPos = transform.position;
             isDown = true;
@@ -110,7 +110,7 @@ public class Nessie : Interactable
     public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         //N'agit que lorsque l'on a pas assez tourné la maquette
-        if (isDown && transform.position.y <= originPos.y + maxDragDist && Progress == 0)
+        if (isDown && transform.position.y <= originPos.y + maxDragDist && Progress == 1)
         {
             Vector3 temporaryPosition = transform.position + new Vector3(0, -mouse.delta.y * speedScrewing, 0);
             temporaryPosition = new Vector3(temporaryPosition.x, Mathf.Clamp(temporaryPosition.y, originPos.y, (originPos.y + maxDragDist) - 0.001f), temporaryPosition.z);
@@ -120,7 +120,7 @@ public class Nessie : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (Progress == 0)
+        if (Progress == 1)
         {
             transform.position = originPos;
             isDown = false;

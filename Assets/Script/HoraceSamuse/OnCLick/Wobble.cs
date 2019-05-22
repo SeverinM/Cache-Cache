@@ -45,8 +45,6 @@ public class Wobble : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        //
-        Debug.Log("not me");
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
             Touch();
     }

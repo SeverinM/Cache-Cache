@@ -2,21 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
-public class SimpleInteraction : Interactable
+public class NessieHead : Interactable
 {
     [SerializeField]
-    Animator anim;
+    Transform head;
+
+    [SerializeField]
+    AnimationCurve curve;
+
+    [SerializeField]
+    float duration;
+
+    bool reversed = false;
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
-        {
-            if (!anim)
-                GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
-            else
-                anim.SetTrigger(Manager.TRIGGER_INTERACTION);
-        }
+        if (Progress == 1)
+            StartCoroutine(HeadUp());
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -34,4 +36,20 @@ public class SimpleInteraction : Interactable
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
+
+    IEnumerator HeadUp()
+    {
+        CanInteract = false;
+        float normalizedTime = 0;
+        while (normalizedTime <= 1)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            float value = Mathf.Lerp(0, -90 ,curve.Evaluate(reversed ? 1 - normalizedTime : normalizedTime));
+            head.transform.localEulerAngles = new Vector3(value, 0, 0);
+            yield return null;
+        }
+        reversed = !reversed;
+        CanInteract = true;
+    }
+
 }
