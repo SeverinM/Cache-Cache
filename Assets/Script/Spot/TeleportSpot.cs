@@ -133,7 +133,7 @@ public class TeleportSpot : Spot
 
     private void Update()
     {
-        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().NormalizedTime == 0);
+        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold);
     }
 
     public override void SetValue(Draggable dragg, bool value)
