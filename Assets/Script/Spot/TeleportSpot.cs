@@ -139,7 +139,8 @@ public class TeleportSpot : Spot
 
     private void Update()
     {
-        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().normalizedTime < 0.001f);
+        //La lune doit etre fermé et ne contenir aucun objet
+        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().normalizedTime < 0.1f);
     }
 
     public override void SetValue(Draggable dragg, bool value)
