@@ -78,6 +78,7 @@ public class Draggable : Interactable
             {
                 //Evite les raycast avec lui meme
                 if (hit.collider.gameObject == gameObject) continue;
+                if (hit.collider.tag != "Maquette" && !hit.collider.GetComponent<Spot>()) continue;
 
                 //Ce qu'on survole est valide ?
                 if (hit.collider.GetComponent<Spot>())

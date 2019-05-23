@@ -292,7 +292,7 @@ SphereCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 2.83
+  m_Radius: 2.27
   m_Center: {x: 0, y: 0, z: 0.52}
 --- !u!114 &18538805 stripped
 MonoBehaviour:
@@ -7174,6 +7174,16 @@ PrefabInstance:
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2789572464131839011, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: tpSpot
+      value: 
+      objectReference: {fileID: 14447623}
+    - target: {fileID: 2789572464131839011, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: block
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4026939088169408108, guid: b5761bc8efee2432cb7a9fb4eca9acea, type: 3}
     - {fileID: 2407742735044504555, guid: b5761bc8efee2432cb7a9fb4eca9acea, type: 3}
@@ -7478,19 +7488,19 @@ MonoBehaviour:
   - allParameters:
     - {fileID: 1244007367}
     - {fileID: 588192669}
-    cond: 1
+    cond: 0
   - allParameters:
     - {fileID: 1040747715}
-    cond: 2
+    cond: 1
   - allParameters:
     - {fileID: 179335652}
-    cond: 3
+    cond: 2
   - allParameters:
     - {fileID: 2114638061}
-    cond: 4
+    cond: 3
   - allParameters:
     - {fileID: 1942760766}
-    cond: 5
+    cond: 4
   coeffSize: 5
 --- !u!1 &680182106 stripped
 GameObject:
@@ -11787,6 +11797,21 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 1439520632709353878, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: m_Radius
+      value: 2.27
+      objectReference: {fileID: 0}
+    - target: {fileID: 2789572464131839011, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: tpSpot
+      value: 
+      objectReference: {fileID: 1967868328}
+    - target: {fileID: 2789572464131839011, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: block
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b5761bc8efee2432cb7a9fb4eca9acea, type: 3}
 --- !u!4 &1760768889 stripped
@@ -12573,7 +12598,7 @@ PrefabInstance:
     - target: {fileID: 4966214384396783861, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.28
+      value: -1.99
       objectReference: {fileID: 0}
     - target: {fileID: 4966214384396783861, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
@@ -12624,6 +12649,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966214384396783861, guid: 592179a8639347d46ae855b780bb37ca,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966214384396783861, guid: 592179a8639347d46ae855b780bb37ca,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4966214384396783861, guid: 592179a8639347d46ae855b780bb37ca,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1434397830952837810, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}

@@ -4,17 +4,6 @@ using UnityEngine;
 
 public static class AllEnigme 
 {
-    //Dés qu'une de ces conditions est rempli , tous les participants voient leur indice de progression incrementé
-    public static bool IS_MOON_OPEN(params Interactable[] allInter)
-    {
-        MoonPart moon1 = (MoonPart)allInter[0];
-        MoonPart moon2 = (MoonPart)allInter[1];
-        if (!moon1 || !moon2)
-            return false;
-
-        return (allInter[0].Progress == 0 && allInter[1].Progress == 0 && moon1.Ratio >= 0.9f && moon2.Ratio >= 0.9f);
-    }
-
     //La boite est consideré ouverte si les deux parties sont ouvertes a 95% en meme temps
     public static bool IS_BOX_OPEN(params Interactable[] allInter)
     {
