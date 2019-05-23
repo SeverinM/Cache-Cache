@@ -40,7 +40,22 @@ public class ClassicSpot : Spot
         if (Vector3.Distance(dragg.transform.position , transform.position) < maxDistance && currentHold == null)
         {
             GetComponent<Collider>().enabled = value;
-            GetComponent<MeshRenderer>().enabled = value;
+
+            if (GetComponent<MeshRenderer>())
+                GetComponent<MeshRenderer>().enabled = value;
+
+            if (GetComponent<ParticleSystem>())
+            {
+                if (value)
+                    GetComponent<ParticleSystem>().Play();
+                else
+                    GetComponent<ParticleSystem>().Stop();
+            }
+
+            if (GetComponent<Light>())
+            {
+                GetComponent<Light>().enabled = value;
+            }
         }
     }
 }
