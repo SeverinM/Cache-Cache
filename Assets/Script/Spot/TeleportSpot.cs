@@ -86,6 +86,12 @@ public class TeleportSpot : Spot
         }
     }
 
+    public override void HoldObjectLeft(Draggable dragg)
+    {
+        base.HoldObjectLeft(dragg);
+        CanOpen = false;
+    }
+
     public TeleportSpot GetOtherPart()
     {
         return (this == spot1 ? spot2 : spot1);
@@ -171,6 +177,7 @@ public class TeleportSpot : Spot
 
     public IEnumerator Transfert()
     {
+        AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
         //Une fois l'animation de transfert lancé on ne peut rien faire jusqu'a la fin
         currentHold.CanInteract = false;
         //On ferme la lune...
@@ -191,6 +198,8 @@ public class TeleportSpot : Spot
         currentHold = null;
         GetOtherPart().Center();
         GetOtherPart().CanOpen = true;
+
+        AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
     }
 
     public IEnumerator FouilleMoon()
