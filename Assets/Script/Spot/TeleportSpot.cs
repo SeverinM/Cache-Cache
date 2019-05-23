@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class TeleportSpot : Spot
 {
@@ -133,7 +134,7 @@ public class TeleportSpot : Spot
 
     private void Update()
     {
-        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold);
+        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().normalizedTime < 0.001f);
     }
 
     public override void SetValue(Draggable dragg, bool value)
