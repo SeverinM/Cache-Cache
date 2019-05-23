@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class TeleportSpot : Spot
 {
@@ -79,7 +80,7 @@ public class TeleportSpot : Spot
         }
     }
 
-    TeleportSpot GetOtherPart()
+    public TeleportSpot GetOtherPart()
     {
         return (this == spot1 ? spot2 : spot1);
     }
@@ -162,8 +163,10 @@ public class TeleportSpot : Spot
         }
     }
 
-    IEnumerator Transfert()
+    public IEnumerator Transfert()
     {
+        //Une fois l'animation de transfert lancé on ne peut rien faire jusqu'a la fin
+        currentHold.CanInteract = false;
         //On ferme la lune...
         while (normalizedTime >= 0)
         {
@@ -178,9 +181,9 @@ public class TeleportSpot : Spot
         currentHold.transform.localPosition = Vector3.zero;
         currentHold.CurrentSpot = GetOtherPart();
         GetOtherPart().CurrentHold = currentHold;
+        currentHold.CanInteract = true;
         currentHold = null;
         GetOtherPart().Center();
-
         GetOtherPart().CanOpen = true;
     }
 

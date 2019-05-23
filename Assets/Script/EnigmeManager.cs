@@ -73,8 +73,6 @@ public class EnigmeManager : MonoBehaviour
             { 
                 case Condition.BOX_OPEN:
                     return AllEnigme.IS_BOX_OPEN;
-                case Condition.MOON_OPEN:
-                    return AllEnigme.IS_MOON_OPEN;
                 case Condition.SQUIRREL_FOUND:
                     return AllEnigme.IS_SQUIRREL_FOUND;
                 case Condition.LOLJAMBE_PULLED:
@@ -91,7 +89,6 @@ public class EnigmeManager : MonoBehaviour
 
     public enum Condition
     {
-        MOON_OPEN,
         BOX_OPEN,
         SQUIRREL_FOUND,
         LOLJAMBE_PULLED,
