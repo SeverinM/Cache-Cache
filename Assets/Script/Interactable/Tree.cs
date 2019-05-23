@@ -68,7 +68,10 @@ public class Tree : Draggable
             else
             {
                 if (!squirrel)
-                    FouilleTree();
+                {
+                    if (!(CurrentSpot is TeleportSpot))
+                        FouilleTree();
+                }                  
                 else
                 {
                     if (gameObject.tag == "Hiver")

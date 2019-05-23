@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.Events;
 
 public class TeleportSpot : Spot
 {
@@ -30,7 +31,17 @@ public class TeleportSpot : Spot
     [SerializeField]
     float maxDistance;
     bool busy = false;
-    public bool Busy => busy;
+    public bool Busy
+    {
+        get
+        {
+            return busy;
+        }
+        set
+        {
+            busy = value;
+        }
+    }
 
     float normalizedTime = 0;
     public float NormalizedTime => normalizedTime;
@@ -56,12 +67,6 @@ public class TeleportSpot : Spot
         get
         {
             return canOpen;
-        }
-
-        set
-        {
-            canOpen = value;
-            SetMoonAnimation(canOpen);
         }
     }
 
@@ -90,7 +95,7 @@ public class TeleportSpot : Spot
     public override void HoldObjectLeft(Draggable dragg)
     {
         base.HoldObjectLeft(dragg);
-        CanOpen = false;
+        SetMoonAnimation(false, () => { });
     }
 
     public TeleportSpot GetOtherPart()
@@ -141,17 +146,17 @@ public class TeleportSpot : Spot
     {
         if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && CurrentHold != dragg && IsAvailable)
         {
-            CanOpen = value;
+            SetMoonAnimation(value, () => { });
         }
     }
 
-    void SetMoonAnimation(bool reversed)
+    void SetMoonAnimation(bool reversed, UnityAction afterAnim)
     {
         StopAllCoroutines();
-        StartCoroutine(MoonAnimation(reversed));
+        StartCoroutine(MoonAnimation(reversed, afterAnim));
     }
 
-    IEnumerator MoonAnimation(bool reversed)
+    IEnumerator MoonAnimation(bool reversed, UnityAction afterAnim)
     {
         //true = de fermé à ouvert
         if (reversed)
@@ -174,10 +179,13 @@ public class TeleportSpot : Spot
                 yield return null;
             }
         }
+        afterAnim();
     }
 
     public IEnumerator Transfert()
     {
+        busy = true;
+        GetOtherPart().Busy = true;
         AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
         //Une fois l'animation de transfert lancé on ne peut rien faire jusqu'a la fin
         currentHold.CanInteract = false;
@@ -198,7 +206,10 @@ public class TeleportSpot : Spot
         currentHold.CanInteract = true;
         currentHold = null;
         GetOtherPart().Center();
-        GetOtherPart().CanOpen = true;
+        GetOtherPart().SetMoonAnimation(true, () => {
+            busy = false;
+            GetOtherPart().Busy = false;
+        });
 
         AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
     }

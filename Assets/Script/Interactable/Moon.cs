@@ -14,7 +14,10 @@ public class Moon : Interactable
         if (!tpSpot.CurrentHold)
         {
             if (tpSpot.GetOtherPart().CurrentHold)
-                tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
+            {
+                if (!tpSpot.Busy)
+                    tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
+            }                
             else
                 tpSpot.StartCoroutine(tpSpot.FouilleMoon());
         }
