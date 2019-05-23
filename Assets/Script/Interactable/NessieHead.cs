@@ -61,7 +61,7 @@ public class NessieHead : Interactable
         }
 
         if (dudeMouth)
-            dudeMouth.CanInteract = reversed;
+            dudeMouth.CanInteract = !reversed;
 
         reversed = !reversed;
         CanInteract = true;
