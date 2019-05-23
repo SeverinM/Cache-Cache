@@ -25,7 +25,7 @@ public class Moon : Interactable
 
     private void Update()
     {
-        GetComponent<SphereCollider>().enabled = !tpSpot.Busy && !tpSpot.IsAvailable && !tpSpot.CurrentHold;
+        GetComponent<SphereCollider>().enabled = !tpSpot.CurrentHold;
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
