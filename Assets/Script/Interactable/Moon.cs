@@ -10,10 +10,13 @@ public class Moon : Interactable
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         //Il ne doit rien y avoir dans notre spot mais avoir le spot occupé là bas
-        if (!tpSpot.CurrentHold && tpSpot.GetOtherPart().CurrentHold)
+        if (tpSpot.Busy) return;
+        if (!tpSpot.CurrentHold)
         {
-            Debug.Log("retransfert");
-            tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
+            if (tpSpot.GetOtherPart().CurrentHold)
+                tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
+            else
+                tpSpot.StartCoroutine(tpSpot.FouilleMoon());
         }
     }
 

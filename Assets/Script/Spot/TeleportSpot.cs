@@ -21,13 +21,19 @@ public class TeleportSpot : Spot
     AnimationCurve curve;
 
     [SerializeField]
+    AnimationCurve curveFouille;
+
+    [SerializeField]
     float duration;
 
     [SerializeField]
     float maxDistance;
     bool busy = false;
+    public bool Busy => busy;
 
     float normalizedTime = 0;
+    public float NormalizedTime => normalizedTime;
+
     bool isAvailable = true;
     public bool IsAvailable
     {
@@ -121,7 +127,7 @@ public class TeleportSpot : Spot
 
     private void Update()
     {
-        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold);
+        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().NormalizedTime == 0);
     }
 
     public override void SetValue(Draggable dragg, bool value)
@@ -185,6 +191,21 @@ public class TeleportSpot : Spot
         currentHold = null;
         GetOtherPart().Center();
         GetOtherPart().CanOpen = true;
+    }
+
+    public IEnumerator FouilleMoon()
+    {
+        busy = true;
+        normalizedTime = 0;
+        while (normalizedTime <= 1)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            partieHaute.localPosition = new Vector3(0, Mathf.Lerp(0, distY, curveFouille.Evaluate(normalizedTime)), 0);
+            partieBasse.localPosition = new Vector3(0, Mathf.Lerp(0, -distY, curveFouille.Evaluate(normalizedTime)), 0);
+            yield return null;
+        }
+        normalizedTime = 0;
+        busy = false;
     }
 
     public void Center()
