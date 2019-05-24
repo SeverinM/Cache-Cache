@@ -19,8 +19,15 @@ public class ClassicSpot : Spot
         currentHold = dragg;
         dragg.CurrentSpot = this;
         dragg.transform.SetParent(transform);
-        GetComponent<Collider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+
+        if (GetComponent<Collider>())
+            GetComponent<Collider>().enabled = false;
+
+        if (GetComponent<MeshRenderer>())
+            GetComponent<MeshRenderer>().enabled = false;
+
+        if (GetComponent<Light>())
+            GetComponent<Light>().enabled = false;
     }
 
     public override void ResetSpot(Draggable dragg)

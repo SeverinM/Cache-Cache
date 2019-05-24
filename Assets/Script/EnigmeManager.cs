@@ -10,6 +10,8 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     List<ConditionStruct> allConditions;
 
+    float timeBeforeEnd = 600;
+
     [SerializeField]
     float coeffSize = 5;
     public float CoeffSizeMoon => coeffSize;
@@ -17,6 +19,7 @@ public class EnigmeManager : MonoBehaviour
     static EnigmeManager _instance = null;
 
     int characterFound = 0;
+    bool pause = true;
 
     [SerializeField]
     int charactersObjectives = 4;
@@ -105,6 +108,27 @@ public class EnigmeManager : MonoBehaviour
     {
         if (allConditions.Count > 0)
             allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
+
+        if (!pause) timeBeforeEnd -= Time.deltaTime;
+        if (timeBeforeEnd < 0)
+        {
+            End();
+        }
+    }
+
+    void End()
+    {
+        Debug.LogError("fin");
+        allConditions.Clear();
+        foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
+        {
+            inter.CanInteract = false;
+        }
+    }
+
+    public void StartCountdown()
+    {
+        pause = false;
     }
 
     public void DiscoveredCharacter(List<Transform> newParents, Transform target, float duration)

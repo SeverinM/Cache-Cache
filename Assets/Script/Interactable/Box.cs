@@ -143,6 +143,7 @@ public class Box : Interactable
             done = true;
             foreach (Interactable inter in GameObject.FindObjectsOfType<Interactable>())
             {
+                EnigmeManager.getInstance().StartCountdown();
                 if (!(inter is Box))
                     inter.Progress++;
             }
