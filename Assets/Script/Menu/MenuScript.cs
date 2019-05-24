@@ -5,14 +5,13 @@ using UnityEngine;
 public class MenuScript : Interactable
 {
     [SerializeField]
-    GameObject begin;
+    Panel toDisappear;
 
     [SerializeField]
-    GameObject end;
+    Panel toAppear;
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -32,11 +31,10 @@ public class MenuScript : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        Debug.Log("down");
-        if (btn == MouseInputManager.MouseButton.LEFT_BUTTON)
+        if (btn == MouseInputManager.MouseButton.LEFT_BUTTON && canInteract)
         {
-            end.SetActive(true);
-            begin.SetActive(false);
+            toDisappear.SetValue(false);
+            toAppear.SetValue(true);
         }
     }
 }
