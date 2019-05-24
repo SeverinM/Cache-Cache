@@ -12,6 +12,7 @@ TagManager:
   - TPSpot
   - Center
   - FireWork
+  - BaseRoue
   layers:
   - Default
   - TransparentFX

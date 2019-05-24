@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BoutonGrandeRoue : Interactable
 {
+    [HideInInspector]
     public bool turnTheWheel = false;
 
     bool isOnButton = false;

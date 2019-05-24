@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4966214384396291285}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1003.3006, y: 0.5, z: 2.8401394}
-  m_LocalScale: {x: 3.6306272, y: 3.6306272, z: 3.6306272}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -105,3 +105,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bef1c47b0b2ed82408769afbfd011e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 0
+  progress: -1
+  allSpot: []
+  relativeOffsetMoon: {x: 0, y: 0, z: 0}
+  currentSpot: {fileID: 0}
+  duration: 0
+  spline: {fileID: 0}
+  anim: {fileID: 0}
+  anim2: {fileID: 0}

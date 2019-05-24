@@ -7,6 +7,9 @@ public class GrandeRoue : MonoBehaviour
     [SerializeField]
     BoutonGrandeRoue Bouton;
 
+    [SerializeField]
+    float RotationSpeed = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +21,7 @@ public class GrandeRoue : MonoBehaviour
     {
         if (Bouton.turnTheWheel)
         {
-            this.transform.Rotate(1, 0, 0);
+            this.transform.Rotate(Vector3.forward * (Time.deltaTime * RotationSpeed));
         }
     }
 }
