@@ -67,10 +67,10 @@ public class Tree : Draggable
             }
             else
             {
+                if (CurrentSpot is TeleportSpot) return;
                 if (!squirrel)
                 {
-                    if (!(CurrentSpot is TeleportSpot))
-                        FouilleTree();
+                    FouilleTree();
                 }                  
                 else
                 {

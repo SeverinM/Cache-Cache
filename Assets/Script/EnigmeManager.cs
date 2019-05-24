@@ -16,6 +16,11 @@ public class EnigmeManager : MonoBehaviour
 
     static EnigmeManager _instance = null;
 
+    int characterFound = 0;
+
+    [SerializeField]
+    int charactersObjectives = 4;
+
     private void Awake()
     {
         if (!_instance)
@@ -109,6 +114,8 @@ public class EnigmeManager : MonoBehaviour
 
     IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , float duration)
     {
+        characterFound++;
+
         AkSoundEngine.PostEvent("Play_voix01", gameObject);
         float normalizedTime = 0;;
         Vector3 originScale = target.lossyScale;
