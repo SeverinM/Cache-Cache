@@ -13,7 +13,7 @@ public class PersoNessie : Interactable
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         //A changer a 2 apres
-        if (!nessieBody || (nessieBody.Progress == 1 && nessieBody.Ratio > 0.9f))
+        if (!nessieBody || nessieBody.Progress == 1)
         {
             EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, 1);
         }
