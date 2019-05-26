@@ -89,7 +89,6 @@ public class Squirrel : Interactable
         previousTree.parent.GetComponent<Tree>().FouilleTree();
 
         transform.forward = currentTree.position - previousTree.position;
-        Debug.Break();
 
         float normalizeTime = 0;
         while (normalizeTime < 1)
@@ -108,6 +107,6 @@ public class Squirrel : Interactable
             yield return null;
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
-        this.transform.SetParent(currentTree);
+        transform.SetParent(currentTree);
     }
 }
