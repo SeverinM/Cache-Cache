@@ -7,7 +7,16 @@ public class Herbe : MonoBehaviour
     public RotateAround rot1;
     public RotateAround rot2;
 
+    public Transform center;
+
     public Material myMat;
+
+    private float targetValue = 0;
+    private float currentValue = 0;
+    [Range(0, 1)]
+    public float asymptoticSpeed = 0.9f;
+
+    public float sinInfluence = 0.25f;
 
     private bool goBackToZero = false;
 
@@ -15,6 +24,8 @@ public class Herbe : MonoBehaviour
     {
         if (myMat == null)
             myMat = this.GetComponent<MeshRenderer>().material;
+
+        myMat.SetVector("_SourceCenter", center.localPosition);
     }
 
     public void Update()
@@ -29,21 +40,32 @@ public class Herbe : MonoBehaviour
         }
         else if (goBackToZero)
         {
-            SetUpZero();
+            targetValue = 0;
             goBackToZero = false;
         }
+
+
+
+        float trg = targetValue + (Mathf.Sin(Time.timeSinceLevelLoad)) / sinInfluence;
+        Debug.Log(" so : " + (Mathf.Sin(Time.deltaTime)) / sinInfluence + " with sin who is : "+ (Mathf.Sin(Time.timeSinceLevelLoad)) + " with : " + sinInfluence) ;
+
+        if (trg != currentValue)
+        {
+            currentValue = (asymptoticSpeed * currentValue) + (1 - asymptoticSpeed) * trg;
+            if (Mathf.Abs(currentValue - trg) < 0.01f)
+                currentValue = trg;
+
+            myMat.SetFloat("_RotationSpeed", currentValue);
+        }
+
+
     }
 
     public void SetUpSpeed(RotateAround rot)
     {
-        myMat.SetFloat("_RotationSpeed", -rot.CurrentSpeed * 10);
+        targetValue = -rot.CurrentSpeed / 25.0f;
 
         goBackToZero = true;
-    }
-
-    public void SetUpZero()
-    {
-        myMat.SetFloat("_RotationSpeed", 0);
     }
 
 }

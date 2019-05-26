@@ -61,35 +61,35 @@ Material:
     - _Debug: 1
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _Edge1Effect: -0.12
-    - _Edge2Effect: 0.2
+    - _Edge1Effect: 0
+    - _Edge2Effect: 0.43
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Glowsiness: 30.61
-    - _HeighEffect: 0.05
+    - _Glowsiness: 12
+    - _HeighEffect: 0.1
     - _HeightMax: 0.1
-    - _LightEffect: 1
+    - _LightEffect: 0.3
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RotationSpeed: 0
-    - _ShadowEdge1: 1
-    - _ShadowEdge2: 1
+    - _ShadowEdge1: 0
+    - _ShadowEdge2: 0.1
     - _SmoothnessTextureChannel: 0
-    - _SpecEdgeEffect: 0.637
-    - _SpecIntensity: 1
+    - _SpecEdgeEffect: 1
+    - _SpecIntensity: 0.2
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _UVSec: 0
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorNShadow: {r: 0.015686275, g: 0.3803922, b: 0.427451, a: 1}
-    - _ColorNight: {r: 0.121568635, g: 0.6627451, b: 0.5764706, a: 1}
-    - _ColorRShadow: {r: 0.121568635, g: 0.65882355, b: 0.5764706, a: 1}
-    - _ColorReveal: {r: 0.3019608, g: 0.9490197, b: 0.6666667, a: 1}
+    - _ColorNShadow: {r: 0.08235294, g: 0.32941177, b: 0.37647063, a: 1}
+    - _ColorNight: {r: 0.23137257, g: 0.5372549, b: 0.48235297, a: 1}
+    - _ColorRShadow: {r: 0.10196079, g: 0.5529412, b: 0.5764706, a: 1}
+    - _ColorReveal: {r: 0.24705884, g: 0.8000001, b: 0.6431373, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SourceCenter: {r: 0, g: 0, b: 0, a: 0}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
