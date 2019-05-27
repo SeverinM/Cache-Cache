@@ -158,8 +158,9 @@ public class TeleportSpot : Spot
         }
     }
 
-    void SetMoonAnimation(bool reversed, UnityAction afterAnim)
+    public void SetMoonAnimation(bool reversed, UnityAction afterAnim)
     {
+        if (reversed == canOpen) return;
         StopAllCoroutines();
         StartCoroutine(MoonAnimation(reversed, afterAnim));
     }
@@ -190,6 +191,7 @@ public class TeleportSpot : Spot
         normalizedTime = Mathf.Clamp(normalizedTime, 0, 1);
         afterAnim();
         busy = false;
+        canOpen = reversed;
     }
 
     public IEnumerator Transfert()

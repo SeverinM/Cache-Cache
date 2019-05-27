@@ -19,6 +19,6 @@ public class BillBoard : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = cam.transform.rotation;
+        transform.forward = -cam.transform.forward;
     }
 }
