@@ -76,7 +76,7 @@ public class Nessie : Interactable
         }
 
         //Attention temporaire , passera a 1 plus tard
-        if (Progress < 3) return;
+        if (Progress != 3) return;
 
         Vector3 tempDir = (cam.transform.position - transform.position).normalized;
         angleCamera = Vector3.Angle(tempDir, directionCam);
@@ -102,7 +102,7 @@ public class Nessie : Interactable
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (Progress >= 3)
+        if (Progress == 3)
         {
             originPos = transform.position;
             isDown = true;
@@ -141,6 +141,6 @@ public class Nessie : Interactable
 
     public override bool IsHandCursor()
     {
-        return (Progress >= 3);
+        return (Progress == 3);
     }
 }

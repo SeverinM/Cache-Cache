@@ -5940,7 +5940,7 @@ MonoBehaviour:
   echo: {fileID: 0}
   block: 0
   progress: -1
-  nessieBody: {fileID: 0}
+  nessieBody: {fileID: 1207104003}
   potentialMoonsLandings:
   - {fileID: 631955036}
   - {fileID: 1760768893}
@@ -10007,7 +10007,7 @@ MonoBehaviour:
   echo: {fileID: 2114638061}
   block: 0
   progress: -1
-  maxDist: 1.22
+  maxDist: 1.1
   speedScrewing: 0.01
   maxDragDist: 0.22
   cam: {fileID: 1894037695}
@@ -15350,7 +15350,7 @@ PrefabInstance:
     - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
       propertyPath: maxDist
-      value: 1.22
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
