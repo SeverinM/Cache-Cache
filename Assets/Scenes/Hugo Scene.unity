@@ -6879,7 +6879,8 @@ PrefabInstance:
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: "Coop\xE9rez avec votre partenaire pour trouver les 5 personnages !"
+      value: "Coop\xE9rez avec votre partenaire pour trouver tous les personnages
+        !"
       objectReference: {fileID: 0}
     - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
@@ -7483,7 +7484,7 @@ PrefabInstance:
         type: 3}
       propertyPath: allWaypoints.Array.data[0].relativeDestination
       value: 
-      objectReference: {fileID: 1390976175}
+      objectReference: {fileID: 1455740388}
     - target: {fileID: 8063950457003842972, guid: 09b6a85169e698d41a0284aca3e17ffd,
         type: 3}
       propertyPath: allWaypoints.Array.data[0].duration
@@ -7770,7 +7771,7 @@ MonoBehaviour:
     - {fileID: 1942760766}
     cond: 4
   coeffSize: 5
-  charactersObjectives: 1
+  charactersObjectives: 5
   rot1:
     cam: {fileID: 631968521}
     trsf: {fileID: 5284632}
@@ -7781,7 +7782,7 @@ MonoBehaviour:
     - {fileID: 1495596729}
     - {fileID: 619673815}
     - {fileID: 71599526}
-    - {fileID: 1765353630}
+    - {fileID: 0}
     - {fileID: 239116640}
   gob: {fileID: 1594279829175101118, guid: 4055abf97aa0c094caa93300b1055fd3, type: 3}
   allCan:
@@ -8090,7 +8091,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1479425379}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &791901227
 PrefabInstance:
@@ -10966,6 +10967,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4ca41bb4d89ee41d7ba23c589243e4e5, type: 3}
+--- !u!95 &1365952176 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6041118708108822874, guid: 48cdfc963e9db494d98a972fd6138dd4,
+    type: 3}
+  m_PrefabInstance: {fileID: 4241311674192154640}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1367239041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 749066910399022483, guid: c52d0ebb21334a2478d40a63116f6e03,
@@ -11123,6 +11130,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 826729250}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1455740387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1455740388}
+  m_Layer: 0
+  m_Name: Waypoints 1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1455740388
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455740387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 22}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1479425379}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1479425378
 GameObject:
   m_ObjectHideFlags: 0
@@ -11150,8 +11187,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1390976175}
   - {fileID: 791352408}
+  - {fileID: 1455740388}
   m_Father: {fileID: 505716989}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18, y: 0, z: 0}
@@ -15156,7 +15193,8 @@ PrefabInstance:
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: "Coop\xE9rez avec votre partenaire pour trouver les 5 personnages !"
+      value: "Coop\xE9rez avec votre partenaire pour trouver tous les personnages
+        !"
       objectReference: {fileID: 0}
     - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
@@ -15546,6 +15584,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   turnTheWheel: 0
+  anim: {fileID: 1365952176}
 --- !u!65 &7568993009583958666
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15557,8 +15596,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.60008466, y: 0.23519386, z: 0.60008454}
-  m_Center: {x: -0.000000044703484, y: 0.11759693, z: 0.000000059604645}
+  m_Size: {x: 0.60008466, y: 1.4134372, z: 0.60008454}
+  m_Center: {x: -0.000000059604645, y: -0.2625969, z: 0.000000059604645}
 --- !u!1 &7568993009583958670 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6041118708101446302, guid: 48cdfc963e9db494d98a972fd6138dd4,
@@ -15574,7 +15613,7 @@ BoxCollider:
   m_GameObject: {fileID: 7568993009583958670}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1.8122817, y: 0.68160045, z: 1.8122817}
   m_Center: {x: 0, y: 0.34080023, z: 0}

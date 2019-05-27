@@ -7,13 +7,17 @@ public class BoutonGrandeRoue : Interactable
     [HideInInspector]
     public bool turnTheWheel = false;
 
+    [SerializeField]
+    Animator anim;
+
     bool isOnButton = false;
     bool isPressingButton = false;
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
+        Debug.Log("down");
         isPressingButton = true;
-        GetComponent<Animator>().SetBool("appui", true);
+        anim.SetBool("appui", true);
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -33,8 +37,8 @@ public class BoutonGrandeRoue : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        Debug.LogError("je passe dans mouseUp");
-        GetComponent<Animator>().SetBool("appui", false);
+        Debug.Log("up");
+        anim.SetBool("appui", false);
         isPressingButton = false;
     }
 
