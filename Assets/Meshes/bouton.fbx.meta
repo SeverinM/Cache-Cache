@@ -21,13 +21,9 @@ ModelImporter:
     4300002: socle
     7400000: Take 001
     9500000: //RootNode
-<<<<<<< HEAD
-    2186277476908879412: ImportLogs
-=======
->>>>>>> grandeRoue
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -77,11 +73,7 @@ ModelImporter:
     secondaryUVHardAngle: 88
     secondaryUVPackMargin: 4
     useFileScale: 1
-<<<<<<< HEAD
-    previousCalculatedGlobalScale: 1
-=======
     previousCalculatedGlobalScale: 0.01
->>>>>>> grandeRoue
     hasPreviousCalculatedGlobalScale: 1
   tangentSpace:
     normalSmoothAngle: 60
