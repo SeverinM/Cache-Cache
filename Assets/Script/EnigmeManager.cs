@@ -30,7 +30,6 @@ public class EnigmeManager : MonoBehaviour
     {
         public Camera cam;
         public Transform trsf;
-        public List<Transform> maqs;
     }
 
     [SerializeField]
@@ -230,12 +229,12 @@ public class EnigmeManager : MonoBehaviour
             inter.CanInteract = false;
         }
 
-        foreach (Transform trsf in rot1.maqs)
+        foreach (Transform trsf in rot1.trsf)
         {
             trsf.gameObject.SetActive(false);
         }
 
-        foreach (Transform trsf in rot2.maqs)
+        foreach (Transform trsf in rot2.trsf)
         {
             trsf.gameObject.SetActive(false);
         }
