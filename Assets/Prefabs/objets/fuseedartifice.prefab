@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4966214384396783861}
   - component: {fileID: 4966214384395456725}
   - component: {fileID: 4966214384394359317}
+  - component: {fileID: 4449289207953013044}
+  - component: {fileID: 7534391698785717946}
   m_Layer: 0
   m_Name: fuseedartifice
   m_TagString: Untagged
@@ -27,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 4966214384396291285}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1003.3006, y: 0.5, z: 2.8401394}
-  m_LocalScale: {x: 3.6306272, y: 3.6306272, z: 3.6306272}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -78,3 +80,38 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &4449289207953013044
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966214384396291285}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.03558583, y: 0.11036135, z: 0.026981298}
+  m_Center: {x: -0.004302272, y: 0.00884504, z: 0}
+--- !u!114 &7534391698785717946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4966214384396291285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bef1c47b0b2ed82408769afbfd011e4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 0
+  progress: -1
+  allSpot: []
+  relativeOffsetMoon: {x: 0, y: 0, z: 0}
+  currentSpot: {fileID: 0}
+  duration: 0
+  spline: {fileID: 0}
+  anim: {fileID: 0}
+  anim2: {fileID: 0}

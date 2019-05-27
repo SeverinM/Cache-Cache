@@ -2,14 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class SimpleInteraction : Interactable
 {
+    [SerializeField]
+    Animator anim;
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+            if (!anim)
+            {
+                if (GetComponent<Animator>())
+                    GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+            }               
+            else
+                anim.SetTrigger(Manager.TRIGGER_INTERACTION);
         }
     }
 

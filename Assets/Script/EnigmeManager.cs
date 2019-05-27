@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.SceneManagement;
 
 public class EnigmeManager : MonoBehaviour
 {
@@ -10,11 +11,38 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     List<ConditionStruct> allConditions;
 
+    float timeBeforeEnd = 600;
+
     [SerializeField]
     float coeffSize = 5;
     public float CoeffSizeMoon => coeffSize;
 
     static EnigmeManager _instance = null;
+
+    int characterFound = 0;
+    bool pause = true;
+
+    [SerializeField]
+    int charactersObjectives = 4;
+
+    [System.Serializable]
+    class Rotate
+    {
+        public Camera cam;
+        public Transform trsf;
+    }
+
+    [SerializeField]
+    Rotate rot1;
+
+    [SerializeField]
+    GameObject gob;
+
+    [SerializeField]
+    List<Canvas> allCan;
+
+    [SerializeField]
+    Rotate rot2;
 
     private void Awake()
     {
@@ -73,14 +101,14 @@ public class EnigmeManager : MonoBehaviour
             { 
                 case Condition.BOX_OPEN:
                     return AllEnigme.IS_BOX_OPEN;
-                case Condition.MOON_OPEN:
-                    return AllEnigme.IS_MOON_OPEN;
                 case Condition.SQUIRREL_FOUND:
                     return AllEnigme.IS_SQUIRREL_FOUND;
                 case Condition.LOLJAMBE_PULLED:
                     return AllEnigme.IS_CHAR_PULLED;
                 case Condition.NESSIE_BODY_PULLED:
                     return AllEnigme.IS_NESSIE_BODY_PULLED;
+                case Condition.FIREWORK_BURNED:
+                    return AllEnigme.IS_FIREWORK_BURNING;
                 default:
                     return AllEnigme.IS_BOX_OPEN;
             }
@@ -89,17 +117,48 @@ public class EnigmeManager : MonoBehaviour
 
     public enum Condition
     {
-        MOON_OPEN,
         BOX_OPEN,
         SQUIRREL_FOUND,
         LOLJAMBE_PULLED,
-        NESSIE_BODY_PULLED
+        NESSIE_BODY_PULLED,
+        FIREWORK_BURNED
     }
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+
         if (allConditions.Count > 0)
             allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
+
+        if (!pause) timeBeforeEnd -= Time.deltaTime;
+        if (timeBeforeEnd < 0)
+        {
+            End();
+        }
+    }
+
+    void End()
+    {
+        Debug.LogError("fin");
+        allConditions.Clear();
+        foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
+        {
+            inter.CanInteract = false;
+        }
+    }
+
+    public void StartCountdown()
+    {
+        pause = false;
     }
 
     public void DiscoveredCharacter(List<Transform> newParents, Transform target, float duration)
@@ -109,6 +168,8 @@ public class EnigmeManager : MonoBehaviour
 
     IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , float duration)
     {
+        characterFound++;
+        AkSoundEngine.PostEvent("Play_voix01", gameObject);
         float normalizedTime = 0;;
         Vector3 originScale = target.lossyScale;
 
@@ -150,5 +211,60 @@ public class EnigmeManager : MonoBehaviour
             }
         }
         Destroy(target.gameObject);
+        if (characterFound >= charactersObjectives)
+        {
+            AllCharacterFound();
+        }
+    }
+
+    void AllCharacterFound()
+    {
+        foreach(TeleportSpot sp in GameObject.FindObjectsOfType<TeleportSpot>())
+        {
+            sp.SetMoonAnimation(false, () => { });
+        }
+
+        foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
+        {
+            inter.CanInteract = false;
+        }
+
+        foreach (Transform trsf in rot1.trsf)
+        {
+            trsf.gameObject.SetActive(false);
+        }
+
+        foreach (Transform trsf in rot2.trsf)
+        {
+            trsf.gameObject.SetActive(false);
+        }
+
+        foreach (CameraWaypoints waypoints in GameObject.FindObjectsOfType<CameraWaypoints>())
+        {
+            waypoints.StartNextWaypoint(() => {
+                RotateChar();
+            });
+        }
+    }
+
+    void RotateChar()
+    {
+        StartCoroutine(RotateCor());
+    }
+
+    IEnumerator RotateCor()
+    {
+        foreach(Canvas can in allCan)
+        {
+            Instantiate(gob, can.transform);
+        }
+
+        while (true)
+        {
+            rot1.cam.transform.RotateAround(rot1.trsf.position, Vector3.up, 5 * Time.deltaTime);
+            rot2.cam.transform.RotateAround(rot2.trsf.position, Vector3.up, 5 * Time.deltaTime);
+
+            yield return null;
+        }
     }
 }

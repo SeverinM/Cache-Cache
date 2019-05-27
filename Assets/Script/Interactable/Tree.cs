@@ -67,8 +67,11 @@ public class Tree : Draggable
             }
             else
             {
+                if (CurrentSpot is TeleportSpot) return;
                 if (!squirrel)
+                {
                     FouilleTree();
+                }                  
                 else
                 {
                     if (gameObject.tag == "Hiver")
@@ -104,6 +107,11 @@ public class Tree : Draggable
 
         if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme") || GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_hiver_repos"))
             GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+    }
+
+    public override bool IsHandCursor()
+    {
+        return (squirrel == null);
     }
 }
 

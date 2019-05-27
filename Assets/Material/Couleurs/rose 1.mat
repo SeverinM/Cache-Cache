@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: rose 1
-  m_Shader: {fileID: 4800000, guid: ee5a54bdf0907e34a821baa94abcea98, type: 3}
+  m_Shader: {fileID: 4800000, guid: 4622e1150cafea9478053d6e782347ae, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -61,17 +61,21 @@ Material:
     - _Debug: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _Edge1Effect: 0
+    - _Edge2Effect: 0.43
     - _EdgeEffect: 0.2
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
     - _Glowsiness: 8
-    - _LightEffect: 1
+    - _LightEffect: 0.3
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _ShadowEdge: 1
+    - _ShadowEdge1: 0
+    - _ShadowEdge2: 0.1
     - _SmoothnessTextureChannel: 0
     - _SpecEdgeEffect: 1
     - _SpecIntensity: 0.2

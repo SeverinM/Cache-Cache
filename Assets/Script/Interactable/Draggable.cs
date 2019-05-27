@@ -11,6 +11,9 @@ public class Draggable : Interactable
     [SerializeField]
     Vector3 relativeOffsetMoon;
 
+    //Combien de personnes dragg ?
+    public static MouseInputManager.MousePointer draggPriority;
+
     [SerializeField]
     protected Spot currentSpot;
     public Spot CurrentSpot
@@ -78,6 +81,7 @@ public class Draggable : Interactable
             {
                 //Evite les raycast avec lui meme
                 if (hit.collider.gameObject == gameObject) continue;
+                if (hit.collider.tag != "Maquette" && !hit.collider.GetComponent<Spot>()) continue;
 
                 //Ce qu'on survole est valide ?
                 if (hit.collider.GetComponent<Spot>())
@@ -90,11 +94,6 @@ public class Draggable : Interactable
 
                     if (lastTouchedGameObject != hit.collider.gameObject)
                     {
-                        //On ne survole plus le meme spot
-                        if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
-                        {
-                            lastTouchedGameObject.GetComponent<Spot>().ExitSpot(this);
-                        }
                         if (hit.collider.GetComponent<Spot>() && !hit.collider.GetComponent<Spot>().CurrentHold)
                         {
                             hit.collider.GetComponent<Spot>().EnterSpot(this);
@@ -106,6 +105,10 @@ public class Draggable : Interactable
                 
                 else
                 {
+                    if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>())
+                    {
+                        lastTouchedGameObject.GetComponent<Spot>().ExitSpot(this);
+                    }
                     transform.position = hit.point;
                     lastTouchedGameObject = hit.collider.gameObject;
                     return;
@@ -120,6 +123,8 @@ public class Draggable : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
             dragging = false;
+
+            //Nouveau spot trouvé
             if (lastTouchedGameObject && lastTouchedGameObject.GetComponent<Spot>() && lastTouchedGameObject.GetComponent<Spot>().CurrentHold == null)
             {
                 //Appell� uniquement quand le spot est different
@@ -129,6 +134,7 @@ public class Draggable : Interactable
                 }
 
                 CurrentSpot = lastTouchedGameObject.GetComponent<Spot>();
+                CurrentSpot.CurrentHold = this;
                 lastTouchedGameObject.GetComponent<Spot>().ReleaseSpot(this);
             }
             else
@@ -161,5 +167,10 @@ public class Draggable : Interactable
     public virtual void ResetPosition()
     {
         transform.position = origin;
+    }
+
+    public override bool IsHandCursor()
+    {
+        return true;
     }
 }
