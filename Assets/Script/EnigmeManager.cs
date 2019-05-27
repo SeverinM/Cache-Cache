@@ -37,6 +37,12 @@ public class EnigmeManager : MonoBehaviour
     Rotate rot1;
 
     [SerializeField]
+    GameObject gob;
+
+    [SerializeField]
+    List<Canvas> allCan;
+
+    [SerializeField]
     Rotate rot2;
 
     private void Awake()
@@ -249,6 +255,11 @@ public class EnigmeManager : MonoBehaviour
 
     IEnumerator RotateCor()
     {
+        foreach(Canvas can in allCan)
+        {
+            Instantiate(gob, can.transform);
+        }
+
         while (true)
         {
             rot1.cam.transform.RotateAround(rot1.trsf.position, Vector3.up, 5 * Time.deltaTime);
