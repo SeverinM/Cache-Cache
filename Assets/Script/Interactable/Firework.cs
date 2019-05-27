@@ -37,6 +37,8 @@ public class Firework : Draggable
 
     IEnumerator LaunchFirework()
     {
+        yield return new WaitForSeconds(0.2f);
+        AkSoundEngine.PostEvent("Play_fireworks_launch", gameObject);
         GetComponent<ParticleSystem>().Play();
 
         float normalizedTime = 0;
@@ -51,5 +53,6 @@ public class Firework : Draggable
         anim.SetTrigger(Manager.TRIGGER_INTERACTION);
         anim2.SetTrigger(Manager.TRIGGER_INTERACTION);
         GetComponent<ParticleSystem>().Stop();
+        AkSoundEngine.PostEvent("Play_fireworks_explode", gameObject);
     }
 }

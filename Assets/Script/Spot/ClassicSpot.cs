@@ -19,8 +19,15 @@ public class ClassicSpot : Spot
         currentHold = dragg;
         dragg.CurrentSpot = this;
         dragg.transform.SetParent(transform);
-        GetComponent<Collider>().enabled = false;
-        GetComponent<MeshRenderer>().enabled = false;
+
+        if (GetComponent<Collider>())
+            GetComponent<Collider>().enabled = false;
+
+        if (GetComponent<MeshRenderer>())
+            GetComponent<MeshRenderer>().enabled = false;
+
+        if (GetComponent<Light>())
+            GetComponent<Light>().enabled = false;
     }
 
     public override void ResetSpot(Draggable dragg)
@@ -40,7 +47,22 @@ public class ClassicSpot : Spot
         if (Vector3.Distance(dragg.transform.position , transform.position) < maxDistance && currentHold == null)
         {
             GetComponent<Collider>().enabled = value;
-            GetComponent<MeshRenderer>().enabled = value;
+
+            if (GetComponent<MeshRenderer>())
+                GetComponent<MeshRenderer>().enabled = value;
+
+            if (GetComponent<ParticleSystem>())
+            {
+                if (value)
+                    GetComponent<ParticleSystem>().Play();
+                else
+                    GetComponent<ParticleSystem>().Stop();
+            }
+
+            if (GetComponent<Light>())
+            {
+                GetComponent<Light>().enabled = value;
+            }
         }
     }
 }

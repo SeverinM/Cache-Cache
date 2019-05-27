@@ -11,6 +11,9 @@ public class Draggable : Interactable
     [SerializeField]
     Vector3 relativeOffsetMoon;
 
+    //Combien de personnes dragg ?
+    public static MouseInputManager.MousePointer draggPriority;
+
     [SerializeField]
     protected Spot currentSpot;
     public Spot CurrentSpot

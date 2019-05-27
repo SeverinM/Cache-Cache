@@ -14,10 +14,18 @@ public class Moon : Interactable
         if (!tpSpot.CurrentHold)
         {
             if (tpSpot.GetOtherPart().CurrentHold)
-                tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
+            {
+                if (!tpSpot.Busy)
+                    tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
+            }                
             else
                 tpSpot.StartCoroutine(tpSpot.FouilleMoon());
         }
+    }
+
+    private void Update()
+    {
+        GetComponent<SphereCollider>().enabled = !tpSpot.CurrentHold;
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
