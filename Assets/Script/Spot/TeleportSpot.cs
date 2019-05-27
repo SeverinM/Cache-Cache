@@ -160,7 +160,6 @@ public class TeleportSpot : Spot
 
     public void SetMoonAnimation(bool reversed, UnityAction afterAnim)
     {
-        if (reversed == canOpen) return;
         StopAllCoroutines();
         StartCoroutine(MoonAnimation(reversed, afterAnim));
     }
