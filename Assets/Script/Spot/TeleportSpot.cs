@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
+using UnityEngine.Events;
 
 public class TeleportSpot : Spot
 {
@@ -29,7 +31,26 @@ public class TeleportSpot : Spot
     [SerializeField]
     float maxDistance;
     bool busy = false;
-    public bool Busy => busy;
+    public bool Busy
+    {
+        get
+        {
+            return busy;
+        }
+        set
+        {
+            busy = value;
+        }
+    }
+
+    bool seeking = false;
+    public bool Seeking
+    {
+        get
+        {
+            return seeking;
+        }
+    }
 
     float normalizedTime = 0;
     public float NormalizedTime => normalizedTime;
@@ -56,12 +77,6 @@ public class TeleportSpot : Spot
         {
             return canOpen;
         }
-
-        set
-        {
-            canOpen = value;
-            SetMoonAnimation(canOpen);
-        }
     }
 
     private void Awake()
@@ -86,20 +101,17 @@ public class TeleportSpot : Spot
         }
     }
 
+    //L'objet a quitté le spot
     public override void HoldObjectLeft(Draggable dragg)
     {
         base.HoldObjectLeft(dragg);
-        CanOpen = false;
+        CurrentHold = null;
+        SetMoonAnimation(false, () => { });
     }
 
     public TeleportSpot GetOtherPart()
     {
         return (this == spot1 ? spot2 : spot1);
-    }
-
-    public override void PressSpot(Draggable dragg)
-    {
-        CurrentHold = null;
     }
 
     public override void ReleaseSpot(Draggable dragg)
@@ -133,24 +145,26 @@ public class TeleportSpot : Spot
 
     private void Update()
     {
-        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold);
+        //La lune doit etre fermé et ne contenir aucun objet
+        IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().normalizedTime == 0);
     }
 
     public override void SetValue(Draggable dragg, bool value)
     {
-        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && CurrentHold != dragg && IsAvailable)
+        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && IsAvailable && !GetOtherPart().Busy)
         {
-            CanOpen = value;
+            busy = true;
+            SetMoonAnimation(value, () => { });
         }
     }
 
-    void SetMoonAnimation(bool reversed)
+    void SetMoonAnimation(bool reversed, UnityAction afterAnim)
     {
         StopAllCoroutines();
-        StartCoroutine(MoonAnimation(reversed));
+        StartCoroutine(MoonAnimation(reversed, afterAnim));
     }
 
-    IEnumerator MoonAnimation(bool reversed)
+    IEnumerator MoonAnimation(bool reversed, UnityAction afterAnim)
     {
         //true = de fermé à ouvert
         if (reversed)
@@ -173,10 +187,15 @@ public class TeleportSpot : Spot
                 yield return null;
             }
         }
+        normalizedTime = Mathf.Clamp(normalizedTime, 0, 1);
+        afterAnim();
+        busy = false;
     }
 
     public IEnumerator Transfert()
     {
+        busy = true;
+        GetOtherPart().Busy = true;
         AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
         //Une fois l'animation de transfert lancé on ne peut rien faire jusqu'a la fin
         currentHold.CanInteract = false;
@@ -188,6 +207,7 @@ public class TeleportSpot : Spot
             partieBasse.localPosition = new Vector3(0, Mathf.Lerp(0, -distY, curve.Evaluate(normalizedTime)), 0);
             yield return null;
         }
+        normalizedTime = Mathf.Clamp(normalizedTime, 0, 1);
 
         //...puis on transfert
         currentHold.transform.SetParent(GetOtherPart().transform);
@@ -197,7 +217,10 @@ public class TeleportSpot : Spot
         currentHold.CanInteract = true;
         currentHold = null;
         GetOtherPart().Center();
-        GetOtherPart().CanOpen = true;
+        GetOtherPart().SetMoonAnimation(true, () => {
+            busy = false;
+            GetOtherPart().Busy = false;
+        });
 
         AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
     }
@@ -206,7 +229,7 @@ public class TeleportSpot : Spot
     {
         busy = true;
         normalizedTime = 0;
-        while (normalizedTime <= 1)
+        while (normalizedTime < 1)
         {
             normalizedTime += Time.deltaTime / duration;
             partieHaute.localPosition = new Vector3(0, Mathf.Lerp(0, distY, curveFouille.Evaluate(normalizedTime)), 0);
@@ -228,5 +251,9 @@ public class TeleportSpot : Spot
                 break;
             }
         }
+    }
+
+    public override void PressSpot(Draggable dragg)
+    {
     }
 }

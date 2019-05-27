@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 public class SimpleInteraction : Interactable
 {
     [SerializeField]
@@ -13,7 +12,10 @@ public class SimpleInteraction : Interactable
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
             if (!anim)
-                GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+            {
+                if (GetComponent<Animator>())
+                    GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
+            }               
             else
                 anim.SetTrigger(Manager.TRIGGER_INTERACTION);
         }

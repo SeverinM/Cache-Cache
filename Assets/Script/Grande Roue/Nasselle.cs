@@ -7,6 +7,9 @@ public class Nasselle : Interactable
     [SerializeField]
     Transform NasselleSpot;
 
+    [HideInInspector]
+    public bool open = false;
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
     }
@@ -46,18 +49,22 @@ public class Nasselle : Interactable
 
     private void OnTriggerEnter(Collider other)
     {
-        block = false;
-        if (other.CompareTag("BaseRoue"))
+        if (other.CompareTag("BaseRoue") && !open)
         {
+            Debug.LogError("j'ouvre");
             GetComponent<Animator>().SetTrigger("nacelleOuverture");
+            open = true;
+            block = false;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        block = true;
-        if (other.CompareTag("BaseRoue"))
+        if (other.CompareTag("BaseRoue") && open)
         {
+            Debug.LogError("je ferme");
+            open = false;
+            block = true;
             GetComponent<Animator>().SetTrigger("nacelleFermeture");
         }
     }
