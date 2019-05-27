@@ -8174,7 +8174,7 @@ PrefabInstance:
     - target: {fileID: 908120408154818446, guid: 9176ab54c23a82540bba891fec4dad70,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.53
+      value: 3.96
       objectReference: {fileID: 0}
     - target: {fileID: 908120408154818446, guid: 9176ab54c23a82540bba891fec4dad70,
         type: 3}
@@ -8251,7 +8251,23 @@ PrefabInstance:
       propertyPath: potentialMoonsLandings.Array.data[1]
       value: 
       objectReference: {fileID: 1760768894}
-    m_RemovedComponents: []
+    - target: {fileID: 3385700997200425865, guid: 9176ab54c23a82540bba891fec4dad70,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991786464208509312, guid: 9176ab54c23a82540bba891fec4dad70,
+        type: 3}
+      propertyPath: potentialMoonsLandings.Array.data[0]
+      value: 
+      objectReference: {fileID: 631955037}
+    - target: {fileID: 1991786464208509312, guid: 9176ab54c23a82540bba891fec4dad70,
+        type: 3}
+      propertyPath: potentialMoonsLandings.Array.data[1]
+      value: 
+      objectReference: {fileID: 1760768894}
+    m_RemovedComponents:
+    - {fileID: 8394884357314421878, guid: 9176ab54c23a82540bba891fec4dad70, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9176ab54c23a82540bba891fec4dad70, type: 3}
 --- !u!1001 &826729250
 PrefabInstance:
