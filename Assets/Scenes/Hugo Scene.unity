@@ -6790,7 +6790,7 @@ PrefabInstance:
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: Trouvez tous les personnages ensemble !
+      value: "Coop\xE9rez avec votre partenaire pour trouver les 5 personnages !"
       objectReference: {fileID: 0}
     - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
@@ -13996,7 +13996,7 @@ PrefabInstance:
     - target: {fileID: 8472955551862351788, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}
       propertyPath: m_Text
-      value: Trouvez tous les personnages ensemble !
+      value: "Coop\xE9rez avec votre partenaire pour trouver les 5 personnages !"
       objectReference: {fileID: 0}
     - target: {fileID: 550575075096805986, guid: 7085c345a63b07a4ab3956a5413fed84,
         type: 3}

@@ -51,7 +51,6 @@ public class Nasselle : Interactable
     {
         if (other.CompareTag("BaseRoue") && !open)
         {
-            Debug.LogError("j'ouvre");
             GetComponent<Animator>().SetTrigger("nacelleOuverture");
             open = true;
             block = false;
@@ -62,7 +61,6 @@ public class Nasselle : Interactable
     {
         if (other.CompareTag("BaseRoue") && open)
         {
-            Debug.LogError("je ferme");
             open = false;
             block = true;
             GetComponent<Animator>().SetTrigger("nacelleFermeture");
