@@ -54,5 +54,6 @@ public class Firework : Draggable
         anim2.SetTrigger(Manager.TRIGGER_INTERACTION);
         GetComponent<ParticleSystem>().Stop();
         AkSoundEngine.PostEvent("Play_fireworks_explode", gameObject);
+        Destroy(gameObject);
     }
 }

@@ -15,6 +15,7 @@ public class Moon : Interactable
         {
             if (tpSpot.GetOtherPart().CurrentHold)
             {
+                if (tpSpot.GetOtherPart().CurrentHold.Dragging) return;
                 if (!tpSpot.Busy)
                     tpSpot.GetOtherPart().StartCoroutine(tpSpot.GetOtherPart().Transfert());
             }                
