@@ -25,14 +25,13 @@ public class Firework : Draggable
 
     public override void OnNewValue()
     {
-        base.OnNewValue();
         if (Progress == 1)
             StartCoroutine(LaunchFirework());
     }
 
     public override bool IsHandCursor()
     {
-        return true;
+        return CanInteract;
     }
 
     IEnumerator LaunchFirework()

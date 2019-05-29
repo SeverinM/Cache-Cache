@@ -11,6 +11,10 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     List<ConditionStruct> allConditions;
 
+    [SerializeField]
+    List<GameObject> toDisable;
+
+    [SerializeField]
     float timeBeforeEnd = 600;
 
     [SerializeField]
@@ -148,12 +152,13 @@ public class EnigmeManager : MonoBehaviour
 
     void End()
     {
-        Debug.LogError("fin");
+        pause = true;
         allConditions.Clear();
         foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
         {
             inter.CanInteract = false;
         }
+        AllCharacterFound();
     }
 
     public void StartCountdown()
@@ -219,6 +224,11 @@ public class EnigmeManager : MonoBehaviour
 
     void AllCharacterFound()
     {
+        foreach(GameObject gob in toDisable)
+        {
+            gob.SetActive(false);
+        }
+
         foreach(TeleportSpot sp in GameObject.FindObjectsOfType<TeleportSpot>())
         {
             sp.SetMoonAnimation(false, () => { });
