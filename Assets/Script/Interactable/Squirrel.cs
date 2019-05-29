@@ -85,6 +85,7 @@ public class Squirrel : Interactable
 
         previousTree = currentTree;
         currentTree = nextTree;
+        currentTree.parent.GetComponent<Tree>().CanInteract = false;
         previousTree.parent.GetComponent<Tree>().squirrel = null;
         previousTree.parent.GetComponent<Tree>().FouilleTree();
 
@@ -108,5 +109,6 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         transform.SetParent(currentTree);
+        currentTree.parent.GetComponent<Tree>().CanInteract = true;
     }
 }
