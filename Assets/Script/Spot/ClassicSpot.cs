@@ -44,6 +44,7 @@ public class ClassicSpot : Spot
 
     public override void SetValue(Draggable dragg, bool value)
     {
+        if (transform.parent.GetComponent<ToggleInteraction>() && !transform.parent.GetComponent<ToggleInteraction>().ToggleState) return;
         if (Vector3.Distance(dragg.transform.position , transform.position) < maxDistance && currentHold == null)
         {
             GetComponent<Collider>().enabled = value;
