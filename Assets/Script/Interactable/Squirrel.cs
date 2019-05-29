@@ -37,7 +37,6 @@ public class Squirrel : Interactable
         //Cliquer sur le perso revient a cliquer sur son arbre
         if (currentTree)
         {
-            Debug.Log("clickPerso");
             currentTree.parent.GetComponent<Interactable>().MouseDown(btn, mouse);
             currentTree.parent.GetComponent<Interactable>().MouseUp(btn, mouse);
         }           
