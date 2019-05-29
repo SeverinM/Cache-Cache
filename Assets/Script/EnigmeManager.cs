@@ -152,6 +152,7 @@ public class EnigmeManager : MonoBehaviour
 
     void End()
     {
+        pause = true;
         allConditions.Clear();
         foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
         {
