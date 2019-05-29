@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 3224077810002340455}
   - component: {fileID: 3224077810012145033}
   - component: {fileID: 2427109917485322072}
+  - component: {fileID: 607455756701529716}
   m_Layer: 0
   m_Name: persopomme
   m_TagString: Untagged
@@ -304,6 +305,20 @@ MonoBehaviour:
   progress: -1
   nessieBody: {fileID: 0}
   potentialMoonsLandings: []
+--- !u!136 &607455756701529716
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3224077810002769479}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.1439417
+  m_Height: 0.66827786
+  m_Direction: 1
+  m_Center: {x: 0.0073242188, y: 0.19693369, z: 0.038144767}
 --- !u!1 &3224077810002769481
 GameObject:
   m_ObjectHideFlags: 0

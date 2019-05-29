@@ -633,6 +633,7 @@ GameObject:
   - component: {fileID: 7329028884410730164}
   - component: {fileID: 7329028884403841348}
   - component: {fileID: 415376572929129896}
+  - component: {fileID: 1899660895775614079}
   m_Layer: 0
   m_Name: perso2pilules
   m_TagString: Untagged
@@ -696,6 +697,19 @@ MonoBehaviour:
   potentialMoonsLandings:
   - {fileID: 0}
   - {fileID: 0}
+--- !u!65 &1899660895775614079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7329028884411095700}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24226284, y: 0.3563748, z: 0.22878838}
+  m_Center: {x: 0.00058317184, y: 0.17515257, z: -0.024071693}
 --- !u!1 &7329028884411095702
 GameObject:
   m_ObjectHideFlags: 0
