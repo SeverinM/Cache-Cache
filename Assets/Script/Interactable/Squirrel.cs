@@ -81,10 +81,11 @@ public class Squirrel : Interactable
     {
         bool openEnd = false;
         Transform nextTree = potentialTrees.Where(x => x != currentTree && x != previousTree).
-            OrderBy(x => Vector3.Distance(x.position, transform.position) * Random.Range(0.5f, 2)).ToList()[0];
+            OrderBy(x => Vector3.Distance(x.position, transform.position) * Random.Range(0.1f, 3)).ToList()[0];
 
         previousTree = currentTree;
         currentTree = nextTree;
+        currentTree.parent.GetComponent<Tree>().CanInteract = false;
         previousTree.parent.GetComponent<Tree>().squirrel = null;
         previousTree.parent.GetComponent<Tree>().FouilleTree();
 
@@ -97,7 +98,7 @@ public class Squirrel : Interactable
             Vector3 temporaryPosition = Vector3.Lerp(previousTree.position, currentTree.position, normalizeTime);
             temporaryPosition += new Vector3(0, curveY.Evaluate(normalizeTime), 0);
             transform.position = temporaryPosition;
-            transform.localEulerAngles = new Vector3(Mathf.Lerp(-90, 90, normalizeTime), transform.localEulerAngles.y, transform.localEulerAngles.z);
+            transform.localEulerAngles = new Vector3(Mathf.Lerp(40, -40, normalizeTime), transform.localEulerAngles.y, transform.localEulerAngles.z);
 
             if (normalizeTime > openAt && !openEnd)
             {
@@ -108,5 +109,6 @@ public class Squirrel : Interactable
         }
         currentTree.parent.GetComponent<Tree>().squirrel = this;
         transform.SetParent(currentTree);
+        currentTree.parent.GetComponent<Tree>().CanInteract = true;
     }
 }

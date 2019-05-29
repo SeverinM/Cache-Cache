@@ -111,7 +111,7 @@ public class Tree : Draggable
 
     public override bool IsHandCursor()
     {
-        return (squirrel == null);
+        return CanInteract;
     }
 }
 
