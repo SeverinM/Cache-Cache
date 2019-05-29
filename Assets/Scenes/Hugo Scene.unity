@@ -17262,7 +17262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1d2982e8d98e44a829c8413d5c6690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  echo: {fileID: 0}
+  echo: {fileID: 1804588232}
   block: 1
   progress: -1
   anim: {fileID: 1429843364143255919}
@@ -17299,7 +17299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1d2982e8d98e44a829c8413d5c6690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  echo: {fileID: 0}
+  echo: {fileID: 157761}
   block: 1
   progress: -1
   anim: {fileID: 1429843364143255919}
