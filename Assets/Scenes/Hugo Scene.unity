@@ -5851,6 +5851,24 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 242843777}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &247040904 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 508904703394234869, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5639561187792115838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &247040907 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5639561187792115838}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 247040904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bd9243306ccdd4ea550b8cdf5873d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &249824665
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6554,7 +6572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
-  block: 0
+  block: 1
   progress: -1
   nessieBody: {fileID: 1207104003}
   potentialMoonsLandings:
@@ -11236,6 +11254,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c7a2e38feb09be47b19e41be2d31162, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1187278468 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 508904703394234867, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1817997307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1187278469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 508904703393881555, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1817997307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1187278470
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187278468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab99a8cfd2b4a84f80d2bd3a17769d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 1
+  progress: -1
+  anim: {fileID: 0}
+--- !u!64 &1187278471
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1187278468}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 1
+  m_CookingOptions: 14
+  m_Mesh: {fileID: 4300004, guid: 8207ed7e0c1294a09bf27c1d248898a7, type: 3}
 --- !u!114 &1198074354 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 651193362170482052, guid: 02bdc03cc17bed24ebc771d15636745b,
@@ -12513,6 +12573,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6139268401435288955, guid: 1a684c8e42e054b50afb32ea9eabcfd5,
     type: 3}
   m_PrefabInstance: {fileID: 288427456}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1402317515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 508904703393881555, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 5639561187792115838}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412482888 stripped
 GameObject:
@@ -14740,7 +14806,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7601308208970904699, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
+    - {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
+--- !u!1 &1817997308 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 508904703394234869, guid: df3f54ed7be9957408bad364b3afc83b,
+    type: 3}
+  m_PrefabInstance: {fileID: 1817997307}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1817997309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1817997308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 11bd9243306ccdd4ea550b8cdf5873d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 247040907}
+  block: 0
+  progress: -1
+  duration: 1
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  gobRoot: {fileID: 1817997308}
+  head: {fileID: 1187278469}
 --- !u!4 &1831238336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5542086926533730577, guid: b5761bc8efee2432cb7a9fb4eca9acea,
@@ -17988,8 +18103,23 @@ PrefabInstance:
     - target: {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
       propertyPath: block
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: echo
+      value: 
+      objectReference: {fileID: 1817997309}
+    - target: {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: gobRoot
+      value: 
+      objectReference: {fileID: 247040904}
+    - target: {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: head
+      value: 
+      objectReference: {fileID: 1402317515}
     - target: {fileID: 508904703393881557, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
       propertyPath: m_LocalPosition.y
