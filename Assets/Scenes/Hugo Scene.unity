@@ -756,7 +756,7 @@ PrefabInstance:
     - target: {fileID: 3664683564104059997, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3664683564104059997, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
         type: 3}
@@ -8273,8 +8273,9 @@ MonoBehaviour:
   - {fileID: 276818878}
   - {fileID: 1878460299}
   - {fileID: 1458195296}
+  timeBeforeEnd: 600
   coeffSize: 5
-  charactersObjectives: 1
+  charactersObjectives: 5
   rot1:
     cam: {fileID: 631968521}
     trsf: {fileID: 5284632}
@@ -8590,6 +8591,12 @@ Transform:
   m_Father: {fileID: 1479425379}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &791408461 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 320281137631993993, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1289618476}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &791901227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8869,18 +8876,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8348803628185295432, guid: 0d494f1e2e5807d4e81498a0538125bb,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348803628185295432, guid: 0d494f1e2e5807d4e81498a0538125bb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8348803628185295432, guid: 0d494f1e2e5807d4e81498a0538125bb,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: curveY.m_Curve.Array.size
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[0]
       value: 
-      objectReference: {fileID: 333573155}
+      objectReference: {fileID: 1780854687}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[1]
       value: 
-      objectReference: {fileID: 1780854687}
+      objectReference: {fileID: 333573155}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[2]
       value: 
@@ -8892,19 +8918,19 @@ PrefabInstance:
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[4]
       value: 
-      objectReference: {fileID: 1326834126}
+      objectReference: {fileID: 1400768605}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[5]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1156931645}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[6]
       value: 
-      objectReference: {fileID: 562580592}
+      objectReference: {fileID: 1326834126}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[7]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 562580592}
     - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
       propertyPath: potentialTrees.Array.data[8]
       value: 
@@ -8969,6 +8995,10 @@ PrefabInstance:
       propertyPath: curveY.m_Curve.Array.data[2].inWeight
       value: 0.05263905
       objectReference: {fileID: 0}
+    - target: {fileID: 801406157, guid: 0d494f1e2e5807d4e81498a0538125bb, type: 3}
+      propertyPath: potentialTrees.Array.data[9]
+      value: 
+      objectReference: {fileID: 791408461}
     - target: {fileID: 8348803628183525544, guid: 0d494f1e2e5807d4e81498a0538125bb,
         type: 3}
       propertyPath: m_CastShadows
@@ -10848,6 +10878,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1156931645 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 320281137631993993, guid: b7ef1afd1ee5b46d1a4e872bbaed82cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 198524736}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1159674851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12256,6 +12292,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3735529980441307913, guid: 02bdc03cc17bed24ebc771d15636745b,
     type: 3}
   m_PrefabInstance: {fileID: 1395428615}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1400768605 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6139268401435288955, guid: 1a684c8e42e054b50afb32ea9eabcfd5,
+    type: 3}
+  m_PrefabInstance: {fileID: 288427456}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412482888 stripped
 GameObject:
