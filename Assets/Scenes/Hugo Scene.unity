@@ -135,6 +135,7 @@ MonoBehaviour:
   progress: -1
   anim: {fileID: 767403422}
   gobRoot: {fileID: 574174827}
+  otherPart: {fileID: 1804588232}
 --- !u!95 &157762
 Animator:
   serializedVersion: 3
@@ -14352,6 +14353,7 @@ MonoBehaviour:
   progress: -1
   anim: {fileID: 767403422}
   gobRoot: {fileID: 574174827}
+  otherPart: {fileID: 157761}
 --- !u!1001 &1817997307
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17309,6 +17311,7 @@ MonoBehaviour:
   progress: -1
   anim: {fileID: 1429843364143255919}
   gobRoot: {fileID: 1429843364150518441}
+  otherPart: {fileID: 1429843364150518444}
 --- !u!1 &1429843364150518443
 GameObject:
   m_ObjectHideFlags: 0
@@ -17346,6 +17349,7 @@ MonoBehaviour:
   progress: -1
   anim: {fileID: 1429843364143255919}
   gobRoot: {fileID: 1429843364150518441}
+  otherPart: {fileID: 1429843364150518442}
 --- !u!1 &1429843364150518445
 GameObject:
   m_ObjectHideFlags: 0
