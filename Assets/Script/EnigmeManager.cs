@@ -11,6 +11,9 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     List<ConditionStruct> allConditions;
 
+    [SerializeField]
+    List<GameObject> toDisable;
+
     float timeBeforeEnd = 600;
 
     [SerializeField]
@@ -219,6 +222,11 @@ public class EnigmeManager : MonoBehaviour
 
     void AllCharacterFound()
     {
+        foreach(GameObject gob in toDisable)
+        {
+            gob.SetActive(false);
+        }
+
         foreach(TeleportSpot sp in GameObject.FindObjectsOfType<TeleportSpot>())
         {
             sp.SetMoonAnimation(false, () => { });
