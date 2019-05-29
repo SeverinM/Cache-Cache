@@ -254,7 +254,7 @@ public class MouseInputManager : MonoBehaviour
         position += new Vector3(-pointer.obj.GetComponent<RectTransform>().rect.width * 0.166f, pointer.obj.GetComponent<RectTransform>().rect.width * 0.5f, 0);
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
 
-        foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(x.transform.position, pointer.cam.transform.position)))
+        foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(x.point, pointer.cam.transform.position)))
         {
             Interactable inter = hit.collider.GetComponent<Interactable>();
             if (inter)

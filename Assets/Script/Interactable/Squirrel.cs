@@ -36,7 +36,11 @@ public class Squirrel : Interactable
     {
         //Cliquer sur le perso revient a cliquer sur son arbre
         if (currentTree)
+        {
+            Debug.Log("clickPerso");
             currentTree.parent.GetComponent<Interactable>().MouseDown(btn, mouse);
+            currentTree.parent.GetComponent<Interactable>().MouseUp(btn, mouse);
+        }           
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -67,6 +71,7 @@ public class Squirrel : Interactable
 
     public override void OnNewValue()
     {
+        base.OnNewValue(); 
         if (Progress == 2)
         {
             //Permet d'eviter d'etre joué par les copies
