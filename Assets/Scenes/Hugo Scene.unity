@@ -8275,7 +8275,7 @@ MonoBehaviour:
   - {fileID: 1458195296}
   timeBeforeEnd: 600
   coeffSize: 5
-  charactersObjectives: 1
+  charactersObjectives: 5
   rot1:
     cam: {fileID: 631968521}
     trsf: {fileID: 5284632}
