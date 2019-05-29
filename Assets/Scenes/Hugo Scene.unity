@@ -14067,7 +14067,7 @@ PrefabInstance:
         type: 3}
       propertyPath: tpSpot
       value: 
-      objectReference: {fileID: 1967868328}
+      objectReference: {fileID: 0}
     - target: {fileID: 5542086926533730581, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -14148,7 +14148,7 @@ PrefabInstance:
         type: 3}
       propertyPath: tpSpot
       value: 
-      objectReference: {fileID: 1967868328}
+      objectReference: {fileID: 1967868330}
     - target: {fileID: 2789572464131839011, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: block
@@ -16634,11 +16634,11 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.8
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1967868328
+--- !u!114 &1967868330 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 1967868328, guid: a65cddf86b6486c478ff152a96f37354,
+    type: 3}
+  m_PrefabInstance: {fileID: 1967868325}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1967868326}
   m_Enabled: 1
@@ -16646,69 +16646,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad4533de4c08ec42a39d8b8f2ee98f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentHold: {fileID: 0}
-  partieHaute: {fileID: 1831238336}
-  partieBasse: {fileID: 2105014502}
-  distY: 1.2
-  curve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  curveFouille:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.05267333
-      outSlope: 0.05267333
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.092577904
-    - serializedVersion: 3
-      time: 0.49997902
-      value: 0.99960625
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: -0.0037610251
-      outSlope: -0.0037610251
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.21823849
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  duration: 1
-  maxDistance: 500
 --- !u!1001 &2007993827
 PrefabInstance:
   m_ObjectHideFlags: 0
