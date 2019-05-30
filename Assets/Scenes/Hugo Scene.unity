@@ -10464,7 +10464,7 @@ MonoBehaviour:
   - {x: 15.010636, y: 11.665941, z: -0.00015321374}
   - {x: 15.173427, y: 13.493215, z: -0.00040122867}
   - {x: 19.634829, y: 13.166922, z: -0.000053077936}
-  - {x: 19.526064, y: -6.262381, z: -0.00015284121}
+  - {x: 14.752791, y: -4.893237, z: -4.3899136}
   modes: 0000000002000000020000000200000002000000
   loop: 0
 --- !u!108 &574174829
@@ -12103,6 +12103,12 @@ Transform:
   m_Father: {fileID: 112208983}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &736963244 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 3530418172489908413, guid: dc61715d17a8d6b45968b2db77a1e160,
+    type: 3}
+  m_PrefabInstance: {fileID: 400980962}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &737835677
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24365,6 +24371,21 @@ PrefabInstance:
       propertyPath: block
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7534391698785717946, guid: 592179a8639347d46ae855b780bb37ca,
+        type: 3}
+      propertyPath: timeBeforeNessies
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534391698785717946, guid: 592179a8639347d46ae855b780bb37ca,
+        type: 3}
+      propertyPath: progressTrigger
+      value: 0.873
+      objectReference: {fileID: 0}
+    - target: {fileID: 7534391698785717946, guid: 592179a8639347d46ae855b780bb37ca,
+        type: 3}
+      propertyPath: animGlace
+      value: 
+      objectReference: {fileID: 736963244}
     - target: {fileID: 4449289207953013044, guid: 592179a8639347d46ae855b780bb37ca,
         type: 3}
       propertyPath: m_Size.x

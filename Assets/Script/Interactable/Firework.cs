@@ -12,6 +12,18 @@ public class Firework : Draggable
     BezierSpline spline;
 
     [SerializeField]
+    Animator animGlace;
+
+    [Range(0,1)]
+    [SerializeField]
+    float progressTrigger;
+
+    [SerializeField]
+    float timeBeforeNessies;
+
+    bool done = false;
+
+    [SerializeField]
     Animator anim;
 
     [SerializeField]
@@ -26,7 +38,10 @@ public class Firework : Draggable
     public override void OnNewValue()
     {
         if (Progress == 1)
+        {
             StartCoroutine(LaunchFirework());
+        }
+            
     }
 
     public override bool IsHandCursor()
@@ -46,13 +61,25 @@ public class Firework : Draggable
             normalizedTime += Time.deltaTime / duration;
             transform.position = spline.GetPoint(normalizedTime);
             transform.up = spline.GetDirection(normalizedTime);
+            if (normalizedTime >= progress && !done)
+            {
+                done = true;
+                animGlace.SetTrigger(Manager.TRIGGER_INTERACTION);
+            }
+
             yield return null;
         }
 
+        StartCoroutine(NessieCome());
+        GetComponent<ParticleSystem>().Stop();
+        AkSoundEngine.PostEvent("Play_fireworks_explode", gameObject);      
+    }
+
+    IEnumerator NessieCome()
+    {
+        yield return new WaitForSeconds(timeBeforeNessies);
         anim.SetTrigger(Manager.TRIGGER_INTERACTION);
         anim2.SetTrigger(Manager.TRIGGER_INTERACTION);
-        GetComponent<ParticleSystem>().Stop();
-        AkSoundEngine.PostEvent("Play_fireworks_explode", gameObject);
         Destroy(gameObject);
     }
 }
