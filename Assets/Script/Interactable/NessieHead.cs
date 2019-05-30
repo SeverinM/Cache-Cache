@@ -4,47 +4,64 @@ using UnityEngine;
 
 public class NessieHead : Interactable
 {
-    [SerializeField]
-    Transform head;
-
-    [SerializeField]
-    AnimationCurve curve;
+    bool reversed = false;
 
     [SerializeField]
     float duration;
 
     [SerializeField]
-    Interactable dudeMouth;
+    AnimationCurve curve;
 
-    bool reversed = false;
+    [SerializeField]
+    GameObject gobRoot;
+
+    [SerializeField]
+    Transform head;
+
+    bool toggleState = false;
+    public bool ToggleState
+    {
+        get
+        {
+            return toggleState;
+        }
+        set
+        {
+            toggleState = value;
+        }
+    }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        if (Progress == 1)
-            StartCoroutine(HeadUp());
+        //Anti echo
+        if (!CanInteract) return;
+
+        StartCoroutine(StartCoolDown());
+        StartCoroutine(HeadUp());
+
+        if (gobRoot)
+        {
+            foreach (Interactable inter in gobRoot.GetComponentsInChildren<Draggable>())
+            {
+                //inter.CanInteract = !inter.CanInteract;
+            }
+        }
+
+        //Les deux parties ont toujours le meme etat
+        toggleState = !toggleState;
     }
 
-    public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    IEnumerator StartCoolDown()
     {
-    }
-
-    public override void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
-    {
-    }
-
-    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
-    {
-    }
-
-    public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
-    {
+        CanInteract = false;
+        yield return new WaitForSeconds(duration);
+        CanInteract = true;
     }
 
     public override void OnNewValue()
     {
-        base.OnNewValue();
-        if (dudeMouth)
-            dudeMouth.Progress = Progress;
+        if (Progress == 1)
+            CanInteract = true;
     }
 
     IEnumerator HeadUp()
@@ -56,15 +73,27 @@ public class NessieHead : Interactable
         {
             normalizedTime += Time.deltaTime / duration;
             float value = Mathf.Lerp(0, -80 ,curve.Evaluate(reversed ? 1 - normalizedTime : normalizedTime));
-            head.transform.localEulerAngles = new Vector3(value, 0, 0);
+            head.localEulerAngles = new Vector3(value, 0, 0);
             yield return null;
         }
-
-        if (dudeMouth)
-            dudeMouth.CanInteract = !reversed;
 
         reversed = !reversed;
         CanInteract = true;
     }
 
+    public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+    }
+
+    public override void MouseMove(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+    }
+
+    public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+    }
+
+    public override void MouseLeave(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
+    {
+    }
 }

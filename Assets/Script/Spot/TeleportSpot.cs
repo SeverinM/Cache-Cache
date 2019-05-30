@@ -70,14 +70,8 @@ public class TeleportSpot : Spot
         }
     }
 
-    bool canOpen = false;
-    public bool CanOpen
-    {
-        get
-        {
-            return canOpen;
-        }
-    }
+    bool isUsed = false;
+    public bool IsUsed => isUsed;
 
     private void Awake()
     {
@@ -120,6 +114,7 @@ public class TeleportSpot : Spot
         Center();
         StopAllCoroutines();
         StartCoroutine(Transfert());
+        Debug.Log(Vector3.Distance(partieBasse.position, transform.position) + " / " + Vector3.Distance(partieHaute.position, transform.position));
     }
 
     public override void EnterSpot(Draggable dragg)
@@ -147,14 +142,25 @@ public class TeleportSpot : Spot
     {
         //La lune doit etre fermé et ne contenir aucun objet
         IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().normalizedTime == 0);
+
+        //On reevalue si la lune peut etre ouverte
+        if (isUsed && normalizedTime == 0 && IsAvailable && !GetOtherPart().Busy)
+        {
+            busy = true;
+            SetMoonAnimation(true, () => { });
+        }
     }
 
     public override void SetValue(Draggable dragg, bool value)
     {
-        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && IsAvailable && !GetOtherPart().Busy)
+        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance)
         {
-            busy = true;
-            SetMoonAnimation(value, () => { });
+            isUsed = value;
+            if (IsAvailable && !GetOtherPart().Busy)
+            {
+                busy = true;
+                SetMoonAnimation(value, () => { });
+            }
         }
     }
 
@@ -190,7 +196,6 @@ public class TeleportSpot : Spot
         normalizedTime = Mathf.Clamp(normalizedTime, 0, 1);
         afterAnim();
         busy = false;
-        canOpen = reversed;
     }
 
     public IEnumerator Transfert()
