@@ -14,6 +14,9 @@ public class Firework : Draggable
     [SerializeField]
     Animator animGlace;
 
+    [SerializeField]
+    ParticleSystem boom;
+
     [Range(0,1)]
     [SerializeField]
     float progressTrigger;
@@ -65,6 +68,7 @@ public class Firework : Draggable
             {
                 done = true;
                 animGlace.SetTrigger(Manager.TRIGGER_INTERACTION);
+                boom.Play();
             }
 
             yield return null;
