@@ -166,13 +166,16 @@ public class EnigmeManager : MonoBehaviour
         pause = false;
     }
 
-    public void DiscoveredCharacter(List<Transform> newParents, Transform target, float duration)
+    public void DiscoveredCharacter(List<Transform> newParents, Transform target, string keyAnim ,float duration)
     {
-        StartCoroutine(DiscoverAnimation(newParents, target, duration));
+        StartCoroutine(DiscoverAnimation(newParents, target, keyAnim, duration));
     }
 
-    IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , float duration)
+    IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , string keyAnim, float duration)
     {
+        if (target.GetComponent<Animator>())
+            target.GetComponent<Animator>().SetTrigger(keyAnim);
+
         characterFound++;
         AkSoundEngine.PostEvent("Play_voix01", gameObject);
         float normalizedTime = 0;;
@@ -216,6 +219,13 @@ public class EnigmeManager : MonoBehaviour
             }
         }
         Destroy(target.gameObject);
+
+        foreach (GameObject gob in allGob)
+        {
+            if (gob.GetComponent<Animator>())
+                gob.GetComponent<Animator>().SetTrigger(keyAnim);
+        }
+
         if (characterFound >= charactersObjectives)
         {
             AllCharacterFound();

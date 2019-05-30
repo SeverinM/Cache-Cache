@@ -15,7 +15,7 @@ public class PersoNessie : Interactable
         //A changer a 2 apres
         if (!nessieBody || nessieBody.Progress >= 3)
         {
-            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, 1);
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, Manager.TRIGGER_INTERACTION, 1);
         }
     }
 

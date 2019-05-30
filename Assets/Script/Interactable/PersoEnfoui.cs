@@ -65,7 +65,7 @@ public class PersoEnfoui : Interactable
         base.OnNewValue();
         if (Progress == 1)
         {
-            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, transform, duration);
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, transform, Manager.TRIGGER_INTERACTION,  duration);
         }
     }
 

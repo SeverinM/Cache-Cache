@@ -77,7 +77,7 @@ public class Squirrel : Interactable
             if (!currentTree) return;
             currentTree.parent.GetComponent<Tree>().squirrel = null;
             currentTree = null;
-            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, gameObject.transform, duration);
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonLandings, gameObject.transform, "Found", duration);
         }
     }
 
