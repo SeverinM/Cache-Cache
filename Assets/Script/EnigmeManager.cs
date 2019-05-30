@@ -50,10 +50,13 @@ public class EnigmeManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log(allConditions.Count);
         if (!_instance)
             _instance = this;
         else
+        {
             Destroy(gameObject);
+        }
     }
 
     public static EnigmeManager getInstance()

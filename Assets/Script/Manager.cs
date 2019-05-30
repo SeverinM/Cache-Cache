@@ -12,6 +12,9 @@ public class Manager : MonoBehaviour
     GameObject wwiseGlobal;
 
     [SerializeField]
+    EnigmeManager enn;
+
+    [SerializeField]
     Camera cam2;
 
     [SerializeField]
@@ -36,12 +39,6 @@ public class Manager : MonoBehaviour
         {
             Display.displays[1].Activate();
         }
-
-        //SoundManager.getInstance().AddSoundOutput("Realtek");
-        //SoundManager.getInstance().AddSoundOutput("NVIDIA");
-
-        //SoundManager.getInstance().PlaySound(0, "Play_Summer_Amb");
-        //SoundManager.getInstance().PlaySound(0, "Play_Winter_Amb");
         AkSoundEngine.PostEvent("Play_Amb_Playtest", gameObject);
     }
 
@@ -57,6 +54,7 @@ public class Manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
+            Destroy(enn.gameObject);
             Destroy(wwiseGlobal);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }

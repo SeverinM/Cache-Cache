@@ -11507,7 +11507,6 @@ GameObject:
   m_Component:
   - component: {fileID: 679057136}
   - component: {fileID: 679057137}
-  - component: {fileID: 679057138}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -11527,7 +11526,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 24
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &679057137
 MonoBehaviour:
@@ -11543,55 +11542,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam1: {fileID: 631968521}
   wwiseGlobal: {fileID: 422377511}
+  enn: {fileID: 1812682405}
   cam2: {fileID: 1894037695}
   plateau2: {fileID: 860906228}
---- !u!114 &679057138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 679057135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a9145ade13dacb4da479120666d1ab8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allConditions:
-  - allParameters:
-    - {fileID: 1244007367}
-    - {fileID: 588192669}
-    cond: 0
-  - allParameters:
-    - {fileID: 1040747715}
-    cond: 1
-  - allParameters:
-    - {fileID: 508457176}
-    cond: 2
-  - allParameters:
-    - {fileID: 2114638061}
-    cond: 3
-  - allParameters:
-    - {fileID: 1942760766}
-    cond: 4
-  toDisable:
-  - {fileID: 185620736}
-  - {fileID: 276818878}
-  - {fileID: 1878460299}
-  - {fileID: 1458195296}
-  timeBeforeEnd: 600
-  coeffSize: 5
-  charactersObjectives: 5
-  rot1:
-    cam: {fileID: 631968521}
-    trsf: {fileID: 5284632}
-  gob: {fileID: 1594279829175101118, guid: 4055abf97aa0c094caa93300b1055fd3, type: 3}
-  allCan:
-  - {fileID: 519616079}
-  - {fileID: 2007993828}
-  rot2:
-    cam: {fileID: 1894037695}
-    trsf: {fileID: 112208983}
 --- !u!1001 &679494285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26519,6 +26472,84 @@ MonoBehaviour:
   gobRoot: {fileID: 574174827}
   otherPart: {fileID: 157761}
   coolDown: 1
+--- !u!1 &1812682404
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1812682406}
+  - component: {fileID: 1812682405}
+  m_Layer: 0
+  m_Name: EnigmeManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1812682405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812682404}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a9145ade13dacb4da479120666d1ab8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allConditions:
+  - allParameters:
+    - {fileID: 1244007367}
+    - {fileID: 588192669}
+    cond: 0
+  - allParameters:
+    - {fileID: 1040747715}
+    cond: 1
+  - allParameters:
+    - {fileID: 508457176}
+    cond: 2
+  - allParameters:
+    - {fileID: 2114638061}
+    cond: 3
+  - allParameters:
+    - {fileID: 1942760766}
+    cond: 4
+  toDisable:
+  - {fileID: 185620736}
+  - {fileID: 276818878}
+  - {fileID: 1878460299}
+  - {fileID: 1458195296}
+  timeBeforeEnd: 600
+  coeffSize: 5
+  charactersObjectives: 5
+  rot1:
+    cam: {fileID: 631968521}
+    trsf: {fileID: 5284632}
+  gob: {fileID: 1594279829175101118, guid: 4055abf97aa0c094caa93300b1055fd3, type: 3}
+  allCan:
+  - {fileID: 519616079}
+  - {fileID: 2007993828}
+  rot2:
+    cam: {fileID: 1894037695}
+    trsf: {fileID: 112208983}
+--- !u!4 &1812682406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1812682404}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -47.455162, y: 202.83733, z: 95.57822}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 24
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1817997307
 PrefabInstance:
   m_ObjectHideFlags: 0
