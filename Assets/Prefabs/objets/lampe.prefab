@@ -209,6 +209,8 @@ GameObject:
   - component: {fileID: 5704345507667533597}
   - component: {fileID: 5704345507668303675}
   - component: {fileID: 5704345507669433851}
+  - component: {fileID: 8656163210481296552}
+  - component: {fileID: 5201453377418490894}
   m_Layer: 0
   m_Name: lanterne
   m_TagString: Untagged
@@ -277,3 +279,33 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!114 &8656163210481296552
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704345507667231549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab99a8cfd2b4a84f80d2bd3a17769d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 1
+  progress: -1
+  anim: {fileID: 5704345507657724153}
+--- !u!136 &5201453377418490894
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5704345507667231549}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.26553345
+  m_Height: 0.81667066
+  m_Direction: 1
+  m_Center: {x: 0.0015563965, y: -0.23502266, z: 0}
