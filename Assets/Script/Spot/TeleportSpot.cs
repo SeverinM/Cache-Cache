@@ -114,6 +114,7 @@ public class TeleportSpot : Spot
         Center();
         StopAllCoroutines();
         StartCoroutine(Transfert());
+        Debug.Log(Vector3.Distance(partieBasse.position, transform.position) + " / " + Vector3.Distance(partieHaute.position, transform.position));
     }
 
     public override void EnterSpot(Draggable dragg)
