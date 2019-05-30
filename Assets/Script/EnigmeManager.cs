@@ -130,16 +130,6 @@ public class EnigmeManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         if (allConditions.Count > 0)
             allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
 

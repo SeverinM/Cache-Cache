@@ -1,11 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
     [SerializeField]
     Camera cam1;
+
+    [SerializeField]
+    GameObject wwiseGlobal;
 
     [SerializeField]
     Camera cam2;
@@ -47,5 +51,19 @@ public class Manager : MonoBehaviour
             _instance = new GameObject().AddComponent<Manager>();
 
         return _instance;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Destroy(wwiseGlobal);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }

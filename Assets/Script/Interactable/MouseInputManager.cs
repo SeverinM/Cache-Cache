@@ -109,6 +109,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("E");
         Cursor.visible = Debug.isDebugBuild;
         bool res = init();
         StartCoroutine(DelayedStart());
