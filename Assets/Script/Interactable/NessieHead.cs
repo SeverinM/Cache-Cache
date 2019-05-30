@@ -39,14 +39,6 @@ public class NessieHead : Interactable
         StartCoroutine(StartCoolDown());
         StartCoroutine(HeadUp());
 
-        if (gobRoot)
-        {
-            foreach (Interactable inter in gobRoot.GetComponentsInChildren<Draggable>())
-            {
-                //inter.CanInteract = !inter.CanInteract;
-            }
-        }
-
         //Les deux parties ont toujours le meme etat
         toggleState = !toggleState;
     }

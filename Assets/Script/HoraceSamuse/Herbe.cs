@@ -47,7 +47,6 @@ public class Herbe : MonoBehaviour
 
 
         float trg = targetValue + (Mathf.Sin(Time.timeSinceLevelLoad)) / sinInfluence;
-        Debug.Log(" so : " + (Mathf.Sin(Time.deltaTime)) / sinInfluence + " with sin who is : "+ (Mathf.Sin(Time.timeSinceLevelLoad)) + " with : " + sinInfluence) ;
 
         if (trg != currentValue)
         {
