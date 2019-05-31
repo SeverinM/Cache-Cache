@@ -276,6 +276,14 @@ public class EnigmeManager : MonoBehaviour
             Instantiate(characterFound == charactersObjectives ? victoire : defaite , can.transform);
         }
 
+        if (characterFound == charactersObjectives)
+        {
+            ArtificeMaker.instance.pause = false;
+            ArtificeMaker.instance.launchEveryDelay = true;
+            ArtificeMaker.instance.delayBetweenLaunch = 0.4f;
+            ArtificeMaker.instance.numberArtificePerDelay = 2;
+        }
+   
         while (true)
         {
             rot1.cam.transform.RotateAround(rot1.trsf.position, Vector3.up, 5 * Time.deltaTime);

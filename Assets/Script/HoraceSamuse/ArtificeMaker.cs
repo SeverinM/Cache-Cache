@@ -25,11 +25,12 @@ public class ArtificeMaker : MonoBehaviour
     public float delayBetweenLaunch = 4f;
     private float lastLaunchTime = 0f;
     public uint numberArtificePerDelay = 1;
+    public bool pause = true;
 
     
     private void Update()
     {
-        if (Time.timeSinceLevelLoad - lastLaunchTime > delayBetweenLaunch)
+        if (Time.timeSinceLevelLoad - lastLaunchTime > delayBetweenLaunch && !pause)
         {
             lastLaunchTime = Time.timeSinceLevelLoad;
             LaunchArtifice((int)numberArtificePerDelay);
