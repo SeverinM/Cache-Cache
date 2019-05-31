@@ -30,7 +30,6 @@ public class Squirrel : Interactable
         transform.SetParent(currentTree);
         transform.localPosition = Vector3.zero;
         currentTree.parent.GetComponent<Tree>().squirrel = this;
-        Debug.Log("set");
     }
 
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
