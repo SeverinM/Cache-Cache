@@ -11,7 +11,7 @@ public class Box : Interactable
         HIGH
     }
 
-    static bool done = false;
+    static bool done;
 
     [SerializeField]
     BoxPart part;
@@ -44,6 +44,7 @@ public class Box : Interactable
     protected override void Awake()
     {
         base.Awake();
+        done = false;
         originPositionLocal = transform.localPosition;
         minNoStretch = img.GetComponent<RectTransform>().anchorMin;
         maxNoStretch = img.GetComponent<RectTransform>().anchorMax;
@@ -138,6 +139,7 @@ public class Box : Interactable
 
     void NextStep()
     {
+        Debug.Log(done);
         if (!done)
         {
             done = true;
