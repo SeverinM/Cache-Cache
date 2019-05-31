@@ -13296,6 +13296,11 @@ PrefabInstance:
       propertyPath: potentialMoonsLandings.Array.data[1]
       value: 
       objectReference: {fileID: 1760768894}
+    - target: {fileID: 302930315549510117, guid: 9176ab54c23a82540bba891fec4dad70,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8394884357314421878, guid: 9176ab54c23a82540bba891fec4dad70, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9176ab54c23a82540bba891fec4dad70, type: 3}
