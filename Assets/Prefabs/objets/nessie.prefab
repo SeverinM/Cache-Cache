@@ -176,8 +176,7 @@ MonoBehaviour:
   echo: {fileID: 0}
   block: 0
   progress: -1
-  pivotPoint: {fileID: 0}
-  head: {fileID: 508904703393881555}
+  duration: 1
   curve:
     serializedVersion: 2
     m_Curve:
@@ -202,7 +201,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  duration: 1
+  gobRoot: {fileID: 0}
+  head: {fileID: 508904703393881555}
 --- !u!65 &7274335110471964445
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -227,6 +227,8 @@ GameObject:
   - component: {fileID: 508904703393881559}
   - component: {fileID: 508904703395175929}
   - component: {fileID: 508904703396175673}
+  - component: {fileID: 9171229117122347015}
+  - component: {fileID: 3077390437128261111}
   m_Layer: 0
   m_Name: queue
   m_TagString: Untagged
@@ -294,6 +296,35 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &9171229117122347015
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508904703394234871}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.53425753, y: 0.80991036, z: 0.67704546}
+  m_Center: {x: 0.000000044703484, y: 0.40495518, z: -0.07139389}
+--- !u!114 &3077390437128261111
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508904703394234871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ab99a8cfd2b4a84f80d2bd3a17769d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  echo: {fileID: 0}
+  block: 1
+  progress: -1
+  anim: {fileID: 508904703401636415}
 --- !u!1 &508904703394234873
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,13 +627,13 @@ MonoBehaviour:
   echo: {fileID: 0}
   block: 0
   progress: -1
-  maxDist: 0
-  speedScrewing: 0
+  maxDist: 2.2
+  speedScrewing: 0.005
   maxDragDist: 0
   cam: {fileID: 0}
   fishs: []
   depthFish: 0
-  speedFish: 0
+  speedFish: 60
 --- !u!65 &2036197058051461001
 BoxCollider:
   m_ObjectHideFlags: 0

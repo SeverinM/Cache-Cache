@@ -19,6 +19,11 @@ public class FeuArtifice : MonoBehaviour
         public TrailRenderer trail;
     }
 
+    public Vector3 positionInSpace = new Vector3(1, 0, 0);
+    [Tooltip("littleOffsetJustToMakeItNotFlat")]
+    public float oof = 0.001f;
+
+
     [Header("Ascending")]
     public SpriteRenderer sP;
     public float ascendingDuration;
@@ -64,9 +69,9 @@ public class FeuArtifice : MonoBehaviour
     IEnumerator Ascending()
     {
         float lerpVal = 0;
-        Vector3 directionLeftRight = new Vector3(Random.Range(minMaxDecal.x, minMaxDecal.y), 0, Random.Range(minMaxDecal.x, minMaxDecal.y));
+        Vector3 directionLeftRight = positionInSpace * Random.Range(minMaxDecal.x, minMaxDecal.y);
         littleRandomHeight = Random.Range(0.7f, 1.5f);
-        Vector3 directionUp = new Vector3(0, ascendingSpeed * littleRandomHeight, 0);
+        Vector3 directionUp = new Vector3(Random.Range(-oof, oof), ascendingSpeed * littleRandomHeight, Random.Range(-oof, oof));
         while (lerpVal < 1)
         {
             this.transform.position += directionUp * ascendingCurve.Evaluate(lerpVal) + directionLeftRight * lateralCurve.Evaluate(lerpVal);
@@ -119,7 +124,7 @@ public class FeuArtifice : MonoBehaviour
     IEnumerator ExplosionBranches()
     {
         float lerpVal = 0;
-        Vector3 directionBase = new Vector3(0, brancheSpeed, 0);
+        Vector3 directionBase = new Vector3(Random.Range(-oof, oof), brancheSpeed, Random.Range(-oof, oof));
         while (lerpVal < 1)
         {
             foreach (SousArtifice sA in branches)

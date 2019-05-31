@@ -67,7 +67,7 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
-    - _Glowsiness: 2
+    - _Glowsiness: 2.5
     - _LightEffect: 0.3
     - _Metallic: 0
     - _Mode: 0
@@ -75,7 +75,7 @@ Material:
     - _Parallax: 0.02
     - _ShadowEdge: 1
     - _ShadowEdge1: 0
-    - _ShadowEdge2: 0.1
+    - _ShadowEdge2: 0
     - _SmoothnessTextureChannel: 0
     - _SpecEdgeEffect: 1
     - _SpecIntensity: 1
@@ -85,9 +85,9 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorNShadow: {r: 0.81768423, g: 0.88282657, b: 0.990566, a: 1}
-    - _ColorNight: {r: 0.7028302, g: 0.8938679, b: 1, a: 1}
+    - _ColorNShadow: {r: 0.73571557, g: 0.80780524, b: 0.9339623, a: 1}
+    - _ColorNight: {r: 0.6868548, g: 0.88266855, b: 0.990566, a: 1}
     - _ColorRShadow: {r: 0.9292453, g: 0.97783035, b: 1, a: 1}
-    - _ColorReveal: {r: 0.8349056, g: 0.9412304, b: 1, a: 1}
+    - _ColorReveal: {r: 0.7688679, g: 0.9174528, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _SpecularColor: {r: 1, g: 1, b: 1, a: 1}
