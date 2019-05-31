@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: enjmin
-  productName: CC
+  companyName: Cache-Cache Team
+  productName: Cache-Cache
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.16340335, g: 0.16831599, b: 0.2264151, a: 1}
