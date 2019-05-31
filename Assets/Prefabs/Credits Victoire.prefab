@@ -118,7 +118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.74, y: 0.3}
   m_AnchorMax: {x: 0.95, y: 0.7}
-  m_AnchoredPosition: {x: -0.000030517578, y: 0}
+  m_AnchoredPosition: {x: -0.000061035156, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8994485007626447138
@@ -565,7 +565,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.3, y: 0.8}
   m_AnchorMax: {x: 0.7, y: 0.9}
-  m_AnchoredPosition: {x: 0, y: 0.0000038146973}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1292403920612611807
@@ -609,7 +609,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Bravo !\nVous avez trouv\xE9s tous les personnages !"
+  m_Text: "Bravo !\nVous avez trouv\xE9 tous les personnages !"
 --- !u!1 &7138281042422850027
 GameObject:
   m_ObjectHideFlags: 0
