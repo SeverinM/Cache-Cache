@@ -305,8 +305,7 @@ PrefabInstance:
     - target: {fileID: 5904699067700482908, guid: 4055abf97aa0c094caa93300b1055fd3,
         type: 3}
       propertyPath: m_Text
-      value: "Bien jou\xE9 !\nMais vous n'avez pas trouv\xE9s tous les personnages
-        !"
+      value: "Oh non, vous n'avez pas trouv\xE9 tous les personnages ! :("
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4055abf97aa0c094caa93300b1055fd3, type: 3}
