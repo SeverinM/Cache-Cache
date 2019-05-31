@@ -20,8 +20,10 @@ public class ClassicSpot : Spot
         dragg.transform.SetParent(transform);
         dragg.transform.localPosition = Vector3.zero;
 
-        if (GetComponent<Collider>())
-            GetComponent<Collider>().enabled = false;
+        foreach(Collider coll in gameObject.GetComponentsInChildren<Collider>())
+        {
+            coll.enabled = false;
+        }
 
         if (GetComponent<MeshRenderer>())
             GetComponent<MeshRenderer>().enabled = false;
@@ -47,7 +49,10 @@ public class ClassicSpot : Spot
         if (transform.parent && transform.parent.GetComponent<ToggleInteraction>() && !transform.parent.GetComponent<ToggleInteraction>().ToggleState) return;
         if (Vector3.Distance(dragg.transform.position , transform.position) < maxDistance && currentHold == null)
         {
-            GetComponent<Collider>().enabled = value;
+            foreach (Collider coll in gameObject.GetComponentsInChildren<Collider>())
+            {
+                coll.enabled = value;
+            }
 
             if (GetComponent<MeshRenderer>())
                 GetComponent<MeshRenderer>().enabled = value;
