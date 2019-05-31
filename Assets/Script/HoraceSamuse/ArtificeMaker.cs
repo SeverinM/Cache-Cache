@@ -5,15 +5,15 @@ using UnityEngine;
 public class ArtificeMaker : MonoBehaviour
 {
     public static ArtificeMaker instance;
+    public static ArtificeMaker instance2;
 
     public void Awake()
     {
         if (instance == null)
             instance = this;
-        else
+        else if(instance2 == null)
         {
-            Destroy(instance.gameObject);
-            instance = this;
+            instance2 = this;
         }
     }
 
