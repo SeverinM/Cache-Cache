@@ -42,6 +42,8 @@ public class Firework : Draggable
     {
         if (Progress == 1)
         {
+            transform.parent = null;
+            spline.transform.parent = null;
             StartCoroutine(LaunchFirework());
         }
             
