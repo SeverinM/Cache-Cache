@@ -11,7 +11,6 @@ public class SimpleInteraction : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
-            Debug.Log("kop");
             if (!anim)
             {
                 if (GetComponent<Animator>())

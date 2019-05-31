@@ -26674,7 +26674,7 @@ MonoBehaviour:
   - {fileID: 1878460299}
   - {fileID: 1458195296}
   timeBeforeEnd: 600
-  coeffSize: 7
+  coeffSize: 3
   charactersObjectives: 7
   rot1:
     cam: {fileID: 631968521}
@@ -31320,6 +31320,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557873572577288524, guid: 530229ea6afda3747bc3daeb323d1843,
+        type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557873572577288524, guid: 530229ea6afda3747bc3daeb323d1843,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 530229ea6afda3747bc3daeb323d1843, type: 3}
