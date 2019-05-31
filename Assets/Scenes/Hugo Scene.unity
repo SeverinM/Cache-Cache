@@ -26360,7 +26360,9 @@ MonoBehaviour:
   rot1:
     cam: {fileID: 631968521}
     trsf: {fileID: 5284632}
-  gob: {fileID: 1594279829175101118, guid: 4055abf97aa0c094caa93300b1055fd3, type: 3}
+  victoire: {fileID: 1594279829175101118, guid: 4055abf97aa0c094caa93300b1055fd3,
+    type: 3}
+  defaite: {fileID: 3516376646631916135, guid: 962469d38d495bb40b219985ad827649, type: 3}
   allCan:
   - {fileID: 519616079}
   - {fileID: 2007993828}

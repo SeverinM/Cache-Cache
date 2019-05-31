@@ -139,7 +139,6 @@ public class Box : Interactable
 
     void NextStep()
     {
-        Debug.Log(done);
         if (!done)
         {
             done = true;

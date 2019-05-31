@@ -40,7 +40,10 @@ public class EnigmeManager : MonoBehaviour
     Rotate rot1;
 
     [SerializeField]
-    GameObject gob;
+    GameObject victoire;
+
+    [SerializeField]
+    GameObject defaite;
 
     [SerializeField]
     List<Canvas> allCan;
@@ -269,7 +272,7 @@ public class EnigmeManager : MonoBehaviour
     {
         foreach(Canvas can in allCan)
         {
-            Instantiate(gob, can.transform);
+            Instantiate(characterFound == charactersObjectives ? victoire : defaite , can.transform);
         }
 
         while (true)
