@@ -169,6 +169,7 @@ public class EnigmeManager : MonoBehaviour
 
     IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , string keyAnim, float duration)
     {
+        target.GetComponent<Interactable>().CanInteract = false;
         if (target.GetComponent<Animator>())
             target.GetComponent<Animator>().SetTrigger(keyAnim);
 
