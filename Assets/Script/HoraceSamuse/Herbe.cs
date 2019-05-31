@@ -25,7 +25,7 @@ public class Herbe : MonoBehaviour
         if (myMat == null)
             myMat = this.GetComponent<MeshRenderer>().material;
 
-        myMat.SetVector("_SourceCenter", center.localPosition);
+        myMat.SetVector("_SourceCenter", center.position);
     }
 
     public void Update()
