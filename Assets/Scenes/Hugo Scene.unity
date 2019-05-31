@@ -29182,7 +29182,8 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.300001
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 749066910406257265, guid: c52d0ebb21334a2478d40a63116f6e03, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: c52d0ebb21334a2478d40a63116f6e03, type: 3}
 --- !u!1001 &1942760765
 PrefabInstance:
@@ -31494,6 +31495,11 @@ PrefabInstance:
       propertyPath: m_Center.y
       value: 0.19894457
       objectReference: {fileID: 0}
+    - target: {fileID: 3077390437128261111, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: echo
+      value: 
+      objectReference: {fileID: 1817997308}
     - target: {fileID: 508904703393881557, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -31549,11 +31555,6 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3077390437128261111, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: echo
-      value: 
-      objectReference: {fileID: 1817997308}
     m_RemovedComponents:
     - {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
     - {fileID: 7274335110471964445, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
