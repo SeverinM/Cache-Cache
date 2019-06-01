@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 508904703395175929}
   - component: {fileID: 508904703396175673}
   - component: {fileID: 9171229117122347015}
-  - component: {fileID: 3077390437128261111}
+  - component: {fileID: 6423519132057229001}
   m_Layer: 0
   m_Name: queue
   m_TagString: Untagged
@@ -309,7 +309,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.53425753, y: 0.80991036, z: 0.67704546}
   m_Center: {x: 0.000000044703484, y: 0.40495518, z: -0.07139389}
---- !u!114 &3077390437128261111
+--- !u!114 &6423519132057229001
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,13 +318,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 508904703394234871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ab99a8cfd2b4a84f80d2bd3a17769d2, type: 3}
+  m_Script: {fileID: 11500000, guid: 2379be9a9f9d22140ac4795b3018010b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   echo: {fileID: 0}
   block: 1
   progress: -1
-  anim: {fileID: 508904703401636415}
+  curve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  duration: 1
 --- !u!1 &508904703394234873
 GameObject:
   m_ObjectHideFlags: 0
