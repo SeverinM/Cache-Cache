@@ -243,7 +243,10 @@ public class MouseInputManager : MonoBehaviour
     }
 
     void Interaction(MousePointer pointer , MouseButton btn , ActionType act)
-    {        
+    {
+        //Ne se passe plus rien sur le click droit
+        if (btn == MouseButton.RIGHT_BUTTON) return;
+
         if (act.Equals(ActionType.PRESSED))
         {
             pointer.obj.GetComponent<Image>().enabled = true;
