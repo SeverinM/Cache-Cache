@@ -280,7 +280,7 @@ public class EnigmeManager : MonoBehaviour
         {
             ArtificeMaker.instance.pause = false;
             ArtificeMaker.instance.launchEveryDelay = true;
-            ArtificeMaker.instance.delayBetweenLaunch = 0.4f;
+            ArtificeMaker.instance.delayBetweenLaunch = 1.2f;
             ArtificeMaker.instance.numberArtificePerDelay = 2;
         }
    

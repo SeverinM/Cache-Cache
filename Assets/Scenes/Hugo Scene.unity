@@ -18733,7 +18733,7 @@ PrefabInstance:
         type: 3}
       propertyPath: cameraOpposite
       value: 
-      objectReference: {fileID: 1626159285}
+      objectReference: {fileID: 505716989}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0deac9c9cc4a82d4388beecc19115461, type: 3}
 --- !u!1 &1479425378
@@ -26815,6 +26815,11 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 6423519132057229001, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: echo
+      value: 
+      objectReference: {fileID: 1817997308}
     - target: {fileID: 508904703393881557, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -26870,11 +26875,6 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6423519132057229001, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: echo
-      value: 
-      objectReference: {fileID: 1817997308}
     m_RemovedComponents:
     - {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
     - {fileID: 7274335110471964445, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
