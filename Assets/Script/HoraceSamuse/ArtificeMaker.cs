@@ -51,11 +51,12 @@ public class ArtificeMaker : MonoBehaviour
     
     public void LaunchArtifice(int numberOfArtifice)
     {
-        Vector3 position = this.transform.position;
+        Vector3 position = Vector3.zero;
         //where is the cam ?
+        bool otherCam = cameraOpposite.name == "CameraPlayer 2";
         bool camInZ = cameraOpposite.position.z < 0;
-        bool camInX = cameraOpposite.position.x < 0;
-        bool feuInX = Mathf.Abs(cameraOpposite.position.z) < Mathf.Abs(cameraOpposite.position.x);
+        bool camInX = cameraOpposite.position.x < (otherCam ? -1000 : 0);
+        bool feuInX = Mathf.Abs(cameraOpposite.position.z) < Mathf.Abs(cameraOpposite.position.x + (otherCam ? 1000 : 0));
         for (int i = 0; i < numberOfArtifice; i++)
         {
             if (feuInX)
@@ -68,7 +69,10 @@ public class ArtificeMaker : MonoBehaviour
                 position.x = camInX ? Random.Range(-10.0f, 10.0f) : Random.Range(-10.0f, 10.0f);
                 position.z = camInZ ? 10 : -10;
             }
-            
+
+            position += this.transform.position;
+
+
             Quaternion rotation = Quaternion.identity;
             FeuArtifice feu = Instantiate(artifice, position, rotation, this.transform).GetComponent<FeuArtifice>();
 
