@@ -51,15 +51,18 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     Rotate rot2;
 
+    float durationFirework = 0;
+
     private void Awake()
     {
-        Debug.Log(allConditions.Count);
         if (!_instance)
             _instance = this;
         else
         {
             Destroy(gameObject);
         }
+
+        StartCoroutine(FireworkScrut());
     }
 
     public static EnigmeManager getInstance()
@@ -169,6 +172,9 @@ public class EnigmeManager : MonoBehaviour
 
     IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , string keyAnim, float duration)
     {
+        AddFirework(1);
+
+        //Can c'est possible , fait jouer une animation au personnage joué
         target.GetComponent<Interactable>().CanInteract = false;
         if (target.GetComponent<Animator>())
             target.GetComponent<Animator>().SetTrigger(keyAnim);
@@ -231,6 +237,7 @@ public class EnigmeManager : MonoBehaviour
 
     void AllCharacterFound()
     {
+        StopAllCoroutines();
         foreach(GameObject gob in toDisable)
         {
             gob.SetActive(false);
@@ -269,6 +276,29 @@ public class EnigmeManager : MonoBehaviour
         StartCoroutine(RotateCor());
     }
 
+    public void AddFirework(float duration)
+    {
+        durationFirework += duration;
+        ArtificeMaker.instance.pause = false;
+        ArtificeMaker.instance2.pause = false;
+    }
+
+    IEnumerator FireworkScrut()
+    {
+        while (true)
+        {
+            yield return null;
+            Debug.Log(durationFirework);
+            if (durationFirework > 0)
+                durationFirework -= Time.deltaTime;
+            else
+            {
+                ArtificeMaker.instance.pause = true;
+                ArtificeMaker.instance2.pause = true;
+            }
+        }
+    }
+
     IEnumerator RotateCor()
     {
         foreach(Canvas can in allCan)
@@ -282,6 +312,11 @@ public class EnigmeManager : MonoBehaviour
             ArtificeMaker.instance.launchEveryDelay = true;
             ArtificeMaker.instance.delayBetweenLaunch = 1.2f;
             ArtificeMaker.instance.numberArtificePerDelay = 2;
+
+            ArtificeMaker.instance2.pause = false;
+            ArtificeMaker.instance2.launchEveryDelay = true;
+            ArtificeMaker.instance2.delayBetweenLaunch = 1.2f;
+            ArtificeMaker.instance2.numberArtificePerDelay = 2;
         }
    
         while (true)

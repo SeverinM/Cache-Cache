@@ -86,7 +86,6 @@ public class FeuArtifice : MonoBehaviour
 
             yield return new WaitForSeconds(0.01f);
         }
-        Debug.Log("ReachIt !");
         sP.enabled = false;
         yield return new WaitForSeconds(waitBeforeSplosion);
         this.transform.localScale = Vector3.one;
@@ -95,7 +94,6 @@ public class FeuArtifice : MonoBehaviour
 
     public void Explosion()
     {
-        Debug.Log("Explosion !");
         branches = new List<SousArtifice>();
         int nmbrBranch = Random.Range((int)minMaxBranches.x, (int)minMaxBranches.y);
         int indexGradient = Random.Range(0, colorGradient.Count);
@@ -139,7 +137,6 @@ public class FeuArtifice : MonoBehaviour
             lerpVal += Time.deltaTime / brancheDuration;
             yield return new WaitForSeconds(0.01f);
         }
-        Debug.Log("FinishBlowing");
         foreach (SousArtifice sA in branches)
         {
             Destroy(sA.tr.gameObject);
