@@ -10408,17 +10408,17 @@ MonoBehaviour:
   points:
   - {x: 0.025549375, y: -0.00000075250864, z: 2.7724261}
   - {x: -1.6603786, y: 9.105922, z: 3.278751}
-  - {x: 9.907784, y: 13.768986, z: 3.3321853}
-  - {x: 14.508016, y: 14.740434, z: 0.80728126}
-  - {x: 19.108246, y: 15.711882, z: -1.7176228}
-  - {x: 17.499464, y: 16.524181, z: -7.1227956}
-  - {x: 13.462193, y: 16.248116, z: -7.171075}
-  - {x: 9.424921, y: 15.972049, z: -7.219354}
-  - {x: 7.5009627, y: 16.270678, z: 2.0096378}
-  - {x: 14.436086, y: 14.315069, z: 0.4808113}
-  - {x: 21.371208, y: 12.359461, z: -1.0480151}
-  - {x: 15.099369, y: 11.03431, z: -0.000055372715}
-  - {x: 12.278078, y: -4.9430366, z: -3.792918}
+  - {x: 10.592234, y: 13.768985, z: 4.729996}
+  - {x: 16.300035, y: 14.740435, z: 1.4612274}
+  - {x: 22.007837, y: 15.7118845, z: -1.8075414}
+  - {x: 18.70709, y: 16.220104, z: -8.976875}
+  - {x: 12.72065, y: 16.248116, z: -8.325262}
+  - {x: 6.734209, y: 16.276127, z: -7.673649}
+  - {x: 5.823484, y: 15.903284, z: 0.8095976}
+  - {x: 12.382561, y: 15.871254, z: 1.4658523}
+  - {x: 18.941637, y: 15.839224, z: 2.122107}
+  - {x: 23.258465, y: 11.034311, z: -14.043124}
+  - {x: 10.973836, y: -4.943037, z: -1.1861778}
   modes: 0000000002000000020000000200000002000000
   loop: 0
 --- !u!108 &574174829
@@ -15052,7 +15052,7 @@ PrefabInstance:
     - target: {fileID: 5331884545091390033, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6283014374477743172, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
@@ -16739,7 +16739,7 @@ PrefabInstance:
     - target: {fileID: 5331884545091390033, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6283014374477743172, guid: 6b18a121e6354b343a81cc3ee6ef8111,
         type: 3}
@@ -26919,11 +26919,6 @@ PrefabInstance:
       propertyPath: echo
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 6423519132057229001, guid: df3f54ed7be9957408bad364b3afc83b,
-        type: 3}
-      propertyPath: echo
-      value: 
-      objectReference: {fileID: 1817997308}
     - target: {fileID: 508904703393881557, guid: df3f54ed7be9957408bad364b3afc83b,
         type: 3}
       propertyPath: m_LocalPosition.y
@@ -26979,6 +26974,11 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6423519132057229001, guid: df3f54ed7be9957408bad364b3afc83b,
+        type: 3}
+      propertyPath: echo
+      value: 
+      objectReference: {fileID: 1817997308}
     m_RemovedComponents:
     - {fileID: 7296780284762970825, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
     - {fileID: 7274335110471964445, guid: df3f54ed7be9957408bad364b3afc83b, type: 3}
