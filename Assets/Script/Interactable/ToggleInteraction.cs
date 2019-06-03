@@ -45,6 +45,7 @@ public class ToggleInteraction : SimpleInteraction
         //Les deux parties ont toujours le meme etat
         toggleState = !toggleState;
         otherPart.ToggleState = toggleState;
+        Manager.GetInstance().PlaySound(mouse, toggleState ? "Play_house_open" : "Play_house_close");
     }
 
     IEnumerator StartCoolDown()

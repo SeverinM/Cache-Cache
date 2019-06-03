@@ -39,7 +39,8 @@ public class Manager : MonoBehaviour
         {
             Display.displays[1].Activate();
         }
-        AkSoundEngine.PostEvent("Play_Amb_Playtest", gameObject);
+        AkSoundEngine.PostEvent("Play_amb_J1", gameObject);
+        AkSoundEngine.PostEvent("Play_amb_J2", gameObject);
     }
 
     public static Manager GetInstance()
@@ -62,6 +63,42 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
+        }
+    }
+
+    public void PlaySound(MouseInputManager.MousePointer mouse, string name , bool otherPlayer = false)
+    {
+        //C'est le joueur 1
+        if (mouse.cam == cam1)
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J2" : "_J1"), gameObject);
+        }
+
+        //C'est le joueur 2
+        else
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J1" :  "_J2"), gameObject);
+        }
+    }
+
+    public void PlayBoth(string name)
+    {
+        AkSoundEngine.PostEvent(name + "_J1", gameObject);
+        AkSoundEngine.PostEvent(name + "_J2", gameObject);
+    }
+
+    public void PlayByDistance(string name , Transform trans , bool otherPlayer)
+    {
+        //C'est le joueur 1
+        if (Vector3.Distance(trans.position , Vector3.zero) < 100)
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J2" : "_J1"), gameObject);
+        }
+
+        //C'est le joueur 2
+        else
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J1" : "_J2"), gameObject);
         }
     }
 }

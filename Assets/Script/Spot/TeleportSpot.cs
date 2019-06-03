@@ -172,6 +172,8 @@ public class TeleportSpot : Spot
 
     IEnumerator MoonAnimation(bool reversed, UnityAction afterAnim)
     {
+        Manager.GetInstance().PlayByDistance(reversed ? "Play_moon_open" : "Play_moon_close", transform, false);
+
         //true = de fermé à ouvert
         if (reversed)
         {
@@ -202,7 +204,8 @@ public class TeleportSpot : Spot
     {
         busy = true;
         GetOtherPart().Busy = true;
-        AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
+        Manager.GetInstance().PlayByDistance("Play_transfert_in", transform, false);
+
         //Une fois l'animation de transfert lancé on ne peut rien faire jusqu'a la fin
         currentHold.CanInteract = false;
         //On ferme la lune...
@@ -228,7 +231,7 @@ public class TeleportSpot : Spot
             GetOtherPart().Busy = false;
         });
 
-        AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
+        Manager.GetInstance().PlayByDistance("Play_transfert_out", transform, true);
     }
 
     public IEnumerator FouilleMoon()

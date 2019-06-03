@@ -18,6 +18,7 @@ public class BoutonGrandeRoue : Interactable
         turnTheWheel = true;
         anim.SetBool("appui", true);
         light.SetActive(true);
+        AkSoundEngine.PostEvent("Play_grande_roue", gameObject);
     }
 
     public override void MouseEnter(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
@@ -40,6 +41,7 @@ public class BoutonGrandeRoue : Interactable
         turnTheWheel = false;
         anim.SetBool("appui", false);
         light.SetActive(false);
+        AkSoundEngine.PostEvent("Stop_grande_roue", gameObject);
     }
 
     // Start is called before the first frame update

@@ -32,8 +32,11 @@ public class Firework : Draggable
     [SerializeField]
     Animator anim2;
 
+    MouseInputManager.MousePointer lastTouched;
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
+        lastTouched = mouse;
         if (Progress == 0)
             base.MouseDown(btn, mouse, echo);
     }
@@ -57,7 +60,7 @@ public class Firework : Draggable
     IEnumerator LaunchFirework()
     {
         yield return new WaitForSeconds(0.2f);
-        AkSoundEngine.PostEvent("Play_fireworks_launch", gameObject);
+        AkSoundEngine.PostEvent("Play_rocket_launch", gameObject);
         GetComponent<ParticleSystem>().Play();
 
         float normalizedTime = 0;
@@ -78,12 +81,13 @@ public class Firework : Draggable
 
         StartCoroutine(NessieCome());
         GetComponent<ParticleSystem>().Stop();
-        AkSoundEngine.PostEvent("Play_fireworks_explode", gameObject);      
+        AkSoundEngine.PostEvent("Play_rocket_explode", gameObject);
     }
 
     IEnumerator NessieCome()
     {
         yield return new WaitForSeconds(timeBeforeNessies);
+        AkSoundEngine.PostEvent("Play_Nessie_out", gameObject);
         anim.SetTrigger(Manager.TRIGGER_INTERACTION);
         anim2.SetTrigger(Manager.TRIGGER_INTERACTION);
         Destroy(gameObject);

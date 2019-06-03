@@ -7,10 +7,14 @@ public class SimpleInteraction : Interactable
     [SerializeField]
     Animator anim;
 
+    [SerializeField]
+    string soundName = "";
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
         {
+            if (soundName != "") Manager.GetInstance().PlaySound(mouse, soundName);
             if (!anim)
             {
                 if (GetComponent<Animator>())

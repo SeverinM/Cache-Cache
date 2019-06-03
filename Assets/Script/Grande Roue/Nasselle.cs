@@ -51,6 +51,7 @@ public class Nasselle : Interactable
     {
         if (other.CompareTag("BaseRoue") && !open)
         {
+            AkSoundEngine.PostEvent("Play_nacelle_open", gameObject);
             GetComponent<Animator>().SetTrigger("nacelleOuverture");
             open = true;
             block = false;
@@ -61,6 +62,7 @@ public class Nasselle : Interactable
     {
         if (other.CompareTag("BaseRoue") && open)
         {
+            AkSoundEngine.PostEvent("Play_nacelle_close", gameObject);
             open = false;
             block = true;
             GetComponent<Animator>().SetTrigger("nacelleFermeture");
