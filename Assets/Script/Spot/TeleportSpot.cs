@@ -70,14 +70,8 @@ public class TeleportSpot : Spot
         }
     }
 
-    bool canOpen = false;
-    public bool CanOpen
-    {
-        get
-        {
-            return canOpen;
-        }
-    }
+    bool isUsed = false;
+    public bool IsUsed => isUsed;
 
     private void Awake()
     {
@@ -120,6 +114,7 @@ public class TeleportSpot : Spot
         Center();
         StopAllCoroutines();
         StartCoroutine(Transfert());
+        Debug.Log(Vector3.Distance(partieBasse.position, transform.position) + " / " + Vector3.Distance(partieHaute.position, transform.position));
     }
 
     public override void EnterSpot(Draggable dragg)
@@ -147,14 +142,25 @@ public class TeleportSpot : Spot
     {
         //La lune doit etre fermé et ne contenir aucun objet
         IsAvailable = (!spot1.CurrentHold && !spot2.CurrentHold && GetOtherPart().normalizedTime == 0);
+
+        //On reevalue si la lune peut etre ouverte
+        if (isUsed && normalizedTime == 0 && IsAvailable && !GetOtherPart().Busy)
+        {
+            busy = true;
+            SetMoonAnimation(true, () => { });
+        }
     }
 
     public override void SetValue(Draggable dragg, bool value)
     {
-        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance && IsAvailable && !GetOtherPart().Busy)
+        if (Vector3.Distance(dragg.transform.position, transform.position) < maxDistance)
         {
-            busy = true;
-            SetMoonAnimation(value, () => { });
+            isUsed = value;
+            if (IsAvailable && !GetOtherPart().Busy)
+            {
+                busy = true;
+                SetMoonAnimation(value, () => { });
+            }
         }
     }
 
@@ -166,6 +172,8 @@ public class TeleportSpot : Spot
 
     IEnumerator MoonAnimation(bool reversed, UnityAction afterAnim)
     {
+        Manager.GetInstance().PlayByDistance(reversed ? "Play_moon_open" : "Play_moon_close", transform, false);
+
         //true = de fermé à ouvert
         if (reversed)
         {
@@ -190,14 +198,14 @@ public class TeleportSpot : Spot
         normalizedTime = Mathf.Clamp(normalizedTime, 0, 1);
         afterAnim();
         busy = false;
-        canOpen = reversed;
     }
 
     public IEnumerator Transfert()
     {
         busy = true;
         GetOtherPart().Busy = true;
-        AkSoundEngine.PostEvent("Play_transfert_in", gameObject);
+        Manager.GetInstance().PlayByDistance("Play_transfert_in", transform, false);
+
         //Une fois l'animation de transfert lancé on ne peut rien faire jusqu'a la fin
         currentHold.CanInteract = false;
         //On ferme la lune...
@@ -223,7 +231,7 @@ public class TeleportSpot : Spot
             GetOtherPart().Busy = false;
         });
 
-        AkSoundEngine.PostEvent("Play_transfert_out", gameObject);
+        Manager.GetInstance().PlayByDistance("Play_transfert_out", transform, true);
     }
 
     public IEnumerator FouilleMoon()

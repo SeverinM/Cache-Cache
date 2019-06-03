@@ -124,9 +124,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5825ad39de6cad459cfcde756e8369b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  positionInSpace: {x: 1, y: 0, z: 0}
+  oof: 0.04
   sP: {fileID: 4183233792282438331}
   ascendingDuration: 2
-  ascendingSpeed: 0.2
+  ascendingSpeed: 0.1
   minMaxDecal: {x: -0.07, y: 0.07}
   ascendingColor:
     serializedVersion: 2

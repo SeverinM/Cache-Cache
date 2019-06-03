@@ -19,6 +19,11 @@ public class FeuArtifice : MonoBehaviour
         public TrailRenderer trail;
     }
 
+    public Vector3 positionInSpace = new Vector3(1, 0, 0);
+    [Tooltip("littleOffsetJustToMakeItNotFlat")]
+    public float oof = 0.001f;
+
+
     [Header("Ascending")]
     public SpriteRenderer sP;
     public float ascendingDuration;
@@ -63,10 +68,12 @@ public class FeuArtifice : MonoBehaviour
 
     IEnumerator Ascending()
     {
+        Manager.GetInstance().PlayByDistance("Play_fireworks_launch", transform, false);
+
         float lerpVal = 0;
-        Vector3 directionLeftRight = new Vector3(Random.Range(minMaxDecal.x, minMaxDecal.y), 0, Random.Range(minMaxDecal.x, minMaxDecal.y));
+        Vector3 directionLeftRight = positionInSpace * Random.Range(minMaxDecal.x, minMaxDecal.y);
         littleRandomHeight = Random.Range(0.7f, 1.5f);
-        Vector3 directionUp = new Vector3(0, ascendingSpeed * littleRandomHeight, 0);
+        Vector3 directionUp = new Vector3(Random.Range(-oof, oof), ascendingSpeed * littleRandomHeight, Random.Range(-oof, oof));
         while (lerpVal < 1)
         {
             this.transform.position += directionUp * ascendingCurve.Evaluate(lerpVal) + directionLeftRight * lateralCurve.Evaluate(lerpVal);
@@ -81,7 +88,6 @@ public class FeuArtifice : MonoBehaviour
 
             yield return new WaitForSeconds(0.01f);
         }
-        Debug.Log("ReachIt !");
         sP.enabled = false;
         yield return new WaitForSeconds(waitBeforeSplosion);
         this.transform.localScale = Vector3.one;
@@ -90,7 +96,7 @@ public class FeuArtifice : MonoBehaviour
 
     public void Explosion()
     {
-        Debug.Log("Explosion !");
+        Manager.GetInstance().PlayByDistance("Play_fireworks_explode", transform, false);
         branches = new List<SousArtifice>();
         int nmbrBranch = Random.Range((int)minMaxBranches.x, (int)minMaxBranches.y);
         int indexGradient = Random.Range(0, colorGradient.Count);
@@ -119,7 +125,7 @@ public class FeuArtifice : MonoBehaviour
     IEnumerator ExplosionBranches()
     {
         float lerpVal = 0;
-        Vector3 directionBase = new Vector3(0, brancheSpeed, 0);
+        Vector3 directionBase = new Vector3(Random.Range(-oof, oof), brancheSpeed, Random.Range(-oof, oof));
         while (lerpVal < 1)
         {
             foreach (SousArtifice sA in branches)
@@ -134,7 +140,6 @@ public class FeuArtifice : MonoBehaviour
             lerpVal += Time.deltaTime / brancheDuration;
             yield return new WaitForSeconds(0.01f);
         }
-        Debug.Log("FinishBlowing");
         foreach (SousArtifice sA in branches)
         {
             Destroy(sA.tr.gameObject);

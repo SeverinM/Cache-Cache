@@ -11,6 +11,13 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     List<ConditionStruct> allConditions;
 
+    [SerializeField]
+    GameObject particleHurray;
+
+    [SerializeField]
+    List<GameObject> toDisable;
+
+    [SerializeField]
     float timeBeforeEnd = 600;
 
     [SerializeField]
@@ -36,7 +43,10 @@ public class EnigmeManager : MonoBehaviour
     Rotate rot1;
 
     [SerializeField]
-    GameObject gob;
+    GameObject victoire;
+
+    [SerializeField]
+    GameObject defaite;
 
     [SerializeField]
     List<Canvas> allCan;
@@ -44,12 +54,18 @@ public class EnigmeManager : MonoBehaviour
     [SerializeField]
     Rotate rot2;
 
+    float durationFirework = 0;
+
     private void Awake()
     {
         if (!_instance)
             _instance = this;
         else
+        {
             Destroy(gameObject);
+        }
+
+        StartCoroutine(FireworkScrut());
     }
 
     public static EnigmeManager getInstance()
@@ -126,16 +142,6 @@ public class EnigmeManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Application.Quit();
-        }
-
         if (allConditions.Count > 0)
             allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
 
@@ -148,12 +154,13 @@ public class EnigmeManager : MonoBehaviour
 
     void End()
     {
-        Debug.LogError("fin");
+        pause = true;
         allConditions.Clear();
         foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
         {
             inter.CanInteract = false;
         }
+        AllCharacterFound();
     }
 
     public void StartCountdown()
@@ -161,15 +168,26 @@ public class EnigmeManager : MonoBehaviour
         pause = false;
     }
 
-    public void DiscoveredCharacter(List<Transform> newParents, Transform target, float duration)
+    public void DiscoveredCharacter(List<Transform> newParents, Transform target, string keyAnim ,float duration)
     {
-        StartCoroutine(DiscoverAnimation(newParents, target, duration));
+        StartCoroutine(DiscoverAnimation(newParents, target, keyAnim, duration));
     }
 
-    IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , float duration)
+    IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , string keyAnim, float duration)
     {
+        AddFirework(1);
+        GameObject gobParticle = Instantiate(particleHurray, target.position, Quaternion.identity);
+        Destroy(gobParticle, 2);
+
+        //Can c'est possible , fait jouer une animation au personnage joué
+        target.GetComponent<Interactable>().CanInteract = false;
+        if (target.GetComponent<Animator>())
+            target.GetComponent<Animator>().SetTrigger(keyAnim);
+
         characterFound++;
-        AkSoundEngine.PostEvent("Play_voix01", gameObject);
+
+        Manager.GetInstance().PlayByDistance("Play_voix", target, false);
+
         float normalizedTime = 0;;
         Vector3 originScale = target.lossyScale;
 
@@ -187,10 +205,15 @@ public class EnigmeManager : MonoBehaviour
         }
 
         //... puis reapparait sur la lune...
+        Manager.GetInstance().PlayBoth("Play_Music_reward");
+
         List<GameObject> allGob = new List<GameObject>();
         foreach (Transform landings in newParents)
         {
             GameObject copy = Instantiate(target.gameObject);
+
+            GameObject gobParticle2 = Instantiate(particleHurray, landings.position, Quaternion.identity);
+            Destroy(gobParticle2, 2);
 
             //Detruit les scripts
             Destroy(copy.GetComponent<Interactable>());
@@ -211,6 +234,13 @@ public class EnigmeManager : MonoBehaviour
             }
         }
         Destroy(target.gameObject);
+
+        foreach (GameObject gob in allGob)
+        {
+            if (gob.GetComponent<Animator>())
+                gob.GetComponent<Animator>().SetTrigger(keyAnim);
+        }
+
         if (characterFound >= charactersObjectives)
         {
             AllCharacterFound();
@@ -219,6 +249,12 @@ public class EnigmeManager : MonoBehaviour
 
     void AllCharacterFound()
     {
+        StopAllCoroutines();
+        foreach(GameObject gob in toDisable)
+        {
+            gob.SetActive(false);
+        }
+
         foreach(TeleportSpot sp in GameObject.FindObjectsOfType<TeleportSpot>())
         {
             sp.SetMoonAnimation(false, () => { });
@@ -252,13 +288,49 @@ public class EnigmeManager : MonoBehaviour
         StartCoroutine(RotateCor());
     }
 
+    public void AddFirework(float duration)
+    {
+        durationFirework += duration;
+        ArtificeMaker.instance.pause = false;
+        ArtificeMaker.instance2.pause = false;
+    }
+
+    IEnumerator FireworkScrut()
+    {
+        while (true)
+        {
+            yield return null;
+            Debug.Log(durationFirework);
+            if (durationFirework > 0)
+                durationFirework -= Time.deltaTime;
+            else
+            {
+                ArtificeMaker.instance.pause = true;
+                ArtificeMaker.instance2.pause = true;
+            }
+        }
+    }
+
     IEnumerator RotateCor()
     {
         foreach(Canvas can in allCan)
         {
-            Instantiate(gob, can.transform);
+            Instantiate(characterFound == charactersObjectives ? victoire : defaite , can.transform);
         }
 
+        if (characterFound == charactersObjectives)
+        {
+            ArtificeMaker.instance.pause = false;
+            ArtificeMaker.instance.launchEveryDelay = true;
+            ArtificeMaker.instance.delayBetweenLaunch = 1.2f;
+            ArtificeMaker.instance.numberArtificePerDelay = 2;
+
+            ArtificeMaker.instance2.pause = false;
+            ArtificeMaker.instance2.launchEveryDelay = true;
+            ArtificeMaker.instance2.delayBetweenLaunch = 1.2f;
+            ArtificeMaker.instance2.numberArtificePerDelay = 2;
+        }
+   
         while (true)
         {
             rot1.cam.transform.RotateAround(rot1.trsf.position, Vector3.up, 5 * Time.deltaTime);

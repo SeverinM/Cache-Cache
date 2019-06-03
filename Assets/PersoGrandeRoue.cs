@@ -15,7 +15,7 @@ public class PersoGrandeRoue : Interactable
     {
         if(ouverture.open == true)
         {
-            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, 1);
+            EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, Manager.TRIGGER_INTERACTION, 1);
         }
        
     }

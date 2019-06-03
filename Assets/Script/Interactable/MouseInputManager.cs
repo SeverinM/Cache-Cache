@@ -243,10 +243,14 @@ public class MouseInputManager : MonoBehaviour
     }
 
     void Interaction(MousePointer pointer , MouseButton btn , ActionType act)
-    {        
+    {
+        //Ne se passe plus rien sur le click droit
+        if (btn == MouseButton.RIGHT_BUTTON) return;
+
         if (act.Equals(ActionType.PRESSED))
         {
             pointer.obj.GetComponent<Image>().enabled = true;
+            Manager.GetInstance().PlaySound(pointer, "Play_click_mouse");
         }
 
         Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
@@ -254,7 +258,7 @@ public class MouseInputManager : MonoBehaviour
         position += new Vector3(-pointer.obj.GetComponent<RectTransform>().rect.width * 0.166f, pointer.obj.GetComponent<RectTransform>().rect.width * 0.5f, 0);
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
 
-        foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(x.transform.position, pointer.cam.transform.position)))
+        foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(x.point, pointer.cam.transform.position)))
         {
             Interactable inter = hit.collider.GetComponent<Interactable>();
             if (inter)

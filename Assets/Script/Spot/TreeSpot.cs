@@ -6,32 +6,31 @@ public class TreeSpot : ClassicSpot
 {
     public override void ReleaseSpot(Draggable dragg)
     {
-        Tree tree = (Tree)dragg;
-
         //it's a tree and no tree is already on the spot
-        if (tree && (transform.parent == null || !transform.parent.GetComponent<Tree>()))
+        if (dragg && (transform.parent == null || !transform.parent.GetComponent<Tree>()))
         {
-            tree.transform.position = transform.position;
+            dragg.transform.position = transform.position;
             currentHold = dragg;
             dragg.CurrentSpot = this;
-            transform.SetParent(dragg.transform);
+            dragg.transform.SetParent(this.transform);
+            dragg.transform.localRotation = Quaternion.identity;
         }
         else
         {
-            tree.ResetPosition();
+            dragg.ResetPosition();
         }
     }
 
     public override void PressSpot(Draggable dragg)
     {
         base.PressSpot(dragg);
-        transform.parent = null;
+        //transform.parent = null;
     }
 
     public override void ResetSpot(Draggable dragg)
     {
+        dragg.transform.SetParent(this.transform);
         base.ResetSpot(dragg);
-        transform.SetParent(dragg.transform);
     }
 
     public override void SetValue(Draggable dragg, bool value)

@@ -184,121 +184,256 @@ MonoBehaviour:
     ParentPhysicalPath: 
     guid: cd01331775b96444975f83474de3a448
     GuidInternal: 
-    m_lastTime: -8586438602831466441
+    m_lastTime: -8586420425743616342
     List: []
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 2b53f2358a45ce45a2dbdb0c82638d4c
     GuidInternal: 
-    m_lastTime: -8586437597074775808
+    m_lastTime: -8586420388726874469
     List:
-    - name: cache_cache_music
-      guid: e6046a74df290a47908094489dd8afeb
-      id: 1489344442
+    - name: Cache_Cache
+      guid: d2b958752224794e9bb8eaea267f3570
+      id: 2996359658
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: cache_cache_music
+      - ElementName: Cache_Cache
         ObjectType: 7
-      Path: Default Work Unit\cache_cache_music
-    - name: cache_cache_SFX
-      guid: f18c66edcf91c24eb5612eb729785ea6
-      id: 1727427018
-      PathAndIcons:
-      - ElementName: Default Work Unit
-        ObjectType: 12
-      - ElementName: cache_cache_SFX
-        ObjectType: 7
-      Path: Default Work Unit\cache_cache_SFX
+      Path: Default Work Unit\Cache_Cache
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     ParentPhysicalPath: 
     guid: 5489af29f1f6fa4682f38fed891f20d6
     GuidInternal: 
-    m_lastTime: -8586437590254775808
+    m_lastTime: -8586420413780902756
     List:
-    - name: Play_Amb_Playtest
+    - name: Play_Amb
       guid: c86ee23deb59a04fb24f9fe5cbc5c8b3
-      id: 2840810331
+      id: 2959533290
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_Amb_Playtest
+      - ElementName: Play_Amb
         ObjectType: 3
-      Path: Default Work Unit\Play_Amb_Playtest
+      Path: Default Work Unit\Play_Amb
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_dead_tree
-      guid: 9a01367fd186714ea412a5caac812cac
-      id: 425965107
+  - PhysicalPath: Events\Events_J1.wwu
+    ParentPhysicalPath: Events\Default Work Unit.wwu
+    guid: a1fedc044c5c9b4a8ca2ddbcd7405f12
+    GuidInternal: 
+    m_lastTime: -8586420412196664020
+    List:
+    - name: Play_amb_J1
+      guid: 225e1ee4135cce4a927be411f1041795
+      id: 2374686410
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_dead_tree
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_amb_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_dead_tree
+      Path: Default Work Unit\Events_J1\Play_amb_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_fireworks_explode
+    - name: Play_click_mouse_J1
+      guid: 8ae755b8928ec944a4e2971374ff01d6
+      id: 1349028522
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_click_mouse_J1
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_click_mouse_J1
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_fireworks_explode_J1
       guid: 3cea49e1d96acb41bf7f320dfddedbcc
-      id: 1304580758
+      id: 2538761830
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_fireworks_explode
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_fireworks_explode_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_fireworks_explode
+      Path: Default Work Unit\Events_J1\Play_fireworks_explode_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_fireworks_launch
+    - name: Play_fireworks_launch_J1
       guid: bf85401fbc510a469b60a3eda59ac1cc
-      id: 2042322590
+      id: 3949665086
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_fireworks_launch
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_fireworks_launch_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_fireworks_launch
+      Path: Default Work Unit\Events_J1\Play_fireworks_launch_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_moon_open
+    - name: Play_grande_roue
+      guid: 5864403415046442b318862ed5c8da9b
+      id: 2098214419
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_grande_roue
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_grande_roue
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lantern_J1
+      guid: dd92c32dd6140d4e9659ebc9815878f2
+      id: 2580294018
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_Lantern_J1
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_Lantern_J1
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_moon_close_J1
+      guid: 0834a98d9cb1c44985e21909456aff06
+      id: 3660768892
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_moon_close_J1
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_moon_close_J1
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_moon_open_J1
       guid: 818cb802955efa49a9fc1e3062b39b65
-      id: 2679573404
+      id: 2456776208
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_moon_open
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_moon_open_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_moon_open
+      Path: Default Work Unit\Events_J1\Play_moon_open_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_moon_open_failed
-      guid: 98995dbaf50102499112fe1167583af3
-      id: 2007658800
+    - name: Play_mountain_wobble_J1
+      guid: bff09f860f8c6b4d8fc2e7572dcfaa47
+      id: 3177963003
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_moon_open_failed
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_mountain_wobble_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_moon_open_failed
+      Path: Default Work Unit\Events_J1\Play_mountain_wobble_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_Summer_Amb
-      guid: ed647531cc6c6e4d895544cafa7579b0
-      id: 77724524
+    - name: Play_Music_reward_J1
+      guid: 673f8ea893502348be0085e8c45b96c8
+      id: 2432783001
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_Summer_Amb
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_Music_reward_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_Summer_Amb
+      Path: Default Work Unit\Events_J1\Play_Music_reward_J1
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_nacelle_close
+      guid: b680295b61954e4a8d2537115ffa73f9
+      id: 2745949051
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_nacelle_close
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_nacelle_close
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_nacelle_open
+      guid: ccf217a2c2c74a499e138202f843a03e
+      id: 3174153885
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_nacelle_open
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_nacelle_open
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_stone_J1
+      guid: 648d055aeaab954eb9143181c1c3f179
+      id: 3539553635
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_stone_J1
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_stone_J1
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_summer_house_close
+      guid: 2bddd18f94e1e342993ac8b2a2ba6ec2
+      id: 2887139305
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_summer_house_close
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_summer_house_close
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_summer_house_open
+      guid: 390acfa5c6f26e45beffaa0d87a2afde
+      id: 3499601723
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_summer_house_open
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_summer_house_open
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -308,81 +443,395 @@ MonoBehaviour:
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
       - ElementName: Play_summer_tree
         ObjectType: 3
-      Path: Default Work Unit\Play_summer_tree
+      Path: Default Work Unit\Events_J1\Play_summer_tree
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_transfert_in
+    - name: Play_transfert_in_J1
       guid: 5f7f3546e7a2454c976b979aa5093c43
-      id: 2280300737
+      id: 718901563
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_transfert_in
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_transfert_in_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_transfert_in
+      Path: Default Work Unit\Events_J1\Play_transfert_in_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_transfert_out
+    - name: Play_transfert_out_J1
       guid: a4152005924e364c9b1b9c8261a9b1d4
-      id: 3428234176
+      id: 1866720724
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_transfert_out
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_transfert_out_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_transfert_out
+      Path: Default Work Unit\Events_J1\Play_transfert_out_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_tree_move
+    - name: Play_tree_close
+      guid: b3b9d0b2d3446a409f1c409766f590ed
+      id: 4286217159
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_tree_close
+        ObjectType: 3
+      Path: Default Work Unit\Events_J1\Play_tree_close
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_tree_move_J1
       guid: 0d72cfe2da7a3a4ca93d0b6aa8291dc2
-      id: 4059058674
+      id: 224521602
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_tree_move
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_tree_move_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_tree_move
+      Path: Default Work Unit\Events_J1\Play_tree_move_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_voix01
-      guid: 436ae5f3da96c546bae2aaaefcfffa80
-      id: 1560906949
+    - name: Play_voix_J1
+      guid: a1eb1ec6931e064cbb1ad3cd1670fea7
+      id: 3997305928
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_voix01
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Play_voix_J1
         ObjectType: 3
-      Path: Default Work Unit\Play_voix01
+      Path: Default Work Unit\Events_J1\Play_voix_J1
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_voix02
-      guid: ef0537ffa1b5f14c916c938311705783
-      id: 1560906950
+    - name: Stop_grande_roue
+      guid: 6de685ebca1f7942bc2299b8edea2663
+      id: 1209783653
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_voix02
+      - ElementName: Events_J1
+        ObjectType: 12
+      - ElementName: Stop_grande_roue
         ObjectType: 3
-      Path: Default Work Unit\Play_voix02
+      Path: Default Work Unit\Events_J1\Stop_grande_roue
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
-    - name: Play_Winter_Amb
-      guid: 6e195c295251424ab176722d82b6d87e
-      id: 1502111004
+  - PhysicalPath: Events\Events_J2.wwu
+    ParentPhysicalPath: Events\Default Work Unit.wwu
+    guid: e5082120a7fd2144a813e7d8bba65ef3
+    GuidInternal: 
+    m_lastTime: -8586420412197092449
+    List:
+    - name: Play_amb_J2
+      guid: d4397f41cec91647bd995e25ac91c5de
+      id: 2374686409
       PathAndIcons:
       - ElementName: Default Work Unit
         ObjectType: 12
-      - ElementName: Play_Winter_Amb
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_amb_J2
         ObjectType: 3
-      Path: Default Work Unit\Play_Winter_Amb
+      Path: Default Work Unit\Events_J2\Play_amb_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_click_mouse_J2
+      guid: 3b35591a1f560341b215b0187a52d8b3
+      id: 1349028521
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_click_mouse_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_click_mouse_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_dead_tree
+      guid: 9a01367fd186714ea412a5caac812cac
+      id: 425965107
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_dead_tree
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_dead_tree
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_fireworks_explode_J2
+      guid: 88e06628a2d431469340c6e2de2f7e74
+      id: 2538761829
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_fireworks_explode_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_fireworks_explode_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_fireworks_launch_J2
+      guid: 0bacad8beb426a4bb117d4111943aa4a
+      id: 3949665085
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_fireworks_launch_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_fireworks_launch_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_ice_break
+      guid: c641acff093a2c48bc866eb0dfcacd84
+      id: 147749391
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_ice_break
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_ice_break
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Lantern_J2
+      guid: 994389269a1d534caebed248693a9a89
+      id: 2580294017
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_Lantern_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_Lantern_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_moon_close_J2
+      guid: c31da60b9e98be45a3e3a00ec30ec525
+      id: 3660768895
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_moon_close_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_moon_close_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_moon_open_J2
+      guid: 9438f42dcea8134ea0800d398365a213
+      id: 2456776211
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_moon_open_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_moon_open_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_mountain_wobble_J2
+      guid: 41eb75d54e422347a075a6ceacef849c
+      id: 3177963000
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_mountain_wobble_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_mountain_wobble_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Music_reward_J2
+      guid: 7333fd079cd2e44f837aa3bc2e33b982
+      id: 2432783002
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_Music_reward_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_Music_reward_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_Nessie_out
+      guid: 3751e2563944724ab3f10dc5bf33bda6
+      id: 459012032
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_Nessie_out
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_Nessie_out
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_rocket_explode
+      guid: 184fa2da81564a4ea55c3ff4c6e5c787
+      id: 3260675324
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_rocket_explode
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_rocket_explode
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_rocket_launch
+      guid: e6b1693d2e11424e90e1c39bd348c545
+      id: 3072389188
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_rocket_launch
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_rocket_launch
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_stone_J2
+      guid: cf79e2695bc18c4f8477fa9fd205f09f
+      id: 3539553632
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_stone_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_stone_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_transfert_in_J2
+      guid: ad8b3c0753315c459280592e8e759953
+      id: 718901560
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_transfert_in_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_transfert_in_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_transfert_out_J2
+      guid: b49f43752ccb2945a91d6ae9e772c55e
+      id: 1866720727
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_transfert_out_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_transfert_out_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_tree_move_J2
+      guid: 48d5010af132494bb9533e3b43f6d7b8
+      id: 224521601
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_tree_move_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_tree_move_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_voix_J2
+      guid: 282cb7989835df49b6a86579a6b33041
+      id: 3997305931
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_voix_J2
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_voix_J2
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_winter_house_close
+      guid: e1c7f2f58a1c5b48a7343df30504903b
+      id: 3154511065
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_winter_house_close
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_winter_house_close
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Play_winter_house_open
+      guid: d80cb449ac2a27428101d94c38a91bb0
+      id: 11804683
+      PathAndIcons:
+      - ElementName: Default Work Unit
+        ObjectType: 12
+      - ElementName: Events_J2
+        ObjectType: 12
+      - ElementName: Play_winter_house_open
+        ObjectType: 3
+      Path: Default Work Unit\Events_J2\Play_winter_house_open
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
@@ -597,5 +1046,7 @@ MonoBehaviour:
   ExpandedItems:
   - /M1_CACHE-CACHE
   - /M1_CACHE-CACHE/Events
+  - /M1_CACHE-CACHE/SoundBanks
+  - /M1_CACHE-CACHE/SoundBanks/Default Work Unit
   autoPopulateEnabled: 1
   CurrentPluginConfig: 

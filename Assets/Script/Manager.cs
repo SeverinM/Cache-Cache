@@ -1,11 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
     [SerializeField]
     Camera cam1;
+
+    [SerializeField]
+    GameObject wwiseGlobal;
+
+    [SerializeField]
+    EnigmeManager enn;
 
     [SerializeField]
     Camera cam2;
@@ -32,13 +39,8 @@ public class Manager : MonoBehaviour
         {
             Display.displays[1].Activate();
         }
-
-        //SoundManager.getInstance().AddSoundOutput("Realtek");
-        //SoundManager.getInstance().AddSoundOutput("NVIDIA");
-
-        //SoundManager.getInstance().PlaySound(0, "Play_Summer_Amb");
-        //SoundManager.getInstance().PlaySound(0, "Play_Winter_Amb");
-        AkSoundEngine.PostEvent("Play_Amb_Playtest", gameObject);
+        AkSoundEngine.PostEvent("Play_amb_J1", gameObject);
+        AkSoundEngine.PostEvent("Play_amb_J2", gameObject);
     }
 
     public static Manager GetInstance()
@@ -47,5 +49,56 @@ public class Manager : MonoBehaviour
             _instance = new GameObject().AddComponent<Manager>();
 
         return _instance;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Destroy(enn.gameObject);
+            Destroy(wwiseGlobal);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
+    }
+
+    public void PlaySound(MouseInputManager.MousePointer mouse, string name , bool otherPlayer = false)
+    {
+        //C'est le joueur 1
+        if (mouse.cam == cam1)
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J2" : "_J1"), gameObject);
+        }
+
+        //C'est le joueur 2
+        else
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J1" :  "_J2"), gameObject);
+        }
+    }
+
+    public void PlayBoth(string name)
+    {
+        AkSoundEngine.PostEvent(name + "_J1", gameObject);
+        AkSoundEngine.PostEvent(name + "_J2", gameObject);
+    }
+
+    public void PlayByDistance(string name , Transform trans , bool otherPlayer)
+    {
+        //C'est le joueur 1
+        if (Vector3.Distance(trans.position , Vector3.zero) < 100)
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J2" : "_J1"), gameObject);
+        }
+
+        //C'est le joueur 2
+        else
+        {
+            AkSoundEngine.PostEvent(name + (otherPlayer ? "_J1" : "_J2"), gameObject);
+        }
     }
 }

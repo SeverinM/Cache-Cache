@@ -39,6 +39,7 @@ public class RotateAround : Interactable
         if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
         if (echo) return;
 
+        Debug.Log("down");
         if (!holdBy)
         {
             holdBy = this;
@@ -65,6 +66,8 @@ public class RotateAround : Interactable
     {
         if (!btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON)) return;
         if (echo) return;
+        Debug.Log("up");
+        Debug.Log("=======");
 
         if (holdBy == this)
         {

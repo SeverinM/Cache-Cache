@@ -85,8 +85,8 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _ColorNShadow: {r: 0.3811718, g: 0.1786668, b: 0.6886792, a: 1}
-    - _ColorNight: {r: 0.35457456, g: 0.78002167, b: 0.9056604, a: 1}
+    - _ColorNShadow: {r: 0.46091598, g: 0.35479707, b: 0.6320754, a: 1}
+    - _ColorNight: {r: 0.4537647, g: 0.8249814, b: 0.9339623, a: 1}
     - _ColorRShadow: {r: 0.14117645, g: 0.6458833, b: 0.7254902, a: 1}
     - _ColorReveal: {r: 0.59607846, g: 0.9529412, b: 0.9356575, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

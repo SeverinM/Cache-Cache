@@ -62,6 +62,7 @@ public class Tree : Draggable
             if (downDone)
             {
                 AkSoundEngine.PostEvent("Play_tree_move", gameObject);
+                Manager.GetInstance().PlayByDistance("Play_tree_move", transform, false);
                 base.MouseUp(btn, mouse, echo);
                 downDone = false;
             }
@@ -97,21 +98,28 @@ public class Tree : Draggable
     {
         if (tag == "Hiver")
         {
-            AkSoundEngine.PostEvent("Play_dead_tree", gameObject);
+            Manager.GetInstance().PlayByDistance("Play_tree_twist", transform, false);
         }
 
         if (tag == "Ete")
         {
-            AkSoundEngine.PostEvent("Play_summer_tree", gameObject);
+            Manager.GetInstance().PlayByDistance("Play_tree_open", transform, false);
+            StartCoroutine(PlayClose());
         }
 
         if (GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_ete_ferme") || GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("arbre_hiver_repos"))
             GetComponent<Animator>().SetTrigger(Manager.TRIGGER_INTERACTION);
     }
 
+    IEnumerator PlayClose()
+    {
+        yield return new WaitForSeconds(1);
+        Manager.GetInstance().PlayByDistance("Play_tree_close", transform, false);
+    }
+
     public override bool IsHandCursor()
     {
-        return (squirrel == null);
+        return CanInteract;
     }
 }
 
