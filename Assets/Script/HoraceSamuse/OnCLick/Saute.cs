@@ -42,8 +42,9 @@ public class Saute : Interactable
 
     public override void MouseUp(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
-        //
-        Debug.Log("not me");
+        if (!echo)
+            Manager.GetInstance().PlaySound(mouse, "Play_stone");
+
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON))
             Touch();
     }

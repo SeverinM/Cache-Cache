@@ -134,6 +134,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 767403422}
+  soundName: 
   gobRoot: {fileID: 574174827}
   otherPart: {fileID: 1804588232}
   coolDown: 1
@@ -8557,7 +8558,6 @@ GameObject:
   - component: {fileID: 422377513}
   - component: {fileID: 422377512}
   - component: {fileID: 422377514}
-  - component: {fileID: 422377515}
   m_Layer: 0
   m_Name: WwiseGlobal
   m_TagString: Untagged
@@ -8624,32 +8624,7 @@ MonoBehaviour:
   data:
     idInternal: 0
     valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 4819bf0329c0fde41878dc15ef08c9f6,
-      type: 2}
-  decodeBank: 0
-  loadAsynchronous: 0
-  saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
-  bankNameInternal: 
-  valueGuidInternal: 
---- !u!114 &422377515
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422377511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193b25d195c7967408e5b33454671753, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  triggerList: ae8d9d44
-  useOtherObject: 0
-  data:
-    idInternal: 0
-    valueGuidInternal: 
-    WwiseObjectReference: {fileID: 11400000, guid: 2893cb7ab888e8543969fc3c9ec6f162,
+    WwiseObjectReference: {fileID: 11400000, guid: 31005c9f384e6da448adb08f2d600a7d,
       type: 2}
   decodeBank: 0
   loadAsynchronous: 0
@@ -20261,11 +20236,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.x
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8656163210481296552, guid: 6571291118e111d4885369ce01769b5a,
-        type: 3}
-      propertyPath: echo
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5697612264359448810, guid: 6571291118e111d4885369ce01769b5a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6571291118e111d4885369ce01769b5a, type: 3}
@@ -22111,6 +22081,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 767403422}
+  soundName: 
   gobRoot: {fileID: 574174827}
   otherPart: {fileID: 157761}
   coolDown: 1
@@ -26484,6 +26455,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 1429843364143255919}
+  soundName: 
   gobRoot: {fileID: 1429843364150518441}
   otherPart: {fileID: 1429843364150518444}
   coolDown: 1
@@ -26523,6 +26495,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 1429843364143255919}
+  soundName: 
   gobRoot: {fileID: 1429843364150518441}
   otherPart: {fileID: 1429843364150518442}
   coolDown: 1
@@ -28383,6 +28356,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 5704345508005372103}
+  soundName: 
 --- !u!114 &8656163210083022098
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28399,6 +28373,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 5704345507796607299}
+  soundName: 
 --- !u!114 &8656163210966066467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28415,3 +28390,4 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 5704345507085529458}
+  soundName: 

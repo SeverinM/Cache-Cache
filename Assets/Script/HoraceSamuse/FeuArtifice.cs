@@ -68,6 +68,8 @@ public class FeuArtifice : MonoBehaviour
 
     IEnumerator Ascending()
     {
+        Manager.GetInstance().PlayByDistance("Play_fireworks_launch", transform, false);
+
         float lerpVal = 0;
         Vector3 directionLeftRight = positionInSpace * Random.Range(minMaxDecal.x, minMaxDecal.y);
         littleRandomHeight = Random.Range(0.7f, 1.5f);
@@ -94,6 +96,7 @@ public class FeuArtifice : MonoBehaviour
 
     public void Explosion()
     {
+        Manager.GetInstance().PlayByDistance("Play_fireworks_explode", transform, false);
         branches = new List<SousArtifice>();
         int nmbrBranch = Random.Range((int)minMaxBranches.x, (int)minMaxBranches.y);
         int indexGradient = Random.Range(0, colorGradient.Count);

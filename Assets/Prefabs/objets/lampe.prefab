@@ -296,6 +296,7 @@ MonoBehaviour:
   block: 1
   progress: -1
   anim: {fileID: 5704345507657724153}
+  soundName: Play_Lantern
 --- !u!136 &5201453377418490894
 CapsuleCollider:
   m_ObjectHideFlags: 0

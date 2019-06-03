@@ -185,7 +185,9 @@ public class EnigmeManager : MonoBehaviour
             target.GetComponent<Animator>().SetTrigger(keyAnim);
 
         characterFound++;
-        AkSoundEngine.PostEvent("Play_voix01", gameObject);
+
+        Manager.GetInstance().PlayByDistance("Play_voix", target, false);
+
         float normalizedTime = 0;;
         Vector3 originScale = target.lossyScale;
 
@@ -203,6 +205,8 @@ public class EnigmeManager : MonoBehaviour
         }
 
         //... puis reapparait sur la lune...
+        Manager.GetInstance().PlayBoth("Play_Music_reward");
+
         List<GameObject> allGob = new List<GameObject>();
         foreach (Transform landings in newParents)
         {
