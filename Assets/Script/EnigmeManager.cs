@@ -12,6 +12,9 @@ public class EnigmeManager : MonoBehaviour
     List<ConditionStruct> allConditions;
 
     [SerializeField]
+    GameObject particleHurray;
+
+    [SerializeField]
     List<GameObject> toDisable;
 
     [SerializeField]
@@ -173,6 +176,8 @@ public class EnigmeManager : MonoBehaviour
     IEnumerator DiscoverAnimation(List<Transform> newParents , Transform target , string keyAnim, float duration)
     {
         AddFirework(1);
+        GameObject gobParticle = Instantiate(particleHurray, target.position, Quaternion.identity);
+        Destroy(gobParticle, 2);
 
         //Can c'est possible , fait jouer une animation au personnage joué
         target.GetComponent<Interactable>().CanInteract = false;
@@ -202,6 +207,9 @@ public class EnigmeManager : MonoBehaviour
         foreach (Transform landings in newParents)
         {
             GameObject copy = Instantiate(target.gameObject);
+
+            GameObject gobParticle2 = Instantiate(particleHurray, landings.position, Quaternion.identity);
+            Destroy(gobParticle2, 2);
 
             //Detruit les scripts
             Destroy(copy.GetComponent<Interactable>());

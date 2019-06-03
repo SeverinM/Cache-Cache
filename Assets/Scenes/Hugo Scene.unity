@@ -230,7 +230,7 @@ PrefabInstance:
     - target: {fileID: 1835944565427472919, guid: 2cdd4cd5aa7d2a14c81806adbacff322,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1835944565427472919, guid: 2cdd4cd5aa7d2a14c81806adbacff322,
         type: 3}
@@ -13199,6 +13199,11 @@ PrefabInstance:
       propertyPath: m_ApplyRootMotion
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 302930315549510117, guid: 9176ab54c23a82540bba891fec4dad70,
+        type: 3}
+      propertyPath: m_UpdateMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8394884357314421878, guid: 9176ab54c23a82540bba891fec4dad70, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9176ab54c23a82540bba891fec4dad70, type: 3}
@@ -13501,7 +13506,7 @@ PrefabInstance:
     - target: {fileID: 6823597395787894832, guid: 8d3c132b00fde5a4995261e76d2ed4f3,
         type: 3}
       propertyPath: m_UpdateMode
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8d3c132b00fde5a4995261e76d2ed4f3, type: 3}
@@ -21906,11 +21911,6 @@ PrefabInstance:
       propertyPath: block
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4380693338249041459, guid: b5761bc8efee2432cb7a9fb4eca9acea,
-        type: 3}
-      propertyPath: m_Name
-      value: MoonReceptor lolJambe
-      objectReference: {fileID: 0}
     - target: {fileID: 5542086926534098231, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
       propertyPath: m_TagString
@@ -21920,6 +21920,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 4380693338249041459, guid: b5761bc8efee2432cb7a9fb4eca9acea,
+        type: 3}
+      propertyPath: m_Name
+      value: MoonReceptor lolJambe
       objectReference: {fileID: 0}
     - target: {fileID: 1439520632709353878, guid: b5761bc8efee2432cb7a9fb4eca9acea,
         type: 3}
@@ -22155,6 +22160,8 @@ MonoBehaviour:
   - allParameters:
     - {fileID: 1942760766}
     cond: 4
+  particleHurray: {fileID: 5190192971753388437, guid: 0e2a6dccff2e24ea49ebb790839c8a22,
+    type: 3}
   toDisable:
   - {fileID: 185620736}
   - {fileID: 276818878}
