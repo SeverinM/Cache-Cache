@@ -11434,7 +11434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80ed48ebee53544cb2e765ac3142e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fdBackColor: {r: 0.4317274, g: 0.38781595, b: 0.7830189, a: 1}
+  fdBackColor: {r: 0.59400797, g: 0.5731132, b: 0.764151, a: 1}
 --- !u!65 &676331906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11878,7 +11878,6 @@ MonoBehaviour:
   holdSprite: {fileID: 21300000, guid: 330f725c126316a47b0ee5850eff1b8d, type: 3}
   failParticle: {fileID: 9193612050965411233, guid: 55d90332d05069e45b84c63b0144a43e,
     type: 3}
-  planeCollForParticle: {fileID: 1696549122}
 --- !u!4 &684529344
 Transform:
   m_ObjectHideFlags: 0
@@ -12565,7 +12564,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80ed48ebee53544cb2e765ac3142e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fdBackColor: {r: 0.7913849, g: 0.9052332, b: 0.9811321, a: 1}
+  fdBackColor: {r: 0.3915094, g: 0.7655357, b: 1, a: 1}
 --- !u!1001 &792705556
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14579,15 +14578,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 523629384721216096, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3829224533081802259, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 523629384721216096, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3829224533081802257, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}
@@ -20002,7 +20001,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b80ed48ebee53544cb2e765ac3142e02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fdBackColor: {r: 0.27033645, g: 0.764151, b: 0.57650137, a: 1}
+  fdBackColor: {r: 0.18841223, g: 0.5471698, b: 0.45870903, a: 1}
 --- !u!1001 &1554347413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21689,15 +21688,15 @@ PrefabInstance:
       propertyPath: m_LocalScale.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 523629384721216096, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 3829224533081802259, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 523629384721216096, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3829224533081802257, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}

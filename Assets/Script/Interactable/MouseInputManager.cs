@@ -82,10 +82,6 @@ public class MouseInputManager : MonoBehaviour
     [SerializeField]
     GameObject failParticle;
 
-    [SerializeField]
-    Transform planeCollForParticle;
-
-
     [StructLayout(LayoutKind.Sequential)]
     public struct RawInputEvent
     {
@@ -291,12 +287,7 @@ public class MouseInputManager : MonoBehaviour
             {
                 Debug.Log("Here it's " + hits.ElementAt<RaycastHit>(0).transform.name);
                 ParticleSystem pS = Instantiate(failParticle, hits.ElementAt<RaycastHit>(0).point, Quaternion.identity, this.transform).GetComponent<ParticleSystem>();
-
-                if (planeCollForParticle != null)
-                    pS.collision.SetPlane(0, planeCollForParticle);
-                else
-                    Debug.Log("Didn't have collision for particle");
-
+                
                 pS.startColor = col.fdBackColor;
             }
         }
