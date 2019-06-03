@@ -40,7 +40,7 @@ MonoBehaviour:
     value: 0.75
   color:
     overrideState: 1
-    value: {r: 0.11120505, g: 0.35906455, b: 0.46226418, a: 1}
+    value: {r: 0.5254539, g: 0.7950548, b: 0.9056604, a: 1}
   ambientOnly:
     overrideState: 0
     value: 1
@@ -60,7 +60,7 @@ MonoBehaviour:
     overrideState: 0
     value: 0
   radius:
-    overrideState: 0
+    overrideState: 1
     value: 0.25
   quality:
     overrideState: 1
@@ -127,10 +127,10 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 5
+    value: 6
   threshold:
     overrideState: 1
-    value: 1.1
+    value: 1.05
   softKnee:
     overrideState: 1
     value: 0.624
