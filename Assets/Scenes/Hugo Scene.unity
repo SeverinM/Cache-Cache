@@ -8693,7 +8693,7 @@ MonoBehaviour:
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
-  unloadTriggerList: 958ca0ea
+  unloadTriggerList: 
   bankNameInternal: 
   valueGuidInternal: 
 --- !u!95 &426141972 stripped
@@ -27346,22 +27346,22 @@ PrefabInstance:
     - target: {fileID: 2557873572567764654, guid: 530229ea6afda3747bc3daeb323d1843,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -1.3934999
+      value: -0.6119999
       objectReference: {fileID: 0}
     - target: {fileID: 2557873572567764648, guid: 530229ea6afda3747bc3daeb323d1843,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: -4.649982
+      value: -1.2519181
       objectReference: {fileID: 0}
     - target: {fileID: 2557873572567764648, guid: 530229ea6afda3747bc3daeb323d1843,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -31.078058
+      value: -9.711894
       objectReference: {fileID: 0}
     - target: {fileID: 2557873572567764648, guid: 530229ea6afda3747bc3daeb323d1843,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -0.000000013343397
       objectReference: {fileID: 0}
     - target: {fileID: 2557873572567764644, guid: 530229ea6afda3747bc3daeb323d1843,
         type: 3}

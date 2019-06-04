@@ -25,6 +25,8 @@ public class EnigmeManager : MonoBehaviour
     public float CoeffSizeMoon => coeffSize;
 
     static EnigmeManager _instance = null;
+    public static bool nessie_out;
+    public static bool box_opened;
 
     int characterFound = 0;
     bool pause = true;
@@ -58,6 +60,9 @@ public class EnigmeManager : MonoBehaviour
 
     private void Awake()
     {
+        nessie_out = false;
+        box_opened = false;
+
         if (!_instance)
             _instance = this;
         else

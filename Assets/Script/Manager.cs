@@ -9,9 +9,6 @@ public class Manager : MonoBehaviour
     Camera cam1;
 
     [SerializeField]
-    GameObject wwiseGlobal;
-
-    [SerializeField]
     EnigmeManager enn;
 
     [SerializeField]
@@ -56,7 +53,6 @@ public class Manager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             Destroy(enn.gameObject);
-            Destroy(wwiseGlobal);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 

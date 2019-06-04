@@ -142,6 +142,7 @@ public class Box : Interactable
         if (!done)
         {
             done = true;
+            EnigmeManager.box_opened = true;
             foreach (Interactable inter in GameObject.FindObjectsOfType<Interactable>())
             {
                 EnigmeManager.getInstance().StartCountdown();

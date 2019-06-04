@@ -172,7 +172,7 @@ public class TeleportSpot : Spot
 
     IEnumerator MoonAnimation(bool reversed, UnityAction afterAnim)
     {
-        if (Time.timeSinceLevelLoad >= 0.1f)
+        if (EnigmeManager.box_opened)
             Manager.GetInstance().PlayByDistance(reversed ? "Play_moon_open" : "Play_moon_close", transform, false);
 
         //true = de fermé à ouvert

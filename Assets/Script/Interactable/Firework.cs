@@ -90,6 +90,7 @@ public class Firework : Draggable
         AkSoundEngine.PostEvent("Play_Nessie_out", gameObject);
         anim.SetTrigger(Manager.TRIGGER_INTERACTION);
         anim2.SetTrigger(Manager.TRIGGER_INTERACTION);
+        EnigmeManager.nessie_out = true;
         Destroy(gameObject);
     }
 }

@@ -10,10 +10,13 @@ public class PersoNessie : Interactable
     [SerializeField]
     List<Transform> potentialMoonsLandings;
 
+    [SerializeField]
+    bool checkNessieOut;
+
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         //A changer a 2 apres
-        if (!nessieBody || nessieBody.Progress >= 3)
+        if (!nessieBody || nessieBody.Progress >= 3 && (!checkNessieOut || EnigmeManager.nessie_out))
         {
             EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, Manager.TRIGGER_INTERACTION, 1);
         }
