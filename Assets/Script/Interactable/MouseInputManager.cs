@@ -79,6 +79,9 @@ public class MouseInputManager : MonoBehaviour
     [SerializeField]
     Sprite holdSprite;
 
+    [SerializeField]
+    GameObject failParticle;
+
     [StructLayout(LayoutKind.Sequential)]
     public struct RawInputEvent
     {
@@ -258,13 +261,34 @@ public class MouseInputManager : MonoBehaviour
         position += new Vector3(-pointer.obj.GetComponent<RectTransform>().rect.width * 0.166f, pointer.obj.GetComponent<RectTransform>().rect.width * 0.5f, 0);
         Ray ray = pointer.cam.ScreenPointToRay(new Vector3(position.x, position.y, 0.01f));
 
-        foreach (RaycastHit hit in Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(x.point, pointer.cam.transform.position)))
+        bool interactibleHit = true;
+        EmptyFB col = null;
+
+        var hits = Physics.RaycastAll(ray).OrderBy(x => Vector3.Distance(x.point, pointer.cam.transform.position));
+        foreach (RaycastHit hit in hits)
         {
             Interactable inter = hit.collider.GetComponent<Interactable>();
             if (inter)
             {
                 output[inter] = hit.point;
+                interactibleHit = false;
                 if (inter.Block) break;
+            }
+
+            if (col == null)
+                col = hit.transform.GetComponent<EmptyFB>();
+        }
+        if (interactibleHit && act.Equals(ActionType.PRESSED) && hits.Count<RaycastHit>() != 0)
+        {
+            if (failParticle == null)
+                Debug.Log("Didn't have particle");
+            
+            if (failParticle != null && col != null)
+            {
+                Debug.Log("Here it's " + hits.ElementAt<RaycastHit>(0).transform.name);
+                ParticleSystem pS = Instantiate(failParticle, hits.ElementAt<RaycastHit>(0).point, Quaternion.identity, this.transform).GetComponent<ParticleSystem>();
+                
+                pS.startColor = col.fdBackColor;
             }
         }
 
@@ -368,7 +392,7 @@ public class MouseInputManager : MonoBehaviour
                         {
                             inter.Echo.MouseLeave(MouseButton.NONE, mouse, inter);
                         }
-                    }      
+                    }
                 }
             }
 
@@ -381,7 +405,7 @@ public class MouseInputManager : MonoBehaviour
                     {
                         x.Echo.MouseMove(mouseBtn, mouse, x);
                     }
-                }               
+                }
             });
         }
     }
