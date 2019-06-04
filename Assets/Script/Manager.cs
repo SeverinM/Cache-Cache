@@ -15,6 +15,9 @@ public class Manager : MonoBehaviour
     Camera cam2;
 
     [SerializeField]
+    GameObject wwise;
+
+    [SerializeField]
     GameObject plateau2;
 
     static Manager _instance;
@@ -38,6 +41,25 @@ public class Manager : MonoBehaviour
         }
         AkSoundEngine.PostEvent("Play_amb_J1", gameObject);
         AkSoundEngine.PostEvent("Play_amb_J2", gameObject);
+        StartCoroutine(ScrutWwise());
+    }
+
+    IEnumerator ScrutWwise()
+    {
+        while (true)
+        {
+            AkBank[] ak = GameObject.FindObjectsOfType<AkBank>();
+            if (ak.Length > 1)
+            {
+               for (int i =1; i < ak.Length;i++)
+                {
+                    Debug.Log(i);
+                    Destroy(ak[i].gameObject);
+                }
+            }
+         
+            yield return new WaitForSeconds(0.5f);
+        }
     }
 
     public static Manager GetInstance()

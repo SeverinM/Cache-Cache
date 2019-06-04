@@ -8693,7 +8693,7 @@ MonoBehaviour:
   decodeBank: 0
   loadAsynchronous: 0
   saveDecodedBank: 0
-  unloadTriggerList: 
+  unloadTriggerList: 958ca0ea
   bankNameInternal: 
   valueGuidInternal: 
 --- !u!95 &426141972 stripped
@@ -11594,9 +11594,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam1: {fileID: 631968521}
-  wwiseGlobal: {fileID: 422377511}
   enn: {fileID: 1812682405}
   cam2: {fileID: 1894037695}
+  wwise: {fileID: 422377511}
   plateau2: {fileID: 860906228}
 --- !u!1001 &679494285
 PrefabInstance:
