@@ -253,7 +253,6 @@ public class MouseInputManager : MonoBehaviour
         if (act.Equals(ActionType.PRESSED))
         {
             pointer.obj.GetComponent<Image>().enabled = true;
-            Manager.GetInstance().PlaySound(pointer, "Play_click_mouse");
         }
 
         Dictionary<Interactable, Vector3> output = new Dictionary<Interactable, Vector3>();
@@ -287,7 +286,8 @@ public class MouseInputManager : MonoBehaviour
             {
                 Debug.Log("Here it's " + hits.ElementAt<RaycastHit>(0).transform.name);
                 ParticleSystem pS = Instantiate(failParticle, hits.ElementAt<RaycastHit>(0).point, Quaternion.identity, this.transform).GetComponent<ParticleSystem>();
-                
+                Manager.GetInstance().PlaySound(pointer, "Play_click_mouse");
+
                 pS.startColor = col.fdBackColor;
             }
         }

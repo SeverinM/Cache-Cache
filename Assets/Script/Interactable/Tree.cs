@@ -61,7 +61,6 @@ public class Tree : Draggable
             isDown = false;
             if (downDone)
             {
-                AkSoundEngine.PostEvent("Play_tree_move", gameObject);
                 Manager.GetInstance().PlayByDistance("Play_tree_move", transform, false);
                 base.MouseUp(btn, mouse, echo);
                 downDone = false;

@@ -51,7 +51,9 @@ public class Nasselle : Interactable
     {
         if (other.CompareTag("BaseRoue") && !open)
         {
-            AkSoundEngine.PostEvent("Play_nacelle_open", gameObject);
+            //Evite le son au tout debut du jeu
+            if (Time.timeSinceLevelLoad > 0.1f)
+                AkSoundEngine.PostEvent("Play_nacelle_open", gameObject);
             GetComponent<Animator>().SetTrigger("nacelleOuverture");
             open = true;
             block = false;

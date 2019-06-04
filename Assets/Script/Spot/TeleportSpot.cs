@@ -172,7 +172,8 @@ public class TeleportSpot : Spot
 
     IEnumerator MoonAnimation(bool reversed, UnityAction afterAnim)
     {
-        Manager.GetInstance().PlayByDistance(reversed ? "Play_moon_open" : "Play_moon_close", transform, false);
+        if (Time.timeSinceLevelLoad >= 0.1f)
+            Manager.GetInstance().PlayByDistance(reversed ? "Play_moon_open" : "Play_moon_close", transform, false);
 
         //true = de fermé à ouvert
         if (reversed)

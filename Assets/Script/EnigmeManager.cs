@@ -146,21 +146,11 @@ public class EnigmeManager : MonoBehaviour
             allConditions = allConditions.Where(x => !x.Evaluate()).ToList();
 
         if (!pause) timeBeforeEnd -= Time.deltaTime;
-        if (timeBeforeEnd < 0)
+        if (timeBeforeEnd < 0 && !pause)
         {
-            End();
+            pause = true;
+            AllCharacterFound();
         }
-    }
-
-    void End()
-    {
-        pause = true;
-        allConditions.Clear();
-        foreach(Interactable inter in GameObject.FindObjectsOfType<Interactable>())
-        {
-            inter.CanInteract = false;
-        }
-        AllCharacterFound();
     }
 
     public void StartCountdown()
@@ -300,7 +290,6 @@ public class EnigmeManager : MonoBehaviour
         while (true)
         {
             yield return null;
-            Debug.Log(durationFirework);
             if (durationFirework > 0)
                 durationFirework -= Time.deltaTime;
             else
@@ -330,7 +319,6 @@ public class EnigmeManager : MonoBehaviour
             ArtificeMaker.instance2.delayBetweenLaunch = 1.2f;
             ArtificeMaker.instance2.numberArtificePerDelay = 2;
         }
-   
         while (true)
         {
             rot1.cam.transform.RotateAround(rot1.trsf.position, Vector3.up, 5 * Time.deltaTime);
