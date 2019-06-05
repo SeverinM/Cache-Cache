@@ -25,6 +25,15 @@ public class Nessie : Interactable
     List<Transform> fishs;
 
     [SerializeField]
+    AnimationCurve curveFish;
+
+    [SerializeField]
+    float duration = 1;
+
+    float normalizedTime = 0;
+    bool reversed = false;
+
+    [SerializeField]
     float depthFish;
 
     float minYFish;
@@ -58,11 +67,25 @@ public class Nessie : Interactable
 
     public void Update()
     {
+
+        if (normalizedTime == 0)
+        {
+            reversed = false;
+        }
+
+        if (normalizedTime == 1)
+        {
+            reversed = true;
+        }
+
+        normalizedTime += (Time.deltaTime / duration) * (reversed ? -1 : 1);
+        normalizedTime = Mathf.Clamp(normalizedTime, 0, 1);
+
         //Gestion des poisssons
         foreach (Transform fish in fishs)
         {
             float posY = fish.transform.position.y;
-            fish.RotateAround(transform.position, Vector3.up, -speedFish * Time.deltaTime);
+            fish.RotateAround(transform.position, Vector3.up, -speedFish * Time.deltaTime * curveFish.Evaluate(normalizedTime));
             fish.position = new Vector3(fish.position.x, posY, fish.position.z);
 
             //Les poissons montent ou descendent selon si le click est maintenu ou non

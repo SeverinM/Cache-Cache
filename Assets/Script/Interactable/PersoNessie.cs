@@ -16,7 +16,7 @@ public class PersoNessie : Interactable
     public override void MouseDown(MouseInputManager.MouseButton btn, MouseInputManager.MousePointer mouse, Interactable echo = null)
     {
         //A changer a 2 apres
-        if ((!nessieBody || nessieBody.Progress >= 3) && (!checkNessieOut || EnigmeManager.nessie_out))
+        if ((!nessieBody || nessieBody.Ratio > 0.9f) && (!checkNessieOut || EnigmeManager.nessie_out))
         {
             EnigmeManager.getInstance().DiscoveredCharacter(potentialMoonsLandings, transform, Manager.TRIGGER_INTERACTION, 1);
         }
