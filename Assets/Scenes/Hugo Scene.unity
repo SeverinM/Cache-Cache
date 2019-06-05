@@ -11598,6 +11598,7 @@ MonoBehaviour:
   cam2: {fileID: 1894037695}
   wwise: {fileID: 422377511}
   plateau2: {fileID: 860906228}
+  pilule: {fileID: 945019361}
 --- !u!1001 &679494285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14239,8 +14240,25 @@ PrefabInstance:
       propertyPath: potentialMoonsLandings.Array.data[1]
       value: 
       objectReference: {fileID: 1760768892}
+    - target: {fileID: 415376572929129896, guid: 69a2a5d4907fd2b4e9481ce7e4652b36,
+        type: 3}
+      propertyPath: checkNessieOut
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69a2a5d4907fd2b4e9481ce7e4652b36, type: 3}
+--- !u!114 &945019361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 415376572929129896, guid: 69a2a5d4907fd2b4e9481ce7e4652b36,
+    type: 3}
+  m_PrefabInstance: {fileID: 945019360}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d55e90ce8c821042b79ff2c86cccc47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &948160533 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 744035692906122608, guid: 4ca41bb4d89ee41d7ba23c589243e4e5,

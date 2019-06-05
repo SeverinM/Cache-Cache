@@ -25,8 +25,6 @@ public class MouseInputManager : MonoBehaviour
         MOVEMENT
     }
 
-    public static MouseInputManager instance;
-
     [DllImport("RawInput")]
     private static extern bool init();
 
@@ -106,7 +104,7 @@ public class MouseInputManager : MonoBehaviour
         public Vector3 lastCollisionPoint;
     }
 
-    Dictionary<int, MousePointer> pointersByDeviceId = new Dictionary<int, MousePointer>();
+    public Dictionary<int, MousePointer> pointersByDeviceId = new Dictionary<int, MousePointer>();
     int nextPlayerId = 1;
     int miceCount = 0;
 
