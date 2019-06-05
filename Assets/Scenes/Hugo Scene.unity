@@ -7262,6 +7262,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2716196070883817933, guid: 8ec103e3264b65044a930d020f4c91b5,
+        type: 3}
+      propertyPath: onlyFireworks
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 2414267349130249287, guid: 8ec103e3264b65044a930d020f4c91b5, type: 3}
     - {fileID: 6264588160851049434, guid: 8ec103e3264b65044a930d020f4c91b5, type: 3}
@@ -10557,7 +10562,7 @@ SphereCollider:
   m_GameObject: {fileID: 574174827}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 3.35, y: 0.2, z: 2.09}
@@ -10570,7 +10575,7 @@ BoxCollider:
   m_GameObject: {fileID: 574174827}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 2.1664412, y: 2.4486408, z: 1.5729629}
   m_Center: {x: -0.10952582, y: 0.5229475, z: 0.28648597}

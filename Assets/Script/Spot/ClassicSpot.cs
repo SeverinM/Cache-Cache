@@ -7,6 +7,9 @@ public class ClassicSpot : Spot
     [SerializeField]
     float maxDistance = 500;
 
+    [SerializeField]
+    bool onlyFireworks = false;
+
     public override void PressSpot(Draggable dragg)
     {
         currentHold = null;
@@ -46,6 +49,7 @@ public class ClassicSpot : Spot
 
     public override void SetValue(Draggable dragg, bool value)
     {
+        if (onlyFireworks && !(dragg is Firework)) return;
         if (transform.parent && transform.parent.GetComponent<ToggleInteraction>() && !transform.parent.GetComponent<ToggleInteraction>().ToggleState) return;
         if (Vector3.Distance(dragg.transform.position , transform.position) < maxDistance && currentHold == null)
         {
