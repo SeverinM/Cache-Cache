@@ -158,6 +158,7 @@ public class TeleportSpot : Spot
             isUsed = value;
             if (IsAvailable && !GetOtherPart().Busy)
             {
+                GetComponent<Collider>().enabled = value;
                 busy = true;
                 SetMoonAnimation(value, () => { });
             }

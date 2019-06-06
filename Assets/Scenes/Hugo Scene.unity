@@ -306,6 +306,10 @@ PrefabInstance:
       propertyPath: RotationModule.curve.scalar
       value: 0.5235988
       objectReference: {fileID: 0}
+    - target: {fileID: 14447624, guid: 2cdd4cd5aa7d2a14c81806adbacff322, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2cdd4cd5aa7d2a14c81806adbacff322, type: 3}
 --- !u!114 &14447623 stripped
@@ -16606,6 +16610,7 @@ MonoBehaviour:
   speedScrewing: 0.005
   maxDragDist: 0.22
   cam: {fileID: 1894037695}
+  originPos: {x: 0, y: 0, z: 0}
   fishs:
   - {fileID: 1337910025}
   - {fileID: 46269977}
@@ -21731,12 +21736,12 @@ PrefabInstance:
     - target: {fileID: 3829224533081802259, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 523629384721216096, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3829224533081802257, guid: 464cfa8848bf745c2892fe4ae0bb3d7a,
         type: 3}
@@ -22546,7 +22551,7 @@ MonoBehaviour:
   - {fileID: 276818878}
   - {fileID: 1878460299}
   - {fileID: 1458195296}
-  timeBeforeEnd: 600
+  timeBeforeEnd: 6000
   coeffSize: 3
   charactersObjectives: 7
   rot1:
@@ -25562,32 +25567,13 @@ PrefabInstance:
       objectReference: {fileID: 2105014502}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65cddf86b6486c478ff152a96f37354, type: 3}
---- !u!1 &1967868326 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3962306912994915321, guid: a65cddf86b6486c478ff152a96f37354,
-    type: 3}
-  m_PrefabInstance: {fileID: 1967868325}
-  m_PrefabAsset: {fileID: 0}
---- !u!135 &1967868327
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967868326}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 2.8
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1967868330 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1967868328, guid: a65cddf86b6486c478ff152a96f37354,
     type: 3}
   m_PrefabInstance: {fileID: 1967868325}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1967868326}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bad4533de4c08ec42a39d8b8f2ee98f6, type: 3}
