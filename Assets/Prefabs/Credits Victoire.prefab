@@ -609,7 +609,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Bravo !\nVous avez trouv\xE9 tous les personnages !"
+  m_Text: Hurray ! You found everybody !
 --- !u!1 &7138281042422850027
 GameObject:
   m_ObjectHideFlags: 0
