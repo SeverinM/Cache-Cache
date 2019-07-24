@@ -8,6 +8,11 @@ public class StartButton : Interactable
     GameObject panelStart;
 
     [SerializeField]
+    UnityEngine.UI.Image whiteTransparentBG;
+    [SerializeField]
+    UnityEngine.UI.Text clickToStart;
+
+    [SerializeField]
     Interactable boxUp;
 
     [SerializeField]
@@ -38,7 +43,11 @@ public class StartButton : Interactable
     {
         if (btn.Equals(MouseInputManager.MouseButton.LEFT_BUTTON) && Progress == -1)
         {
-            panelStart.SetActive(false);
+            //OLD VERSION//panelStart.SetActive(false);
+            whiteTransparentBG.enabled = false;
+            clickToStart.enabled = false;
+            //TO  DO : deactivate the white screen only
+            //
             boxDown.Progress++;
             boxUp.Progress++;
         }

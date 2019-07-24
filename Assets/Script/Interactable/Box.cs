@@ -41,6 +41,16 @@ public class Box : Interactable
 
     public float Ratio => Vector3.Distance(originPositionLocal, transform.localPosition) / maxDistance;
 
+
+    [SerializeField]
+    GameObject panelStartEte;
+    [SerializeField]
+    GameObject panelStartHiver;
+    [SerializeField]
+    UnityEngine.UI.Text cooperaText;
+    [SerializeField]
+    Box otherBox;
+
     protected override void Awake()
     {
         base.Awake();
@@ -66,6 +76,15 @@ public class Box : Interactable
         {
             img.GetComponent<RectTransform>().anchorMin = Vector2.Lerp(minNoStretch, minStretch, Ratio);
             img.GetComponent<RectTransform>().anchorMax = Vector2.Lerp(maxNoStretch, maxStretch, Ratio);
+        }
+
+        if (!done)
+        {
+            //to fade out the text
+            if (Progress == 1)
+                cooperaText.color = Color.white * 0;
+            else 
+            cooperaText.color = Color.white * (1 - ((Ratio + otherBox.Ratio) / 2.0f));
         }
     }
 
@@ -149,6 +168,10 @@ public class Box : Interactable
                 if (!(inter is Box))
                     inter.Progress++;
             }
+
+            panelStartEte.SetActive(false);
+            panelStartHiver.SetActive(false);
+
         }
     }
 
