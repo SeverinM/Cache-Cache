@@ -319,6 +319,7 @@ public class MouseInputManager : MonoBehaviour
 
     void Interpret(MouseButton mouseBtn , ActionType act , Dictionary<Interactable, Vector3> allGob, MousePointer mouse)
     {
+        Manager.GetInstance().RefreshTimer();
         if (allGob.Keys.Where(x => x.IsHandCursor()).Count() > 0)
             mouse.obj.GetComponent<Image>().sprite = holdSprite;
         else

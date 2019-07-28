@@ -28,8 +28,13 @@ public class Manager : MonoBehaviour
     public const string TRIGGER_FOUND = "Found";
     public const string HOUSE_CLOSED = "maison_fermee";
 
+    [SerializeField]
+    float idleTimeBeforeReset = 180;
+    float cursorTime;
+
     private void Awake()
     {
+        cursorTime = idleTimeBeforeReset;
         if (!_instance)
             _instance = this;
         else
@@ -56,15 +61,34 @@ public class Manager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            AkSoundEngine.StopAll();
-            Destroy(enn.gameObject);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            Reset();
         }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
         }
+
+        //If idle for too long , reset the game
+        cursorTime -= Time.deltaTime;
+
+        if (cursorTime <= 0)
+        {
+            RefreshTimer();
+            Reset();
+        }
+    }
+
+    public void RefreshTimer()
+    {
+        cursorTime = idleTimeBeforeReset;
+    }
+
+    public void Reset()
+    {
+        AkSoundEngine.StopAll();
+        Destroy(enn.gameObject);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void PlaySound(MouseInputManager.MousePointer mouse, string name , bool otherPlayer = false)
